@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>安裝 App</title>
+<style>
+  :root { --bg:#eef2ee; --card:#fff; --ink:#17241d; --mute:#5b6b61; --brand:#1f5a3f; --line:#e2e8e3; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#111814; --card:#1b241e; --ink:#e8efe9; --mute:#9fb0a5; --brand:#5fbf8f; --line:#2a352e; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif; }
+  main { max-width:520px; margin:0 auto; padding:28px 16px 40px; }
+  h1 { font-size:24px; margin:0 0 6px; }
+  .sub { color:var(--mute); font-size:14px; line-height:1.6; margin:0 0 18px; }
+  .warn { display:none; background:#fff4d6; color:#6b4e00; border-radius:12px; padding:12px 14px; font-size:14px; line-height:1.6; margin-bottom:16px; }
+  .app { display:flex; align-items:center; gap:14px; background:var(--card); border-radius:18px; padding:14px; margin-bottom:12px; box-shadow:0 2px 10px rgba(0,0,0,.06); text-decoration:none; color:inherit; }
+  .app img { width:60px; height:60px; border-radius:14px; flex:0 0 60px; }
+  .app b { display:block; font-size:17px; }
+  .app small { color:var(--mute); font-size:13px; }
+  .app .go { margin-left:auto; background:var(--brand); color:#fff; border-radius:999px; padding:8px 14px; font-size:14px; font-weight:700; white-space:nowrap; }
+  h2 { font-size:16px; margin:26px 0 8px; }
+  ol { padding-left:20px; margin:0; line-height:1.9; font-size:15px; }
+  .note { color:var(--mute); font-size:13px; line-height:1.6; margin-top:14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>安裝 App 到主畫面</h1>
+  <p class="sub">點下面的按鈕，照步驟裝好後，主畫面就會出現 App 圖示，打開是全螢幕。</p>
+  <div class="warn" id="warn">請用 <b>iPhone 的 Safari</b> 打開這個網頁（LINE、Chrome 裡面打開的話裝不了）。可以按右下角「⋯」→「用 Safari 開啟」。</div>
+
+  <a class="app" href="zichan.mobileconfig"><img src="icon.png" alt=""><span><b>資產配置</b><small>受邀的新使用者裝這個</small></span><span class="go">安裝</span></a>
+  <a class="app" href="wuxin.mobileconfig"><img src="wuxin.png" alt=""><span><b>無心插柳 三字經</b><small>專屬圖示</small></span><span class="go">安裝</span></a>
+  <a class="app" href="meitianpiao.mobileconfig"><img src="meitianpiao.png" alt=""><span><b>每天飄</b><small>專屬圖示</small></span><span class="go">安裝</span></a>
+
+  <h2>安裝步驟</h2>
+  <ol>
+    <li>點「安裝」→ 跳出提示時按「允許」</li>
+    <li>打開「設定」App，最上面會出現「已下載描述檔」，點進去</li>
+    <li>右上角「安裝」→ 輸入手機密碼 → 再按一次「安裝」</li>
+    <li>回到主畫面就有圖示了</li>
+  </ol>
+  <h2>第一次打開</h2>
+  <ol>
+    <li>選你的 Google 帳號（被邀請的那一個）</li>
+    <li>新使用者按「建立新的資產配置」，跟著一步一步設定</li>
+  </ol>
+  <p class="note">這個描述檔只會在主畫面加一個網頁捷徑，不會改手機的其他設定；不要的話長按圖示移除，或到 設定 → 一般 → VPN 與裝置管理 刪掉。<br>App 是邀請制，沒有被邀請的帳號打開只會看到「尚未受邀」。</p>
+</main>
+<script>
+  var ua = navigator.userAgent;
+  var ios = /iPhone|iPad|iPod/.test(ua);
+  var safari = ios && /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS|Line\/|FBAN|FBAV|Instagram/.test(ua);
+  if (!safari) document.getElementById("warn").style.display = "block";
+</script>
+</body>
+</html>
