@@ -33,6 +33,19 @@
   <a class="app" href="wuxin.mobileconfig"><img src="wuxin.png" alt=""><span><b>無心插柳 三字經</b><small>專屬圖示</small></span><span class="go">安裝</span></a>
   <a class="app" href="meitianpiao.mobileconfig"><img src="meitianpiao.png" alt=""><span><b>每天飄</b><small>專屬圖示</small></span><span class="go">安裝</span></a>
 
+  <h2>想要自己的名稱和圖示？</h2>
+  <div class="app" style="display:block">
+    <label style="display:block;font-size:14px;color:var(--mute);margin-bottom:6px">主畫面上的名稱</label>
+    <input id="cName" type="text" maxlength="20" placeholder="例如：我的小金庫" style="width:100%;padding:12px;font-size:16px;border:1.5px solid var(--line);border-radius:12px;background:transparent;color:inherit">
+    <label style="display:block;font-size:14px;color:var(--mute);margin:12px 0 6px">圖示（從相簿選一張照片，會自動裁成正方形）</label>
+    <div style="display:flex;align-items:center;gap:12px">
+      <img id="cPrev" src="icon.png" alt="" style="width:60px;height:60px;border-radius:14px;object-fit:cover">
+      <input id="cFile" type="file" accept="image/*" style="font-size:14px">
+    </div>
+    <button id="cGo" style="margin-top:14px;width:100%;padding:14px;border:0;border-radius:12px;background:var(--brand);color:#fff;font-size:16px;font-weight:700">產生並安裝</button>
+    <p class="note" id="cMsg" style="margin-top:8px">按下去之後步驟跟上面一樣（允許 → 設定 → 已下載描述檔 → 安裝）。</p>
+  </div>
+
   <h2>安裝步驟</h2>
   <ol>
     <li>點「安裝」→ 跳出提示時按「允許」</li>
@@ -52,6 +65,61 @@
   var ios = /iPhone|iPad|iPod/.test(ua);
   var safari = ios && /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS|Line\/|FBAN|FBAV|Instagram/.test(ua);
   if (!safari) document.getElementById("warn").style.display = "block";
+
+  // 自訂名稱和圖示：在手機上直接產生描述檔（照片不會上傳到任何地方）
+  var APP_URL = "https://script.google.com/macros/s/AKfycbx042OQj64SXi_RAVY-joWC7rEnAxYhPX3q_NcZ9WcL_hSwpJ8OnnZY0_QjPscGULMq/exec";
+  var iconB64 = null;
+  function uid() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID().toUpperCase();
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0; return (c === "x" ? r : (r & 3 | 8)).toString(16); }).toUpperCase();
+  }
+  function xml(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  document.getElementById("cFile").onchange = function () {
+    var f = this.files && this.files[0];
+    if (!f) return;
+    var img = new Image();
+    img.onload = function () {
+      var S = 180, c = document.createElement("canvas"); c.width = S; c.height = S;
+      var m = Math.min(img.width, img.height);
+      c.getContext("2d").drawImage(img, (img.width - m) / 2, (img.height - m) / 2, m, m, 0, 0, S, S);
+      var url = c.toDataURL("image/png");
+      iconB64 = url.split(",")[1];
+      document.getElementById("cPrev").src = url;
+    };
+    img.onerror = function () { document.getElementById("cMsg").textContent = "讀不到這張照片，換一張試試（HEIC 的話先截圖再選）"; };
+    img.src = URL.createObjectURL(f);
+  };
+  function defaultIcon() {
+    return new Promise(function (res) {
+      if (iconB64) return res(iconB64);
+      var img = new Image();
+      img.onload = function () { var c = document.createElement("canvas"); c.width = 180; c.height = 180; c.getContext("2d").drawImage(img, 0, 0, 180, 180); res(c.toDataURL("image/png").split(",")[1]); };
+      img.src = "icon.png";
+    });
+  }
+  document.getElementById("cGo").onclick = function () {
+    var name = document.getElementById("cName").value.trim() || "資產配置";
+    defaultIcon().then(function (b64) {
+      var id = uid();
+      var p = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n<plist version="1.0"><dict>' +
+        '<key>PayloadContent</key><array><dict>' +
+        '<key>FullScreen</key><true/><key>Icon</key><data>' + b64 + '</data><key>IsRemovable</key><true/>' +
+        '<key>Label</key><string>' + xml(name) + '</string><key>PayloadDisplayName</key><string>' + xml(name) + '</string>' +
+        '<key>PayloadIdentifier</key><string>com.app-install.custom.' + id + '.clip</string><key>PayloadType</key><string>com.apple.webClip.managed</string>' +
+        '<key>PayloadUUID</key><string>' + uid() + '</string><key>PayloadVersion</key><integer>1</integer><key>Precomposed</key><true/>' +
+        '<key>URL</key><string>' + xml(APP_URL) + '</string></dict></array>' +
+        '<key>PayloadDescription</key><string>在主畫面加上「' + xml(name) + '」</string>' +
+        '<key>PayloadDisplayName</key><string>' + xml(name) + '</string><key>PayloadIdentifier</key><string>com.app-install.custom.' + id + '</string>' +
+        '<key>PayloadRemovalDisallowed</key><false/><key>PayloadType</key><string>Configuration</string>' +
+        '<key>PayloadUUID</key><string>' + id + '</string><key>PayloadVersion</key><integer>1</integer></dict></plist>';
+      var blob = new Blob([p], { type: "application/x-apple-aspen-config" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "app.mobileconfig";
+      document.body.appendChild(a); a.click(); a.remove();
+      document.getElementById("cMsg").innerHTML = "如果沒有跳出「允許下載描述檔」，請把名稱和照片傳給邀請你的人，請他幫你做一個。";
+    });
+  };
 </script>
 </body>
 </html>
