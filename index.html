@@ -17,6 +17,8 @@
   .app img { width:60px; height:60px; border-radius:14px; flex:0 0 60px; }
   .app b { display:block; font-size:17px; }
   .app small { color:var(--mute); font-size:13px; }
+  .divider { display:flex; align-items:center; gap:10px; color:var(--mute); font-size:13px; margin:18px 0 12px; }
+  .divider::before, .divider::after { content:""; flex:1; height:1px; background:var(--line); }
   .app ol b, .app div b { display:inline; font-size:inherit; }
   .app .go { margin-left:auto; background:var(--brand); color:#fff; border-radius:999px; padding:8px 14px; font-size:14px; font-weight:700; white-space:nowrap; }
   h2 { font-size:16px; margin:26px 0 8px; }
@@ -34,11 +36,6 @@
 
   <h2>想要自己的名稱和圖示？</h2>
   <div class="app" style="display:block">
-    <div style="font-size:14px;color:var(--mute);margin-bottom:8px">範例：</div>
-    <div style="display:flex;gap:18px;margin-bottom:16px">
-      <a href="wuxin.mobileconfig" style="text-align:center;text-decoration:none;color:inherit;font-size:12px;width:76px"><img src="wuxin.png" alt="" style="width:60px;height:60px;border-radius:14px;display:block;margin:0 auto 4px">無心插柳 三字經</a>
-      <a href="meitianpiao.mobileconfig" style="text-align:center;text-decoration:none;color:inherit;font-size:12px;width:76px"><img src="meitianpiao.png" alt="" style="width:60px;height:60px;border-radius:14px;display:block;margin:0 auto 4px">每天飄</a>
-    </div>
     <label style="display:block;font-size:14px;color:var(--mute);margin-bottom:6px">主畫面上的名稱</label>
     <input id="cName" type="text" maxlength="20" placeholder="例如：我的小金庫" style="width:100%;padding:12px;font-size:16px;border:1.5px solid var(--line);border-radius:12px;background:transparent;color:inherit">
     <label style="display:block;font-size:14px;color:var(--mute);margin:12px 0 6px">圖示（從相簿選一張照片，會自動裁成正方形）</label>
@@ -57,6 +54,11 @@
         <li>打開「<b>設定</b>」，最上面點「已下載描述檔」→ 安裝 → 輸入手機密碼 → 安裝</li>
         <li>回主畫面，就會出現你取的名稱和照片</li>
       </ol>
+    </div>
+    <div class="divider"><span>範例</span></div>
+    <div style="display:flex;gap:18px;justify-content:center;margin:4px 0 2px">
+      <a href="wuxin.mobileconfig" style="text-align:center;text-decoration:none;color:inherit;font-size:12px;width:76px"><img src="wuxin.png" alt="" style="width:60px;height:60px;border-radius:14px;display:block;margin:0 auto 4px">無心插柳 三字經</a>
+      <a href="meitianpiao.mobileconfig" style="text-align:center;text-decoration:none;color:inherit;font-size:12px;width:76px"><img src="meitianpiao.png" alt="" style="width:60px;height:60px;border-radius:14px;display:block;margin:0 auto 4px">每天飄</a>
     </div>
   </div>
 
