@@ -4806,13 +4806,13 @@
 			<key>PayloadType</key>
 			<string>com.apple.webClip.managed</string>
 			<key>PayloadUUID</key>
-			<string>1F821F85-6B0F-4B22-B7A0-7014E6D9ABC3</string>
+			<string>017FD973-920D-439D-AA9C-3571F1C37213</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
 			<key>Precomposed</key>
 			<true/>
 			<key>URL</key>
-			<string>https://accounts.google.com/AccountChooser?continue=https%3A%2F%2Fscript.google.com%2Fmacros%2Fs%2FAKfycbx042OQj64SXi_RAVY-joWC7rEnAxYhPX3q_NcZ9WcL_hSwpJ8OnnZY0_QjPscGULMq%2Fexec</string>
+			<string>https://script.google.com/macros/s/AKfycbx042OQj64SXi_RAVY-joWC7rEnAxYhPX3q_NcZ9WcL_hSwpJ8OnnZY0_QjPscGULMq/exec</string>
 		</dict>
 	</array>
 	<key>PayloadDescription</key>
@@ -4826,7 +4826,7 @@
 	<key>PayloadType</key>
 	<string>Configuration</string>
 	<key>PayloadUUID</key>
-	<string>D847CC50-BBBD-4AB5-A8E7-112AF0698EB9</string>
+	<string>F8D37447-937A-4353-8741-681716AC4853</string>
 	<key>PayloadVersion</key>
 	<integer>1</integer>
 </dict>
