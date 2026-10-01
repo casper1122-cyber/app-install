@@ -43,7 +43,17 @@
       <input id="cFile" type="file" accept="image/*" style="font-size:14px">
     </div>
     <button id="cGo" style="margin-top:14px;width:100%;padding:14px;border:0;border-radius:12px;background:var(--brand);color:#fff;font-size:16px;font-weight:700">產生並安裝</button>
-    <p class="note" id="cMsg" style="margin-top:8px">自訂的會先存到「檔案」App：按「產生並安裝」→ 下載 → 打開「檔案」App →「下載項目」→ 點 app.mobileconfig → 再到「設定」最上面「已下載描述檔」→ 安裝。</p>
+    <p class="note" id="cMsg" style="margin-top:8px"></p>
+    <div style="font-size:14px;line-height:1.8;margin-top:6px">
+      <b>自訂的安裝步驟</b>（要多經過「檔案」App，iPhone 規定的）
+      <ol style="margin:6px 0 0;font-size:14px;line-height:1.8">
+        <li>按「產生並安裝」→ 跳出「儲存位置」時選「<b>檔案</b>」→ 按「<b>儲存</b>」</li>
+        <li>打開「<b>檔案</b>」App，到剛剛存的位置（通常是「下載項目」或「我的 iPhone」）</li>
+        <li>點 <b>app.mobileconfig</b>，畫面會說「已下載描述檔」</li>
+        <li>打開「<b>設定</b>」，最上面點「已下載描述檔」→ 安裝 → 輸入手機密碼 → 安裝</li>
+        <li>回主畫面，就會出現你取的名稱和照片</li>
+      </ol>
+    </div>
   </div>
 
   <h2>安裝步驟</h2>
@@ -117,7 +127,7 @@
       a.href = URL.createObjectURL(blob);
       a.download = "app.mobileconfig";
       document.body.appendChild(a); a.click(); a.remove();
-      document.getElementById("cMsg").innerHTML = "<b>下一步：</b>打開「檔案」App →「下載項目」→ 點 <b>app.mobileconfig</b> → 再到「設定」最上面「已下載描述檔」→ 安裝。";
+      document.getElementById("cMsg").innerHTML = "✅ 已產生，接著照下面第 1 步選「檔案」→「儲存」。";
     });
   };
 </script>
