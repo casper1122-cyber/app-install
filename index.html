@@ -34,6 +34,10 @@
 
   <a class="app" href="zichan.mobileconfig"><img src="icon.png" alt=""><span><b>資產配置</b><small>一般裝這個就好</small></span><span class="go">安裝</span></a>
 
+  <h2>用電腦開</h2>
+  <a class="app" href="https://accounts.google.com/AccountChooser?continue=https%3A%2F%2Fscript.google.com%2Fmacros%2Fs%2FAKfycbx042OQj64SXi_RAVY-joWC7rEnAxYhPX3q_NcZ9WcL_hSwpJ8OnnZY0_QjPscGULMq%2Fexec" target="_blank" rel="noopener"><span style="font-size:34px;width:60px;text-align:center">💻</span><span><b>電腦版</b><small>先選 Google 帳號，再打開 App</small></span><span class="go">打開</span></a>
+  <p class="note">電腦、平板、Android 都用這個。會先讓你選要用哪個 Google 帳號：選自己的就看到自己的資料，手機和電腦是同一份。第一次用的新帳號，選完帳號後照畫面指示建立自己的試算表就可以開始。打開後可以加到書籤，下次直接點。</p>
+
   <h2>想要自己的名稱和圖示？</h2>
   <div class="app" style="display:block">
     <label style="display:block;font-size:14px;color:var(--mute);margin-bottom:6px">主畫面上的名稱</label>
@@ -81,6 +85,7 @@
   var ios = /iPhone|iPad|iPod/.test(ua);
   var safari = ios && /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS|Line\/|FBAN|FBAV|Instagram/.test(ua);
   if (!safari) document.getElementById("warn").style.display = "block";
+  if (!ios) document.getElementById("warn").innerHTML = "現在不是用 iPhone 開的：電腦、平板、Android 請直接按下面的「<b>電腦版</b>」。主畫面圖示的安裝只有 iPhone 的 Safari 可以用。";
 
   // 自訂名稱和圖示：在手機上直接產生描述檔（照片不會上傳到任何地方）
   var APP_URL = "https://script.google.com/macros/s/AKfycbx042OQj64SXi_RAVY-joWC7rEnAxYhPX3q_NcZ9WcL_hSwpJ8OnnZY0_QjPscGULMq/exec";
