@@ -56,6 +56,20 @@
       <li>選「<b>安裝應用程式</b>」或「<b>加到主畫面</b>」→ 按「安裝」</li>
       <li>回主畫面就有金色寶寶的圖示了</li>
     </ol>
+    <h2>想要自己的名稱和圖示？</h2>
+    <div class="app" style="display:block">
+      <label style="display:block;font-size:14px;color:var(--mute);margin-bottom:6px">主畫面上的名稱</label>
+      <input id="aName" type="text" maxlength="20" placeholder="例如：我的小金庫" style="width:100%;padding:12px;font-size:16px;border:1.5px solid var(--line);border-radius:12px;background:transparent;color:inherit">
+      <label style="display:block;font-size:14px;color:var(--mute);margin:12px 0 6px">圖示（從相簿選一張照片，會自動裁成正方形；不選就用金色寶寶）</label>
+      <div style="display:flex;align-items:center;gap:12px">
+        <img id="aPrev" src="icon-192.png" alt="" style="width:60px;height:60px;border-radius:14px;object-fit:cover">
+        <input id="aFile" type="file" accept="image/*" style="font-size:14px">
+      </div>
+      <button id="aGo" class="big" style="margin-top:14px">套用這個名稱和圖示</button>
+      <button id="aGo2" class="big" style="margin-top:10px;display:none"></button>
+      <p class="note" id="aMsg" style="margin-top:8px"></p>
+      <p class="note">照片只存在你的手機裡，不會上傳。自訂的圖示右下角可能會多一個小小的 Chrome 標誌，這是 Android 對這種捷徑的標示。</p>
+    </div>
     <h2>第一次打開</h2>
     <ol>
       <li>登入你的 Google 帳號（被邀請的那一個）</li>
@@ -162,6 +176,51 @@
   window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); deferred = e; aHint.textContent = ""; });
   window.addEventListener("appinstalled", function () { document.getElementById("aOk").style.display = "block"; aBtn.style.display = "none"; aHint.textContent = ""; });
   if (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) { document.getElementById("aOk").style.display = "block"; document.getElementById("aOk").textContent = "✅ 已經裝好了，你現在就是從 App 打開的。"; aBtn.style.display = "none"; }
+  // Android 自訂名稱和圖示：把名稱、圖片存在這支手機裡，交給 sw.js 當成設定檔和圖示拿給 Chrome
+  var aIcon = null; // 使用者選的照片（Image），沒選就用金色寶寶
+  document.getElementById("aFile").onchange = function () {
+    var f = this.files && this.files[0]; if (!f) return;
+    var img = new Image();
+    img.onload = function () { aIcon = img; document.getElementById("aPrev").src = square(img, 180).toDataURL("image/png"); };
+    img.onerror = function () { document.getElementById("aMsg").textContent = "讀不到這張照片，換一張試試"; };
+    img.src = URL.createObjectURL(f);
+  };
+  function square(img, S) {
+    var c = document.createElement("canvas"); c.width = S; c.height = S;
+    var m = Math.min(img.naturalWidth || img.width, img.naturalHeight || img.height);
+    c.getContext("2d").drawImage(img, ((img.naturalWidth || img.width) - m) / 2, ((img.naturalHeight || img.height) - m) / 2, m, m, 0, 0, S, S);
+    return c;
+  }
+  function toBlob(c) { return new Promise(function (res) { c.toBlob(res, "image/png"); }); }
+  function loadImg(src) { return new Promise(function (res, rej) { var i = new Image(); i.onload = function () { res(i); }; i.onerror = rej; i.src = src; }); }
+  document.getElementById("aGo").onclick = function () {
+    var msg = document.getElementById("aMsg"), name = document.getElementById("aName").value.trim() || "資產配置";
+    if (!("serviceWorker" in navigator) || !window.caches) { msg.textContent = "這個瀏覽器不支援自訂，請用 Chrome 開這一頁。"; return; }
+    msg.textContent = "準備中…";
+    var ver = Date.now();
+    (aIcon ? Promise.resolve(aIcon) : loadImg("icon-512.png")).then(function (img) {
+      return Promise.all([toBlob(square(img, 192)), toBlob(square(img, 512)), navigator.serviceWorker.ready, caches.open("custom-v1")]);
+    }).then(function (r) {
+      var man = { name: name, short_name: name, id: "custom-" + ver, start_url: "./go.html?c=" + ver, scope: "./", display: "standalone", orientation: "portrait", background_color: "#1f5a3f", theme_color: "#1f5a3f",
+        icons: [{ src: "custom-icon-192.png?v=" + ver, sizes: "192x192", type: "image/png", purpose: "any" }, { src: "custom-icon-512.png?v=" + ver, sizes: "512x512", type: "image/png", purpose: "any" }] };
+      var c = r[3], png = { headers: { "Content-Type": "image/png", "Cache-Control": "no-store" } };
+      return Promise.all([c.put("custom-icon-192.png", new Response(r[0], png)), c.put("custom-icon-512.png", new Response(r[1], png)),
+        c.put("custom.webmanifest", new Response(JSON.stringify(man), { headers: { "Content-Type": "application/manifest+json", "Cache-Control": "no-store" } }))]);
+    }).then(function () {
+      // 換成自訂的設定檔，等 Chrome 重新判斷可不可以安裝
+      deferred = null;
+      var old = document.querySelector('link[rel="manifest"]'); if (old) old.remove();
+      var l = document.createElement("link"); l.rel = "manifest"; l.href = "custom.webmanifest?v=" + ver; document.head.appendChild(l);
+      document.title = name;
+      msg.innerHTML = "✅ 已套用「" + name.replace(/[<>&]/g, "") + "」。等一下…";
+      var b2 = document.getElementById("aGo2"), n = 0, t = setInterval(function () {
+        n++;
+        if (deferred) { clearInterval(t); b2.textContent = "安裝「" + name + "」到主畫面"; b2.style.display = "block"; msg.innerHTML = "✅ 已套用，按下面的按鈕安裝。";
+          b2.onclick = function () { if (!deferred) return; deferred.prompt(); deferred = null; b2.style.display = "none"; }; }
+        else if (n >= 8) { clearInterval(t); msg.innerHTML = "✅ 已套用。現在按 Chrome 右上角「<b>⋮</b>」→「<b>安裝應用程式</b>」或「<b>加到主畫面</b>」，跳出來的名稱和圖示就會是你自己的。"; }
+      }, 500);
+    }).catch(function (e) { msg.textContent = "沒有成功：" + (e && e.message ? e.message : e) + "。可以先用上面的「安裝到主畫面」裝金色寶寶的版本。"; });
+  };
   aBtn.onclick = function () {
     if (deferred) { deferred.prompt(); deferred.userChoice.then(function (r) { if (r && r.outcome !== "accepted") aHint.textContent = "剛剛按了取消。要裝的話再按一次「安裝到主畫面」。"; deferred = null; }); return; }
     aHint.innerHTML = "這個瀏覽器沒有跳出安裝視窗（可能已經裝過，或不是用 Chrome 開的）。請照下面「<b>自己加</b>」的步驟：右上角「⋮」→「安裝應用程式」或「加到主畫面」。";
