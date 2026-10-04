@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>安裝 App</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1f5a3f">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="icon" href="icon-192.png">
 <style>
   :root { --bg:#eef2ee; --card:#fff; --ink:#17241d; --mute:#5b6b61; --brand:#1f5a3f; --line:#e2e8e3; }
   @media (prefers-color-scheme: dark) { :root { --bg:#111814; --card:#1b241e; --ink:#e8efe9; --mute:#9fb0a5; --brand:#5fbf8f; --line:#2a352e; } }
@@ -24,18 +28,58 @@
   h2 { font-size:16px; margin:26px 0 8px; }
   ol { padding-left:20px; margin:0; line-height:1.9; font-size:15px; }
   .note { color:var(--mute); font-size:13px; line-height:1.6; margin-top:14px; }
+  .os { display:flex; gap:8px; margin:0 0 16px; }
+  .os button { flex:1; padding:10px 6px; border:1.5px solid var(--line); border-radius:12px; background:var(--card); color:inherit; font-size:14px; font-weight:600; }
+  .os button.on { border-color:var(--brand); background:var(--brand); color:#fff; }
+  .sec { display:none; } .sec.on { display:block; }
+  .big { display:block; width:100%; padding:15px; border:0; border-radius:14px; background:var(--brand); color:#fff; font-size:17px; font-weight:700; text-align:center; text-decoration:none; }
+  .ok { display:none; background:#e3f5e9; color:#17512f; border-radius:12px; padding:12px 14px; font-size:15px; line-height:1.6; margin:12px 0; }
 </style>
 </head>
 <body>
 <main>
   <h1>安裝 App 到主畫面</h1>
-  <p class="sub">點下面的按鈕，照步驟裝好後，主畫面就會出現 App 圖示，打開是全螢幕。</p>
+  <p class="sub" id="osSay">照下面的步驟裝好後，主畫面就會出現 App 圖示。</p>
+  <div class="os" id="os"><button data-os="ios">iPhone／iPad</button><button data-os="android">Android</button><button data-os="desktop">電腦</button></div>
+
+  <!-- ===== Android ===== -->
+  <section class="sec" id="sec-android">
+    <div class="warn" id="aWarn">現在是在 LINE／Facebook 裡面打開的，這裡裝不了。請按右上角「⋮」→「<b>用其他瀏覽器開啟</b>」（或「以 Chrome 開啟」），再回到這一頁。</div>
+    <div class="app"><img src="icon-192.png" alt=""><span><b>資產配置</b><small>Android 版・圖示跟 iPhone 一樣</small></span></div>
+    <button class="big" id="aInstall">安裝到主畫面</button>
+    <div class="ok" id="aOk">✅ 裝好了！回主畫面（或 App 清單）找金色寶寶的「資產配置」。</div>
+    <div class="note" id="aHint"></div>
+    <h2>按了沒反應？自己加也可以</h2>
+    <ol>
+      <li>確定是用 <b>Chrome</b> 開這一頁（三星手機用「三星網際網路」也可以）</li>
+      <li>按右上角「<b>⋮</b>」（三星是右下角「≡」）</li>
+      <li>選「<b>安裝應用程式</b>」或「<b>加到主畫面</b>」→ 按「安裝」</li>
+      <li>回主畫面就有金色寶寶的圖示了</li>
+    </ol>
+    <h2>第一次打開</h2>
+    <ol>
+      <li>登入你的 Google 帳號（被邀請的那一個）</li>
+      <li>新使用者按「建立新的資產配置」，跟著一步一步設定</li>
+      <li>設定好之後，把 App 整個關掉、再從主畫面開一次，就會變成全螢幕</li>
+    </ol>
+    <p class="note"><b>第一次打開</b>會先跳到 Google 登入，這時最上面有一小條網址列是正常的。登入、按過同意之後，把 App 關掉再從主畫面開一次，就會是全螢幕。如果之後還是一直有網址列，代表手機的 Chrome 擋了「第三方 Cookie」，App 一樣能用，只是多那一條。<br>
+      <b>出現「很抱歉，目前無法開啟這個檔案」？</b>手機的 Chrome 同時登入好幾個 Google 帳號時會這樣。到 Chrome 右上角頭像，把預設帳號換成被邀請的那一個；或先登出其他帳號再開。<br>
+      不想安裝也可以：<a href="https://script.google.com/macros/s/AKfycbx042OQj64SXi_RAVY-joWC7rEnAxYhPX3q_NcZ9WcL_hSwpJ8OnnZY0_QjPscGULMq/exec" target="_blank" rel="noopener">直接用瀏覽器打開</a>。<br>
+      App 是邀請制，沒有被邀請的帳號打開只會看到「尚未受邀」。</p>
+  </section>
+
+  <!-- ===== iPhone ===== -->
+  <section class="sec" id="sec-ios">
   <div class="warn" id="warn">請用 <b>iPhone 的 Safari</b> 打開這個網頁（LINE、Chrome 裡面打開的話裝不了）。可以按右下角「⋯」→「用 Safari 開啟」。</div>
 
   <a class="app" href="zichan.mobileconfig"><img src="icon.png" alt=""><span><b>資產配置</b><small>一般裝這個就好</small></span><span class="go">安裝</span></a>
 
-  <h2>用電腦開</h2>
-  <a class="app" href="https://script.google.com/macros/s/AKfycbx042OQj64SXi_RAVY-joWC7rEnAxYhPX3q_NcZ9WcL_hSwpJ8OnnZY0_QjPscGULMq/exec" target="_blank" rel="noopener"><span style="font-size:34px;width:60px;text-align:center">💻</span><span><b>電腦版</b><small>電腦、平板、Android 都用這個</small></span><span class="go">打開</span></a>
+  </section>
+
+  <!-- ===== 電腦 ===== -->
+  <section class="sec" id="sec-desktop">
+  <h2 style="margin-top:0">用電腦開</h2>
+  <a class="app" href="https://script.google.com/macros/s/AKfycbx042OQj64SXi_RAVY-joWC7rEnAxYhPX3q_NcZ9WcL_hSwpJ8OnnZY0_QjPscGULMq/exec" target="_blank" rel="noopener"><span style="font-size:34px;width:60px;text-align:center">💻</span><span><b>電腦版</b><small>直接在瀏覽器打開，可以加到書籤</small></span><span class="go">打開</span></a>
   <div class="note" style="line-height:1.8">
     <b>出現「很抱歉，目前無法開啟這個檔案」？</b><br>
     這是因為瀏覽器同時登入了好幾個 Google 帳號，Google 會搞混。兩種解法選一個：
@@ -45,6 +89,11 @@
     </ol>
   </div>
 
+  <p class="note">想像 App 一樣有自己的視窗和圖示：用 Chrome 開這一頁，網址列右邊會有一個「安裝」的小圖示（螢幕加向下箭頭），按下去就會多一個金色寶寶的捷徑。</p>
+  </section>
+
+  <!-- ===== iPhone（續）：自訂、步驟 ===== -->
+  <section class="sec" id="sec-ios2">
   <h2>想要自己的名稱和圖示？</h2>
   <div class="app" style="display:block">
     <label style="display:block;font-size:14px;color:var(--mute);margin-bottom:6px">主畫面上的名稱</label>
@@ -86,13 +135,38 @@
     <li>新使用者按「建立新的資產配置」，跟著一步一步設定</li>
   </ol>
   <p class="note">這個描述檔只會在主畫面加一個網頁捷徑，不會改手機的其他設定；不要的話長按圖示移除，或到 設定 → 一般 → VPN 與裝置管理 刪掉。<br>App 是邀請制，沒有被邀請的帳號打開只會看到「尚未受邀」。</p>
+  </section>
 </main>
 <script>
   var ua = navigator.userAgent;
-  var ios = /iPhone|iPad|iPod/.test(ua);
-  var safari = ios && /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS|Line\/|FBAN|FBAV|Instagram/.test(ua);
-  if (!safari) document.getElementById("warn").style.display = "block";
-  if (!ios) document.getElementById("warn").innerHTML = "現在不是用 iPhone 開的：電腦、平板、Android 請直接按下面的「<b>電腦版</b>」。主畫面圖示的安裝只有 iPhone 的 Safari 可以用。";
+  // 自動判斷是哪一種裝置，顯示那一種的安裝方式；判斷錯了可以按上面三顆按鈕自己切換
+  var ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1); // 新的 iPad 會說自己是 Mac
+  var android = /Android/i.test(ua);
+  var inApp = /Line\/|FBAN|FBAV|FB_IAB|Instagram|MicroMessenger/i.test(ua);
+  var safari = ios && /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua) && !inApp;
+  var detected = ios ? "ios" : android ? "android" : "desktop";
+  var OS_NAME = { ios: "iPhone／iPad", android: "Android 手機", desktop: "電腦" };
+  function showOS(os) {
+    ["ios", "ios2", "android", "desktop"].forEach(function (k) { document.getElementById("sec-" + k).className = "sec" + ((k === os || (k === "ios2" && os === "ios")) ? " on" : ""); });
+    [].forEach.call(document.querySelectorAll("#os button"), function (b) { b.className = b.getAttribute("data-os") === os ? "on" : ""; });
+    document.getElementById("osSay").innerHTML = (os === detected ? "看起來你是用 <b>" + OS_NAME[os] + "</b>，下面是它的安裝方式。不對的話按下面的按鈕切換。" : "下面是 <b>" + OS_NAME[os] + "</b> 的安裝方式。");
+  }
+  [].forEach.call(document.querySelectorAll("#os button"), function (b) { b.onclick = function () { showOS(b.getAttribute("data-os")); }; });
+  showOS(detected);
+  if (ios && !safari) document.getElementById("warn").style.display = "block";
+
+  // Android：Chrome 準備好可以安裝時會通知，按鈕按下去就直接跳安裝視窗
+  var deferred = null, aBtn = document.getElementById("aInstall"), aHint = document.getElementById("aHint");
+  if (android && inApp) document.getElementById("aWarn").style.display = "block";
+  if ("serviceWorker" in navigator) { try { navigator.serviceWorker.register("sw.js"); } catch (e) {} }
+  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); deferred = e; aHint.textContent = ""; });
+  window.addEventListener("appinstalled", function () { document.getElementById("aOk").style.display = "block"; aBtn.style.display = "none"; aHint.textContent = ""; });
+  if (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) { document.getElementById("aOk").style.display = "block"; document.getElementById("aOk").textContent = "✅ 已經裝好了，你現在就是從 App 打開的。"; aBtn.style.display = "none"; }
+  aBtn.onclick = function () {
+    if (deferred) { deferred.prompt(); deferred.userChoice.then(function (r) { if (r && r.outcome !== "accepted") aHint.textContent = "剛剛按了取消。要裝的話再按一次「安裝到主畫面」。"; deferred = null; }); return; }
+    aHint.innerHTML = "這個瀏覽器沒有跳出安裝視窗（可能已經裝過，或不是用 Chrome 開的）。請照下面「<b>自己加</b>」的步驟：右上角「⋮」→「安裝應用程式」或「加到主畫面」。";
+    document.getElementById("aHint").scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   // 自訂名稱和圖示：在手機上直接產生描述檔（照片不會上傳到任何地方）
   var APP_URL = "https://script.google.com/macros/s/AKfycbx042OQj64SXi_RAVY-joWC7rEnAxYhPX3q_NcZ9WcL_hSwpJ8OnnZY0_QjPscGULMq/exec";
