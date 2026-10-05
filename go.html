@@ -27,8 +27,11 @@
   document.getElementById("direct").onclick = function (e) { e.preventDefault(); direct(); };
   window.addEventListener("message", function (e) {
     var m = e.data;
-    if (done || !m || m.src !== "zichan-app" || m.type !== "ready") return;
+    if (!m || m.src !== "zichan-app") return;
     if (!/^https:\/\/([a-z0-9-]+\.googleusercontent\.com|script\.google\.com)$/.test(e.origin)) return;
+    // App 裡按了「更新」：把框重新載入一次（拿到新版程式，還是全螢幕）
+    if (m.type === "reload") { if (f.src) { f.src = APP; } return; }
+    if (done || m.type !== "ready") return;
     done = true;
     f.style.visibility = "visible";
     document.getElementById("splash").style.display = "none";
