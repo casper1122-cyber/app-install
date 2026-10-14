@@ -157,8 +157,9 @@ function showLogin() {
     '<div class="check"><input type="checkbox" id="lRem" checked><label for="lRem">記住我（這台裝置 30 天內不用再登入）</label></div>' +
     '<button class="btn full" id="lOk" type="submit">登入</button></form>' +
     '<div class="label" style="margin-top:10px">點密碼欄，手機會跳出儲存的密碼，用臉部辨識或指紋確認就會自動填好。</div>' +
-    '<div style="margin-top:14px;text-align:center"><a href="#" onclick="showUrl();return false" class="label">改後台網址</a></div></div>';
+    '<div style="margin-top:14px;text-align:center"><a href="#" onclick="showUrl();return false" class="label">改後台網址</a></div></div>' + installCard();
   if (u) setTimeout(function () { $("lPass") && $("lPass").focus(); }, 300);
+  installBind();
   $("lf").onsubmit = function (e) {
     e.preventDefault();
     var b = $("lOk"); busy(b, true, "登入中");
@@ -414,9 +415,9 @@ function tCfg() {
       '<label class="f" style="margin-top:12px">深色／淺色<select id="thMode"><option value="">跟手機設定</option><option value="light"' + (T.mode === "light" ? " selected" : "") + '>淺色</option><option value="dark"' + (T.mode === "dark" ? " selected" : "") + ">深色</option></select></label>" +
       '<div class="label" style="margin:4px 0 6px">背景圖片</div><div class="row"><label class="btn ghost" style="position:relative;overflow:hidden">選一張照片<input type="file" id="thImg" accept="image/*" style="opacity:0;position:absolute;inset:0"></label>' + (T.bg ? '<button class="btn ghost" id="thNoImg">拿掉背景</button>' : "") + "</div>" +
       (T.bg ? '<label class="f" style="margin-top:10px">背景變暗（字比較看得清楚）<input type="range" id="thDim" min="0" max="0.8" step="0.05" value="' + T.dim + '" style="width:100%"></label>' : "") + "</div>" +
-      '<div class="card"><h2>手機怎麼開</h2><div class="label">在手機打開下面這個連結，後台網址會自動設好，不用再貼一次：</div>' +
+      '<div class="card"><h2>手機怎麼開</h2><div class="label">在手機打開下面這個連結，後台網址會自動設好：</div>' +
       '<input type="text" readonly id="phLink" value="' + esc(location.origin + location.pathname + "#u=" + encodeURIComponent(S.url)) + '" style="font-size:12px"><button class="btn ghost full" id="phCopy" style="margin-top:8px">複製連結（傳給自己的手機）</button>' +
-      '<div class="label" style="margin-top:10px;line-height:1.7"><b>iPhone</b>：用 Safari 打開 → 下面「分享」⬆️ →「加入主畫面」<br><b>Android</b>：用 Chrome 打開 → 右上 ⋮ →「加到主畫面」或「安裝應用程式」<br>之後點主畫面的「資產後台」圖示就能開。第一次登入讓手機記住密碼，之後就能用臉部或指紋。</div></div>' +
+      '<div class="label" style="margin-top:8px">在手機打開之後，登入畫面下面就有「安裝成 App」。</div></div>' + installCard() +
       '<div class="card"><h2>這台裝置</h2><div class="label" style="word-break:break-all">後台網址：' + esc(S.url) + '</div><button class="btn ghost full" style="margin-top:8px" onclick="showUrl()">改後台網址</button></div>';
     $("cOk").onclick = function () {
       var b = this; busy(b, true);
@@ -435,6 +436,7 @@ function tCfg() {
     if ($("thNoImg")) $("thNoImg").onclick = function () { T.bg = ""; themeSave(); go("cfg"); };
     if ($("thDim")) $("thDim").oninput = function () { T.dim = Number(this.value); themeSave(); };
     $("phCopy").onclick = function () { var v = $("phLink"); v.select(); (navigator.clipboard ? navigator.clipboard.writeText(v.value) : Promise.reject()).then(function () { toast("已複製，用 LINE 或 Email 傳給自己，在手機打開"); }, function () { try { document.execCommand("copy"); toast("已複製"); } catch (e) { toast("請長按欄位手動複製", true); } }); };
+    installBind();
     $("kGen").onclick = function () {
       if (c.hasKey && !confirm("重新產生後，中央 App 裡的舊金鑰就不能用了，要再貼一次新的。確定？")) return;
       api("genKey", { device: device }).then(function (r) {
@@ -452,6 +454,64 @@ function tCfg() {
       api("changePass", { old: $("pOld").value, pass: $("pNew").value, device: device }).then(function (r) { toast(r.message); go("cfg"); }).catch(function (er) { toast(er, true); });
     };
   }).catch(fail);
+}
+
+// ---------- 安裝成 App（跟「資產配置」一樣：iPhone 用描述檔、Android 用 Chrome 安裝） ----------
+var IOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+var STANDALONE = (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
+var DEFER_INSTALL = null;
+window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); DEFER_INSTALL = e; });
+if ("serviceWorker" in navigator) { try { navigator.serviceWorker.register("../sw.js"); } catch (e) {} }
+function installCard() {
+  if (STANDALONE) return "";
+  return '<div class="card"><h2>📲 安裝成 App</h2><div class="label" style="margin-bottom:10px">跟「資產配置」一樣：主畫面有自己的圖示，打開是全螢幕，沒有網址列。</div>' +
+    '<button class="btn full" id="insIos">iPhone：下載安裝描述檔</button>' +
+    '<div class="label" style="margin:6px 0 12px;line-height:1.7">按下去後選「允許」→ 打開「設定」App → 最上面「已下載描述檔」→「安裝」→ 輸入手機密碼 →「安裝」。主畫面就會出現「資產後台」。<br>（要用 <b>Safari</b> 開這一頁才裝得了）</div>' +
+    '<button class="btn ghost full" id="insAnd">Android：安裝到主畫面</button><div class="label" id="insAndHint" style="margin-top:6px">要用 Chrome 開這一頁。</div></div>';
+}
+function installBind() {
+  if ($("insIos")) $("insIos").onclick = installIos;
+  if ($("insAnd")) $("insAnd").onclick = function () {
+    if (DEFER_INSTALL) { DEFER_INSTALL.prompt(); DEFER_INSTALL.userChoice.then(function () { DEFER_INSTALL = null; }); return; }
+    $("insAndHint").innerHTML = "沒有跳出安裝視窗（可能已經裝過，或不是用 Chrome）。請按 Chrome 右上「⋮」→「<b>安裝應用程式</b>」或「<b>加到主畫面</b>」。";
+  };
+}
+function uid_() {
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID().toUpperCase();
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0; return (c === "x" ? r : (r & 3 | 8)).toString(16); }).toUpperCase();
+}
+function xml_(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+function installIos() {
+  if (!S.url) return toast("先設定後台網址", true);
+  // 主畫面的 App 跟 Safari 不共用資料，所以把後台網址直接放進 App 的網址裡（第一次打開會自動設好）
+  var url = location.origin + location.pathname + "#u=" + encodeURIComponent(S.url);
+  var img = new Image();
+  img.onload = function () {
+    var c = document.createElement("canvas"); c.width = 180; c.height = 180;
+    var g = c.getContext("2d"); g.drawImage(img, 0, 0, 180, 180);
+    // 右下角加一個小齒輪，跟「資產配置」的圖示分得出來
+    g.fillStyle = "#1f2a26"; g.beginPath(); g.arc(140, 140, 34, 0, Math.PI * 2); g.fill();
+    g.font = "40px sans-serif"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText("⚙️", 140, 142);
+    var b64 = c.toDataURL("image/png").split(",")[1], id = uid_(), name = "資產後台";
+    var p = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n<plist version="1.0"><dict>' +
+      '<key>PayloadContent</key><array><dict>' +
+      '<key>FullScreen</key><true/><key>Icon</key><data>' + b64 + '</data><key>IsRemovable</key><true/>' +
+      '<key>Label</key><string>' + name + '</string><key>PayloadDisplayName</key><string>' + name + '</string>' +
+      '<key>PayloadIdentifier</key><string>com.app-install.admin.' + id + '.clip</string><key>PayloadType</key><string>com.apple.webClip.managed</string>' +
+      '<key>PayloadUUID</key><string>' + uid_() + '</string><key>PayloadVersion</key><integer>1</integer><key>Precomposed</key><true/>' +
+      '<key>URL</key><string>' + xml_(url) + '</string></dict></array>' +
+      '<key>PayloadDescription</key><string>在主畫面加上「資產後台」</string>' +
+      '<key>PayloadDisplayName</key><string>' + name + '</string><key>PayloadIdentifier</key><string>com.app-install.admin.' + id + '</string>' +
+      '<key>PayloadRemovalDisallowed</key><false/><key>PayloadType</key><string>Configuration</string>' +
+      '<key>PayloadUUID</key><string>' + id + '</string><key>PayloadVersion</key><integer>1</integer></dict></plist>';
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([p], { type: "application/x-apple-aspen-config" }));
+    a.download = "admin.mobileconfig";
+    document.body.appendChild(a); a.click(); a.remove();
+    toast("已產生，去「設定」App 安裝");
+  };
+  img.onerror = function () { toast("圖示讀不到", true); };
+  img.src = "../icon.png";
 }
 
 // ---------- 外觀（存在這台裝置） ----------
