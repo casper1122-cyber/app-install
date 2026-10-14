@@ -45,22 +45,22 @@
   <!-- ===== Android ===== -->
   <section class="sec" id="sec-android">
     <div class="warn" id="aWarn">現在是在 LINE／Facebook 裡面打開的，這裡裝不了。請按右上角「⋮」→「<b>用其他瀏覽器開啟</b>」（或「以 Chrome 開啟」），再回到這一頁。</div>
-    <div class="app"><img src="icon-192.png" alt=""><span><b>資產配置</b><small>Android 版・圖示跟 iPhone 一樣</small></span></div>
+    <div class="app"><img src="icon-192.png" alt=""><span><b>Casper資產配置</b><small>Android 版・圖示跟 iPhone 一樣</small></span></div>
     <button class="big" id="aInstall">安裝到主畫面</button>
-    <div class="ok" id="aOk">✅ 裝好了！回主畫面（或 App 清單）找金色寶寶的「資產配置」。</div>
+    <div class="ok" id="aOk">✅ 裝好了！回主畫面（或 App 清單）找寶寶圖示的「Casper資產配置」。</div>
     <div class="note" id="aHint"></div>
     <h2>按了沒反應？自己加也可以</h2>
     <ol>
       <li>確定是用 <b>Chrome</b> 開這一頁（三星手機用「三星網際網路」也可以）</li>
       <li>按右上角「<b>⋮</b>」（三星是右下角「≡」）</li>
       <li>選「<b>安裝應用程式</b>」或「<b>加到主畫面</b>」→ 按「安裝」</li>
-      <li>回主畫面就有金色寶寶的圖示了</li>
+      <li>回主畫面就有寶寶的圖示了</li>
     </ol>
     <h2>想要自己的名稱和圖示？</h2>
     <div class="app" style="display:block">
       <label style="display:block;font-size:14px;color:var(--mute);margin-bottom:6px">主畫面上的名稱</label>
       <input id="aName" type="text" maxlength="20" placeholder="例如：我的小金庫" style="width:100%;padding:12px;font-size:16px;border:1.5px solid var(--line);border-radius:12px;background:transparent;color:inherit">
-      <label style="display:block;font-size:14px;color:var(--mute);margin:12px 0 6px">圖示（從相簿選一張照片，會自動裁成正方形；不選就用金色寶寶）</label>
+      <label style="display:block;font-size:14px;color:var(--mute);margin:12px 0 6px">圖示（從相簿選一張照片，會自動裁成正方形；不選就用寶寶）</label>
       <div style="display:flex;align-items:center;gap:12px">
         <img id="aPrev" src="icon-192.png" alt="" style="width:60px;height:60px;border-radius:14px;object-fit:cover">
         <input id="aFile" type="file" accept="image/*" style="font-size:14px">
@@ -86,7 +86,7 @@
   <section class="sec" id="sec-ios">
   <div class="warn" id="warn">請用 <b>iPhone 的 Safari</b> 打開這個網頁（LINE、Chrome 裡面打開的話裝不了）。可以按右下角「⋯」→「用 Safari 開啟」。</div>
 
-  <a class="app" href="zichan.mobileconfig"><img src="icon.png" alt=""><span><b>資產配置</b><small>一般裝這個就好</small></span><span class="go">安裝</span></a>
+  <a class="app" href="zichan.mobileconfig"><img src="icon.png" alt=""><span><b>Casper資產配置</b><small>一般裝這個就好</small></span><span class="go">安裝</span></a>
 
   </section>
 
@@ -103,7 +103,7 @@
     </ol>
   </div>
 
-  <p class="note">想像 App 一樣有自己的視窗和圖示：用 Chrome 開這一頁，網址列右邊會有一個「安裝」的小圖示（螢幕加向下箭頭），按下去就會多一個金色寶寶的捷徑。</p>
+  <p class="note">想像 App 一樣有自己的視窗和圖示：用 Chrome 開這一頁，網址列右邊會有一個「安裝」的小圖示（螢幕加向下箭頭），按下去就會多一個寶寶的捷徑。</p>
   </section>
 
   <!-- ===== iPhone（續）：自訂、步驟 ===== -->
@@ -177,7 +177,7 @@
   window.addEventListener("appinstalled", function () { document.getElementById("aOk").style.display = "block"; aBtn.style.display = "none"; aHint.textContent = ""; });
   if (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) { document.getElementById("aOk").style.display = "block"; document.getElementById("aOk").textContent = "✅ 已經裝好了，你現在就是從 App 打開的。"; aBtn.style.display = "none"; }
   // Android 自訂名稱和圖示：把名稱、圖片存在這支手機裡，交給 sw.js 當成設定檔和圖示拿給 Chrome
-  var aIcon = null; // 使用者選的照片（Image），沒選就用金色寶寶
+  var aIcon = null; // 使用者選的照片（Image），沒選就用寶寶
   document.getElementById("aFile").onchange = function () {
     var f = this.files && this.files[0]; if (!f) return;
     var img = new Image();
@@ -194,7 +194,7 @@
   function toBlob(c) { return new Promise(function (res) { c.toBlob(res, "image/png"); }); }
   function loadImg(src) { return new Promise(function (res, rej) { var i = new Image(); i.onload = function () { res(i); }; i.onerror = rej; i.src = src; }); }
   document.getElementById("aGo").onclick = function () {
-    var msg = document.getElementById("aMsg"), name = document.getElementById("aName").value.trim() || "資產配置";
+    var msg = document.getElementById("aMsg"), name = document.getElementById("aName").value.trim() || "Casper資產配置";
     if (!("serviceWorker" in navigator) || !window.caches) { msg.textContent = "這個瀏覽器不支援自訂，請用 Chrome 開這一頁。"; return; }
     msg.textContent = "準備中…";
     var ver = Date.now();
@@ -219,7 +219,7 @@
           b2.onclick = function () { if (!deferred) return; deferred.prompt(); deferred = null; b2.style.display = "none"; }; }
         else if (n >= 8) { clearInterval(t); msg.innerHTML = "✅ 已套用。現在按 Chrome 右上角「<b>⋮</b>」→「<b>安裝應用程式</b>」或「<b>加到主畫面</b>」，跳出來的名稱和圖示就會是你自己的。"; }
       }, 500);
-    }).catch(function (e) { msg.textContent = "沒有成功：" + (e && e.message ? e.message : e) + "。可以先用上面的「安裝到主畫面」裝金色寶寶的版本。"; });
+    }).catch(function (e) { msg.textContent = "沒有成功：" + (e && e.message ? e.message : e) + "。可以先用上面的「安裝到主畫面」裝寶寶的版本。"; });
   };
   aBtn.onclick = function () {
     if (deferred) { deferred.prompt(); deferred.userChoice.then(function (r) { if (r && r.outcome !== "accepted") aHint.textContent = "剛剛按了取消。要裝的話再按一次「安裝到主畫面」。"; deferred = null; }); return; }
@@ -259,7 +259,7 @@
     });
   }
   document.getElementById("cGo").onclick = function () {
-    var name = document.getElementById("cName").value.trim() || "資產配置";
+    var name = document.getElementById("cName").value.trim() || "Casper資產配置";
     defaultIcon().then(function (b64) {
       var id = uid();
       var p = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n<plist version="1.0"><dict>' +
