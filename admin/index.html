@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f5f4a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="資產後台">
+<meta name="robots" content="noindex">
+<title>資產配置後台</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<style>
+:root {
+  --bg: #f3f5f4; --card: #fff; --text: #1d2b26; --muted: #6b7a74; --line: #e2e8e5;
+  --brand: #1f5f4a; --brand-soft: #e3f0ea; --bad: #b3261e; --bad-soft: #fbe9e7; --warn: #8a5a00; --warn-soft: #fff4dc; --ok: #1e7a4f;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101614; --card: #19211e; --text: #e6efeb; --muted: #93a39c; --line: #2a3531;
+    --brand: #6fc6a3; --brand-soft: #1c3329; --bad: #ff8a80; --bad-soft: #3a1f1d; --warn: #ffcc66; --warn-soft: #3a3020; --ok: #6fd6a0;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.5 -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+body { padding: env(safe-area-inset-top) 0 calc(76px + env(safe-area-inset-bottom)); }
+.wrap { max-width: 760px; margin: 0 auto; padding: 16px; }
+header { background: var(--brand); color: #fff; padding: calc(14px + env(safe-area-inset-top)) 16px 14px; margin-top: calc(-1 * env(safe-area-inset-top)); }
+header .in { max-width: 760px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+header h1 { font-size: 18px; margin: 0; }
+header small { opacity: .8; font-size: 12px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 12px; }
+.card h2 { font-size: 16px; margin: 0 0 10px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.label, .muted { color: var(--muted); font-size: 13px; }
+label.f { display: block; margin-bottom: 10px; font-size: 13px; color: var(--muted); }
+input[type=text], input[type=password], input[type=email], input[type=url], textarea, select {
+  width: 100%; font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 11px 12px; margin-top: 4px; }
+textarea { min-height: 90px; resize: vertical; }
+button { font: inherit; cursor: pointer; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 0; border-radius: 10px; padding: 11px 16px; background: var(--brand); color: #fff; font-weight: 700; }
+.btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); font-weight: 600; }
+.btn.bad { background: var(--bad); }
+.btn.sm { padding: 6px 10px; font-size: 13px; }
+.btn:disabled { opacity: .5; cursor: default; }
+.btn.full { width: 100%; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.row > * { flex: 1; min-width: 0; }
+.pill { display: inline-block; font-size: 12px; border-radius: 99px; padding: 2px 8px; background: var(--brand-soft); color: var(--brand); white-space: nowrap; }
+.pill.bad { background: var(--bad-soft); color: var(--bad); } .pill.warn { background: var(--warn-soft); color: var(--warn); }
+.item { border-top: 1px solid var(--line); padding: 10px 0; }
+.item:first-of-type { border-top: 0; }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 14px; }
+.kv b { text-align: right; font-weight: 600; word-break: break-all; }
+pre { white-space: pre-wrap; word-break: break-word; font-size: 12px; background: var(--bg); border-radius: 8px; padding: 8px; margin: 6px 0 0; }
+nav { position: fixed; left: 0; right: 0; bottom: 0; background: var(--card); border-top: 1px solid var(--line); display: flex; overflow-x: auto; padding-bottom: env(safe-area-inset-bottom); z-index: 5; }
+nav button { flex: 1 1 0; min-width: 0; background: none; border: 0; color: var(--muted); padding: 8px 6px 10px; font-size: 11px; display: flex; flex-direction: column; align-items: center; gap: 2px; position: relative; }
+nav button .ic { font-size: 19px; }
+nav button.on { color: var(--brand); font-weight: 700; }
+nav .dot { position: absolute; top: 6px; right: 14px; width: 8px; height: 8px; border-radius: 50%; background: var(--bad); }
+.hidden { display: none !important; }
+#toast { position: fixed; left: 50%; bottom: calc(90px + env(safe-area-inset-bottom)); transform: translateX(-50%); background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: 12px; max-width: calc(100% - 32px); font-size: 14px; z-index: 20; opacity: 0; transition: opacity .2s; pointer-events: none; }
+#toast.show { opacity: 1; } #toast.err { background: var(--bad); color: #fff; }
+.center { max-width: 400px; margin: 40px auto; }
+.spin { display: inline-block; width: 14px; height: 14px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: sp .8s linear infinite; vertical-align: -2px; }
+@keyframes sp { to { transform: rotate(360deg); } }
+.filemap { border: 1px dashed var(--line); border-radius: 10px; padding: 10px; margin: 8px 0; }
+.check { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; margin: 8px 0; }
+.check input { margin-top: 4px; width: 18px; height: 18px; }
+a { color: var(--brand); }
+</style>
+</head>
+<body>
+<header><div class="in"><div><h1>資產配置後台</h1><small id="hdrSub">管理員專用</small></div><button class="btn ghost sm hidden" id="btnLogout" style="color:#fff;border-color:rgba(255,255,255,.4)">登出</button></div></header>
+<div class="wrap" id="main"></div>
+<nav id="nav" class="hidden"></nav>
+<div id="toast"></div>
+<script>
+// ============================================================
+// 後台網頁：所有資料都向「後台 Apps Script」要（網址存在這台裝置），登入憑證也只存在這台裝置
+// ============================================================
+var $ = function (id) { return document.getElementById(id); };
+var esc = function (s) { return String(s === undefined || s === null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
+var store = {
+  get: function (k) { try { return localStorage.getItem(k) || sessionStorage.getItem(k) || ""; } catch (e) { return ""; } },
+  set: function (k, v, keep) { try { (keep ? localStorage : sessionStorage).setItem(k, v); } catch (e) {} },
+  del: function (k) { try { localStorage.removeItem(k); sessionStorage.removeItem(k); } catch (e) {} }
+};
+var S = { url: store.get("adm_url"), token: store.get("adm_token"), tab: "deploy", cfg: {}, info: null };
+var device = (function () { var u = navigator.userAgent; return (/iPhone/.test(u) ? "iPhone" : /iPad/.test(u) ? "iPad" : /Android/.test(u) ? "Android" : /Mac/.test(u) ? "Mac" : /Windows/.test(u) ? "Windows" : "其他") + "・" + (/CriOS|Chrome/.test(u) ? "Chrome" : /Safari/.test(u) ? "Safari" : /Firefox/.test(u) ? "Firefox" : "瀏覽器"); })();
+
+function toast(msg, err) {
+  var t = $("toast"); t.textContent = msg; t.className = "show" + (err ? " err" : "");
+  clearTimeout(toast.t); toast.t = setTimeout(function () { t.className = ""; }, err ? 5000 : 2600);
+}
+// 呼叫後台（用 text/plain，瀏覽器不會先問一次，Apps Script 才收得到）
+function api(op, arg) {
+  if (!S.url) return Promise.reject("還沒設定後台網址");
+  return fetch(S.url, { method: "POST", body: JSON.stringify({ op: op, arg: arg || {}, token: S.token }), redirect: "follow" })
+    .then(function (r) { return r.text(); })
+    .then(function (t) {
+      var j; try { j = JSON.parse(t); } catch (e) { throw "後台沒有正常回覆，請確認後台網址對不對、後台有沒有部署成「任何人」都能使用"; }
+      if (!j.ok) { if (j.relogin) { S.token = ""; store.del("adm_token"); showLogin(); } throw j.error || "失敗"; }
+      return j.data;
+    }, function () { throw "連不到後台，請檢查網路或後台網址"; });
+}
+function hub(op, arg) { return api("hub", { op: op, arg: arg || {} }); }
+function busy(btn, on, text) { if (!btn) return; if (on) { btn.dataset.t = btn.innerHTML; btn.innerHTML = '<span class="spin"></span> ' + (text || "處理中"); btn.disabled = true; } else { btn.innerHTML = btn.dataset.t || btn.innerHTML; btn.disabled = false; } }
+
+// ---------- 開始 ----------
+function start() {
+  if (!S.url) return showUrl();
+  api("status").then(function (d) { if (!d.ready) showSetup(); else if (!S.token) showLogin(); else enter(); })
+    .catch(function (e) { $("main").innerHTML = '<div class="card center"><h2>連不到後台</h2><div class="label">' + esc(e) + '</div><div class="row" style="margin-top:12px"><button class="btn" onclick="start()">再試一次</button><button class="btn ghost" onclick="showUrl()">改後台網址</button></div></div>'; });
+}
+function showUrl() {
+  hideNav();
+  $("main").innerHTML = '<div class="card center"><h2>連接後台</h2><div class="label" style="margin-bottom:10px">貼上「資產配置後台」Apps Script 部署後的網址（…/exec）。只需要設定一次，存在這台裝置。</div>' +
+    '<label class="f">後台網址<input type="url" id="uIn" placeholder="https://script.google.com/macros/s/…/exec" value="' + esc(S.url) + '"></label><button class="btn full" id="uOk">連接</button></div>';
+  $("uOk").onclick = function () {
+    var v = $("uIn").value.trim();
+    if (!/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(v)) return toast("網址格式不對，要是 https://script.google.com/macros/s/…/exec", true);
+    S.url = v; store.set("adm_url", v, true); start();
+  };
+}
+function showSetup() {
+  hideNav();
+  $("main").innerHTML = '<div class="card center"><h2>第一次設定</h2><div class="label" style="margin-bottom:10px">在後台的 Apps Script 編輯器選「showSetupCode」按執行，把執行紀錄裡的 8 碼設定碼填在這裡（30 分鐘內有效）。</div>' +
+    '<form id="sf" autocomplete="on"><label class="f">設定碼<input type="text" id="sCode" autocomplete="off" autocapitalize="characters"></label>' +
+    '<label class="f">帳號（之後登入用）<input type="text" id="sUser" name="username" autocomplete="username" autocapitalize="none"></label>' +
+    '<label class="f">密碼（至少 10 個字，要有英文和數字）<input type="password" id="sPass" name="new-password" autocomplete="new-password"></label>' +
+    '<label class="f">再輸入一次密碼<input type="password" id="sPass2" autocomplete="new-password"></label>' +
+    '<button class="btn full" id="sOk" type="submit">建立帳號</button></form><div class="label" style="margin-top:10px">手機會問要不要記住密碼，選「記住」，之後登入就可以用臉部辨識或指紋。</div></div>';
+  $("sf").onsubmit = function (e) {
+    e.preventDefault();
+    if ($("sPass").value !== $("sPass2").value) return toast("兩次密碼不一樣", true);
+    var b = $("sOk"); busy(b, true);
+    api("setup", { code: $("sCode").value, user: $("sUser").value, pass: $("sPass").value, device: device })
+      .then(function () { toast("設定完成，請登入"); store.set("adm_user", $("sUser").value.trim(), true); showLogin(); })
+      .catch(function (err) { toast(err, true); busy(b, false); });
+  };
+}
+function showLogin() {
+  hideNav(); $("btnLogout").classList.add("hidden");
+  var u = store.get("adm_user");
+  $("main").innerHTML = '<div class="card center"><h2>登入</h2>' +
+    '<form id="lf" method="post" action="#"><label class="f">帳號<input type="text" id="lUser" name="username" autocomplete="username" autocapitalize="none" value="' + esc(u) + '"></label>' +
+    '<label class="f">密碼<input type="password" id="lPass" name="password" autocomplete="current-password"></label>' +
+    '<div class="check"><input type="checkbox" id="lRem" checked><label for="lRem">記住我（這台裝置 30 天內不用再登入）</label></div>' +
+    '<button class="btn full" id="lOk" type="submit">登入</button></form>' +
+    '<div class="label" style="margin-top:10px">點密碼欄，手機會跳出儲存的密碼，用臉部辨識或指紋確認就會自動填好。</div>' +
+    '<div style="margin-top:14px;text-align:center"><a href="#" onclick="showUrl();return false" class="label">改後台網址</a></div></div>';
+  if (u) setTimeout(function () { $("lPass") && $("lPass").focus(); }, 300);
+  $("lf").onsubmit = function (e) {
+    e.preventDefault();
+    var b = $("lOk"); busy(b, true, "登入中");
+    var rem = $("lRem").checked;
+    api("login", { user: $("lUser").value, pass: $("lPass").value, remember: rem, device: device }).then(function (d) {
+      S.token = d.token; store.del("adm_token"); store.set("adm_token", d.token, rem); store.set("adm_user", d.user, true);
+      enter();
+    }).catch(function (err) { toast(err, true); busy(b, false); });
+  };
+}
+$("btnLogout").onclick = function () {
+  if (!confirm("登出這台裝置？")) return;
+  api("logout").catch(function () {}).then(function () { S.token = ""; store.del("adm_token"); showLogin(); });
+};
+
+// ---------- 登入之後 ----------
+var TABS = [["deploy", "🚀", "部署"], ["users", "👥", "使用者"], ["invites", "✉️", "邀請"], ["errors", "🐞", "錯誤"], ["feedback", "💬", "意見"], ["ann", "📢", "公告"], ["logs", "🔐", "紀錄"], ["cfg", "⚙️", "設定"]];
+function hideNav() { $("nav").classList.add("hidden"); }
+function enter() {
+  $("btnLogout").classList.remove("hidden");
+  $("nav").classList.remove("hidden");
+  $("nav").innerHTML = TABS.map(function (t) { return '<button data-t="' + t[0] + '"><span class="ic">' + t[1] + "</span>" + t[2] + (t[0] === "feedback" ? '<span class="dot hidden" id="fbDot"></span>' : t[0] === "errors" ? '<span class="dot hidden" id="erDot"></span>' : "") + "</button>"; }).join("");
+  $("nav").querySelectorAll("button").forEach(function (b) { b.onclick = function () { go(b.dataset.t); }; });
+  api("me").then(function (d) { S.cfg = d.cfg; $("hdrSub").textContent = "已登入：" + d.user; if (!d.cfg.scriptId || !d.cfg.hubUrl) { toast("先到「設定」填中央 App 的資料"); go("cfg"); } else go(S.tab); })
+    .catch(function (e) { toast(e, true); });
+  // 有沒有沒看過的意見／錯誤（小紅點）
+  hub("feedback").then(function (d) { if ((d.list || []).some(function (f) { return !f.read; })) $("fbDot").classList.remove("hidden"); }).catch(function () {});
+  hub("errors").then(function (d) { var seen = store.get("adm_errseen"); if ((d.list || []).some(function (x) { return x._k > seen; })) $("erDot").classList.remove("hidden"); }).catch(function () {});
+}
+function go(t) {
+  S.tab = t;
+  $("nav").querySelectorAll("button").forEach(function (b) { b.classList.toggle("on", b.dataset.t === t); });
+  $("main").innerHTML = '<div class="card"><span class="spin"></span> 讀取中…</div>';
+  window.scrollTo(0, 0);
+  ({ deploy: tDeploy, users: tUsers, invites: tInvites, errors: tErrors, feedback: tFeedback, ann: tAnn, logs: tLogs, cfg: tCfg })[t]();
+}
+function fail(e) { $("main").innerHTML = '<div class="card"><h2>讀取失敗</h2><div class="label">' + esc(e) + '</div><button class="btn ghost" style="margin-top:10px" onclick="go(S.tab)">再試一次</button></div>'; }
+
+// ---------- 🚀 部署 ----------
+var UP = { files: [] };
+function tDeploy() {
+  Promise.all([api("deployInfo"), api("liveVer").catch(function () { return {}; })]).then(function (r) {
+    var d = r[0], live = r[1].ver || "";
+    S.info = d;
+    if (d.needCfg) return go("cfg");
+    var h = '<div class="card"><h2>目前狀態</h2><div class="kv">' +
+      "<span>正式網址在跑的</span><b>" + (live ? esc(live) : '<span class="label">問不到（中央 App 要先更新到 2026.10.31a）</span>') + "</b>" +
+      "<span>正式網址用的版本</span><b>第 " + esc(d.current) + " 版</b>" +
+      "<span>中央專案裡的檔案</span><b>" + esc(d.headVer || "—") + "</b></div>" +
+      (live && d.headVer && live !== d.headVer ? '<div class="pill warn" style="margin-top:8px;white-space:normal">正式網址跑的版本跟專案裡的檔案不一樣（可能上傳了還沒部署，或剛退回舊版）</div>' : "") + "</div>";
+    h += '<div class="card"><h2>上傳更新</h2><div class="label">選我傳給你的檔案（核心.gs、App.html，有時候還有 中央.gs、appsscript-中央.json），確認每個檔案要取代中央專案裡的哪一個，再按「上傳並部署」。</div>' +
+      '<input type="file" id="upF" multiple style="margin:12px 0">' +
+      '<div id="upMap"></div><label class="f">這次更新的說明（可以不填，會用版本號）<input type="text" id="upDesc"></label>' +
+      '<button class="btn full" id="upGo" disabled>上傳並部署</button><div class="label" style="margin-top:8px">部署完，大家下次打開（或 App 裡跳出更新）就是新版。網址不變。</div></div>';
+    h += '<div class="card"><h2>以前的版本 <span class="label">壞掉時可以退回去</span></h2>' + (d.versions || []).map(function (v) {
+      return '<div class="item row"><div style="flex:3"><b>第 ' + v.n + " 版</b>" + (v.n === d.current ? ' <span class="pill">正在用</span>' : "") + '<div class="label">' + esc(v.at) + "・" + esc(v.desc) + "</div></div>" +
+        (v.n === d.current ? "<div></div>" : '<div style="flex:0 0 auto"><button class="btn ghost sm" onclick="rollback(' + v.n + ')">回到這一版</button></div>') + "</div>";
+    }).join("") + "</div>";
+    h += '<div class="card"><h2>中央專案的檔案</h2>' + (d.files || []).map(function (f) { return '<div class="item row"><div>' + esc(f.name) + ' <span class="label">' + esc(f.type) + "</span></div><div style=\"text-align:right\" class=\"label\">" + Math.round(f.size / 1024) + " KB" + (f.ver ? "・" + esc(f.ver) : "") + "</div></div>"; }).join("") + "</div>";
+    $("main").innerHTML = h;
+    UP.files = [];
+    $("upF").onchange = function () { readFiles(this.files); };
+    $("upGo").onclick = doDeploy;
+  }).catch(fail);
+}
+function guessTarget(fname, files) {
+  var base = fname.replace(/\.(gs|js|html|json|txt)$/i, "").replace(/\s*\(\d+\)$/, "");
+  var names = files.map(function (f) { return f.name; });
+  if (/^appsscript/i.test(base) && /\.json$/i.test(fname)) return names.indexOf("appsscript") >= 0 ? "appsscript" : "";
+  if (names.indexOf(base) >= 0) return base;
+  var hit = names.filter(function (n) { return base.indexOf(n) >= 0 || n.indexOf(base) >= 0; });
+  return hit.length === 1 ? hit[0] : "";
+}
+function readFiles(list) {
+  var files = (S.info && S.info.files) || [];
+  Promise.all([].map.call(list, function (f) { return f.text().then(function (t) { return { fname: f.name, source: t, target: guessTarget(f.name, files) }; }); })).then(function (arr) {
+    UP.files = arr;
+    $("upMap").innerHTML = arr.map(function (u, i) {
+      var v = (u.source.match(/LIB_VERSION_\s*=\s*"([^"]+)"/) || [])[1];
+      return '<div class="filemap"><div><b>' + esc(u.fname) + '</b> <span class="label">' + Math.round(u.source.length / 1024) + " KB" + (v ? "・版本 " + esc(v) : "") + "</span></div>" +
+        '<label class="f" style="margin:6px 0 0">取代中央專案裡的<select data-i="' + i + '"><option value="">（不要上傳這個）</option>' +
+        files.map(function (f) { return '<option value="' + esc(f.name) + '"' + (f.name === u.target ? " selected" : "") + ">" + esc(f.name) + "（" + esc(f.type) + "）</option>"; }).join("") + "</select></label></div>";
+    }).join("");
+    $("upMap").querySelectorAll("select").forEach(function (s) { s.onchange = function () { UP.files[Number(s.dataset.i)].target = s.value; upCheck(); }; });
+    upCheck();
+  });
+}
+function upCheck() {
+  var use = UP.files.filter(function (u) { return u.target; });
+  var dup = use.some(function (u, i) { return use.some(function (w, j) { return j !== i && w.target === u.target; }); });
+  $("upGo").disabled = !use.length || dup;
+  if (dup) toast("兩個檔案選到同一個目標了", true);
+}
+function doDeploy() {
+  var use = UP.files.filter(function (u) { return u.target; });
+  if (!confirm("要上傳 " + use.map(function (u) { return u.fname + " → " + u.target; }).join("、") + "，並且部署成正式版嗎？")) return;
+  var b = $("upGo"); busy(b, true, "上傳中");
+  api("upload", { files: use.map(function (u) { return { target: u.target, source: u.source }; }), device: device }).then(function (r) {
+    b.innerHTML = '<span class="spin"></span> 部署中';
+    return api("deploy", { desc: $("upDesc").value.trim(), device: device });
+  }).then(function (r) {
+    toast("已部署第 " + r.version + " 版（" + r.desc + "）");
+    setTimeout(function () { go("deploy"); }, 1200);
+  }).catch(function (e) { toast(e, true); busy(b, false); });
+}
+function rollback(n) {
+  if (!confirm("把正式網址換回第 " + n + " 版？\n（檔案不會動，之後再上傳部署就是新的）")) return;
+  api("rollback", { version: n, device: device }).then(function () { toast("已回到第 " + n + " 版"); go("deploy"); }).catch(function (e) { toast(e, true); });
+}
+
+// ---------- 👥 使用者 ----------
+function tUsers() {
+  hub("users").then(function (d) {
+    var h = '<div class="card"><h2>使用者 <span class="label">最新版 ' + esc(d.ver) + "</span></h2>";
+    h += (d.list || []).map(function (u) {
+      var trig = Object.keys(u.trig || {}).map(function (k) { var x = u.trig[k]; return '<div class="label">' + (x.ok ? "✅" : "❌") + " " + esc(k) + "：" + esc(x.at) + (x.ok ? "" : '<br><span style="color:var(--bad)">' + esc(x.err) + "</span>") + "</div>"; }).join("");
+      var old = u.ver && u.ver !== d.ver;
+      return '<div class="item"><div class="row"><div style="flex:3"><b>' + esc(u.name || u.email) + "</b>" + (u.name ? '<div class="label">' + esc(u.email) + "</div>" : "") + '</div><div style="text-align:right">' +
+        (u.ver ? '<span class="pill' + (old ? " warn" : "") + '">' + esc(u.ver) + "</span>" : '<span class="pill warn">還沒打開過</span>') + "</div></div>" +
+        '<div class="label">最後打開：' + esc(u.last || "—") + "</div>" + (trig || '<div class="label">還沒有排程紀錄（更新到 2026.10.31a 之後才開始記）</div>') + "</div>";
+    }).join("") + "</div>";
+    h += '<div class="card label">「最後打開」10 分鐘內只記一次。排程的時間是那個人最後一次自動跑的時間；❌ 代表失敗，常見原因是新版需要重新授權（請他打開 App 一次）。</div>';
+    $("main").innerHTML = h;
+  }).catch(fail);
+}
+
+// ---------- ✉️ 邀請 ----------
+function tInvites() {
+  hub("invites").then(function (d) {
+    var h = '<div class="card"><h2>邀請新的人</h2><label class="f">Google 帳號（Email）<input type="email" id="ivE" autocapitalize="none"></label><label class="f">名字（選填）<input type="text" id="ivN" maxlength="20"></label>' +
+      '<button class="btn full" id="ivOk">邀請</button><div class="label" style="margin-top:8px">邀請後把 App 網址傳給他，他用這個 Google 帳號打開就能用（會自動建立他自己的試算表）。</div></div>';
+    h += '<div class="card"><h2>已邀請 <span class="label">' + (d.list || []).length + " 人・管理員 " + esc(d.admin) + "</span></h2>" + ((d.list || []).length ? d.list.map(function (x) {
+      return '<div class="item row"><div style="flex:3"><b>' + esc(x.name || x.email) + "</b>" + (x.name ? '<div class="label">' + esc(x.email) + "</div>" : "") + '<div class="label">邀請日：' + esc(x.added || "—") + '</div></div><div style="flex:0 0 auto"><button class="btn ghost sm" data-e="' + esc(x.email) + '">移除</button></div></div>';
+    }).join("") : '<div class="label">還沒有邀請任何人</div>') + "</div>";
+    $("main").innerHTML = h;
+    $("ivOk").onclick = function () {
+      var b = this; busy(b, true);
+      hub("inviteSave", { email: $("ivE").value.trim(), name: $("ivN").value.trim() }).then(function (r) { toast(r.message); go("invites"); }).catch(function (e) { toast(e, true); busy(b, false); });
+    };
+    $("main").querySelectorAll("button[data-e]").forEach(function (b) {
+      b.onclick = function () {
+        var e = b.dataset.e;
+        if (!confirm("移除 " + e + "？\n他之後打開 App 會顯示未受邀，自動排程也會停止（他的試算表和資料不會刪）")) return;
+        hub("inviteSave", { email: e, remove: true }).then(function (r) { toast(r.message); go("invites"); }).catch(function (er) { toast(er, true); });
+      };
+    });
+  }).catch(fail);
+}
+
+// ---------- 🐞 錯誤 ----------
+function tErrors() {
+  hub("errors").then(function (d) {
+    var list = d.list || [];
+    if (list.length) store.set("adm_errseen", list[0]._k, true);
+    $("erDot") && $("erDot").classList.add("hidden");
+    var h = '<div class="card"><h2>錯誤紀錄 <span class="label">最近 60 筆</span>' + (list.length ? '<button class="btn ghost sm" id="erClr" style="flex:0 0 auto">全部清除</button>' : "") + "</h2>";
+    h += list.length ? list.map(function (x) {
+      return '<div class="item"><div class="row"><b style="flex:3">' + esc(x.where) + '</b><span class="label" style="text-align:right">' + esc(x.t) + '</span></div><div class="label">' + esc(x.who || "排程") + "・" + esc(x.ver) + "</div><div>" + esc(x.msg) + "</div>" + (x.stack ? "<details><summary class=\"label\">詳細</summary><pre>" + esc(x.stack) + "</pre></details>" : "") + "</div>";
+    }).join("") : '<div class="label">沒有錯誤 🎉</div>';
+    $("main").innerHTML = h + "</div>";
+    if ($("erClr")) $("erClr").onclick = function () { if (confirm("清除全部錯誤紀錄？")) hub("errClear").then(function () { toast("已清除"); go("errors"); }).catch(function (e) { toast(e, true); }); };
+  }).catch(fail);
+}
+
+// ---------- 💬 意見 ----------
+function tFeedback() {
+  hub("feedback").then(function (d) {
+    var list = d.list || [];
+    $("fbDot") && $("fbDot").classList.add("hidden");
+    var h = '<div class="card"><h2>意見收件箱 <span class="label">' + list.filter(function (f) { return !f.read; }).length + " 則未讀</span></h2>";
+    h += list.length ? list.map(function (f, i) {
+      return '<div class="item"' + (f.read ? "" : ' style="background:var(--brand-soft);margin:0 -16px;padding:10px 16px"') + '><div class="row"><b style="flex:3">' + esc(f.who) + '</b><span class="label" style="text-align:right">' + esc(f.t) + "</span></div>" +
+        '<div style="white-space:pre-wrap;margin:6px 0">' + esc(f.text) + '</div><div class="label">App 版本 ' + esc(f.ver) + "</div>" +
+        '<label class="f" style="margin-top:8px">回覆（對方在 App 的「意見回饋」看得到）<textarea data-r="' + i + '">' + esc(f.reply) + "</textarea></label>" +
+        '<div class="row"><button class="btn sm" data-s="' + i + '">儲存回覆</button><button class="btn ghost sm" data-m="' + i + '">' + (f.read ? "標成未讀" : "標成已讀") + '</button><button class="btn ghost sm" data-d="' + i + '" style="color:var(--bad)">刪除</button></div></div>';
+    }).join("") : '<div class="label">還沒有人送意見</div>';
+    $("main").innerHTML = h + "</div>";
+    var upd = function (i, arg, msg) { arg.k = list[i]._k; hub("fbUpdate", arg).then(function () { toast(msg); go("feedback"); }).catch(function (e) { toast(e, true); }); };
+    $("main").querySelectorAll("[data-s]").forEach(function (b) { b.onclick = function () { var i = Number(b.dataset.s); upd(i, { reply: $("main").querySelector('[data-r="' + i + '"]').value, read: true }, "已回覆"); }; });
+    $("main").querySelectorAll("[data-m]").forEach(function (b) { b.onclick = function () { var i = Number(b.dataset.m); upd(i, { read: !list[i].read }, "已更新"); }; });
+    $("main").querySelectorAll("[data-d]").forEach(function (b) { b.onclick = function () { if (confirm("刪除這則意見？")) upd(Number(b.dataset.d), { del: true }, "已刪除"); }; });
+  }).catch(fail);
+}
+
+// ---------- 📢 公告 ----------
+function tAnn() {
+  hub("annGet").then(function (d) {
+    var a = d.ann || {};
+    $("main").innerHTML = '<div class="card"><h2>公告</h2><div class="label" style="margin-bottom:8px">會顯示在每個人 App 首頁最上面。留空並取消維護模式就是關掉。</div>' +
+      '<label class="f">內容<textarea id="anT" maxlength="500" placeholder="例如：今晚 10 點更新，會跳出更新視窗">' + esc(a.text) + "</textarea></label>" +
+      '<label class="f">樣式<select id="anL"><option value="info"' + (a.level !== "warn" ? " selected" : "") + '>📢 一般</option><option value="warn"' + (a.level === "warn" ? " selected" : "") + ">⚠️ 重要（紅色）</option></select></label>" +
+      '<div class="check"><input type="checkbox" id="anM"' + (a.maint ? " checked" : "") + '><label for="anM"><b>維護模式</b><br><span class="label">除了你以外，打開 App 只會看到「維護中」和上面的內容。自動排程照常跑。</span></label></div>' +
+      '<div class="row"><button class="btn" id="anOk">儲存</button><button class="btn ghost" id="anOff">全部關掉</button></div>' + (a.at ? '<div class="label" style="margin-top:8px">上次更改：' + esc(a.at) + "</div>" : "") + "</div>";
+    var save = function (arg) {
+      if (arg.maint && !confirm("開啟維護模式？其他人會暫時不能用 App。")) return;
+      hub("annSet", arg).then(function (r) { toast(r.ann ? (r.ann.maint ? "維護模式已開啟" : "公告已更新") : "已關掉公告和維護模式"); go("ann"); }).catch(function (e) { toast(e, true); });
+    };
+    $("anOk").onclick = function () { save({ text: $("anT").value, level: $("anL").value, maint: $("anM").checked }); };
+    $("anOff").onclick = function () { save({ text: "", maint: false }); };
+  }).catch(fail);
+}
+
+// ---------- 🔐 紀錄 ----------
+function tLogs() {
+  Promise.all([api("logins"), api("me")]).then(function (r) {
+    var h = '<div class="card"><h2>登入中的裝置' + '<button class="btn ghost sm" id="loAll" style="flex:0 0 auto">全部登出</button></h2>' + (r[1].sessions || []).map(function (s) {
+      return '<div class="item"><b>' + esc(s.device || "—") + "</b>" + (s.me ? ' <span class="pill">這台</span>' : "") + '<div class="label">登入：' + esc(s.at) + "・到期：" + esc(s.exp) + "</div></div>";
+    }).join("") + "</div>";
+    h += '<div class="card"><h2>登入與操作紀錄 <span class="label">最近 100 筆</span></h2>' + (r[0].list || []).map(function (x) {
+      return '<div class="item row"><div style="flex:3">' + (x.ok ? "" : "⚠️ ") + esc(x.what) + '<div class="label">' + esc(x.device) + '</div></div><div class="label" style="text-align:right">' + esc(x.t) + "</div></div>";
+    }).join("") + "</div>";
+    $("main").innerHTML = h;
+    $("loAll").onclick = function () { if (confirm("所有裝置（包含這台）都要重新登入？")) api("logoutAll", { device: device }).then(function () { S.token = ""; store.del("adm_token"); showLogin(); }).catch(function (e) { toast(e, true); }); };
+  }).catch(fail);
+}
+
+// ---------- ⚙️ 設定 ----------
+function tCfg() {
+  api("me").then(function (d) {
+    var c = d.cfg || {};
+    $("main").innerHTML = '<div class="card"><h2>中央 App</h2>' +
+      '<label class="f">指令碼 ID<input type="text" id="cSid" value="' + esc(c.scriptId) + '" placeholder="中央 App 的 Apps Script →「專案設定」→ 指令碼 ID" autocapitalize="none"></label>' +
+      '<label class="f">App 網址（正式的 …/exec）<input type="url" id="cUrl" value="' + esc(c.hubUrl) + '"></label>' +
+      '<button class="btn full" id="cOk">儲存</button><button class="btn ghost full" id="cTest" style="margin-top:8px">測試連線</button><div id="cRes" class="label" style="margin-top:8px"></div></div>' +
+      '<div class="card"><h2>改密碼</h2><form id="pf"><input type="text" name="username" autocomplete="username" value="' + esc(d.user) + '" class="hidden">' +
+      '<label class="f">原本的密碼<input type="password" id="pOld" autocomplete="current-password"></label><label class="f">新密碼<input type="password" id="pNew" autocomplete="new-password"></label>' +
+      '<label class="f">再輸入一次<input type="password" id="pNew2" autocomplete="new-password"></label><button class="btn full" type="submit">更改密碼</button></form></div>' +
+      '<div class="card"><h2>這台裝置</h2><div class="label" style="word-break:break-all">後台網址：' + esc(S.url) + '</div><button class="btn ghost full" style="margin-top:8px" onclick="showUrl()">改後台網址</button></div>';
+    $("cOk").onclick = function () {
+      var b = this; busy(b, true);
+      api("cfgSet", { scriptId: $("cSid").value, hubUrl: $("cUrl").value }).then(function (r) { S.cfg = r.cfg; toast("已儲存"); busy(b, false); }).catch(function (e) { toast(e, true); busy(b, false); });
+    };
+    $("cTest").onclick = function () {
+      var b = this; busy(b, true, "測試中"); $("cRes").textContent = "";
+      Promise.all([api("deployInfo").then(function (x) { return x.needCfg ? "❌ 還沒填完整" : "✅ 部署權限正常（正式網址用第 " + x.current + " 版）"; }, function (e) { return "❌ 部署權限：" + e; }),
+        hub("ping").then(function (x) { return "✅ 中央 App 正常（" + x.ver + "，管理員 " + x.admin + "）"; }, function (e) { return "❌ 中央 App：" + e; })])
+        .then(function (r) { $("cRes").innerHTML = r.map(esc).join("<br>"); busy(b, false); });
+    };
+    $("pf").onsubmit = function (e) {
+      e.preventDefault();
+      if ($("pNew").value !== $("pNew2").value) return toast("兩次新密碼不一樣", true);
+      api("changePass", { old: $("pOld").value, pass: $("pNew").value, device: device }).then(function (r) { toast(r.message); go("cfg"); }).catch(function (er) { toast(er, true); });
+    };
+  }).catch(fail);
+}
+
+start();
+</script>
+</body>
+</html>
