@@ -88,6 +88,10 @@ a { color: var(--brand); }
 // 後台網頁：所有資料都向「後台 Apps Script」要（網址存在這台裝置），登入憑證也只存在這台裝置
 // ============================================================
 var $ = function (id) { return document.getElementById(id); };
+// 出錯時顯示在畫面上（不然只會一片空白）
+window.addEventListener("error", function (e) {
+  try { var m = document.getElementById("main"); if (m && !m.textContent.trim()) m.innerHTML = '<div class="card center"><h2>頁面出錯了</h2><div class="label" style="word-break:break-all">' + String(e.message || e) + "（第 " + (e.lineno || "?") + " 行）</div><button class=\"btn\" onclick=\"location.reload()\" style=\"margin-top:10px\">重新整理</button></div>"; } catch (x) {}
+});
 var esc = function (s) { return String(s === undefined || s === null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
 var store = {
   get: function (k) { try { return localStorage.getItem(k) || sessionStorage.getItem(k) || ""; } catch (e) { return ""; } },
@@ -118,7 +122,11 @@ function busy(btn, on, text) { if (!btn) return; if (on) { btn.dataset.t = btn.i
 // ---------- 開始 ----------
 function start() {
   if (!S.url) return showUrl();
-  api("status").then(function (d) { if (!d.ready) showSetup(); else if (!S.token) showLogin(); else enter(); })
+  $("main").innerHTML = '<div class="card center"><span class="spin"></span> 連線到後台中…<div class="label" style="margin-top:6px">第一次可能要等 5～10 秒</div></div>';
+  var slow = setTimeout(function () {
+    if ($("main").textContent.indexOf("連線到後台中") >= 0) $("main").innerHTML = '<div class="card center"><span class="spin"></span> 還在等後台回應…<div class="label" style="margin-top:6px">網路比較慢，或後台網址不對</div><div class="row" style="margin-top:12px"><button class="btn" onclick="start()">再試一次</button><button class="btn ghost" onclick="showUrl()">改後台網址</button></div></div>';
+  }, 15000);
+  api("status").then(function (d) { clearTimeout(slow); return d; }, function (e) { clearTimeout(slow); throw e; }).then(function (d) { if (!d.ready) showSetup(); else if (!S.token) showLogin(); else enter(); })
     .catch(function (e) { $("main").innerHTML = '<div class="card center"><h2>連不到後台</h2><div class="label">' + esc(e) + '</div><div class="row" style="margin-top:12px"><button class="btn" onclick="start()">再試一次</button><button class="btn ghost" onclick="showUrl()">改後台網址</button></div></div>'; });
 }
 function showUrl() {
