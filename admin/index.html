@@ -374,6 +374,10 @@ function tCfg() {
       '<label class="f">指令碼 ID<input type="text" id="cSid" value="' + esc(c.scriptId) + '" placeholder="中央 App 的 Apps Script →「專案設定」→ 指令碼 ID" autocapitalize="none"></label>' +
       '<label class="f">App 網址（正式的 …/exec）<input type="url" id="cUrl" value="' + esc(c.hubUrl) + '"></label>' +
       '<button class="btn full" id="cOk">儲存</button><button class="btn ghost full" id="cTest" style="margin-top:8px">測試連線</button><div id="cRes" class="label" style="margin-top:8px"></div></div>' +
+      '<div class="card"><h2>連線金鑰 ' + (c.hasKey ? '<span class="pill">已設定</span>' : '<span class="pill warn">還沒設定</span>') + '</h2>' +
+      '<div class="label">後台跟 App 管理員不是同一個 Google 帳號時要用（例如你用 A 帳號改程式、B 帳號當管理員）。按下面產生一組金鑰，再貼到中央 App：</div>' +
+      '<ol class="label" style="padding-left:20px;margin:8px 0"><li>打開中央 App 的 Apps Script 編輯器 → 左邊 ⚙️「專案設定」</li><li>拉到最下面「指令碼屬性」→「新增指令碼屬性」</li><li>屬性填 <b>ADMIN_API_KEY</b>，值貼上金鑰 →「儲存指令碼屬性」</li></ol>' +
+      '<button class="btn ghost full" id="kGen">' + (c.hasKey ? "重新產生金鑰（舊的會失效）" : "產生金鑰") + '</button><div id="kOut"></div></div>' +
       '<div class="card"><h2>改密碼</h2><form id="pf"><input type="text" name="username" autocomplete="username" value="' + esc(d.user) + '" class="hidden">' +
       '<label class="f">原本的密碼<input type="password" id="pOld" autocomplete="current-password"></label><label class="f">新密碼<input type="password" id="pNew" autocomplete="new-password"></label>' +
       '<label class="f">再輸入一次<input type="password" id="pNew2" autocomplete="new-password"></label><button class="btn full" type="submit">更改密碼</button></form></div>' +
@@ -385,8 +389,19 @@ function tCfg() {
     $("cTest").onclick = function () {
       var b = this; busy(b, true, "測試中"); $("cRes").textContent = "";
       Promise.all([api("deployInfo").then(function (x) { return x.needCfg ? "❌ 還沒填完整" : "✅ 部署權限正常（正式網址用第 " + x.current + " 版）"; }, function (e) { return "❌ 部署權限：" + e; }),
-        hub("ping").then(function (x) { return "✅ 中央 App 正常（" + x.ver + "，管理員 " + x.admin + "）"; }, function (e) { return "❌ 中央 App：" + e; })])
+        hub("ping").then(function (x) { return "✅ 中央 App 正常（" + x.ver + "，管理員 " + x.admin + (x.caller && x.caller !== x.admin ? "，後台用 " + x.caller + " 加金鑰連線" : "") + "）"; }, function (e) { return "❌ 中央 App：" + e; })])
         .then(function (r) { $("cRes").innerHTML = r.map(esc).join("<br>"); busy(b, false); });
+    };
+    $("kGen").onclick = function () {
+      if (c.hasKey && !confirm("重新產生後，中央 App 裡的舊金鑰就不能用了，要再貼一次新的。確定？")) return;
+      api("genKey", { device: device }).then(function (r) {
+        c.hasKey = true;
+        $("kOut").innerHTML = '<label class="f" style="margin-top:10px">金鑰（只會顯示這一次，現在就複製）<input type="text" id="kVal" readonly value="' + esc(r.key) + '"></label><button class="btn full" id="kCopy">複製金鑰</button>';
+        $("kCopy").onclick = function () {
+          var v = $("kVal"); v.select();
+          (navigator.clipboard ? navigator.clipboard.writeText(v.value) : Promise.reject()).then(function () { toast("已複製，去中央 App 貼上"); }, function () { try { document.execCommand("copy"); toast("已複製"); } catch (e) { toast("請長按欄位手動複製", true); } });
+        };
+      }).catch(function (e) { toast(e, true); });
     };
     $("pf").onsubmit = function (e) {
       e.preventDefault();
