@@ -191,7 +191,7 @@ function enter() {
   $("nav").classList.remove("hidden");
   $("nav").innerHTML = TABS.map(function (t) { return '<button data-t="' + t[0] + '"><span class="ic">' + t[1] + "</span>" + t[2] + (t[0] === "feedback" ? '<span class="dot hidden" id="fbDot"></span>' : t[0] === "errors" ? '<span class="dot hidden" id="erDot"></span>' : "") + "</button>"; }).join("");
   $("nav").querySelectorAll("button").forEach(function (b) { b.onclick = function () { go(b.dataset.t); }; });
-  api("me").then(function (d) { S.cfg = d.cfg; $("hdrSub").textContent = "已登入：" + d.user; if (!d.cfg.scriptId || !d.cfg.hubUrl) { toast("先到「設定」填中央 App 的資料"); go("cfg"); } else go(S.tab); })
+  api("me").then(function (d) { S.cfg = d.cfg; try { themeSync(d.theme); } catch (te) {} $("hdrSub").textContent = "已登入：" + d.user; if (!d.cfg.scriptId || !d.cfg.hubUrl) { toast("先到「設定」填中央 App 的資料"); go("cfg"); } else go(S.tab); })
     .catch(function (e) { toast(e, true); });
   // 有沒有沒看過的意見／錯誤（小紅點）
   hub("feedback").then(function (d) { if ((d.list || []).some(function (f) { return !f.read; })) $("fbDot").classList.remove("hidden"); }).catch(function () {});
@@ -417,11 +417,12 @@ function tCfg() {
       '<div class="card"><h2>改密碼</h2><form id="pf"><input type="text" name="username" autocomplete="username" value="' + esc(d.user) + '" class="hidden">' +
       '<label class="f">原本的密碼<input type="password" id="pOld" autocomplete="current-password"></label><label class="f">新密碼<input type="password" id="pNew" autocomplete="new-password"></label>' +
       '<label class="f">再輸入一次<input type="password" id="pNew2" autocomplete="new-password"></label><button class="btn full" type="submit">更改密碼</button></form></div>' +
-      '<div class="card"><h2>外觀 <span class="label">只改這台裝置</span></h2>' +
+      '<div class="card"><h2>外觀 <span class="label">' + (T.own ? "只改這台裝置" : "所有裝置同步") + '</span></h2>' +
       '<div class="label" style="margin-bottom:6px">主題顏色</div><div class="row" id="thSw" style="flex-wrap:wrap;gap:10px">' + THEMES.map(function (t) { return '<button class="swatch' + (T.brand === t[1] ? " on" : "") + '" title="' + t[0] + '" data-c="' + t[1] + '" style="background:' + t[1] + '"></button>'; }).join("") +
       '<label class="swatch" style="background:conic-gradient(red,yellow,lime,cyan,blue,magenta,red);position:relative;overflow:hidden" title="自訂"><input type="color" id="thCustom" value="' + esc(T.brand) + '" style="opacity:0;position:absolute;inset:0;width:100%;height:100%"></label></div>' +
       '<label class="f" style="margin-top:12px">深色／淺色<select id="thMode"><option value="">跟手機設定</option><option value="light"' + (T.mode === "light" ? " selected" : "") + '>淺色</option><option value="dark"' + (T.mode === "dark" ? " selected" : "") + ">深色</option></select></label>" +
       '<div class="label" style="margin:4px 0 6px">背景圖片</div><div class="row"><label class="btn ghost" style="position:relative;overflow:hidden">選一張照片<input type="file" id="thImg" accept="image/*" style="opacity:0;position:absolute;inset:0"></label>' + (T.bg ? '<button class="btn ghost" id="thNoImg">拿掉背景</button>' : "") + "</div>" +
+      '<div class="check" style="margin-top:12px"><input type="checkbox" id="thOwn"' + (T.own ? " checked" : "") + '><label for="thOwn">這台裝置用自己的外觀<br><span class="label">不勾＝所有裝置同步（背景圖會壓小一點）；勾了＝只改這台，背景可以比較清楚</span></label></div>' +
       (T.bg ? '<label class="f" style="margin-top:10px">背景變暗（字比較看得清楚）<input type="range" id="thDim" min="0" max="0.8" step="0.05" value="' + T.dim + '" style="width:100%"></label>' : "") + "</div>" +
       '<div class="card"><h2>手機怎麼開</h2><div class="label">在手機打開下面這個連結，後台網址會自動設好：</div>' +
       '<input type="text" readonly id="phLink" value="' + esc(location.origin + location.pathname + "#u=" + encodeURIComponent(S.url)) + '" style="font-size:12px"><button class="btn ghost full" id="phCopy" style="margin-top:8px">複製連結（傳給自己的手機）</button>' +
@@ -441,7 +442,12 @@ function tCfg() {
     $("thCustom").onchange = function () { T.brand = this.value; themeSave(); go("cfg"); };
     $("thMode").onchange = function () { T.mode = this.value; themeSave(); };
     $("thImg").onchange = function () { var f = this.files[0]; if (f) bgFromFile(f); };
-    if ($("thNoImg")) $("thNoImg").onclick = function () { T.bg = ""; themeSave(); go("cfg"); };
+    if ($("thNoImg")) $("thNoImg").onclick = function () { T.bg = ""; themeSave(true); go("cfg"); };
+    $("thOwn").onchange = function () {
+      T.own = this.checked; themeLocal();
+      if (!T.own) { T.sv = 0; api("me").then(function (d) { if (d.theme) themeSync(d.theme); else themeSave(true); }).catch(function () {}); }
+      toast(T.own ? "這台裝置之後用自己的外觀" : "這台裝置改成跟其他裝置同步");
+    };
     if ($("thDim")) $("thDim").oninput = function () { T.dim = Number(this.value); themeSave(); };
     $("phCopy").onclick = function () { var v = $("phLink"); v.select(); (navigator.clipboard ? navigator.clipboard.writeText(v.value) : Promise.reject()).then(function () { toast("已複製，用 LINE 或 Email 傳給自己，在手機打開"); }, function () { try { document.execCommand("copy"); toast("已複製"); } catch (e) { toast("請長按欄位手動複製", true); } }); };
     installBind();
@@ -524,7 +530,7 @@ function installIos() {
 
 // ---------- 外觀（存在這台裝置） ----------
 var THEMES = [["綠", "#1f5f4a"], ["藍", "#1e4fa3"], ["靛", "#3b3f9e"], ["紫", "#6a3fa0"], ["粉", "#b0306a"], ["紅", "#a3322b"], ["橘", "#b4581b"], ["金", "#8a6a12"], ["灰", "#3d4650"], ["黑", "#15181c"]];
-var T = { brand: "#1f5f4a", mode: "", bg: "", dim: 0.35 };
+var T = { brand: "#1f5f4a", mode: "", bg: "", dim: 0.35, own: false, sv: 0, bgId: "" };
 try { var t0 = JSON.parse(localStorage.getItem("adm_theme") || "null"); if (t0) T = Object.assign(T, t0); } catch (e) {}
 function mix(hex, w, a) { // hex 跟白色（w=255）或黑色（w=0）混 a 比例
   var n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255;
@@ -542,19 +548,45 @@ function themeApply() {
   if (T.bg) { document.body.style.setProperty("--bgimg", "url(" + T.bg + ")"); document.body.style.setProperty("--dim", String(T.dim)); }
   else document.body.style.removeProperty("--bgimg");
 }
-function themeSave() {
-  try { localStorage.setItem("adm_theme", JSON.stringify(T)); } catch (e) { toast("這台裝置存不下（圖片太大？），只有這次有效", true); }
-  themeApply();
+function themeLocal() { try { localStorage.setItem("adm_theme", JSON.stringify(T)); } catch (e) { toast("這台裝置存不下（圖片太大？），只有這次有效", true); } }
+// 存起來；沒有勾「這台用自己的」就同步到後台（withBg＝背景圖也有改）
+var THEME_TIMER = null;
+function themeSave(withBg) {
+  themeLocal(); themeApply();
+  if (T.own || !S.token) return;
+  clearTimeout(THEME_TIMER);
+  var arg = { brand: T.brand, mode: T.mode, dim: T.dim };
+  if (withBg) arg.bg = T.bg;
+  THEME_TIMER = setTimeout(function () {
+    api("themeSet", arg).then(function (m) { T.sv = m.theme.ver; T.bgId = m.theme.bgId || ""; themeLocal(); })
+      .catch(function (e) { toast("外觀沒有同步到其他裝置：" + e, true); });
+  }, withBg ? 0 : 700);
+}
+// 登入後：別台裝置改過外觀，就套用（背景圖有變才下載）
+function themeSync(meta) {
+  if (T.own || !meta || meta.ver === T.sv) return;
+  var apply = function (bg) {
+    T.brand = meta.brand || T.brand; T.mode = meta.mode || ""; T.dim = meta.dim === undefined ? T.dim : meta.dim;
+    if (bg !== undefined) { T.bg = bg; T.bgId = meta.bgId || ""; }
+    T.sv = meta.ver; themeLocal(); themeApply();
+    if (S.tab === "cfg" && $("thSw")) go("cfg");
+  };
+  if ((meta.bgId || "") === (T.bgId || "")) return apply();
+  if (!meta.bgId) return apply("");
+  api("themeGet").then(function (r) { apply(r.theme && r.theme.bg || ""); }).catch(function () { apply(); });
 }
 // 照片縮小再存（不然太大存不進去）
 function bgFromFile(f) {
   var img = new Image(), url = URL.createObjectURL(f);
   img.onload = function () {
-    var max = 1400, w = img.width, h = img.height, k = Math.min(1, max / Math.max(w, h));
+    // 要同步的話存小一點（後台空間有限），這台自己用就存大一點
+    var max = T.own ? 1400 : 820, w = img.width, h = img.height, k = Math.min(1, max / Math.max(w, h));
     var c = document.createElement("canvas"); c.width = Math.round(w * k); c.height = Math.round(h * k);
     c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
     URL.revokeObjectURL(url);
-    T.bg = c.toDataURL("image/jpeg", 0.78); themeSave(); go("cfg"); toast("背景已換");
+    var q = T.own ? 0.78 : 0.72, data = c.toDataURL("image/jpeg", q);
+    while (!T.own && data.length > 300000 && q > 0.35) { q -= 0.1; data = c.toDataURL("image/jpeg", q); }
+    T.bg = data; themeSave(true); go("cfg"); toast(T.own ? "背景已換" : "背景已換，其他裝置下次打開也會變");
   };
   img.onerror = function () { toast("這張圖片讀不出來", true); };
   img.src = url;
