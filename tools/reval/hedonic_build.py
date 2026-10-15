@@ -47,6 +47,12 @@ def build(df):
     X["備註:頂樓加蓋"] = df.n_roof * 1.0
     X["備註:含傢俱/裝潢"] = df.n_furn * 1.0
     X["備註:夾層"] = df.n_mezz * 1.0
+    if "nfl" in df:
+        X["多層"] = (df.nfl > 1) * 1.0
+        X["多層x含1樓"] = ((df.nfl > 1) & (df.fl == 1)) * 1.0
+        X["多層x商"] = ((df.nfl > 1) & (df.get("use", "住") == "商")) * 1.0
+        X["含騎樓"] = df.arcade * 1.0
+        X["帶租約"] = df.lease * 1.0
     if INTER:
         for t in ("華廈", "公寓"):
             X["1樓x" + t] = ((df.fl == 1) & (df.typ == t)) * 1.0

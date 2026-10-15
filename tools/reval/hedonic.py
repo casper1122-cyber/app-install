@@ -13,8 +13,17 @@ def cnum(s):
         return (CN.get(a, 1) if a else 1) * 10 + (CN.get(b, 0) if b else 0)
     return CN.get(s)
 
+# 移轉層次常寫成「一層，騎樓」「五層，陽臺」「一層，二層」：拆開，只留樓層，騎樓另外記
+def floors_of(s):
+    out = []
+    for tok in re.split(r"[，,、]", s or ""):
+        tok = tok.strip()
+        if re.fullmatch(r"[一二三四五六七八九十0-9]+層", tok):
+            n = cnum(tok)
+            if n: out.append(n)
+    return sorted(set(out))
 MIN_T = int(sys.argv[2]) if len(sys.argv) > 2 and sys.argv[2].isdigit() else 1130701
-BAD = ["預售屋、或土地及建物分件", "親友", "特殊關係", "毛胚", "未登記建物", "樂齡", "預售當時價格", "瑕疵", "凶宅", "急買急賣", "債權債務", "法拍", "受債權", "政府機關", "畸零", "含租約"]
+BAD = ["預售屋、或土地及建物分件", "親友", "特殊關係", "毛胚", "未登記建物", "樂齡", "預售當時價格", "瑕疵", "凶宅", "急買急賣", "債權債務", "法拍", "受債權", "政府機關", "畸零"]
 rows = []
 SEEN = set()
 for d in sorted(glob.glob(D + "/*/")):
@@ -35,7 +44,9 @@ for d in sorted(glob.glob(D + "/*/")):
             if any(b in note for b in BAD): continue
             typ = x["建物型態"].split("(")[0]
             if typ not in ("住宅大樓", "華廈", "公寓", "套房", "透天厝"): continue
-            fl, tot = cnum(x["移轉層次"]), cnum(x["總樓層數"])
+            fls = floors_of(x["移轉層次"]); tot = cnum(x["總樓層數"])
+            fl = fls[0] if fls else None; nfl = max(1, len(fls))
+            arcade = "騎樓" in x["移轉層次"]
             if typ == "透天厝":
                 if not tot: continue
                 fl = 1  # 透天：整棟
@@ -58,7 +69,7 @@ for d in sorted(glob.glob(D + "/*/")):
                 ping=barea / 3.30579, unit=unit, hasp=hasp, pnoprice=hasp and pprice == 0, ptype=x["車位類別"],
                 pprice=pprice, elev=x["電梯"] == "有", mgmt=x["有無管理組織"] == "有", pub=pub,
                 n_add="增建" in note, n_bal="陽台外推" in note, n_roof="頂樓加蓋" in note or "頂加" in note,
-                n_furn="傢俱" in note or "家具" in note or "裝潢" in note, n_mezz="夾層" in note,
+                n_furn="傢俱" in note or "家具" in note or "裝潢" in note, n_mezz="夾層" in note, nfl=nfl, arcade=arcade, lease="租約" in note,
                 rooms=int(x["建物現況格局-房"] or 0), addr=x["土地位置建物門牌"], use=use, land=land, parea=parea / 3.30579))
 df = pd.DataFrame(rows)
 def road(a):

@@ -30,7 +30,8 @@ for d in DIRS:
                 if any(b in x["備註"] for b in SPECIAL): stat["special"] += 1; continue
                 name = norm(x["建案名稱"])
                 if not name: stat["noname"] += 1; continue
-                fl, tot = cnum(x["移轉層次"]), cnum(x["總樓層數"])
+                fls = sorted({cnum(t.strip()) for t in re.split(r"[，,、]", x["移轉層次"]) if re.fullmatch(r"[一二三四五六七八九十0-9]+層", t.strip())} - {None})
+                fl, tot = (fls[0] if fls else None), cnum(x["總樓層數"])
                 if not fl or not tot or fl > tot: stat["floor"] += 1; continue
                 area = float(x["建物移轉總面積平方公尺"] or 0); parea = float(x["車位移轉總面積平方公尺"] or 0)
                 price = float(x["總價元"] or 0); pprice = float(x["車位總價元"] or 0)

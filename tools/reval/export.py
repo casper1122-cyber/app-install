@@ -7,6 +7,20 @@ exec(src)
 LEVELS = [("road", 3), ("blk", 2), ("side", 2), ("blk2", 2), ("lane", 2), ("near20", 2), ("bldg", 1)]
 cols, b, eff, sd = train(df)
 B = dict(zip(cols, b))
+# 1 樓店面的「在地店面行情」：店面賣多少很看是哪條路（大馬路商圈 vs 住宅區），所以另外用店面成交再算一層地段效果
+Xall = build(df)
+for c in cols:
+    if c not in Xall.columns: Xall[c] = 0.0
+pall = Xall[cols].values @ b
+# 店面的基準：不含「附近門牌」「同一棟」（那兩層多半是樓上住宅，店面行情要看整條路／這一段）
+for lv in ["road", "blk", "side", "blk2", "lane"]: pall = pall + df[lv].map(eff[lv]).fillna(0).values
+SHOP_LV = ["road", "blk", "side"]
+shopm = ((df.use == "商") & (df.fl == 1)).values
+rs = pd.Series(df.lu.values - pall, index=df.index)[shopm]; dsh = df[shopm]
+shop_eff = {}
+for lv in SHOP_LV:
+    rc = rs.clip(-0.5, 0.5); g = rc.groupby(dsh[lv]); e = g.sum() / (g.size() + 0.5); shop_eff[lv] = e
+    rs = rs - dsh[lv].map(e).fillna(0)
 feat = {k: round(float(v), 5) for k, v in B.items() if not k.startswith(("d_", "m_", "const", "da_"))}
 distAge = {k[3:]: round(float(v), 5) for k, v in B.items() if k.startswith("da_")}
 dists = sorted(df.dist.unique())
@@ -75,7 +89,7 @@ for k, g in dfa.groupby("addrk"):
     top = g.groupby(["tot", "by"]).size().idxmax(); g2 = g[(g.tot == top[0]) & (g.by == top[1])]
     pk = g2[g2.hasp & (g2.pprice > 0)]
     park = {t: int(round(v, -4)) for t, v in pk.groupby("ptype").pprice.median().items()} if len(pk) else {}
-    BI[k] = [int(top[0]), int(top[1]), TYP.index(g2.typ.mode()[0]), int(g2.elev.mean() >= .5), int(g2.mgmt.mean() >= .5), round(float(g2.pub.median()), 3), park, int(len(g2))]  # 檔名用英數字，Windows 解壓縮、GitHub 上傳都不會出問題
+    BI[k] = [int(top[0]), int(top[1]), TYP.index(g2.typ.mode()[0]), int(g2.elev.mean() >= .5), int(g2.mgmt.mean() >= .5), (round(float(g2.pub.median()), 3) if g2.pub.notna().any() else None), park, int(len(g2))]  # 檔名用英數字，Windows 解壓縮、GitHub 上傳都不會出問題
 tot = 0
 for d in dists:
     o = {}
@@ -85,10 +99,11 @@ for d in dists:
     bp = bpub[[k.startswith(d) for k in bpub.index]]
     o["pub"] = {k[len(d):]: round(float(v), 3) for k, v in bp.items() if v == v}
     o["bi"] = {k[len(d):]: v for k, v in BI.items() if k.startswith(d)}
+    o["shop"] = {lv: {k[len(d):]: round(float(v), 3) for k, v in shop_eff[lv].items() if isinstance(k, str) and k.startswith(d) and abs(v) >= 0.003} for lv in SHOP_LV}
     rr = recent[recent.dist == d].sort_values("ym", ascending=False)
     o["near"] = {k[len(d):]: [[int(x.ym), x.sa, int(x.fl), int(x.tot), round(float(x.age), 1), round(float(x.ping), 1), int(round(x.unit, -2)), TY4.index(x.typ) if x.typ in TY4 else 0, US.index(x.use)] for x in g.head(10).itertuples()]
                  for k, g in rr.groupby("blk")}
-    s = json.dumps(o, ensure_ascii=False, separators=(",", ":"))
+    s = json.dumps(o, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
     open(OUT + "/d/" + base["files"][d], "w").write(s); tot += len(s.encode())
 json.dump(base, open(OUT + "/base.json", "w"), ensure_ascii=False, separators=(",", ":"))
 print("districts", len(dists), "total KB", tot // 1024, "base KB", os.path.getsize(OUT + "/base.json") // 1024)
@@ -98,6 +113,13 @@ X = build(df).loc[smp.index]
 pred = X[cols].values @ b
 for lv, _ in LEVELS: pred = pred + smp[lv].map(eff[lv]).fillna(0).values
 mfx = np.array([B.get("m_%s_%d" % (c, y), 0.0) for c, y in zip(smp.city, smp.ym)])
+# 1 樓店面：跟 App 一樣，不含附近門牌／同一棟，改加店面層
+shop_s = ((smp.use == "商") & (smp.fl == 1)).values
+if shop_s.any():
+    ps = X[cols].values @ b
+    for lv in ["road", "blk", "side", "blk2", "lane"]: ps = ps + smp[lv].map(eff[lv]).fillna(0).values
+    for lv in SHOP_LV: ps = ps + smp[lv].map(lambda k, lv=lv: float(round(shop_eff[lv].get(k, 0.0), 3)) if isinstance(k, str) and abs(shop_eff[lv].get(k, 0.0)) >= 0.003 else 0.0).values
+    pred = np.where(shop_s, ps, pred)
 smp = smp.assign(py=pred - mfx)  # 去掉月份效果，JS 那邊也不加月份（只比結構）
-smp[["city", "dist", "addr", "typ", "use", "land", "fl", "tot", "age", "ym", "ping", "pub", "hasp", "pnoprice", "elev", "mgmt", "rooms",
+smp[["city", "dist", "addr", "typ", "use", "land", "nfl", "arcade", "lease", "fl", "tot", "age", "ym", "ping", "pub", "hasp", "pnoprice", "elev", "mgmt", "rooms",
      "n_add", "n_bal", "n_roof", "n_furn", "n_mezz", "py", "lu"]].to_json(OUT + "/../sample_check.json", orient="records", force_ascii=False)
