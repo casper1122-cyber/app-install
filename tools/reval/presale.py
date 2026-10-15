@@ -12,6 +12,7 @@ def cnum(s):
         a, b = s.split("十", 1)
         return (CN.get(a, 1) if a else 1) * 10 + (CN.get(b, 0) if b else 0)
     return CN.get(s)
+SPECIAL = ["親友", "特殊關係", "員工", "急買急賣", "債權", "債務", "瑕疵", "凶宅", "法拍", "受債權", "政府機關", "畸零", "含租約", "毛胚", "未登記", "樂齡", "地上權"]
 PT = ["坡道平面", "坡道機械", "升降平面", "升降機械", "塔式車位", "一樓平面", "其他"]
 def norm(n): return re.sub(r"[\s　]", "", n or "")
 seen = set(); data = collections.defaultdict(lambda: collections.defaultdict(lambda: {"a": collections.Counter(), "r": []}))
@@ -26,6 +27,7 @@ for d in DIRS:
                 if not x["交易標的"].startswith("房地") or "住" not in x["主要用途"]: stat["notres"] += 1; continue
                 m = re.match(r"土地\d+建物(\d+)車位(\d+)", x["交易筆棟數"])
                 if not m or m.group(1) != "1" or int(m.group(2)) > 2: stat["multi"] += 1; continue
+                if any(b in x["備註"] for b in SPECIAL): stat["special"] += 1; continue
                 name = norm(x["建案名稱"])
                 if not name: stat["noname"] += 1; continue
                 fl, tot = cnum(x["移轉層次"]), cnum(x["總樓層數"])
@@ -52,13 +54,19 @@ dists = sorted(data)
 base["pfiles"] = {d: "p%02d.json" % i for i, d in enumerate(dists)}
 base["pthrough"] = "%d/%02d" % (maxym // 100, maxym % 100)
 base["ptypes"] = PT
-tot = 0; nproj = 0
+tot = 0; nproj = 0; stat2 = collections.Counter()
 for d in dists:
     o = {}
     for name, P in data[d].items():
         P["r"].sort()
+        # 同建案裡偏離中位數 30% 以上的（多半是沒註明的特殊交易、店面樓層）不參考
+        us = sorted(r[3] for r in P["r"]); med = us[len(us) // 2]
+        keep = [r for r in P["r"] if 0.7 * med <= r[3] <= 1.3 * med]
+        stat2["outlier"] += len(P["r"]) - len(keep); P["r"] = keep
+        if not keep: continue
         o[name] = {"a": P["a"].most_common(1)[0][0], "r": P["r"]}; nproj += 1
     s = json.dumps(o, ensure_ascii=False, separators=(",", ":"))
     open(OUT + "/p/" + base["pfiles"][d], "w").write(s); tot += len(s.encode())
 json.dump(base, open(OUT + "/base.json", "w"), ensure_ascii=False, separators=(",", ":"))
+print("project outliers dropped", dict(stat2))
 print("districts", len(dists), "projects", nproj, "KB", tot // 1024, "through", base["pthrough"])

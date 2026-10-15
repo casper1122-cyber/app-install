@@ -33,7 +33,7 @@ print("buildings with >=2 sales:", (df.bldg.value_counts() >= 2).sum(), "rows in
 def ols(X, y):
     b, *_ = np.linalg.lstsq(X, y, rcond=None); return b
 
-LEVELS = [("road", 5), ("blk", 3), ("lane", 3), ("bldg", 1)]
+LEVELS = [("road", 3), ("blk", 2), ("lane", 2), ("bldg", 1)]
 def train(tr):
     X = build(tr); cols = X.columns
     b = ols(X.values, tr.lu.values)
@@ -41,7 +41,8 @@ def train(tr):
     eff = {}
     r = pd.Series(res, index=tr.index)
     for lv, k in LEVELS:
-        g = r.groupby(tr[lv]); e = g.sum() / (g.size() + k)
+        rc = r.clip(-0.2, 0.2)  # 單筆偏離太多（沒註明的特殊交易）最多只算 ±20%，不讓它把整棟帶歪
+        g = rc.groupby(tr[lv]); e = g.sum() / (g.size() + k)
         eff[lv] = e
         r = r - tr[lv].map(e).fillna(0)
     return cols, b, eff, r.std()

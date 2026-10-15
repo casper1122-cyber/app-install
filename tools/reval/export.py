@@ -12,9 +12,13 @@ dists = sorted(df.dist.unique())
 distfx = {d: round(float(B.get("d_" + d, 0.0)), 5) for d in dists}
 yms = sorted(df.ym.unique())
 level = {}
+levelFrom = {}
 for c in sorted(df.city.unique()):
-    last = yms[-3:]
+    # 市場水準：用最近 1 個月；那個月成交太少（<200 筆）就用最近 2 個月
+    n1 = int(((df.city == c) & (df.ym == yms[-1])).sum())
+    last = yms[-1:] if n1 >= 200 else yms[-2:]
     level[c] = round(float(np.mean([B.get("m_%s_%d" % (c, y), 0.0) for y in last])), 5)
+    levelFrom[c] = "%d/%02d" % (last[0] // 100, last[0] % 100)
 # 車位：各縣市各類型中位數（只用有另外計價的）
 p = df[df.hasp & (df.pprice > 0)].copy()
 p["t"] = p.ptype.where(p.ptype.isin(["坡道平面", "坡道機械", "升降平面", "升降機械", "塔式車位", "一樓平面"]), "其他")
@@ -27,7 +31,7 @@ for n, m in (("seen", seen), ("new", ~seen)):
     bands[n] = {t: round(float(a[m & (cvd.typ == t)].quantile(.8)), 3) for t in ("住宅大樓", "華廈", "公寓")}
 base = {"v": 1, "through": "%d/%02d" % (yms[-1] // 100, yms[-1] % 100), "from": "%d/%02d" % (yms[0] // 100, yms[0] % 100),
         "n": int(len(df)), "const": round(float(B["const"]), 5), "pubMed": round(float(df.pub.median()), 4),
-        "feat": feat, "dist": distfx, "level": level, "park": park, "bands": bands,
+        "feat": feat, "dist": distfx, "level": level, "levelFrom": levelFrom, "park": park, "bands": bands,
         "cnt": {d: int(c) for d, c in df.dist.value_counts().items()}}
 os.makedirs(OUT + "/d", exist_ok=True)
 import glob as _g
