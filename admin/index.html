@@ -218,7 +218,7 @@ function tDeploy() {
       "<span>正式網址用的版本</span><b>第 " + esc(d.current) + " 版</b>" +
       "<span>中央專案裡的檔案</span><b>" + esc(d.headVer || "—") + "</b></div>" +
       (live && d.headVer && live !== d.headVer ? '<div class="pill warn" style="margin-top:8px;white-space:normal">正式網址跑的版本跟專案裡的檔案不一樣（可能上傳了還沒部署，或剛退回舊版）</div>' : "") + "</div>";
-    h += '<div class="card"><h2>上傳更新</h2><div class="label">選我傳給你的檔案（核心.gs、App.html，有時候還有 中央.gs、appsscript-中央.json），確認每個檔案要取代中央專案裡的哪一個，再按「上傳並部署」。</div>' +
+    h += '<div class="card"><h2>上傳更新</h2><div class="label">選我傳給你的檔案（核心.gs、App.html，有時候還有 中央.gs、appsscript-中央.json）。可以一次選好幾個，也可以一個一個選，選過的會留在下面。確認每個檔案要取代中央專案裡的哪一個，再按「上傳並部署」。</div>' +
       '<input type="file" id="upF" multiple style="margin:12px 0">' +
       '<details style="margin-bottom:10px"><summary class="label" style="cursor:pointer">📋 不想下載？改用複製貼上</summary>' +
       '<div class="label" style="margin:8px 0">在對話裡打開我傳的檔案 → 全選 → 複製，貼到下面，選要取代哪一個，再按「加入」。每個檔案各貼一次。</div>' +
@@ -256,8 +256,12 @@ function guessTarget(fname, files) {
 function readFiles(list) {
   var files = (S.info && S.info.files) || [];
   Promise.all([].map.call(list, function (f) { return f.text().then(function (t) { return { fname: f.name, source: t, target: guessTarget(f.name, files) }; }); })).then(function (arr) {
-    UP.files = UP.files.filter(function (u) { return /^貼上的/.test(u.fname); }).concat(arr);
+    // 一次選一個也可以：新選的加進來，同一個目標的舊檔換掉，其他保留
+    var tg = arr.map(function (u) { return u.target; });
+    UP.files = UP.files.filter(function (u) { return !(u.target && tg.indexOf(u.target) >= 0) && arr.every(function (n) { return n.fname !== u.fname; }); }).concat(arr);
     drawMap();
+    try { $("upF").value = ""; } catch (e) {} // 清掉，才能再選下一個（同一個檔名也能重選）
+    toast("已加入 " + arr.length + " 個檔案，可以再選下一個");
   });
 }
 function drawMap() {
@@ -265,11 +269,12 @@ function drawMap() {
   (function (arr) {
     $("upMap").innerHTML = arr.map(function (u, i) {
       var v = (u.source.match(/LIB_VERSION_\s*=\s*"([^"]+)"/) || [])[1];
-      return '<div class="filemap"><div><b>' + esc(u.fname) + '</b> <span class="label">' + Math.round(u.source.length / 1024) + " KB" + (v ? "・版本 " + esc(v) : "") + "</span></div>" +
+      return '<div class="filemap"><div style="display:flex;justify-content:space-between;gap:8px"><span><b>' + esc(u.fname) + '</b> <span class="label">' + Math.round(u.source.length / 1024) + " KB" + (v ? "・版本 " + esc(v) : "") + '</span></span><button class="btn ghost sm" data-rm="' + i + '" style="flex:0 0 auto">移除</button></div>' +
         '<label class="f" style="margin:6px 0 0">取代中央專案裡的<select data-i="' + i + '"><option value="">（不要上傳這個）</option>' +
         files.map(function (f) { return '<option value="' + esc(f.name) + '"' + (f.name === u.target ? " selected" : "") + ">" + esc(f.name) + "（" + esc(f.type) + "）</option>"; }).join("") + "</select></label></div>";
     }).join("");
     $("upMap").querySelectorAll("select").forEach(function (s) { s.onchange = function () { UP.files[Number(s.dataset.i)].target = s.value; upCheck(); }; });
+    $("upMap").querySelectorAll("[data-rm]").forEach(function (b) { b.onclick = function () { UP.files.splice(Number(b.dataset.rm), 1); drawMap(); }; });
     upCheck();
   })(UP.files);
 }
