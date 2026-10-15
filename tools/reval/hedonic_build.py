@@ -55,5 +55,16 @@ def build(df):
         X["log坪"] = np.log(df.ping)
         X["房數多"] = (df.rooms >= 4) * 1.0
         X["沒有隔間房"] = (df.rooms == 0) * 1.0
+    # 各行政區自己的折舊速度（地價高的地方，房子舊了跌得比較少）
+    DA = pd.DataFrame({"da_" + x: (df.dist == x) * np.minimum(df.age, 50) / 10 for x in sorted(df.dist.unique())}, index=df.index)
+    # 透天、辦公、店面（商業用）
+    th = (df.typ == "透天厝") if "typ" in df else False
+    use = df["use"] if "use" in df else pd.Series("住", index=df.index)
+    land = df["land"] if "land" in df else pd.Series(np.nan, index=df.index)
+    SG = pd.DataFrame({"透天": th * 1.0, "透天x屋齡": th * np.minimum(df.age, 50) / 10, "透天xlog地": th * np.log(land.fillna(1) + 1),
+        "透天xlog坪": th * np.log(df.ping), "透天x層": th * df.tot,
+        "辦": (use == "辦") * 1.0, "商": (use == "商") * 1.0, "商x1F": ((use == "商") & (df.fl == 1)) * 1.0,
+        "辦x1F": ((use == "辦") & (df.fl == 1)) * 1.0, "商x2F+": ((use == "商") & (df.fl > 1)) * 1.0}, index=df.index)
+    X = pd.concat([X, DA, SG], axis=1)
     return X
 

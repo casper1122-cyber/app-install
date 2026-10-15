@@ -25,7 +25,8 @@ for d in sorted(glob.glob(D + "/*/")):
             if x["編號"] in SEEN: continue
             SEEN.add(x["編號"])
             if not x["交易標的"].startswith("房地"): continue
-            if x["主要用途"] != "住家用": continue
+            use = {"住家用": "住", "辦公用": "辦", "商業用": "商"}.get(x["主要用途"])
+            if not use: continue
             m = re.match(r"土地\d+建物(\d+)車位(\d+)", x["交易筆棟數"])
             if not m or m.group(1) != "1" or int(m.group(2)) > 1: continue
             t = int(x["交易年月日"] or 0)
@@ -33,9 +34,12 @@ for d in sorted(glob.glob(D + "/*/")):
             note = x["備註"]
             if any(b in note for b in BAD): continue
             typ = x["建物型態"].split("(")[0]
-            if typ not in ("住宅大樓", "華廈", "公寓", "套房"): continue
+            if typ not in ("住宅大樓", "華廈", "公寓", "套房", "透天厝"): continue
             fl, tot = cnum(x["移轉層次"]), cnum(x["總樓層數"])
-            if not fl or not tot or fl > tot: continue
+            if typ == "透天厝":
+                if not tot: continue
+                fl = 1  # 透天：整棟
+            elif not fl or not tot or fl > tot: continue
             by = x["建築完成年月"]
             if not re.match(r"^\d{6,7}$", by): continue
             byear = int(by[:-4]) + 1911; tyear = t // 10000 + 1911 + ((t // 100) % 100 - 0.5) / 12
@@ -49,12 +53,13 @@ for d in sorted(glob.glob(D + "/*/")):
             unit = (price - pprice) / (barea / 3.30579)
             main, att, bal = float(x["主建物面積"] or 0), float(x["附屬建物面積"] or 0), float(x["陽台面積"] or 0)
             pub = 1 - (main + att + bal) / barea if main > 0 else np.nan
+            land = float(x["土地移轉總面積平方公尺"] or 0) / 3.30579
             rows.append(dict(city=city, dist=city + x["鄉鎮市區"], ym=t // 100, typ=typ, fl=fl, tot=tot, age=max(0, age),
                 ping=barea / 3.30579, unit=unit, hasp=hasp, pnoprice=hasp and pprice == 0, ptype=x["車位類別"],
                 pprice=pprice, elev=x["電梯"] == "有", mgmt=x["有無管理組織"] == "有", pub=pub,
                 n_add="增建" in note, n_bal="陽台外推" in note, n_roof="頂樓加蓋" in note or "頂加" in note,
                 n_furn="傢俱" in note or "家具" in note or "裝潢" in note, n_mezz="夾層" in note,
-                rooms=int(x["建物現況格局-房"] or 0), addr=x["土地位置建物門牌"]))
+                rooms=int(x["建物現況格局-房"] or 0), addr=x["土地位置建物門牌"], use=use, land=land, parea=parea / 3.30579))
 df = pd.DataFrame(rows)
 def road(a):
     a = re.sub(r"^(臺北市|新北市)?[^區]{1,3}區", "", a)
@@ -66,11 +71,12 @@ print("rows", len(df))
 df = df[(df.unit > 80000) & (df.unit < 4000000)]
 # trim per district 2% tails on log unit
 df["lu"] = np.log(df.unit)
-g = df.groupby("dist").lu
+df["segk"] = df.dist + "|" + df.use + "|" + (df.typ == "透天厝").astype(str)
+g = df.groupby("segk").lu
 df = df[(df.lu >= g.transform(lambda s: s.quantile(.02))) & (df.lu <= g.transform(lambda s: s.quantile(.98)))]
 df = df[df.groupby("dist").lu.transform("size") >= 30]
 print("clean", len(df), df.city.value_counts().to_dict())
-df.to_pickle(D + "/clean.pkl")
+df.to_pickle(D + "/" + (sys.argv[3] if len(sys.argv) > 3 else "clean.pkl"))
 
 def build(df):
     X = pd.DataFrame(index=df.index)
