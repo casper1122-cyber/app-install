@@ -217,6 +217,7 @@ function tDeploy() {
       "<span>正式網址在跑的</span><b>" + (live ? esc(live) : '<span class="label">問不到（中央 App 要先更新到 2026.10.31a）</span>') + "</b>" +
       "<span>正式網址用的版本</span><b>第 " + esc(d.current) + " 版</b>" +
       "<span>中央專案裡的檔案</span><b>" + esc(d.headVer || "—") + "</b></div>" +
+      (d.accessOk === false ? '<div style="margin-top:10px;padding:10px;border-radius:10px;background:var(--bad-soft);color:var(--bad)"><b>⚠️ 中央 App 現在只有部分人打得開</b><br><span style="font-size:13px">存取設定是「' + esc((d.webapp && d.webapp.access) || "?") + "／" + esc((d.webapp && d.webapp.executeAs) || "?") + '」，應該是「ANYONE／USER_ACCESSING」。其他人打開會看到「無法開啟這個檔案」。</span><button class="btn bad full" id="fixAcc" style="margin-top:8px">一鍵修正（重新部署一次）</button></div>' : "") +
       (live && d.headVer && live !== d.headVer ? '<div class="pill warn" style="margin-top:8px;white-space:normal">正式網址跑的版本跟專案裡的檔案不一樣（可能上傳了還沒部署，或剛退回舊版）</div>' : "") + "</div>";
     h += '<div class="card"><h2>上傳更新</h2><div class="label">選我傳給你的檔案（核心.gs、App.html，有時候還有 中央.gs、appsscript-中央.json）。可以一次選好幾個，也可以一個一個選，選過的會留在下面。確認每個檔案要取代中央專案裡的哪一個，再按「上傳並部署」。</div>' +
       '<input type="file" id="upF" multiple style="margin:12px 0">' +
@@ -243,6 +244,10 @@ function tDeploy() {
       $("psX").value = ""; drawMap(); toast("已加入，可以再貼下一個");
     };
     $("upGo").onclick = doDeploy;
+    if ($("fixAcc")) $("fixAcc").onclick = function () {
+      var b = this; busy(b, true, "修正中");
+      api("fixAccess", { device: device }).then(function (r) { toast("已修正並部署第 " + r.version + " 版"); setTimeout(function () { go("deploy"); }, 1200); }).catch(function (e) { toast(e, true); busy(b, false); });
+    };
   }).catch(fail);
 }
 function guessTarget(fname, files) {
@@ -292,7 +297,7 @@ function doDeploy() {
     b.innerHTML = '<span class="spin"></span> 部署中';
     return api("deploy", { desc: $("upDesc").value.trim(), device: device });
   }).then(function (r) {
-    toast("已部署第 " + r.version + " 版（" + r.desc + "）");
+    toast("已部署第 " + r.version + " 版（" + r.desc + "）" + (r.fixedAccess ? "，順便修正了存取設定" : ""));
     setTimeout(function () { go("deploy"); }, 1200);
   }).catch(function (e) { toast(e, true); busy(b, false); });
 }
