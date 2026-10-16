@@ -31,6 +31,8 @@
     if (!/^https:\/\/([a-z0-9-]+\.googleusercontent\.com|script\.google\.com)$/.test(e.origin)) return;
     // App 裡按了「更新」：把框重新載入一次（拿到新版程式，還是全螢幕）
     if (m.type === "reload") { if (f.src) { f.src = APP; } return; }
+    // App 裡有幾件事要處理：App 圖示右上角顯示數字（手機、電腦支援的才會有）
+    if (m.type === "badge") { try { var n = Number(m.n) || 0; if (navigator.setAppBadge) { if (n > 0) navigator.setAppBadge(n); else navigator.clearAppBadge(); } } catch (be) {} return; }
     if (done || m.type !== "ready") return;
     done = true;
     f.style.visibility = "visible";
