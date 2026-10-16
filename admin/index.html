@@ -184,15 +184,17 @@ $("btnLogout").onclick = function () {
 };
 
 // ---------- 登入之後 ----------
-var TABS = [["deploy", "🚀", "部署"], ["users", "👥", "使用者"], ["invites", "✉️", "邀請"], ["errors", "🐞", "錯誤"], ["feedback", "💬", "意見"], ["ann", "📢", "公告"], ["logs", "🔐", "紀錄"], ["cfg", "⚙️", "設定"]];
+var TABS = [["deploy", "🚀", "部署"], ["todo", "📅", "待辦"], ["users", "👥", "使用者"], ["invites", "✉️", "邀請"], ["errors", "🐞", "錯誤"], ["feedback", "💬", "意見"], ["ann", "📢", "公告"], ["logs", "🔐", "紀錄"], ["cfg", "⚙️", "設定"]];
 function hideNav() { $("nav").classList.add("hidden"); }
 function enter() {
   $("btnLogout").classList.remove("hidden");
   $("nav").classList.remove("hidden");
-  $("nav").innerHTML = TABS.map(function (t) { return '<button data-t="' + t[0] + '"><span class="ic">' + t[1] + "</span>" + t[2] + (t[0] === "feedback" ? '<span class="dot hidden" id="fbDot"></span>' : t[0] === "errors" ? '<span class="dot hidden" id="erDot"></span>' : "") + "</button>"; }).join("");
+  $("nav").innerHTML = TABS.map(function (t) { return '<button data-t="' + t[0] + '"><span class="ic">' + t[1] + "</span>" + t[2] + (t[0] === "feedback" ? '<span class="dot hidden" id="fbDot"></span>' : t[0] === "errors" ? '<span class="dot hidden" id="erDot"></span>' : t[0] === "todo" ? '<span class="dot hidden" id="tdDot"></span>' : "") + "</button>"; }).join("");
   $("nav").querySelectorAll("button").forEach(function (b) { b.onclick = function () { go(b.dataset.t); }; });
   api("me").then(function (d) { S.cfg = d.cfg; try { themeSync(d.theme); } catch (te) {} $("hdrSub").textContent = "已登入：" + d.user; if (!d.cfg.scriptId || !d.cfg.hubUrl) { toast("先到「設定」填中央 App 的資料"); go("cfg"); } else go(S.tab); })
     .catch(function (e) { toast(e, true); });
+  // 實價登錄該更新了：跳視窗提醒（每次登入提醒一次）
+  api("reData").then(function (r) { if (r && r.ok && r.monthNeed) { $("tdDot").classList.remove("hidden"); rePopup(r); } }).catch(function () {});
   // 有沒有沒看過的意見／錯誤（小紅點）
   hub("feedback").then(function (d) { if ((d.list || []).some(function (f) { return !f.read; })) $("fbDot").classList.remove("hidden"); }).catch(function () {});
   hub("errors").then(function (d) { var seen = store.get("adm_errseen"); if ((d.list || []).some(function (x) { return x._k > seen; })) $("erDot").classList.remove("hidden"); }).catch(function () {});
@@ -202,7 +204,7 @@ function go(t) {
   $("nav").querySelectorAll("button").forEach(function (b) { b.classList.toggle("on", b.dataset.t === t); });
   $("main").innerHTML = '<div class="card"><span class="spin"></span> 讀取中…</div>';
   window.scrollTo(0, 0);
-  ({ deploy: tDeploy, users: tUsers, invites: tInvites, errors: tErrors, feedback: tFeedback, ann: tAnn, logs: tLogs, cfg: tCfg })[t]();
+  ({ deploy: tDeploy, todo: tTodo, users: tUsers, invites: tInvites, errors: tErrors, feedback: tFeedback, ann: tAnn, logs: tLogs, cfg: tCfg })[t]();
 }
 function fail(e) { $("main").innerHTML = '<div class="card"><h2>讀取失敗</h2><div class="label">' + esc(e) + '</div><button class="btn ghost" style="margin-top:10px" onclick="go(S.tab)">再試一次</button></div>'; }
 
@@ -212,16 +214,51 @@ function reDataCard() {
   api("reData").then(function (r) {
     var el = $("reCard"); if (!el) return;
     if (!r.ok) { el.innerHTML = '<div class="card"><h2>🏠 實價登錄資料</h2><div class="label">' + esc(r.why) + "</div></div>"; return; }
-    var need = r.need || [];
-    var h = '<div class="card"' + (need.length ? ' style="border:2px solid var(--warn,#d97706)"' : "") + '><h2>🏠 實價登錄資料 ' + (need.length ? '<span class="pill warn">該更新了</span>' : '<span class="pill">最新</span>') + "</h2>" +
-      '<div class="kv"><span>目前用到</span><b>' + reSeasonText(r.season) + "</b><span>內政部已公布到</span><b>" + reSeasonText(r.avail) + "</b><span>成交資料到</span><b>" + esc(r.through) + "（預售屋 " + esc(r.pthrough) + "）</b></div>";
-    if (need.length) h += '<div style="margin-top:10px;line-height:1.7"><b>要下載的：</b>' + need.map(reSeasonText).join("、") +
-      '<ol style="margin:6px 0 0 18px;padding:0"><li>打開 <a href="https://plvr.land.moi.gov.tw/DownloadOpenData" target="_blank">實價登錄 Open Data</a> →「非本期下載」→「前季下載」</li>' +
-      "<li>選上面那一季、CSV、「進階下載」</li><li>臺北市、新北市、桃園市都勾「不動產買賣」和「預售屋買賣」（共 6 個勾）</li><li>下載的 zip 傳給 Claude，說「更新實價登錄」</li>" +
-      "<li>Claude 給你新的 re 資料夾 → 傳到 GitHub 的 app-install/re 蓋過去，App 不用重新部署</li></ol></div>";
-    else h += '<div class="label" style="margin-top:8px">下一季（' + reSeasonText(nextSeason(r.season)) + "）大約在季後第一個月中公布，到時這裡會提醒你。</div>";
+    var need = r.monthNeed;
+    var h = '<div class="card"' + (need ? ' style="border:2px solid var(--warn,#d97706)"' : "") + '><h2>🏠 實價登錄資料 ' + (need ? '<span class="pill warn">該更新了</span>' : '<span class="pill">最新</span>') + "</h2>" +
+      '<div class="kv"><span>成交資料到</span><b>' + esc(r.through) + "（預售屋 " + esc(r.pthrough) + "）</b><span>內政部應該已經有</span><b>" + esc(r.expect) + "</b><span>" + (need ? "要處理" : "下次更新") + "</span><b>" + esc(r.nextDue) + "</b></div>";
+    h += need ? '<div class="row" style="margin-top:10px"><button class="btn full" id="reHow">怎麼更新</button></div>' : '<div class="label" style="margin-top:8px">每月 11 日以後內政部會公布上個月的成交，到時這裡和登入時會提醒你，也可以在「📅 待辦」加到 Google 日曆。</div>';
     el.innerHTML = h + "</div>";
+    if ($("reHow")) $("reHow").onclick = function () { rePopup(r); };
   }).catch(function () {});
+}
+// 跳視窗：實價登錄該更新了
+function rePopup(r) {
+  var w = document.createElement("div");
+  w.id = "rePop"; w.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px";
+  w.innerHTML = '<div class="card" style="max-width:440px;width:100%;margin:0;border:2px solid var(--warn,#d97706)"><h2>🏠 該更新實價登錄資料了</h2>' +
+    '<div style="line-height:1.7">App 的估價資料只到 <b>' + esc(r.through) + "</b>，內政部已經公布到 <b>" + esc(r.expect) + "</b> 了。每月更新一次，估價才抓得到最新的行情變化。</div>" +
+    '<ol style="margin:8px 0 0 18px;padding:0;line-height:1.7"><li>打開 <a href="https://plvr.land.moi.gov.tw/DownloadOpenData" target="_blank">實價登錄 Open Data</a></li><li>下載上次更新之後的每一期（每月 1、11、21 日各一期；「本期下載」加上「非本期下載」裡的）：CSV、進階下載，臺北市、新北市、桃園市的「不動產買賣」「預售屋買賣」</li><li>zip 傳給 Claude，說「更新實價登錄」</li><li>照 Claude 說的傳到 GitHub 的 app-install/re</li></ol>' +
+    '<div class="row" style="margin-top:12px"><button class="btn ghost" id="rpLater">晚點再說</button><button class="btn" id="rpCal">加到 Google 日曆（每月提醒）</button></div></div>';
+  document.body.appendChild(w);
+  $("rpLater").onclick = function () { w.remove(); };
+  $("rpCal").onclick = function () { $("rpCal").disabled = true; api("calSync").then(function (x) { toast(x.already ? "Google 日曆已經有每月提醒了" : "已加到 Google 日曆：每月 11 日早上 9 點提醒"); w.remove(); }).catch(function (e) { $("rpCal").disabled = false; toast(calErr(e), true); }); };
+}
+function calErr(e) { e = String(e || ""); return /權限|permission|authoriz|CalendarApp/i.test(e) ? "要先授權 Google 日曆：到後台的 Apps Script 編輯器選「authorizeOnce」按執行，允許存取日曆，再試一次" : e; }
+
+// ---------- 📅 待辦 ----------
+function tTodo() {
+  api("todoList").then(function (d) { todoRender(d); }).catch(fail);
+}
+function todoRender(d) {
+  var today = new Date(Date.now() + 8 * 3600e3).toISOString().slice(0, 10);
+  var h = '<div class="card"><h2>📅 待辦 <span class="label">要處理的事</span></h2>';
+  h += (d.list || []).length ? d.list.map(function (t) {
+    var late = t.date <= today;
+    return '<div class="item row" style="align-items:flex-start' + (t.warn ? ';border-left:3px solid var(--warn,#d97706);padding-left:8px' : "") + '"><div style="flex:1"><b>' + esc(t.title) + '</b><div class="label">' + esc(t.date) + (late ? '・<span style="color:var(--bad)">' + (t.date === today ? "今天" : "已經過了") + "</span>" : "") + (t.evId ? "・已加到 Google 日曆" : "") + (t.auto ? "・自動" : "") + "</div>" + (t.note ? '<div class="label">' + esc(t.note) + "</div>" : "") + "</div>" +
+      (t.auto ? "" : '<div style="flex:0 0 auto;display:flex;gap:6px"><button class="btn ghost sm" data-done="' + t.id + '">完成</button><button class="btn ghost sm" data-del="' + t.id + '">刪除</button></div>') + "</div>";
+  }).join("") : '<div class="label">目前沒有要處理的事。</div>';
+  h += "</div>";
+  h += '<div class="card"><h2>新增待辦</h2><label class="f">日期<input type="date" id="tdD" value="' + today + '"></label><label class="f">要做什麼<input type="text" id="tdT" maxlength="80" placeholder="例如：檢查使用者回報、更新說明"></label><label class="f">備註（選填）<input type="text" id="tdN" maxlength="300"></label>' +
+    '<label style="display:flex;gap:8px;align-items:center;margin:4px 0 10px"><input type="checkbox" id="tdC" checked><span>同時加到 Google 日曆（前一天寄信、當天提前 1 小時跳通知）</span></label><button class="btn full" id="tdAdd">新增</button></div>';
+  h += '<div class="card"><h2>Google 日曆</h2><div class="label" style="margin-bottom:8px">' + (d.calRe ? "✅ 已經有「每月 11 日更新實價登錄資料」的重複提醒。" : "還沒有每月提醒。按下面的按鈕，會在你的 Google 日曆建立每月 11 日早上 9 點的重複活動。") + "第一次用要先授權：Apps Script 編輯器選「authorizeOnce」按執行，允許存取日曆。</div>" + (d.calRe ? "" : '<button class="btn full" id="tdCal">加每月實價登錄提醒到 Google 日曆</button>') + "</div>";
+  if ((d.done || []).length) h += '<div class="card"><h2>最近完成的</h2>' + d.done.map(function (t) { return '<div class="item row"><div class="label">' + esc(t.date) + " " + esc(t.title) + '</div><button class="btn ghost sm" data-done="' + t.id + '">還原</button></div>'; }).join("") + "</div>";
+  $("main").innerHTML = h;
+  var run = function (op, arg) { api(op, arg).then(function (x) { todoRender(x.list ? (x.list.list ? x.list : x) : x); }).catch(function (e) { toast(calErr(e), true); }); };
+  $("main").querySelectorAll("[data-done]").forEach(function (b) { b.onclick = function () { run("todoDone", { id: b.dataset.done }); }; });
+  $("main").querySelectorAll("[data-del]").forEach(function (b) { b.onclick = function () { if (confirm("刪除這個待辦？（Google 日曆上的也會刪掉）")) run("todoDel", { id: b.dataset.del }); }; });
+  $("tdAdd").onclick = function () { run("todoAdd", { date: $("tdD").value, title: $("tdT").value, note: $("tdN").value, cal: $("tdC").checked }); };
+  if ($("tdCal")) $("tdCal").onclick = function () { api("calSync").then(function (x) { toast(x.already ? "已經有了" : "已加到 Google 日曆"); todoRender(x.list); }).catch(function (e) { toast(calErr(e), true); }); };
 }
 function nextSeason(s) { var y = parseInt(s, 10), q = Number(String(s).slice(-1)) + 1; if (q > 4) { q = 1; y++; } return y + "S" + q; }
 
@@ -244,6 +281,7 @@ function tDeploy() {
       "<span>跟正式版比</span><b>" + (d.pending === true ? '<span class="pill warn">有還沒發佈的更新</span>' : d.pending === false ? '<span class="pill">一樣，不用發佈</span>' : "問不到") + "</b>" +
       "<span>每天 9 點自動發佈</span><b>" + (au.on ? "開著" : "關著") + "</b></div>" +
       (au.last ? '<div class="label" style="margin-top:6px">上次自動發佈：' + esc(au.last) + "</div>" : "") +
+      (au.err ? '<div style="margin-top:8px;padding:10px;border-radius:10px;background:var(--bad-soft);color:var(--bad)">' + esc(au.err) + "</div>" : "") +
       (d.devUrl ? '<a class="btn ghost full" href="' + esc(d.devUrl) + '" target="_blank" style="margin-top:10px;display:block;text-align:center">打開測試網址（用 yoanwei08@gmail.com 登入）</a>' : '<div class="label" style="margin-top:8px">找不到測試網址</div>') +
       '<div class="label" style="margin-top:6px">測試網址跑的是剛上傳的測試版，只有中央 App 的編輯者打得開；一般使用者還是用正式版。測試網址用的是你自己的真實資料，存進去的東西是真的會存。</div>' +
       '<div class="row" style="margin-top:10px"><button class="btn ghost" id="autoTg">' + (au.on ? "關掉自動發佈" : "打開每天 9 點自動發佈") + '</button><button class="btn" id="pubNow"' + (d.pending === false ? " disabled" : "") + ">立刻發佈成正式版</button></div></div>";
