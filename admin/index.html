@@ -206,6 +206,25 @@ function go(t) {
 }
 function fail(e) { $("main").innerHTML = '<div class="card"><h2>讀取失敗</h2><div class="label">' + esc(e) + '</div><button class="btn ghost" style="margin-top:10px" onclick="go(S.tab)">再試一次</button></div>'; }
 
+// ---------- 🏠 實價登錄估價資料（每季提醒更新） ----------
+function reSeasonText(s) { return s ? String(parseInt(s, 10)) + " 年第 " + String(s).slice(-1) + " 季" : "—"; }
+function reDataCard() {
+  api("reData").then(function (r) {
+    var el = $("reCard"); if (!el) return;
+    if (!r.ok) { el.innerHTML = '<div class="card"><h2>🏠 實價登錄資料</h2><div class="label">' + esc(r.why) + "</div></div>"; return; }
+    var need = r.need || [];
+    var h = '<div class="card"' + (need.length ? ' style="border:2px solid var(--warn,#d97706)"' : "") + '><h2>🏠 實價登錄資料 ' + (need.length ? '<span class="pill warn">該更新了</span>' : '<span class="pill">最新</span>') + "</h2>" +
+      '<div class="kv"><span>目前用到</span><b>' + reSeasonText(r.season) + "</b><span>內政部已公布到</span><b>" + reSeasonText(r.avail) + "</b><span>成交資料到</span><b>" + esc(r.through) + "（預售屋 " + esc(r.pthrough) + "）</b></div>";
+    if (need.length) h += '<div style="margin-top:10px;line-height:1.7"><b>要下載的：</b>' + need.map(reSeasonText).join("、") +
+      '<ol style="margin:6px 0 0 18px;padding:0"><li>打開 <a href="https://plvr.land.moi.gov.tw/DownloadOpenData" target="_blank">實價登錄 Open Data</a> →「非本期下載」→「前季下載」</li>' +
+      "<li>選上面那一季、CSV、「進階下載」</li><li>臺北市、新北市、桃園市都勾「不動產買賣」和「預售屋買賣」（共 6 個勾）</li><li>下載的 zip 傳給 Claude，說「更新實價登錄」</li>" +
+      "<li>Claude 給你新的 re 資料夾 → 傳到 GitHub 的 app-install/re 蓋過去，App 不用重新部署</li></ol></div>";
+    else h += '<div class="label" style="margin-top:8px">下一季（' + reSeasonText(nextSeason(r.season)) + "）大約在季後第一個月中公布，到時這裡會提醒你。</div>";
+    el.innerHTML = h + "</div>";
+  }).catch(function () {});
+}
+function nextSeason(s) { var y = parseInt(s, 10), q = Number(String(s).slice(-1)) + 1; if (q > 4) { q = 1; y++; } return y + "S" + q; }
+
 // ---------- 🚀 部署 ----------
 var UP = { files: [] };
 function tDeploy() {
@@ -219,7 +238,17 @@ function tDeploy() {
       "<span>中央專案裡的檔案</span><b>" + esc(d.headVer || "—") + "</b></div>" +
       (d.accessOk === false ? '<div style="margin-top:10px;padding:10px;border-radius:10px;background:var(--bad-soft);color:var(--bad)"><b>⚠️ 中央 App 現在只有部分人打得開</b><br><span style="font-size:13px">存取設定是「' + esc((d.webapp && d.webapp.access) || "?") + "／" + esc((d.webapp && d.webapp.executeAs) || "?") + '」，應該是「ANYONE／USER_ACCESSING」。其他人打開會看到「無法開啟這個檔案」。</span><button class="btn bad full" id="fixAcc" style="margin-top:8px">一鍵修正（重新部署一次）</button></div>' : "") +
       (live && d.headVer && live !== d.headVer ? '<div class="pill warn" style="margin-top:8px;white-space:normal">正式網址跑的版本跟專案裡的檔案不一樣（可能上傳了還沒部署，或剛退回舊版）</div>' : "") + "</div>";
-    h += '<div class="card"><h2>上傳更新</h2><div class="label">選我傳給你的檔案（核心.gs、App.html，有時候還有 中央.gs、appsscript-中央.json）。可以一次選好幾個，也可以一個一個選，選過的會留在下面。確認每個檔案要取代中央專案裡的哪一個，再按「上傳並部署」。</div>' +
+    var au = d.auto || {};
+    h += '<div class="card"><h2>🧪 測試版 → 正式版</h2><div class="kv">' +
+      "<span>測試版（專案裡的檔案）</span><b>" + esc(d.headVer || "—") + "</b>" +
+      "<span>跟正式版比</span><b>" + (d.pending === true ? '<span class="pill warn">有還沒發佈的更新</span>' : d.pending === false ? '<span class="pill">一樣，不用發佈</span>' : "問不到") + "</b>" +
+      "<span>每天 9 點自動發佈</span><b>" + (au.on ? "開著" : "關著") + "</b></div>" +
+      (au.last ? '<div class="label" style="margin-top:6px">上次自動發佈：' + esc(au.last) + "</div>" : "") +
+      (d.devUrl ? '<a class="btn ghost full" href="' + esc(d.devUrl) + '" target="_blank" style="margin-top:10px;display:block;text-align:center">打開測試網址（用 yoanwei08@gmail.com 登入）</a>' : '<div class="label" style="margin-top:8px">找不到測試網址</div>') +
+      '<div class="label" style="margin-top:6px">測試網址跑的是剛上傳的測試版，只有中央 App 的編輯者打得開；一般使用者還是用正式版。測試網址用的是你自己的真實資料，存進去的東西是真的會存。</div>' +
+      '<div class="row" style="margin-top:10px"><button class="btn ghost" id="autoTg">' + (au.on ? "關掉自動發佈" : "打開每天 9 點自動發佈") + '</button><button class="btn" id="pubNow"' + (d.pending === false ? " disabled" : "") + ">立刻發佈成正式版</button></div></div>";
+    h += '<div id="reCard"></div>';
+    h += '<div class="card"><h2>上傳更新</h2><div class="label">選我傳給你的檔案（核心.gs、App.html，有時候還有 中央.gs、appsscript-中央.json）。可以一次選好幾個，也可以一個一個選，選過的會留在下面。確認每個檔案要取代中央專案裡的哪一個，再按「上傳到測試版」。新功能先上傳到測試版，每天 9 點自動發佈給大家；除錯要馬上修好的，按「上傳並立刻發佈」。</div>' +
       '<input type="file" id="upF" multiple style="margin:12px 0">' +
       '<details style="margin-bottom:10px"><summary class="label" style="cursor:pointer">📋 不想下載？改用複製貼上</summary>' +
       '<div class="label" style="margin:8px 0">在對話裡打開我傳的檔案 → 全選 → 複製，貼到下面，選要取代哪一個，再按「加入」。每個檔案各貼一次。</div>' +
@@ -227,13 +256,14 @@ function tDeploy() {
       '<textarea id="psX" placeholder="貼上程式碼" style="min-height:120px;font-family:monospace;font-size:12px"></textarea>' +
       '<button class="btn ghost full" id="psAdd" style="margin-top:8px">加入</button></details>' +
       '<div id="upMap"></div><label class="f">這次更新的說明（可以不填，會用版本號）<input type="text" id="upDesc"></label>' +
-      '<button class="btn full" id="upGo" disabled>上傳並部署</button><div class="label" style="margin-top:8px">部署完，大家下次打開（或 App 裡跳出更新）就是新版。網址不變。</div></div>';
+      '<button class="btn full" id="upGo" disabled>上傳到測試版</button><button class="btn ghost full" id="upNow" disabled style="margin-top:8px">上傳並立刻發佈（除錯用）</button><div class="label" style="margin-top:8px">發佈後，大家下次打開（或 App 裡跳出更新）就是新版。網址不變。</div></div>';
     h += '<div class="card"><h2>以前的版本 <span class="label">壞掉時可以退回去</span></h2>' + (d.versions || []).map(function (v) {
       return '<div class="item row"><div style="flex:3"><b>第 ' + v.n + " 版</b>" + (v.n === d.current ? ' <span class="pill">正在用</span>' : "") + '<div class="label">' + esc(v.at) + "・" + esc(v.desc) + "</div></div>" +
         (v.n === d.current ? "<div></div>" : '<div style="flex:0 0 auto"><button class="btn ghost sm" onclick="rollback(' + v.n + ')">回到這一版</button></div>') + "</div>";
     }).join("") + "</div>";
     h += '<div class="card"><h2>中央專案的檔案</h2>' + (d.files || []).map(function (f) { return '<div class="item row"><div>' + esc(f.name) + ' <span class="label">' + esc(f.type) + "</span></div><div style=\"text-align:right\" class=\"label\">" + Math.round(f.size / 1024) + " KB" + (f.ver ? "・" + esc(f.ver) : "") + "</div></div>"; }).join("") + "</div>";
     $("main").innerHTML = h;
+    reDataCard();
     UP.files = [];
     $("upF").onchange = function () { readFiles(this.files); };
     $("psAdd").onclick = function () {
@@ -243,7 +273,11 @@ function tDeploy() {
       UP.files.push({ fname: "貼上的「" + tgt + "」", source: src, target: tgt });
       $("psX").value = ""; drawMap(); toast("已加入，可以再貼下一個");
     };
-    $("upGo").onclick = doDeploy;
+    $("upGo").onclick = function () { doDeploy(false); };
+    $("upNow").onclick = function () { doDeploy(true); };
+    $("autoTg").onclick = function () { var b = this; busy(b, true, "設定中"); api("autoSet", { on: !au.on }).then(function () { toast(au.on ? "已關掉自動發佈" : "已打開：每天 9 點自動發佈"); go("deploy"); }).catch(function (e) { toast(e, true); busy(b, false); }); };
+    $("pubNow").onclick = function () { if (!confirm("把測試版立刻發佈成正式版？所有人下次打開就是新版。")) return; var b = this; busy(b, true, "發佈中");
+      api("deploy", { desc: (d.headVer || "") + "（立刻發佈）", device: device }).then(function (r) { toast("已發佈第 " + r.version + " 版"); setTimeout(function () { go("deploy"); }, 1200); }).catch(function (e) { toast(e, true); busy(b, false); }); };
     if ($("fixAcc")) $("fixAcc").onclick = function () {
       var b = this; busy(b, true, "修正中");
       api("fixAccess", { device: device }).then(function (r) { toast("已修正並部署第 " + r.version + " 版"); setTimeout(function () { go("deploy"); }, 1200); }).catch(function (e) { toast(e, true); busy(b, false); });
@@ -286,19 +320,20 @@ function drawMap() {
 function upCheck() {
   var use = UP.files.filter(function (u) { return u.target; });
   var dup = use.some(function (u, i) { return use.some(function (w, j) { return j !== i && w.target === u.target; }); });
-  $("upGo").disabled = !use.length || dup;
+  $("upGo").disabled = !use.length || dup; if ($("upNow")) $("upNow").disabled = !use.length || dup;
   if (dup) toast("兩個檔案選到同一個目標了", true);
 }
-function doDeploy() {
+function doDeploy(now) {
   var use = UP.files.filter(function (u) { return u.target; });
-  if (!confirm("要上傳 " + use.map(function (u) { return u.fname + " → " + u.target; }).join("、") + "，並且部署成正式版嗎？")) return;
-  var b = $("upGo"); busy(b, true, "上傳中");
+  if (!confirm("要上傳 " + use.map(function (u) { return u.fname + " → " + u.target; }).join("、") + (now ? "，並且立刻發佈成正式版嗎？（所有人下次打開就是新版）" : "到測試版嗎？（每天 9 點自動發佈給大家）"))) return;
+  var b = $(now ? "upNow" : "upGo"); busy(b, true, "上傳中");
   api("upload", { files: use.map(function (u) { return { target: u.target, source: u.source }; }), device: device }).then(function (r) {
+    if (!now) { toast("已上傳到測試版（" + (r.headVer || "") + "），用測試網址試試看"); setTimeout(function () { go("deploy"); }, 1200); return null; }
     b.innerHTML = '<span class="spin"></span> 部署中';
-    return api("deploy", { desc: $("upDesc").value.trim(), device: device });
-  }).then(function (r) {
-    toast("已部署第 " + r.version + " 版（" + r.desc + "）" + (r.fixedAccess ? "，順便修正了存取設定" : ""));
-    setTimeout(function () { go("deploy"); }, 1200);
+    return api("deploy", { desc: $("upDesc").value.trim(), device: device }).then(function (r) {
+      toast("已發佈第 " + r.version + " 版（" + r.desc + "）" + (r.fixedAccess ? "，順便修正了存取設定" : ""));
+      setTimeout(function () { go("deploy"); }, 1200);
+    });
   }).catch(function (e) { toast(e, true); busy(b, false); });
 }
 function rollback(n) {
