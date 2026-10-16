@@ -34,7 +34,7 @@ for d in sorted(glob.glob(D + "/*/")):
             if x["編號"] in SEEN: continue
             SEEN.add(x["編號"])
             if not x["交易標的"].startswith("房地"): continue
-            use = {"住家用": "住", "辦公用": "辦", "商業用": "商"}.get(x["主要用途"])
+            use = {"住家用": "住", "辦公用": "辦", "商業用": "商", "工業用": "工"}.get(x["主要用途"])
             if not use: continue
             m = re.match(r"土地\d+建物(\d+)車位(\d+)", x["交易筆棟數"])
             if not m or m.group(1) != "1" or int(m.group(2)) > 1: continue
@@ -43,6 +43,7 @@ for d in sorted(glob.glob(D + "/*/")):
             note = x["備註"]
             if any(b in note for b in BAD): continue
             typ = x["建物型態"].split("(")[0]
+            if typ in ("工廠", "廠辦", "倉庫"): typ = "華廈" if (cnum(x["總樓層數"]) or 1) > 1 else "透天厝"  # 很少，併到最接近的型態
             if typ not in ("住宅大樓", "華廈", "公寓", "套房", "透天厝"): continue
             fls = floors_of(x["移轉層次"]); tot = cnum(x["總樓層數"])
             fl = fls[0] if fls else None; nfl = max(1, len(fls))

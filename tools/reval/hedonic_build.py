@@ -70,7 +70,8 @@ def build(df):
     SG = pd.DataFrame({"透天": th * 1.0, "透天x屋齡": th * np.minimum(df.age, 50) / 10, "透天xlog地": th * np.log(land.fillna(1) + 1),
         "透天xlog坪": th * np.log(df.ping), "透天x層": th * df.tot,
         "辦": (use == "辦") * 1.0, "商": (use == "商") * 1.0, "商x1F": ((use == "商") & (df.fl == 1)) * 1.0,
-        "辦x1F": ((use == "辦") & (df.fl == 1)) * 1.0, "商x2F+": ((use == "商") & (df.fl > 1)) * 1.0}, index=df.index)
+        "辦x1F": ((use == "辦") & (df.fl == 1)) * 1.0, "商x2F+": ((use == "商") & (df.fl > 1)) * 1.0,
+        "工": (use == "工") * 1.0, "工x1F": ((use == "工") & (df.fl == 1)) * 1.0, "工x透天": ((use == "工") & th) * 1.0}, index=df.index)
     X = pd.concat([X, DA, SG], axis=1)
     return X
 

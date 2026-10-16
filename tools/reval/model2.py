@@ -47,15 +47,20 @@ def ols(X, y):
     b, *_ = np.linalg.lstsq(X, y, rcond=None); return b
 
 LEVELS = [("road", 3), ("blk", 2), ("side", 2), ("blk2", 2), ("lane", 2), ("near20", 2), ("bldg", 1)]
+# 越新的成交越重要：權重每 2 年減半（用 3 年的資料，比只用 2 年準；再更舊的反而變差）
+HALF_LIFE = 2.0
+_mi = (df.ym // 100) * 12 + df.ym % 100
+AGE_Y = ((_mi.max() - _mi) / 12.0).values
 def train(tr):
     X = build(tr); cols = X.columns
-    b = ols(X.values, tr.lu.values)
+    w = 0.5 ** (AGE_Y[tr.index] / HALF_LIFE); sw = np.sqrt(w)
+    b, *_ = np.linalg.lstsq(X.values * sw[:, None], tr.lu.values * sw, rcond=None)
     res = tr.lu.values - X.values @ b
     eff = {}
-    r = pd.Series(res, index=tr.index)
+    r = pd.Series(res, index=tr.index); W = pd.Series(w, index=tr.index)
     for lv, k in LEVELS:
         rc = r.clip(-0.2, 0.2)  # 單筆偏離太多（沒註明的特殊交易）最多只算 ±20%，不讓它把整棟帶歪
-        g = rc.groupby(tr[lv]); e = g.sum() / (g.size() + k)
+        e = (rc * W).groupby(tr[lv]).sum() / (W.groupby(tr[lv]).sum() + k)
         eff[lv] = e
         r = r - tr[lv].map(e).fillna(0)
     return cols, b, eff, r.std()
@@ -91,7 +96,7 @@ for t in ["住宅大樓", "華廈", "公寓", "透天厝"]:
 for c in ["臺北市", "新北市", "桃園市"]:
     m = (df.city == c).values; print("  ", c, "%.1f%%" % (np.median(a[m]) * 100))
 df.assign(err=a).to_pickle(D + "/cv.pkl")
-rec = (df.ym >= 11406).values
+rec = (df.ym >= 11307).values
 print("  最近一年的成交: %.1f%%   ±10%%內 %.0f%%" % (np.median(a[rec]) * 100, (a[rec] < .1).mean() * 100))
-for u in ["辦", "商"]:
+for u in ["辦", "商", "工"]:
     m = (df.use == u).values; print("  ", u, "%.1f%%" % (np.median(a[m]) * 100))

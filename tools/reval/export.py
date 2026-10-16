@@ -49,6 +49,7 @@ for n, m in (("seen", seen), ("new", ~seen)):
     bands[n]["辦公"] = round(float(a[m & (cvd.use == "辦") & (cvd.typ != "透天厝")].quantile(.8)), 3)
     bands[n]["店面"] = round(float(a[m & (cvd.use == "商") & (cvd.fl == 1)].quantile(.8)), 3)
     bands[n]["商業"] = round(float(a[m & (cvd.use == "商") & (cvd.fl > 1)].quantile(.8)), 3)
+    bands[n]["工業"] = round(float(a[m & (cvd.use == "工")].quantile(.8)), 3)
 base = {"v": 1, "through": "%d/%02d" % (yms[-1] // 100, yms[-1] % 100), "from": "%d/%02d" % (yms[0] // 100, yms[0] % 100),
         "n": int(len(df)), "const": round(float(B["const"]), 5), "pubMed": round(float(df.pub.median()), 4),
         "feat": feat, "distAge": distAge, "dist": distfx, "level": level, "levelFrom": levelFrom, "park": park, "bands": bands,
@@ -65,7 +66,7 @@ def short(a):
     a = a.translate(FW2); a = re.sub(r"^(臺北市|新北市|桃園市)?[^區]{1,3}區", "", a); return a[:22]
 recent = df[(mi_ > lastmi - 12) & df.blk.notna()].copy()
 recent["sa"] = recent.addr.map(short)
-TY4 = ["住宅大樓", "華廈", "公寓", "透天厝"]; US = ["住", "辦", "商"]
+TY4 = ["住宅大樓", "華廈", "公寓", "透天厝"]; US = ["住", "辦", "商", "工"]
 import glob as _g
 _seas = sorted({os.path.basename(x) for x in _g.glob(D + "/*/*") if re.match(r"^1\d\dS[1-4]$", os.path.basename(x))}, key=lambda z: (int(z[:-2]), int(z[-1])))
 base["season"] = _seas[-1] if _seas else ""   # 最新的一季（例如 115S3），後台用來判斷該不該更新
