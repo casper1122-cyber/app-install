@@ -2,651 +2,285 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1f5f4a">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="資產後台">
-<meta name="robots" content="noindex">
-<title>資產配置後台</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>安裝 App</title>
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="../icon-192.png">
+<meta name="theme-color" content="#1f5a3f">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="icon" href="icon-192.png">
 <style>
-:root {
-  --bg: #f3f5f4; --card: #fff; --text: #1d2b26; --muted: #6b7a74; --line: #e2e8e5;
-  --brand: #1f5f4a; --brand-soft: #e3f0ea; --bad: #b3261e; --bad-soft: #fbe9e7; --warn: #8a5a00; --warn-soft: #fff4dc; --ok: #1e7a4f;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #101614; --card: #19211e; --text: #e6efeb; --muted: #93a39c; --line: #2a3531;
-    --brand: #6fc6a3; --brand-soft: #1c3329; --bad: #ff8a80; --bad-soft: #3a1f1d; --warn: #ffcc66; --warn-soft: #3a3020; --ok: #6fd6a0;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #101614; --card: #19211e; --text: #e6efeb; --muted: #93a39c; --line: #2a3531;
-  --brand: #6fc6a3; --brand-soft: #1c3329; --bad: #ff8a80; --bad-soft: #3a1f1d; --warn: #ffcc66; --warn-soft: #3a3020; --ok: #6fd6a0;
-}
-:root { --head: #1f5f4a; }
-body.hasbg { background: transparent; }
-body.hasbg::before { content: ""; position: fixed; inset: 0; z-index: -1; background-color: var(--bg); background-image: linear-gradient(rgba(0,0,0,var(--dim,.35)), rgba(0,0,0,var(--dim,.35))), var(--bgimg); background-size: cover; background-position: center; }
-.swatch { width: 38px; height: 38px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; padding: 0; flex: 0 0 auto; }
-.swatch.on { border-color: var(--text); }
-* { box-sizing: border-box; }
-html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); font: 16px/1.5 -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
-body { padding: env(safe-area-inset-top) 0 calc(76px + env(safe-area-inset-bottom)); }
-.wrap { max-width: 760px; margin: 0 auto; padding: 16px; }
-header { background: var(--head); color: #fff; padding: calc(14px + env(safe-area-inset-top)) 16px 14px; margin-top: calc(-1 * env(safe-area-inset-top)); }
-header .in { max-width: 760px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-header h1 { font-size: 18px; margin: 0; }
-header small { opacity: .8; font-size: 12px; }
-.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 12px; }
-.card h2 { font-size: 16px; margin: 0 0 10px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-.label, .muted { color: var(--muted); font-size: 13px; }
-label.f { display: block; margin-bottom: 10px; font-size: 13px; color: var(--muted); }
-input[type=text], input[type=password], input[type=email], input[type=url], textarea, select {
-  width: 100%; font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 11px 12px; margin-top: 4px; }
-textarea { min-height: 90px; resize: vertical; }
-button { font: inherit; cursor: pointer; }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 0; border-radius: 10px; padding: 11px 16px; background: var(--brand); color: #fff; font-weight: 700; }
-.btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); font-weight: 600; }
-.btn.bad { background: var(--bad); }
-.btn.sm { padding: 6px 10px; font-size: 13px; }
-.btn:disabled { opacity: .5; cursor: default; }
-.btn.full { width: 100%; }
-.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-.row > * { flex: 1; min-width: 0; }
-.pill { display: inline-block; font-size: 12px; border-radius: 99px; padding: 2px 8px; background: var(--brand-soft); color: var(--brand); white-space: nowrap; }
-.pill.bad { background: var(--bad-soft); color: var(--bad); } .pill.warn { background: var(--warn-soft); color: var(--warn); }
-.item { border-top: 1px solid var(--line); padding: 10px 0; }
-.item:first-of-type { border-top: 0; }
-.kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 14px; }
-.kv b { text-align: right; font-weight: 600; word-break: break-all; }
-pre { white-space: pre-wrap; word-break: break-word; font-size: 12px; background: var(--bg); border-radius: 8px; padding: 8px; margin: 6px 0 0; }
-nav { position: fixed; left: 0; right: 0; bottom: 0; background: var(--card); border-top: 1px solid var(--line); display: flex; overflow-x: auto; padding-bottom: env(safe-area-inset-bottom); z-index: 5; }
-nav button { flex: 1 1 0; min-width: 0; background: none; border: 0; color: var(--muted); padding: 8px 6px 10px; font-size: 11px; display: flex; flex-direction: column; align-items: center; gap: 2px; position: relative; }
-nav button .ic { font-size: 19px; }
-nav button.on { color: var(--brand); font-weight: 700; }
-nav .dot { position: absolute; top: 6px; right: 14px; width: 8px; height: 8px; border-radius: 50%; background: var(--bad); }
-.hidden { display: none !important; }
-#toast { position: fixed; left: 50%; bottom: calc(90px + env(safe-area-inset-bottom)); transform: translateX(-50%); background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: 12px; max-width: calc(100% - 32px); font-size: 14px; z-index: 20; opacity: 0; transition: opacity .2s; pointer-events: none; }
-#toast.show { opacity: 1; } #toast.err { background: var(--bad); color: #fff; }
-.center { max-width: 400px; margin: 40px auto; }
-.spin { display: inline-block; width: 14px; height: 14px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: sp .8s linear infinite; vertical-align: -2px; }
-@keyframes sp { to { transform: rotate(360deg); } }
-.filemap { border: 1px dashed var(--line); border-radius: 10px; padding: 10px; margin: 8px 0; }
-.check { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; margin: 8px 0; }
-.check input { margin-top: 4px; width: 18px; height: 18px; }
-a { color: var(--brand); }
+  :root { --bg:#eef2ee; --card:#fff; --ink:#17241d; --mute:#5b6b61; --brand:#1f5a3f; --line:#e2e8e3; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#111814; --card:#1b241e; --ink:#e8efe9; --mute:#9fb0a5; --brand:#5fbf8f; --line:#2a352e; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif; }
+  main { max-width:520px; margin:0 auto; padding:28px 16px 40px; }
+  h1 { font-size:24px; margin:0 0 6px; }
+  .sub { color:var(--mute); font-size:14px; line-height:1.6; margin:0 0 18px; }
+  .warn { display:none; background:#fff4d6; color:#6b4e00; border-radius:12px; padding:12px 14px; font-size:14px; line-height:1.6; margin-bottom:16px; }
+  .app { display:flex; align-items:center; gap:14px; background:var(--card); border-radius:18px; padding:14px; margin-bottom:12px; box-shadow:0 2px 10px rgba(0,0,0,.06); text-decoration:none; color:inherit; }
+  .app img { width:60px; height:60px; border-radius:14px; flex:0 0 60px; }
+  .app b { display:block; font-size:17px; }
+  .app small { color:var(--mute); font-size:13px; }
+  .divider { display:flex; align-items:center; gap:10px; color:var(--mute); font-size:13px; margin:18px 0 12px; }
+  .divider::before, .divider::after { content:""; flex:1; height:1px; background:var(--line); }
+  .app ol b, .app div b { display:inline; font-size:inherit; }
+  .app .go { margin-left:auto; background:var(--brand); color:#fff; border-radius:999px; padding:8px 14px; font-size:14px; font-weight:700; white-space:nowrap; }
+  h2 { font-size:16px; margin:26px 0 8px; }
+  ol { padding-left:20px; margin:0; line-height:1.9; font-size:15px; }
+  .note { color:var(--mute); font-size:13px; line-height:1.6; margin-top:14px; }
+  .os { display:flex; gap:8px; margin:0 0 16px; }
+  .os button { flex:1; padding:10px 6px; border:1.5px solid var(--line); border-radius:12px; background:var(--card); color:inherit; font-size:14px; font-weight:600; }
+  .os button.on { border-color:var(--brand); background:var(--brand); color:#fff; }
+  .sec { display:none; } .sec.on { display:block; }
+  .big { display:block; width:100%; padding:15px; border:0; border-radius:14px; background:var(--brand); color:#fff; font-size:17px; font-weight:700; text-align:center; text-decoration:none; }
+  .ok { display:none; background:#e3f5e9; color:#17512f; border-radius:12px; padding:12px 14px; font-size:15px; line-height:1.6; margin:12px 0; }
 </style>
 </head>
 <body>
-<header><div class="in"><div><h1>資產配置後台</h1><small id="hdrSub">管理員專用</small></div><button class="btn ghost sm hidden" id="btnLogout" style="color:#fff;border-color:rgba(255,255,255,.4)">登出</button></div></header>
-<div class="wrap" id="main"></div>
-<nav id="nav" class="hidden"></nav>
-<div id="toast"></div>
+<main>
+  <h1>安裝 App 到主畫面</h1>
+  <p class="sub" id="osSay">照下面的步驟裝好後，主畫面就會出現 App 圖示。</p>
+  <div class="os" id="os"><button data-os="ios">iPhone／iPad</button><button data-os="android">Android</button><button data-os="desktop">電腦</button></div>
+
+  <!-- ===== Android ===== -->
+  <section class="sec" id="sec-android">
+    <div class="warn" id="aWarn">現在是在 LINE／Facebook 裡面打開的，這裡裝不了。請按右上角「⋮」→「<b>用其他瀏覽器開啟</b>」（或「以 Chrome 開啟」），再回到這一頁。</div>
+    <div class="app"><img src="icon-192.png" alt=""><span><b>Casper資產配置</b><small>Android 版・圖示跟 iPhone 一樣</small></span></div>
+    <button class="big" id="aInstall">安裝到主畫面</button>
+    <div class="ok" id="aOk">✅ 裝好了！回主畫面（或 App 清單）找寶寶圖示的「Casper資產配置」。</div>
+    <div class="note" id="aHint"></div>
+    <h2>按了沒反應？自己加也可以</h2>
+    <ol>
+      <li>確定是用 <b>Chrome</b> 開這一頁（三星手機用「三星網際網路」也可以）</li>
+      <li>按右上角「<b>⋮</b>」（三星是右下角「≡」）</li>
+      <li>選「<b>安裝應用程式</b>」或「<b>加到主畫面</b>」→ 按「安裝」</li>
+      <li>回主畫面就有寶寶的圖示了</li>
+    </ol>
+    <h2>想要自己的名稱和圖示？</h2>
+    <div class="app" style="display:block">
+      <label style="display:block;font-size:14px;color:var(--mute);margin-bottom:6px">主畫面上的名稱</label>
+      <input id="aName" type="text" maxlength="20" placeholder="例如：我的小金庫" style="width:100%;padding:12px;font-size:16px;border:1.5px solid var(--line);border-radius:12px;background:transparent;color:inherit">
+      <label style="display:block;font-size:14px;color:var(--mute);margin:12px 0 6px">圖示（從相簿選一張照片，會自動裁成正方形；不選就用寶寶）</label>
+      <div style="display:flex;align-items:center;gap:12px">
+        <img id="aPrev" src="icon-192.png" alt="" style="width:60px;height:60px;border-radius:14px;object-fit:cover">
+        <input id="aFile" type="file" accept="image/*" style="font-size:14px">
+      </div>
+      <button id="aGo" class="big" style="margin-top:14px">套用這個名稱和圖示</button>
+      <button id="aGo2" class="big" style="margin-top:10px;display:none"></button>
+      <p class="note" id="aMsg" style="margin-top:8px"></p>
+      <p class="note">照片只存在你的手機裡，不會上傳。自訂的圖示右下角可能會多一個小小的 Chrome 標誌，這是 Android 對這種捷徑的標示。</p>
+    </div>
+    <h2>第一次打開</h2>
+    <ol>
+      <li>登入你的 Google 帳號（被邀請的那一個）</li>
+      <li>新使用者按「建立新的資產配置」，跟著一步一步設定</li>
+      <li>設定好之後，把 App 整個關掉、再從主畫面開一次，就會變成全螢幕</li>
+    </ol>
+    <p class="note"><b>第一次打開</b>會先跳到 Google 登入，這時最上面有一小條網址列是正常的。登入、按過同意之後，把 App 關掉再從主畫面開一次，就會是全螢幕。如果之後還是一直有網址列，代表手機的 Chrome 擋了「第三方 Cookie」，App 一樣能用，只是多那一條。<br>
+      <b>出現「很抱歉，目前無法開啟這個檔案」？</b>手機的 Chrome 同時登入好幾個 Google 帳號時會這樣。到 Chrome 右上角頭像，把預設帳號換成被邀請的那一個；或先登出其他帳號再開。<br>
+      不想安裝也可以：<a href="https://script.google.com/macros/s/AKfycbx042OQj64SXi_RAVY-joWC7rEnAxYhPX3q_NcZ9WcL_hSwpJ8OnnZY0_QjPscGULMq/exec" target="_blank" rel="noopener">直接用瀏覽器打開</a>。<br>
+      App 是邀請制，沒有被邀請的帳號打開只會看到「尚未受邀」。</p>
+  </section>
+
+  <!-- ===== iPhone ===== -->
+  <section class="sec" id="sec-ios">
+  <div class="warn" id="warn">請用 <b>iPhone 的 Safari</b> 打開這個網頁（LINE、Chrome 裡面打開的話裝不了）。可以按右下角「⋯」→「用 Safari 開啟」。</div>
+
+  <a class="app" href="zichan.mobileconfig"><img src="icon.png" alt=""><span><b>Casper資產配置</b><small>一般裝這個就好</small></span><span class="go">安裝</span></a>
+
+  </section>
+
+  <!-- ===== 電腦 ===== -->
+  <section class="sec" id="sec-desktop">
+  <h2 style="margin-top:0">用電腦開</h2>
+  <a class="app" href="https://script.google.com/macros/s/AKfycbx042OQj64SXi_RAVY-joWC7rEnAxYhPX3q_NcZ9WcL_hSwpJ8OnnZY0_QjPscGULMq/exec" target="_blank" rel="noopener"><span style="font-size:34px;width:60px;text-align:center">💻</span><span><b>電腦版</b><small>直接在瀏覽器打開，可以加到書籤</small></span><span class="go">打開</span></a>
+  <div class="note" style="line-height:1.8">
+    <b>出現「很抱歉，目前無法開啟這個檔案」？</b><br>
+    這是因為瀏覽器同時登入了好幾個 Google 帳號，Google 會搞混。兩種解法選一個：
+    <ol style="margin:6px 0 0;font-size:13px;line-height:1.8">
+      <li><b>無痕視窗</b>（最快）：按 Ctrl＋Shift＋N（Mac 是 ⌘＋Shift＋N）開無痕視窗 → 貼上這個網頁的網址 → 按「電腦版」→ 只登入要用的那一個 Google 帳號。</li>
+      <li><b>專用的 Chrome 使用者</b>（之後最方便）：Chrome 右上角的頭像 →「新增」→ 用要用的那個 Google 帳號登入 → 在這個新視窗打開「電腦版」並加到書籤。以後點那個頭像就直接進去。</li>
+    </ol>
+  </div>
+
+  <p class="note">想像 App 一樣有自己的視窗和圖示：用 Chrome 開這一頁，網址列右邊會有一個「安裝」的小圖示（螢幕加向下箭頭），按下去就會多一個寶寶的捷徑。</p>
+  </section>
+
+  <!-- ===== iPhone（續）：自訂、步驟 ===== -->
+  <section class="sec" id="sec-ios2">
+  <h2>想要自己的名稱和圖示？</h2>
+  <div class="app" style="display:block">
+    <label style="display:block;font-size:14px;color:var(--mute);margin-bottom:6px">主畫面上的名稱</label>
+    <input id="cName" type="text" maxlength="20" placeholder="例如：我的小金庫" style="width:100%;padding:12px;font-size:16px;border:1.5px solid var(--line);border-radius:12px;background:transparent;color:inherit">
+    <label style="display:block;font-size:14px;color:var(--mute);margin:12px 0 6px">圖示（從相簿選一張照片，會自動裁成正方形）</label>
+    <div style="display:flex;align-items:center;gap:12px">
+      <img id="cPrev" src="icon.png" alt="" style="width:60px;height:60px;border-radius:14px;object-fit:cover">
+      <input id="cFile" type="file" accept="image/*" style="font-size:14px">
+    </div>
+    <button id="cGo" style="margin-top:14px;width:100%;padding:14px;border:0;border-radius:12px;background:var(--brand);color:#fff;font-size:16px;font-weight:700">產生並安裝</button>
+    <p class="note" id="cMsg" style="margin-top:8px"></p>
+    <div style="font-size:14px;line-height:1.8;margin-top:6px">
+      <b>自訂的安裝步驟</b>（要多經過「檔案」App，iPhone 規定的）
+      <ol style="margin:6px 0 0;font-size:14px;line-height:1.8">
+        <li>按「產生並安裝」→ 跳出「儲存位置」時選「<b>檔案</b>」→ 按「<b>儲存</b>」</li>
+        <li>打開「<b>檔案</b>」App，到剛剛存的位置（通常是「下載項目」或「我的 iPhone」）</li>
+        <li>點 <b>app.mobileconfig</b>，畫面會說「已下載描述檔」</li>
+        <li>打開「<b>設定</b>」，最上面點「已下載描述檔」→ 安裝 → 輸入手機密碼 → 安裝</li>
+        <li>回主畫面，就會出現你取的名稱和照片</li>
+      </ol>
+    </div>
+    <div class="divider"><span>範例</span></div>
+    <div style="display:flex;gap:18px;justify-content:center;margin:4px 0 2px">
+      <a href="wuxin.mobileconfig" style="text-align:center;text-decoration:none;color:inherit;font-size:12px;width:76px"><img src="wuxin.png" alt="" style="width:60px;height:60px;border-radius:14px;display:block;margin:0 auto 4px">無心插柳 三字經</a>
+      <a href="meitianpiao.mobileconfig" style="text-align:center;text-decoration:none;color:inherit;font-size:12px;width:76px"><img src="meitianpiao.png" alt="" style="width:60px;height:60px;border-radius:14px;display:block;margin:0 auto 4px">每天飄</a>
+    </div>
+  </div>
+
+  <h2>安裝步驟</h2>
+  <ol>
+    <li>點「安裝」→ 跳出提示時按「允許」</li>
+    <li>打開「設定」App，最上面會出現「已下載描述檔」，點進去</li>
+    <li>右上角「安裝」→ 輸入手機密碼 → 再按一次「安裝」</li>
+    <li>回到主畫面就有圖示了</li>
+  </ol>
+  <h2>第一次打開</h2>
+  <ol>
+    <li>登入你的 Google 帳號（被邀請的那一個）。主畫面的 App 跟 Safari 是分開的，第一次要登入一次，之後就不用了</li>
+    <li>新使用者按「建立新的資產配置」，跟著一步一步設定</li>
+  </ol>
+  <p class="note">這個描述檔只會在主畫面加一個網頁捷徑，不會改手機的其他設定；不要的話長按圖示移除，或到 設定 → 一般 → VPN 與裝置管理 刪掉。<br>App 是邀請制，沒有被邀請的帳號打開只會看到「尚未受邀」。</p>
+  </section>
+</main>
 <script>
-// ============================================================
-// 後台網頁：所有資料都向「後台 Apps Script」要（網址存在這台裝置），登入憑證也只存在這台裝置
-// ============================================================
-var $ = function (id) { return document.getElementById(id); };
-// 出錯時顯示在畫面上（不然只會一片空白）
-window.addEventListener("error", function (e) {
-  try { var m = document.getElementById("main"); if (m && !m.textContent.trim()) m.innerHTML = '<div class="card center"><h2>頁面出錯了</h2><div class="label" style="word-break:break-all">' + String(e.message || e) + "（第 " + (e.lineno || "?") + " 行）</div><button class=\"btn\" onclick=\"location.reload()\" style=\"margin-top:10px\">重新整理</button></div>"; } catch (x) {}
-});
-var esc = function (s) { return String(s === undefined || s === null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
-var store = {
-  get: function (k) { try { return localStorage.getItem(k) || sessionStorage.getItem(k) || ""; } catch (e) { return ""; } },
-  set: function (k, v, keep) { try { (keep ? localStorage : sessionStorage).setItem(k, v); } catch (e) {} },
-  del: function (k) { try { localStorage.removeItem(k); sessionStorage.removeItem(k); } catch (e) {} }
-};
-var S = { url: store.get("adm_url"), token: store.get("adm_token"), tab: "deploy", cfg: {}, info: null };
-var device = (function () { var u = navigator.userAgent; return (/iPhone/.test(u) ? "iPhone" : /iPad/.test(u) ? "iPad" : /Android/.test(u) ? "Android" : /Mac/.test(u) ? "Mac" : /Windows/.test(u) ? "Windows" : "其他") + "・" + (/CriOS|Chrome/.test(u) ? "Chrome" : /Safari/.test(u) ? "Safari" : /Firefox/.test(u) ? "Firefox" : "瀏覽器"); })();
+  var ua = navigator.userAgent;
+  // 自動判斷是哪一種裝置，顯示那一種的安裝方式；判斷錯了可以按上面三顆按鈕自己切換
+  var ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1); // 新的 iPad 會說自己是 Mac
+  var android = /Android/i.test(ua);
+  var inApp = /Line\/|FBAN|FBAV|FB_IAB|Instagram|MicroMessenger/i.test(ua);
+  var safari = ios && /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua) && !inApp;
+  var detected = ios ? "ios" : android ? "android" : "desktop";
+  var OS_NAME = { ios: "iPhone／iPad", android: "Android 手機", desktop: "電腦" };
+  function showOS(os) {
+    ["ios", "ios2", "android", "desktop"].forEach(function (k) { document.getElementById("sec-" + k).className = "sec" + ((k === os || (k === "ios2" && os === "ios")) ? " on" : ""); });
+    [].forEach.call(document.querySelectorAll("#os button"), function (b) { b.className = b.getAttribute("data-os") === os ? "on" : ""; });
+    document.getElementById("osSay").innerHTML = (os === detected ? "看起來你是用 <b>" + OS_NAME[os] + "</b>，下面是它的安裝方式。不對的話按下面的按鈕切換。" : "下面是 <b>" + OS_NAME[os] + "</b> 的安裝方式。");
+  }
+  [].forEach.call(document.querySelectorAll("#os button"), function (b) { b.onclick = function () { showOS(b.getAttribute("data-os")); }; });
+  showOS(detected);
+  if (ios && !safari) document.getElementById("warn").style.display = "block";
 
-function toast(msg, err) {
-  var t = $("toast"); t.textContent = msg; t.className = "show" + (err ? " err" : "");
-  clearTimeout(toast.t); toast.t = setTimeout(function () { t.className = ""; }, err ? 5000 : 2600);
-}
-// 呼叫後台（用 text/plain，瀏覽器不會先問一次，Apps Script 才收得到）
-function api(op, arg) {
-  if (!S.url) return Promise.reject("還沒設定後台網址");
-  return fetch(S.url, { method: "POST", body: JSON.stringify({ op: op, arg: arg || {}, token: S.token }), redirect: "follow" })
-    .then(function (r) { return r.text(); })
-    .then(function (t) {
-      var j; try { j = JSON.parse(t); } catch (e) { throw "後台沒有正常回覆，請確認後台網址對不對、後台有沒有部署成「任何人」都能使用"; }
-      if (!j.ok) { if (j.relogin) { S.token = ""; store.del("adm_token"); showLogin(); } throw j.error || "失敗"; }
-      return j.data;
-    }, function () { throw "連不到後台，請檢查網路或後台網址"; });
-}
-function hub(op, arg) { return api("hub", { op: op, arg: arg || {} }); }
-function busy(btn, on, text) { if (!btn) return; if (on) { btn.dataset.t = btn.innerHTML; btn.innerHTML = '<span class="spin"></span> ' + (text || "處理中"); btn.disabled = true; } else { btn.innerHTML = btn.dataset.t || btn.innerHTML; btn.disabled = false; } }
-
-// ---------- 開始 ----------
-function start() {
-  if (!S.url) return showUrl();
-  $("main").innerHTML = '<div class="card center"><span class="spin"></span> 連線到後台中…<div class="label" style="margin-top:6px">第一次可能要等 5～10 秒</div></div>';
-  var slow = setTimeout(function () {
-    if ($("main").textContent.indexOf("連線到後台中") >= 0) $("main").innerHTML = '<div class="card center"><span class="spin"></span> 還在等後台回應…<div class="label" style="margin-top:6px">網路比較慢，或後台網址不對</div><div class="row" style="margin-top:12px"><button class="btn" onclick="start()">再試一次</button><button class="btn ghost" onclick="showUrl()">改後台網址</button></div></div>';
-  }, 15000);
-  api("status").then(function (d) { clearTimeout(slow); return d; }, function (e) { clearTimeout(slow); throw e; }).then(function (d) { if (!d.ready) showSetup(); else if (!S.token) showLogin(); else enter(); })
-    .catch(function (e) { $("main").innerHTML = '<div class="card center"><h2>連不到後台</h2><div class="label">' + esc(e) + '</div><div class="row" style="margin-top:12px"><button class="btn" onclick="start()">再試一次</button><button class="btn ghost" onclick="showUrl()">改後台網址</button></div></div>'; });
-}
-function showUrl() {
-  hideNav();
-  $("main").innerHTML = '<div class="card center"><h2>連接後台</h2><div class="label" style="margin-bottom:10px">貼上「資產配置後台」Apps Script 部署後的網址（…/exec）。只需要設定一次，存在這台裝置。</div>' +
-    '<label class="f">後台網址<input type="url" id="uIn" placeholder="https://script.google.com/macros/s/…/exec" value="' + esc(S.url) + '"></label><button class="btn full" id="uOk">連接</button></div>';
-  $("uOk").onclick = function () {
-    var v = $("uIn").value.trim();
-    if (!/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(v)) return toast("網址格式不對，要是 https://script.google.com/macros/s/…/exec", true);
-    S.url = v; store.set("adm_url", v, true); start();
+  // Android：Chrome 準備好可以安裝時會通知，按鈕按下去就直接跳安裝視窗
+  var deferred = null, aBtn = document.getElementById("aInstall"), aHint = document.getElementById("aHint");
+  if (android && inApp) document.getElementById("aWarn").style.display = "block";
+  if ("serviceWorker" in navigator) { try { navigator.serviceWorker.register("sw.js"); } catch (e) {} }
+  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); deferred = e; aHint.textContent = ""; });
+  window.addEventListener("appinstalled", function () { document.getElementById("aOk").style.display = "block"; aBtn.style.display = "none"; aHint.textContent = ""; });
+  if (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) { document.getElementById("aOk").style.display = "block"; document.getElementById("aOk").textContent = "✅ 已經裝好了，你現在就是從 App 打開的。"; aBtn.style.display = "none"; }
+  // Android 自訂名稱和圖示：把名稱、圖片存在這支手機裡，交給 sw.js 當成設定檔和圖示拿給 Chrome
+  var aIcon = null; // 使用者選的照片（Image），沒選就用寶寶
+  document.getElementById("aFile").onchange = function () {
+    var f = this.files && this.files[0]; if (!f) return;
+    var img = new Image();
+    img.onload = function () { aIcon = img; document.getElementById("aPrev").src = square(img, 180).toDataURL("image/png"); };
+    img.onerror = function () { document.getElementById("aMsg").textContent = "讀不到這張照片，換一張試試"; };
+    img.src = URL.createObjectURL(f);
   };
-}
-function showSetup() {
-  hideNav();
-  $("main").innerHTML = '<div class="card center"><h2>第一次設定</h2><div class="label" style="margin-bottom:10px">在後台的 Apps Script 編輯器選「showSetupCode」按執行，把執行紀錄裡的 8 碼設定碼填在這裡（30 分鐘內有效）。</div>' +
-    '<form id="sf" autocomplete="on"><label class="f">設定碼<input type="text" id="sCode" autocomplete="off" autocapitalize="characters"></label>' +
-    '<label class="f">帳號（之後登入用）<input type="text" id="sUser" name="username" autocomplete="username" autocapitalize="none"></label>' +
-    '<label class="f">密碼（至少 10 個字，要有英文和數字）<input type="password" id="sPass" name="new-password" autocomplete="new-password"></label>' +
-    '<label class="f">再輸入一次密碼<input type="password" id="sPass2" autocomplete="new-password"></label>' +
-    '<button class="btn full" id="sOk" type="submit">建立帳號</button></form><div class="label" style="margin-top:10px">手機會問要不要記住密碼，選「記住」，之後登入就可以用臉部辨識或指紋。</div></div>';
-  $("sf").onsubmit = function (e) {
-    e.preventDefault();
-    if ($("sPass").value !== $("sPass2").value) return toast("兩次密碼不一樣", true);
-    var b = $("sOk"); busy(b, true);
-    api("setup", { code: $("sCode").value, user: $("sUser").value, pass: $("sPass").value, device: device })
-      .then(function () { toast("設定完成，請登入"); store.set("adm_user", $("sUser").value.trim(), true); showLogin(); })
-      .catch(function (err) { toast(err, true); busy(b, false); });
+  function square(img, S) {
+    var c = document.createElement("canvas"); c.width = S; c.height = S;
+    var m = Math.min(img.naturalWidth || img.width, img.naturalHeight || img.height);
+    c.getContext("2d").drawImage(img, ((img.naturalWidth || img.width) - m) / 2, ((img.naturalHeight || img.height) - m) / 2, m, m, 0, 0, S, S);
+    return c;
+  }
+  function toBlob(c) { return new Promise(function (res) { c.toBlob(res, "image/png"); }); }
+  function loadImg(src) { return new Promise(function (res, rej) { var i = new Image(); i.onload = function () { res(i); }; i.onerror = rej; i.src = src; }); }
+  document.getElementById("aGo").onclick = function () {
+    var msg = document.getElementById("aMsg"), name = document.getElementById("aName").value.trim() || "Casper資產配置";
+    if (!("serviceWorker" in navigator) || !window.caches) { msg.textContent = "這個瀏覽器不支援自訂，請用 Chrome 開這一頁。"; return; }
+    msg.textContent = "準備中…";
+    var ver = Date.now();
+    (aIcon ? Promise.resolve(aIcon) : loadImg("icon-512.png")).then(function (img) {
+      return Promise.all([toBlob(square(img, 192)), toBlob(square(img, 512)), navigator.serviceWorker.ready, caches.open("custom-v1")]);
+    }).then(function (r) {
+      var man = { name: name, short_name: name, id: "custom-" + ver, start_url: "./go.html?c=" + ver, scope: "./", display: "standalone", orientation: "portrait", background_color: "#1f5a3f", theme_color: "#1f5a3f",
+        icons: [{ src: "custom-icon-192.png?v=" + ver, sizes: "192x192", type: "image/png", purpose: "any" }, { src: "custom-icon-512.png?v=" + ver, sizes: "512x512", type: "image/png", purpose: "any" }] };
+      var c = r[3], png = { headers: { "Content-Type": "image/png", "Cache-Control": "no-store" } };
+      return Promise.all([c.put("custom-icon-192.png", new Response(r[0], png)), c.put("custom-icon-512.png", new Response(r[1], png)),
+        c.put("custom.webmanifest", new Response(JSON.stringify(man), { headers: { "Content-Type": "application/manifest+json", "Cache-Control": "no-store" } }))]);
+    }).then(function () {
+      // 換成自訂的設定檔，等 Chrome 重新判斷可不可以安裝
+      deferred = null;
+      var old = document.querySelector('link[rel="manifest"]'); if (old) old.remove();
+      var l = document.createElement("link"); l.rel = "manifest"; l.href = "custom.webmanifest?v=" + ver; document.head.appendChild(l);
+      document.title = name;
+      msg.innerHTML = "✅ 已套用「" + name.replace(/[<>&]/g, "") + "」。等一下…";
+      var b2 = document.getElementById("aGo2"), n = 0, t = setInterval(function () {
+        n++;
+        if (deferred) { clearInterval(t); b2.textContent = "安裝「" + name + "」到主畫面"; b2.style.display = "block"; msg.innerHTML = "✅ 已套用，按下面的按鈕安裝。";
+          b2.onclick = function () { if (!deferred) return; deferred.prompt(); deferred = null; b2.style.display = "none"; }; }
+        else if (n >= 8) { clearInterval(t); msg.innerHTML = "✅ 已套用。現在按 Chrome 右上角「<b>⋮</b>」→「<b>安裝應用程式</b>」或「<b>加到主畫面</b>」，跳出來的名稱和圖示就會是你自己的。"; }
+      }, 500);
+    }).catch(function (e) { msg.textContent = "沒有成功：" + (e && e.message ? e.message : e) + "。可以先用上面的「安裝到主畫面」裝寶寶的版本。"; });
   };
-}
-function showLogin() {
-  hideNav(); $("btnLogout").classList.add("hidden");
-  var u = store.get("adm_user");
-  $("main").innerHTML = '<div class="card center"><h2>登入</h2>' +
-    '<form id="lf" method="post" action="#"><label class="f">帳號<input type="text" id="lUser" name="username" autocomplete="username" autocapitalize="none" value="' + esc(u) + '"></label>' +
-    '<label class="f">密碼<input type="password" id="lPass" name="password" autocomplete="current-password"></label>' +
-    '<div class="check"><input type="checkbox" id="lRem" checked><label for="lRem">記住我（這台裝置 30 天內不用再登入）</label></div>' +
-    '<button class="btn full" id="lOk" type="submit">登入</button></form>' +
-    '<div class="label" style="margin-top:10px">點密碼欄，手機會跳出儲存的密碼，用臉部辨識或指紋確認就會自動填好。</div>' +
-    '<div style="margin-top:14px;text-align:center"><a href="#" onclick="showUrl();return false" class="label">改後台網址</a></div></div>' + installCard();
-  if (u) setTimeout(function () { $("lPass") && $("lPass").focus(); }, 300);
-  installBind();
-  $("lf").onsubmit = function (e) {
-    e.preventDefault();
-    var b = $("lOk"); busy(b, true, "登入中");
-    var rem = $("lRem").checked;
-    api("login", { user: $("lUser").value, pass: $("lPass").value, remember: rem, device: device }).then(function (d) {
-      S.token = d.token; store.del("adm_token"); store.set("adm_token", d.token, rem); store.set("adm_user", d.user, true);
-      enter();
-    }).catch(function (err) { toast(err, true); busy(b, false); });
+  aBtn.onclick = function () {
+    if (deferred) { deferred.prompt(); deferred.userChoice.then(function (r) { if (r && r.outcome !== "accepted") aHint.textContent = "剛剛按了取消。要裝的話再按一次「安裝到主畫面」。"; deferred = null; }); return; }
+    aHint.innerHTML = "這個瀏覽器沒有跳出安裝視窗（可能已經裝過，或不是用 Chrome 開的）。請照下面「<b>自己加</b>」的步驟：右上角「⋮」→「安裝應用程式」或「加到主畫面」。";
+    document.getElementById("aHint").scrollIntoView({ behavior: "smooth", block: "center" });
   };
-}
-$("btnLogout").onclick = function () {
-  if (!confirm("登出這台裝置？")) return;
-  api("logout").catch(function () {}).then(function () { S.token = ""; store.del("adm_token"); showLogin(); });
-};
 
-// ---------- 登入之後 ----------
-var TABS = [["deploy", "🚀", "部署"], ["users", "👥", "使用者"], ["invites", "✉️", "邀請"], ["errors", "🐞", "錯誤"], ["feedback", "💬", "意見"], ["ann", "📢", "公告"], ["logs", "🔐", "紀錄"], ["cfg", "⚙️", "設定"]];
-function hideNav() { $("nav").classList.add("hidden"); }
-function enter() {
-  $("btnLogout").classList.remove("hidden");
-  $("nav").classList.remove("hidden");
-  $("nav").innerHTML = TABS.map(function (t) { return '<button data-t="' + t[0] + '"><span class="ic">' + t[1] + "</span>" + t[2] + (t[0] === "feedback" ? '<span class="dot hidden" id="fbDot"></span>' : t[0] === "errors" ? '<span class="dot hidden" id="erDot"></span>' : "") + "</button>"; }).join("");
-  $("nav").querySelectorAll("button").forEach(function (b) { b.onclick = function () { go(b.dataset.t); }; });
-  api("me").then(function (d) { S.cfg = d.cfg; try { themeSync(d.theme); } catch (te) {} $("hdrSub").textContent = "已登入：" + d.user; if (!d.cfg.scriptId || !d.cfg.hubUrl) { toast("先到「設定」填中央 App 的資料"); go("cfg"); } else go(S.tab); })
-    .catch(function (e) { toast(e, true); });
-  // 有沒有沒看過的意見／錯誤（小紅點）
-  hub("feedback").then(function (d) { if ((d.list || []).some(function (f) { return !f.read; })) $("fbDot").classList.remove("hidden"); }).catch(function () {});
-  hub("errors").then(function (d) { var seen = store.get("adm_errseen"); if ((d.list || []).some(function (x) { return x._k > seen; })) $("erDot").classList.remove("hidden"); }).catch(function () {});
-}
-function go(t) {
-  S.tab = t;
-  $("nav").querySelectorAll("button").forEach(function (b) { b.classList.toggle("on", b.dataset.t === t); });
-  $("main").innerHTML = '<div class="card"><span class="spin"></span> 讀取中…</div>';
-  window.scrollTo(0, 0);
-  ({ deploy: tDeploy, users: tUsers, invites: tInvites, errors: tErrors, feedback: tFeedback, ann: tAnn, logs: tLogs, cfg: tCfg })[t]();
-}
-function fail(e) { $("main").innerHTML = '<div class="card"><h2>讀取失敗</h2><div class="label">' + esc(e) + '</div><button class="btn ghost" style="margin-top:10px" onclick="go(S.tab)">再試一次</button></div>'; }
-
-// ---------- 🏠 實價登錄估價資料（每季提醒更新） ----------
-function reSeasonText(s) { return s ? String(parseInt(s, 10)) + " 年第 " + String(s).slice(-1) + " 季" : "—"; }
-function reDataCard() {
-  api("reData").then(function (r) {
-    var el = $("reCard"); if (!el) return;
-    if (!r.ok) { el.innerHTML = '<div class="card"><h2>🏠 實價登錄資料</h2><div class="label">' + esc(r.why) + "</div></div>"; return; }
-    var need = r.need || [];
-    var h = '<div class="card"' + (need.length ? ' style="border:2px solid var(--warn,#d97706)"' : "") + '><h2>🏠 實價登錄資料 ' + (need.length ? '<span class="pill warn">該更新了</span>' : '<span class="pill">最新</span>') + "</h2>" +
-      '<div class="kv"><span>目前用到</span><b>' + reSeasonText(r.season) + "</b><span>內政部已公布到</span><b>" + reSeasonText(r.avail) + "</b><span>成交資料到</span><b>" + esc(r.through) + "（預售屋 " + esc(r.pthrough) + "）</b></div>";
-    if (need.length) h += '<div style="margin-top:10px;line-height:1.7"><b>要下載的：</b>' + need.map(reSeasonText).join("、") +
-      '<ol style="margin:6px 0 0 18px;padding:0"><li>打開 <a href="https://plvr.land.moi.gov.tw/DownloadOpenData" target="_blank">實價登錄 Open Data</a> →「非本期下載」→「前季下載」</li>' +
-      "<li>選上面那一季、CSV、「進階下載」</li><li>臺北市、新北市、桃園市都勾「不動產買賣」和「預售屋買賣」（共 6 個勾）</li><li>下載的 zip 傳給 Claude，說「更新實價登錄」</li>" +
-      "<li>Claude 給你新的 re 資料夾 → 傳到 GitHub 的 app-install/re 蓋過去，App 不用重新部署</li></ol></div>";
-    else h += '<div class="label" style="margin-top:8px">下一季（' + reSeasonText(nextSeason(r.season)) + "）大約在季後第一個月中公布，到時這裡會提醒你。</div>";
-    el.innerHTML = h + "</div>";
-  }).catch(function () {});
-}
-function nextSeason(s) { var y = parseInt(s, 10), q = Number(String(s).slice(-1)) + 1; if (q > 4) { q = 1; y++; } return y + "S" + q; }
-
-// ---------- 🚀 部署 ----------
-var UP = { files: [] };
-function tDeploy() {
-  Promise.all([api("deployInfo"), api("liveVer").catch(function () { return {}; })]).then(function (r) {
-    var d = r[0], live = r[1].ver || "";
-    S.info = d;
-    if (d.needCfg) return go("cfg");
-    var h = '<div class="card"><h2>目前狀態</h2><div class="kv">' +
-      "<span>正式網址在跑的</span><b>" + (live ? esc(live) : '<span class="label">問不到（中央 App 要先更新到 2026.10.31a）</span>') + "</b>" +
-      "<span>正式網址用的版本</span><b>第 " + esc(d.current) + " 版</b>" +
-      "<span>中央專案裡的檔案</span><b>" + esc(d.headVer || "—") + "</b></div>" +
-      (d.accessOk === false ? '<div style="margin-top:10px;padding:10px;border-radius:10px;background:var(--bad-soft);color:var(--bad)"><b>⚠️ 中央 App 現在只有部分人打得開</b><br><span style="font-size:13px">存取設定是「' + esc((d.webapp && d.webapp.access) || "?") + "／" + esc((d.webapp && d.webapp.executeAs) || "?") + '」，應該是「ANYONE／USER_ACCESSING」。其他人打開會看到「無法開啟這個檔案」。</span><button class="btn bad full" id="fixAcc" style="margin-top:8px">一鍵修正（重新部署一次）</button></div>' : "") +
-      (live && d.headVer && live !== d.headVer ? '<div class="pill warn" style="margin-top:8px;white-space:normal">正式網址跑的版本跟專案裡的檔案不一樣（可能上傳了還沒部署，或剛退回舊版）</div>' : "") + "</div>";
-    var au = d.auto || {};
-    h += '<div class="card"><h2>🧪 測試版 → 正式版</h2><div class="kv">' +
-      "<span>測試版（專案裡的檔案）</span><b>" + esc(d.headVer || "—") + "</b>" +
-      "<span>跟正式版比</span><b>" + (d.pending === true ? '<span class="pill warn">有還沒發佈的更新</span>' : d.pending === false ? '<span class="pill">一樣，不用發佈</span>' : "問不到") + "</b>" +
-      "<span>每天 9 點自動發佈</span><b>" + (au.on ? "開著" : "關著") + "</b></div>" +
-      (au.last ? '<div class="label" style="margin-top:6px">上次自動發佈：' + esc(au.last) + "</div>" : "") +
-      (d.devUrl ? '<a class="btn ghost full" href="' + esc(d.devUrl) + '" target="_blank" style="margin-top:10px;display:block;text-align:center">打開測試網址（用 yoanwei08@gmail.com 登入）</a>' : '<div class="label" style="margin-top:8px">找不到測試網址</div>') +
-      '<div class="label" style="margin-top:6px">測試網址跑的是剛上傳的測試版，只有中央 App 的編輯者打得開；一般使用者還是用正式版。測試網址用的是你自己的真實資料，存進去的東西是真的會存。</div>' +
-      '<div class="row" style="margin-top:10px"><button class="btn ghost" id="autoTg">' + (au.on ? "關掉自動發佈" : "打開每天 9 點自動發佈") + '</button><button class="btn" id="pubNow"' + (d.pending === false ? " disabled" : "") + ">立刻發佈成正式版</button></div></div>";
-    h += '<div id="reCard"></div>';
-    h += '<div class="card"><h2>上傳更新</h2><div class="label">選我傳給你的檔案（核心.gs、App.html，有時候還有 中央.gs、appsscript-中央.json）。可以一次選好幾個，也可以一個一個選，選過的會留在下面。確認每個檔案要取代中央專案裡的哪一個，再按「上傳到測試版」。新功能先上傳到測試版，每天 9 點自動發佈給大家；除錯要馬上修好的，按「上傳並立刻發佈」。</div>' +
-      '<input type="file" id="upF" multiple style="margin:12px 0">' +
-      '<details style="margin-bottom:10px"><summary class="label" style="cursor:pointer">📋 不想下載？改用複製貼上</summary>' +
-      '<div class="label" style="margin:8px 0">在對話裡打開我傳的檔案 → 全選 → 複製，貼到下面，選要取代哪一個，再按「加入」。每個檔案各貼一次。</div>' +
-      '<label class="f">取代中央專案裡的<select id="psT">' + (d.files || []).map(function (f) { return '<option value="' + esc(f.name) + '">' + esc(f.name) + "（" + esc(f.type) + "）</option>"; }).join("") + "</select></label>" +
-      '<textarea id="psX" placeholder="貼上程式碼" style="min-height:120px;font-family:monospace;font-size:12px"></textarea>' +
-      '<button class="btn ghost full" id="psAdd" style="margin-top:8px">加入</button></details>' +
-      '<div id="upMap"></div><label class="f">這次更新的說明（可以不填，會用版本號）<input type="text" id="upDesc"></label>' +
-      '<button class="btn full" id="upGo" disabled>上傳到測試版</button><button class="btn ghost full" id="upNow" disabled style="margin-top:8px">上傳並立刻發佈（除錯用）</button><div class="label" style="margin-top:8px">發佈後，大家下次打開（或 App 裡跳出更新）就是新版。網址不變。</div></div>';
-    h += '<div class="card"><h2>以前的版本 <span class="label">壞掉時可以退回去</span></h2>' + (d.versions || []).map(function (v) {
-      return '<div class="item row"><div style="flex:3"><b>第 ' + v.n + " 版</b>" + (v.n === d.current ? ' <span class="pill">正在用</span>' : "") + '<div class="label">' + esc(v.at) + "・" + esc(v.desc) + "</div></div>" +
-        (v.n === d.current ? "<div></div>" : '<div style="flex:0 0 auto"><button class="btn ghost sm" onclick="rollback(' + v.n + ')">回到這一版</button></div>') + "</div>";
-    }).join("") + "</div>";
-    h += '<div class="card"><h2>中央專案的檔案</h2>' + (d.files || []).map(function (f) { return '<div class="item row"><div>' + esc(f.name) + ' <span class="label">' + esc(f.type) + "</span></div><div style=\"text-align:right\" class=\"label\">" + Math.round(f.size / 1024) + " KB" + (f.ver ? "・" + esc(f.ver) : "") + "</div></div>"; }).join("") + "</div>";
-    $("main").innerHTML = h;
-    reDataCard();
-    UP.files = [];
-    $("upF").onchange = function () { readFiles(this.files); };
-    $("psAdd").onclick = function () {
-      var src = $("psX").value, tgt = $("psT").value;
-      if (src.trim().length < 20) return toast("還沒貼上內容", true);
-      UP.files = UP.files.filter(function (u) { return u.target !== tgt; });
-      UP.files.push({ fname: "貼上的「" + tgt + "」", source: src, target: tgt });
-      $("psX").value = ""; drawMap(); toast("已加入，可以再貼下一個");
+  // 自訂名稱和圖示：在手機上直接產生描述檔（照片不會上傳到任何地方）
+  var APP_URL = "https://script.google.com/macros/s/AKfycbx042OQj64SXi_RAVY-joWC7rEnAxYhPX3q_NcZ9WcL_hSwpJ8OnnZY0_QjPscGULMq/exec";
+  var iconB64 = null;
+  function uid() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID().toUpperCase();
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0; return (c === "x" ? r : (r & 3 | 8)).toString(16); }).toUpperCase();
+  }
+  function xml(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  document.getElementById("cFile").onchange = function () {
+    var f = this.files && this.files[0];
+    if (!f) return;
+    var img = new Image();
+    img.onload = function () {
+      var S = 180, c = document.createElement("canvas"); c.width = S; c.height = S;
+      var m = Math.min(img.width, img.height);
+      c.getContext("2d").drawImage(img, (img.width - m) / 2, (img.height - m) / 2, m, m, 0, 0, S, S);
+      var url = c.toDataURL("image/png");
+      iconB64 = url.split(",")[1];
+      document.getElementById("cPrev").src = url;
     };
-    $("upGo").onclick = function () { doDeploy(false); };
-    $("upNow").onclick = function () { doDeploy(true); };
-    $("autoTg").onclick = function () { var b = this; busy(b, true, "設定中"); api("autoSet", { on: !au.on }).then(function () { toast(au.on ? "已關掉自動發佈" : "已打開：每天 9 點自動發佈"); go("deploy"); }).catch(function (e) { toast(e, true); busy(b, false); }); };
-    $("pubNow").onclick = function () { if (!confirm("把測試版立刻發佈成正式版？所有人下次打開就是新版。")) return; var b = this; busy(b, true, "發佈中");
-      api("deploy", { desc: (d.headVer || "") + "（立刻發佈）", device: device }).then(function (r) { toast("已發佈第 " + r.version + " 版"); setTimeout(function () { go("deploy"); }, 1200); }).catch(function (e) { toast(e, true); busy(b, false); }); };
-    if ($("fixAcc")) $("fixAcc").onclick = function () {
-      var b = this; busy(b, true, "修正中");
-      api("fixAccess", { device: device }).then(function (r) { toast("已修正並部署第 " + r.version + " 版"); setTimeout(function () { go("deploy"); }, 1200); }).catch(function (e) { toast(e, true); busy(b, false); });
-    };
-  }).catch(fail);
-}
-function guessTarget(fname, files) {
-  var base = fname.replace(/\.(gs|js|html|json|txt)$/i, "").replace(/\s*\(\d+\)$/, "");
-  var names = files.map(function (f) { return f.name; });
-  if (/^appsscript/i.test(base) && /\.json$/i.test(fname)) return names.indexOf("appsscript") >= 0 ? "appsscript" : "";
-  if (names.indexOf(base) >= 0) return base;
-  var hit = names.filter(function (n) { return base.indexOf(n) >= 0 || n.indexOf(base) >= 0; });
-  return hit.length === 1 ? hit[0] : "";
-}
-function readFiles(list) {
-  var files = (S.info && S.info.files) || [];
-  Promise.all([].map.call(list, function (f) { return f.text().then(function (t) { return { fname: f.name, source: t, target: guessTarget(f.name, files) }; }); })).then(function (arr) {
-    // 一次選一個也可以：新選的加進來，同一個目標的舊檔換掉，其他保留
-    var tg = arr.map(function (u) { return u.target; });
-    UP.files = UP.files.filter(function (u) { return !(u.target && tg.indexOf(u.target) >= 0) && arr.every(function (n) { return n.fname !== u.fname; }); }).concat(arr);
-    drawMap();
-    try { $("upF").value = ""; } catch (e) {} // 清掉，才能再選下一個（同一個檔名也能重選）
-    toast("已加入 " + arr.length + " 個檔案，可以再選下一個");
-  });
-}
-function drawMap() {
-  var files = (S.info && S.info.files) || [];
-  (function (arr) {
-    $("upMap").innerHTML = arr.map(function (u, i) {
-      var v = (u.source.match(/LIB_VERSION_\s*=\s*"([^"]+)"/) || [])[1];
-      return '<div class="filemap"><div style="display:flex;justify-content:space-between;gap:8px"><span><b>' + esc(u.fname) + '</b> <span class="label">' + Math.round(u.source.length / 1024) + " KB" + (v ? "・版本 " + esc(v) : "") + '</span></span><button class="btn ghost sm" data-rm="' + i + '" style="flex:0 0 auto">移除</button></div>' +
-        '<label class="f" style="margin:6px 0 0">取代中央專案裡的<select data-i="' + i + '"><option value="">（不要上傳這個）</option>' +
-        files.map(function (f) { return '<option value="' + esc(f.name) + '"' + (f.name === u.target ? " selected" : "") + ">" + esc(f.name) + "（" + esc(f.type) + "）</option>"; }).join("") + "</select></label></div>";
-    }).join("");
-    $("upMap").querySelectorAll("select").forEach(function (s) { s.onchange = function () { UP.files[Number(s.dataset.i)].target = s.value; upCheck(); }; });
-    $("upMap").querySelectorAll("[data-rm]").forEach(function (b) { b.onclick = function () { UP.files.splice(Number(b.dataset.rm), 1); drawMap(); }; });
-    upCheck();
-  })(UP.files);
-}
-function upCheck() {
-  var use = UP.files.filter(function (u) { return u.target; });
-  var dup = use.some(function (u, i) { return use.some(function (w, j) { return j !== i && w.target === u.target; }); });
-  $("upGo").disabled = !use.length || dup; if ($("upNow")) $("upNow").disabled = !use.length || dup;
-  if (dup) toast("兩個檔案選到同一個目標了", true);
-}
-function doDeploy(now) {
-  var use = UP.files.filter(function (u) { return u.target; });
-  if (!confirm("要上傳 " + use.map(function (u) { return u.fname + " → " + u.target; }).join("、") + (now ? "，並且立刻發佈成正式版嗎？（所有人下次打開就是新版）" : "到測試版嗎？（每天 9 點自動發佈給大家）"))) return;
-  var b = $(now ? "upNow" : "upGo"); busy(b, true, "上傳中");
-  api("upload", { files: use.map(function (u) { return { target: u.target, source: u.source }; }), device: device }).then(function (r) {
-    if (!now) { toast("已上傳到測試版（" + (r.headVer || "") + "），用測試網址試試看"); setTimeout(function () { go("deploy"); }, 1200); return null; }
-    b.innerHTML = '<span class="spin"></span> 部署中';
-    return api("deploy", { desc: $("upDesc").value.trim(), device: device }).then(function (r) {
-      toast("已發佈第 " + r.version + " 版（" + r.desc + "）" + (r.fixedAccess ? "，順便修正了存取設定" : ""));
-      setTimeout(function () { go("deploy"); }, 1200);
+    img.onerror = function () { document.getElementById("cMsg").textContent = "讀不到這張照片，換一張試試（HEIC 的話先截圖再選）"; };
+    img.src = URL.createObjectURL(f);
+  };
+  function defaultIcon() {
+    return new Promise(function (res) {
+      if (iconB64) return res(iconB64);
+      var img = new Image();
+      img.onload = function () { var c = document.createElement("canvas"); c.width = 180; c.height = 180; c.getContext("2d").drawImage(img, 0, 0, 180, 180); res(c.toDataURL("image/png").split(",")[1]); };
+      img.src = "icon.png";
     });
-  }).catch(function (e) { toast(e, true); busy(b, false); });
-}
-function rollback(n) {
-  if (!confirm("把正式網址換回第 " + n + " 版？\n（檔案不會動，之後再上傳部署就是新的）")) return;
-  api("rollback", { version: n, device: device }).then(function () { toast("已回到第 " + n + " 版"); go("deploy"); }).catch(function (e) { toast(e, true); });
-}
-
-// ---------- 👥 使用者 ----------
-function tUsers() {
-  hub("users").then(function (d) {
-    var h = '<div class="card"><h2>使用者 <span class="label">最新版 ' + esc(d.ver) + "</span></h2>";
-    h += (d.list || []).map(function (u) {
-      var trig = Object.keys(u.trig || {}).map(function (k) { var x = u.trig[k]; return '<div class="label">' + (x.ok ? "✅" : "❌") + " " + esc(k) + "：" + esc(x.at) + (x.ok ? "" : '<br><span style="color:var(--bad)">' + esc(x.err) + "</span>") + "</div>"; }).join("");
-      var old = u.ver && u.ver !== d.ver;
-      return '<div class="item"><div class="row"><div style="flex:3"><b>' + esc(u.name || u.email) + "</b>" + (u.name ? '<div class="label">' + esc(u.email) + "</div>" : "") + '</div><div style="text-align:right">' +
-        (u.ver ? '<span class="pill' + (old ? " warn" : "") + '">' + esc(u.ver) + "</span>" : '<span class="pill warn">還沒打開過</span>') + "</div></div>" +
-        '<div class="label">最後打開：' + esc(u.last || "—") + "</div>" + (trig || '<div class="label">還沒有排程紀錄（更新到 2026.10.31a 之後才開始記）</div>') + "</div>";
-    }).join("") + "</div>";
-    h += '<div class="card label">「最後打開」10 分鐘內只記一次。排程的時間是那個人最後一次自動跑的時間；❌ 代表失敗，常見原因是新版需要重新授權（請他打開 App 一次）。</div>';
-    $("main").innerHTML = h;
-  }).catch(fail);
-}
-
-// ---------- ✉️ 邀請 ----------
-function tInvites() {
-  hub("invites").then(function (d) {
-    var h = '<div class="card"><h2>邀請新的人</h2><label class="f">Google 帳號（Email）<input type="email" id="ivE" autocapitalize="none"></label><label class="f">名字（選填）<input type="text" id="ivN" maxlength="20"></label>' +
-      '<button class="btn full" id="ivOk">邀請</button><div class="label" style="margin-top:8px">邀請後把 App 網址傳給他，他用這個 Google 帳號打開就能用（會自動建立他自己的試算表）。</div></div>';
-    h += '<div class="card"><h2>已邀請 <span class="label">' + (d.list || []).length + " 人・管理員 " + esc(d.admin) + "</span></h2>" + ((d.list || []).length ? d.list.map(function (x) {
-      return '<div class="item row"><div style="flex:3"><b>' + esc(x.name || x.email) + "</b>" + (x.name ? '<div class="label">' + esc(x.email) + "</div>" : "") + '<div class="label">邀請日：' + esc(x.added || "—") + '</div></div><div style="flex:0 0 auto"><button class="btn ghost sm" data-e="' + esc(x.email) + '">移除</button></div></div>';
-    }).join("") : '<div class="label">還沒有邀請任何人</div>') + "</div>";
-    $("main").innerHTML = h;
-    $("ivOk").onclick = function () {
-      var b = this; busy(b, true);
-      hub("inviteSave", { email: $("ivE").value.trim(), name: $("ivN").value.trim() }).then(function (r) { toast(r.message); go("invites"); }).catch(function (e) { toast(e, true); busy(b, false); });
-    };
-    $("main").querySelectorAll("button[data-e]").forEach(function (b) {
-      b.onclick = function () {
-        var e = b.dataset.e;
-        if (!confirm("移除 " + e + "？\n他之後打開 App 會顯示未受邀，自動排程也會停止（他的試算表和資料不會刪）")) return;
-        hub("inviteSave", { email: e, remove: true }).then(function (r) { toast(r.message); go("invites"); }).catch(function (er) { toast(er, true); });
-      };
+  }
+  document.getElementById("cGo").onclick = function () {
+    var name = document.getElementById("cName").value.trim() || "Casper資產配置";
+    defaultIcon().then(function (b64) {
+      var id = uid();
+      var p = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n<plist version="1.0"><dict>' +
+        '<key>PayloadContent</key><array><dict>' +
+        '<key>FullScreen</key><true/><key>Icon</key><data>' + b64 + '</data><key>IsRemovable</key><true/>' +
+        '<key>Label</key><string>' + xml(name) + '</string><key>PayloadDisplayName</key><string>' + xml(name) + '</string>' +
+        '<key>PayloadIdentifier</key><string>com.app-install.custom.' + id + '.clip</string><key>PayloadType</key><string>com.apple.webClip.managed</string>' +
+        '<key>PayloadUUID</key><string>' + uid() + '</string><key>PayloadVersion</key><integer>1</integer><key>Precomposed</key><true/>' +
+        '<key>URL</key><string>' + xml(APP_URL) + '</string></dict></array>' +
+        '<key>PayloadDescription</key><string>在主畫面加上「' + xml(name) + '」</string>' +
+        '<key>PayloadDisplayName</key><string>' + xml(name) + '</string><key>PayloadIdentifier</key><string>com.app-install.custom.' + id + '</string>' +
+        '<key>PayloadRemovalDisallowed</key><false/><key>PayloadType</key><string>Configuration</string>' +
+        '<key>PayloadUUID</key><string>' + id + '</string><key>PayloadVersion</key><integer>1</integer></dict></plist>';
+      var blob = new Blob([p], { type: "application/x-apple-aspen-config" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "app.mobileconfig";
+      document.body.appendChild(a); a.click(); a.remove();
+      document.getElementById("cMsg").innerHTML = "✅ 已產生，接著照下面第 1 步選「檔案」→「儲存」。";
     });
-  }).catch(fail);
-}
-
-// ---------- 🐞 錯誤 ----------
-function tErrors() {
-  hub("errors").then(function (d) {
-    var list = d.list || [];
-    if (list.length) store.set("adm_errseen", list[0]._k, true);
-    $("erDot") && $("erDot").classList.add("hidden");
-    var h = '<div class="card"><h2>錯誤紀錄 <span class="label">最近 60 筆</span>' + (list.length ? '<button class="btn ghost sm" id="erClr" style="flex:0 0 auto">全部清除</button>' : "") + "</h2>";
-    h += list.length ? list.map(function (x) {
-      return '<div class="item"><div class="row"><b style="flex:3">' + esc(x.where) + '</b><span class="label" style="text-align:right">' + esc(x.t) + '</span></div><div class="label">' + esc(x.who || "排程") + "・" + esc(x.ver) + "</div><div>" + esc(x.msg) + "</div>" + (x.stack ? "<details><summary class=\"label\">詳細</summary><pre>" + esc(x.stack) + "</pre></details>" : "") + "</div>";
-    }).join("") : '<div class="label">沒有錯誤 🎉</div>';
-    $("main").innerHTML = h + "</div>";
-    if ($("erClr")) $("erClr").onclick = function () { if (confirm("清除全部錯誤紀錄？")) hub("errClear").then(function () { toast("已清除"); go("errors"); }).catch(function (e) { toast(e, true); }); };
-  }).catch(fail);
-}
-
-// ---------- 💬 意見 ----------
-function tFeedback() {
-  hub("feedback").then(function (d) {
-    var list = d.list || [];
-    $("fbDot") && $("fbDot").classList.add("hidden");
-    var h = '<div class="card"><h2>意見收件箱 <span class="label">' + list.filter(function (f) { return !f.read; }).length + " 則未讀</span></h2>";
-    h += list.length ? list.map(function (f, i) {
-      return '<div class="item"' + (f.read ? "" : ' style="background:var(--brand-soft);margin:0 -16px;padding:10px 16px"') + '><div class="row"><b style="flex:3">' + esc(f.who) + '</b><span class="label" style="text-align:right">' + esc(f.t) + "</span></div>" +
-        '<div style="white-space:pre-wrap;margin:6px 0">' + esc(f.text) + '</div><div class="label">App 版本 ' + esc(f.ver) + "</div>" +
-        '<label class="f" style="margin-top:8px">回覆（對方在 App 的「意見回饋」看得到）<textarea data-r="' + i + '">' + esc(f.reply) + "</textarea></label>" +
-        '<div class="row"><button class="btn sm" data-s="' + i + '">儲存回覆</button><button class="btn ghost sm" data-m="' + i + '">' + (f.read ? "標成未讀" : "標成已讀") + '</button><button class="btn ghost sm" data-d="' + i + '" style="color:var(--bad)">刪除</button></div></div>';
-    }).join("") : '<div class="label">還沒有人送意見</div>';
-    $("main").innerHTML = h + "</div>";
-    var upd = function (i, arg, msg) { arg.k = list[i]._k; hub("fbUpdate", arg).then(function () { toast(msg); go("feedback"); }).catch(function (e) { toast(e, true); }); };
-    $("main").querySelectorAll("[data-s]").forEach(function (b) { b.onclick = function () { var i = Number(b.dataset.s); upd(i, { reply: $("main").querySelector('[data-r="' + i + '"]').value, read: true }, "已回覆"); }; });
-    $("main").querySelectorAll("[data-m]").forEach(function (b) { b.onclick = function () { var i = Number(b.dataset.m); upd(i, { read: !list[i].read }, "已更新"); }; });
-    $("main").querySelectorAll("[data-d]").forEach(function (b) { b.onclick = function () { if (confirm("刪除這則意見？")) upd(Number(b.dataset.d), { del: true }, "已刪除"); }; });
-  }).catch(fail);
-}
-
-// ---------- 📢 公告 ----------
-function tAnn() {
-  hub("annGet").then(function (d) {
-    var a = d.ann || {};
-    $("main").innerHTML = '<div class="card"><h2>公告</h2><div class="label" style="margin-bottom:8px">會顯示在每個人 App 首頁最上面。留空並取消維護模式就是關掉。</div>' +
-      '<label class="f">內容<textarea id="anT" maxlength="500" placeholder="例如：今晚 10 點更新，會跳出更新視窗">' + esc(a.text) + "</textarea></label>" +
-      '<label class="f">樣式<select id="anL"><option value="info"' + (a.level !== "warn" ? " selected" : "") + '>📢 一般</option><option value="warn"' + (a.level === "warn" ? " selected" : "") + ">⚠️ 重要（紅色）</option></select></label>" +
-      '<div class="check"><input type="checkbox" id="anM"' + (a.maint ? " checked" : "") + '><label for="anM"><b>維護模式</b><br><span class="label">除了你以外，打開 App 只會看到「維護中」和上面的內容。自動排程照常跑。</span></label></div>' +
-      '<div class="row"><button class="btn" id="anOk">儲存</button><button class="btn ghost" id="anOff">全部關掉</button></div>' + (a.at ? '<div class="label" style="margin-top:8px">上次更改：' + esc(a.at) + "</div>" : "") + "</div>";
-    var save = function (arg) {
-      if (arg.maint && !confirm("開啟維護模式？其他人會暫時不能用 App。")) return;
-      hub("annSet", arg).then(function (r) { toast(r.ann ? (r.ann.maint ? "維護模式已開啟" : "公告已更新") : "已關掉公告和維護模式"); go("ann"); }).catch(function (e) { toast(e, true); });
-    };
-    $("anOk").onclick = function () { save({ text: $("anT").value, level: $("anL").value, maint: $("anM").checked }); };
-    $("anOff").onclick = function () { save({ text: "", maint: false }); };
-  }).catch(fail);
-}
-
-// ---------- 🔐 紀錄 ----------
-function tLogs() {
-  Promise.all([api("logins"), api("me")]).then(function (r) {
-    var h = '<div class="card"><h2>登入中的裝置' + '<button class="btn ghost sm" id="loAll" style="flex:0 0 auto">全部登出</button></h2>' + (r[1].sessions || []).map(function (s) {
-      return '<div class="item"><b>' + esc(s.device || "—") + "</b>" + (s.me ? ' <span class="pill">這台</span>' : "") + '<div class="label">登入：' + esc(s.at) + "・到期：" + esc(s.exp) + "</div></div>";
-    }).join("") + "</div>";
-    h += '<div class="card"><h2>登入與操作紀錄 <span class="label">最近 100 筆</span></h2>' + (r[0].list || []).map(function (x) {
-      return '<div class="item row"><div style="flex:3">' + (x.ok ? "" : "⚠️ ") + esc(x.what) + '<div class="label">' + esc(x.device) + '</div></div><div class="label" style="text-align:right">' + esc(x.t) + "</div></div>";
-    }).join("") + "</div>";
-    $("main").innerHTML = h;
-    $("loAll").onclick = function () { if (confirm("所有裝置（包含這台）都要重新登入？")) api("logoutAll", { device: device }).then(function () { S.token = ""; store.del("adm_token"); showLogin(); }).catch(function (e) { toast(e, true); }); };
-  }).catch(fail);
-}
-
-// ---------- ⚙️ 設定 ----------
-function tCfg() {
-  api("me").then(function (d) {
-    var c = d.cfg || {};
-    $("main").innerHTML = '<div class="card"><h2>中央 App</h2>' +
-      '<label class="f">指令碼 ID<input type="text" id="cSid" value="' + esc(c.scriptId) + '" placeholder="中央 App 的 Apps Script →「專案設定」→ 指令碼 ID" autocapitalize="none"></label>' +
-      '<label class="f">App 網址（正式的 …/exec）<input type="url" id="cUrl" value="' + esc(c.hubUrl) + '"></label>' +
-      '<button class="btn full" id="cOk">儲存</button><button class="btn ghost full" id="cTest" style="margin-top:8px">測試連線</button><div id="cRes" class="label" style="margin-top:8px"></div></div>' +
-      '<div class="card"><h2>連線金鑰 ' + (c.hasKey ? '<span class="pill">已設定</span>' : '<span class="pill warn">還沒設定</span>') + '</h2>' +
-      '<div class="label">後台跟 App 管理員不是同一個 Google 帳號時要用（例如你用 A 帳號改程式、B 帳號當管理員）。按下面產生一組金鑰，再貼到中央 App：</div>' +
-      '<ol class="label" style="padding-left:20px;margin:8px 0"><li>打開中央 App 的 Apps Script 編輯器 → 左邊 ⚙️「專案設定」</li><li>拉到最下面「指令碼屬性」→「新增指令碼屬性」</li><li>屬性填 <b>ADMIN_API_KEY</b>，值貼上金鑰 →「儲存指令碼屬性」</li></ol>' +
-      '<button class="btn ghost full" id="kGen">' + (c.hasKey ? "重新產生金鑰（舊的會失效）" : "產生金鑰") + '</button><div id="kOut"></div></div>' +
-      '<div class="card"><h2>改密碼</h2><form id="pf"><input type="text" name="username" autocomplete="username" value="' + esc(d.user) + '" class="hidden">' +
-      '<label class="f">原本的密碼<input type="password" id="pOld" autocomplete="current-password"></label><label class="f">新密碼<input type="password" id="pNew" autocomplete="new-password"></label>' +
-      '<label class="f">再輸入一次<input type="password" id="pNew2" autocomplete="new-password"></label><button class="btn full" type="submit">更改密碼</button></form></div>' +
-      '<div class="card"><h2>外觀 <span class="label">' + (T.own ? "只改這台裝置" : "所有裝置同步") + '</span></h2>' +
-      '<div class="label" style="margin-bottom:6px">主題顏色</div><div class="row" id="thSw" style="flex-wrap:wrap;gap:10px">' + THEMES.map(function (t) { return '<button class="swatch' + (T.brand === t[1] ? " on" : "") + '" title="' + t[0] + '" data-c="' + t[1] + '" style="background:' + t[1] + '"></button>'; }).join("") +
-      '<label class="swatch" style="background:conic-gradient(red,yellow,lime,cyan,blue,magenta,red);position:relative;overflow:hidden" title="自訂"><input type="color" id="thCustom" value="' + esc(T.brand) + '" style="opacity:0;position:absolute;inset:0;width:100%;height:100%"></label></div>' +
-      '<label class="f" style="margin-top:12px">深色／淺色<select id="thMode"><option value="">跟手機設定</option><option value="light"' + (T.mode === "light" ? " selected" : "") + '>淺色</option><option value="dark"' + (T.mode === "dark" ? " selected" : "") + ">深色</option></select></label>" +
-      '<div class="label" style="margin:4px 0 6px">背景圖片</div><div class="row"><label class="btn ghost" style="position:relative;overflow:hidden">選一張照片<input type="file" id="thImg" accept="image/*" style="opacity:0;position:absolute;inset:0"></label>' + (T.bg ? '<button class="btn ghost" id="thNoImg">拿掉背景</button>' : "") + "</div>" +
-      '<div class="check" style="margin-top:12px"><input type="checkbox" id="thOwn"' + (T.own ? " checked" : "") + '><label for="thOwn">這台裝置用自己的外觀<br><span class="label">不勾＝所有裝置同步（背景圖會壓小一點）；勾了＝只改這台，背景可以比較清楚</span></label></div>' +
-      (T.bg ? '<label class="f" style="margin-top:10px">背景變暗（字比較看得清楚）<input type="range" id="thDim" min="0" max="0.8" step="0.05" value="' + T.dim + '" style="width:100%"></label>' : "") + "</div>" +
-      '<div class="card"><h2>手機怎麼開</h2><div class="label">在手機打開下面這個連結，後台網址會自動設好：</div>' +
-      '<input type="text" readonly id="phLink" value="' + esc(location.origin + location.pathname + "#u=" + encodeURIComponent(S.url)) + '" style="font-size:12px"><button class="btn ghost full" id="phCopy" style="margin-top:8px">複製連結（傳給自己的手機）</button>' +
-      '<div class="label" style="margin-top:8px">在手機打開之後，登入畫面下面就有「安裝成 App」。</div></div>' + installCard() +
-      '<div class="card"><h2>這台裝置</h2><div class="label" style="word-break:break-all">後台網址：' + esc(S.url) + '</div><button class="btn ghost full" style="margin-top:8px" onclick="showUrl()">改後台網址</button></div>';
-    $("cOk").onclick = function () {
-      var b = this; busy(b, true);
-      api("cfgSet", { scriptId: $("cSid").value, hubUrl: $("cUrl").value }).then(function (r) { S.cfg = r.cfg; toast("已儲存"); busy(b, false); }).catch(function (e) { toast(e, true); busy(b, false); });
-    };
-    $("cTest").onclick = function () {
-      var b = this; busy(b, true, "測試中"); $("cRes").textContent = "";
-      Promise.all([api("deployInfo").then(function (x) { return x.needCfg ? "❌ 還沒填完整" : "✅ 部署權限正常（正式網址用第 " + x.current + " 版）"; }, function (e) { return "❌ 部署權限：" + e; }),
-        hub("ping").then(function (x) { return "✅ 中央 App 正常（" + x.ver + "，管理員 " + x.admin + (x.caller && x.caller !== x.admin ? "，後台用 " + x.caller + " 加金鑰連線" : "") + "）"; }, function (e) { return "❌ 中央 App：" + e; })])
-        .then(function (r) { $("cRes").innerHTML = r.map(esc).join("<br>"); busy(b, false); });
-    };
-    $("thSw").querySelectorAll("button[data-c]").forEach(function (b) { b.onclick = function () { T.brand = b.dataset.c; themeSave(); go("cfg"); }; });
-    $("thCustom").onchange = function () { T.brand = this.value; themeSave(); go("cfg"); };
-    $("thMode").onchange = function () { T.mode = this.value; themeSave(); };
-    $("thImg").onchange = function () { var f = this.files[0]; if (f) bgFromFile(f); };
-    if ($("thNoImg")) $("thNoImg").onclick = function () { T.bg = ""; themeSave(true); go("cfg"); };
-    $("thOwn").onchange = function () {
-      T.own = this.checked; themeLocal();
-      if (!T.own) { T.sv = 0; api("me").then(function (d) { if (d.theme) themeSync(d.theme); else themeSave(true); }).catch(function () {}); }
-      toast(T.own ? "這台裝置之後用自己的外觀" : "這台裝置改成跟其他裝置同步");
-    };
-    if ($("thDim")) $("thDim").oninput = function () { T.dim = Number(this.value); themeSave(); };
-    $("phCopy").onclick = function () { var v = $("phLink"); v.select(); (navigator.clipboard ? navigator.clipboard.writeText(v.value) : Promise.reject()).then(function () { toast("已複製，用 LINE 或 Email 傳給自己，在手機打開"); }, function () { try { document.execCommand("copy"); toast("已複製"); } catch (e) { toast("請長按欄位手動複製", true); } }); };
-    installBind();
-    $("kGen").onclick = function () {
-      if (c.hasKey && !confirm("重新產生後，中央 App 裡的舊金鑰就不能用了，要再貼一次新的。確定？")) return;
-      api("genKey", { device: device }).then(function (r) {
-        c.hasKey = true;
-        $("kOut").innerHTML = '<label class="f" style="margin-top:10px">金鑰（只會顯示這一次，現在就複製）<input type="text" id="kVal" readonly value="' + esc(r.key) + '"></label><button class="btn full" id="kCopy">複製金鑰</button>';
-        $("kCopy").onclick = function () {
-          var v = $("kVal"); v.select();
-          (navigator.clipboard ? navigator.clipboard.writeText(v.value) : Promise.reject()).then(function () { toast("已複製，去中央 App 貼上"); }, function () { try { document.execCommand("copy"); toast("已複製"); } catch (e) { toast("請長按欄位手動複製", true); } });
-        };
-      }).catch(function (e) { toast(e, true); });
-    };
-    $("pf").onsubmit = function (e) {
-      e.preventDefault();
-      if ($("pNew").value !== $("pNew2").value) return toast("兩次新密碼不一樣", true);
-      api("changePass", { old: $("pOld").value, pass: $("pNew").value, device: device }).then(function (r) { toast(r.message); go("cfg"); }).catch(function (er) { toast(er, true); });
-    };
-  }).catch(fail);
-}
-
-// ---------- 安裝成 App（跟「資產配置」一樣：iPhone 用描述檔、Android 用 Chrome 安裝） ----------
-var IOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-var STANDALONE = (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
-var DEFER_INSTALL = null;
-window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); DEFER_INSTALL = e; });
-if ("serviceWorker" in navigator) { try { navigator.serviceWorker.register("../sw.js"); } catch (e) {} }
-function installCard() {
-  if (STANDALONE) return "";
-  return '<div class="card"><h2>📲 安裝成 App</h2><div class="label" style="margin-bottom:10px">跟「資產配置」一樣：主畫面有自己的圖示，打開是全螢幕，沒有網址列。</div>' +
-    '<button class="btn full" id="insIos">iPhone：下載安裝描述檔</button>' +
-    '<div class="label" style="margin:6px 0 12px;line-height:1.7">按下去後選「允許」→ 打開「設定」App → 最上面「已下載描述檔」→「安裝」→ 輸入手機密碼 →「安裝」。主畫面就會出現「資產後台」。<br>（要用 <b>Safari</b> 開這一頁才裝得了）</div>' +
-    '<button class="btn ghost full" id="insAnd">Android：安裝到主畫面</button><div class="label" id="insAndHint" style="margin-top:6px">要用 Chrome 開這一頁。</div></div>';
-}
-function installBind() {
-  if ($("insIos")) $("insIos").onclick = installIos;
-  if ($("insAnd")) $("insAnd").onclick = function () {
-    if (DEFER_INSTALL) { DEFER_INSTALL.prompt(); DEFER_INSTALL.userChoice.then(function () { DEFER_INSTALL = null; }); return; }
-    $("insAndHint").innerHTML = "沒有跳出安裝視窗（可能已經裝過，或不是用 Chrome）。請按 Chrome 右上「⋮」→「<b>安裝應用程式</b>」或「<b>加到主畫面</b>」。";
   };
-}
-function uid_() {
-  if (window.crypto && crypto.randomUUID) return crypto.randomUUID().toUpperCase();
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0; return (c === "x" ? r : (r & 3 | 8)).toString(16); }).toUpperCase();
-}
-function xml_(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
-function installIos() {
-  if (!S.url) return toast("先設定後台網址", true);
-  // 主畫面的 App 跟 Safari 不共用資料，所以把後台網址直接放進 App 的網址裡（第一次打開會自動設好）
-  var url = location.origin + location.pathname + "#u=" + encodeURIComponent(S.url);
-  var img = new Image();
-  img.onload = function () {
-    var c = document.createElement("canvas"); c.width = 180; c.height = 180;
-    var g = c.getContext("2d"); g.drawImage(img, 0, 0, 180, 180);
-    // 右下角加一個小齒輪，跟「資產配置」的圖示分得出來
-    g.fillStyle = "#1f2a26"; g.beginPath(); g.arc(140, 140, 34, 0, Math.PI * 2); g.fill();
-    g.font = "40px sans-serif"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText("⚙️", 140, 142);
-    var b64 = c.toDataURL("image/png").split(",")[1], id = uid_(), name = "資產後台";
-    var p = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n<plist version="1.0"><dict>' +
-      '<key>PayloadContent</key><array><dict>' +
-      '<key>FullScreen</key><true/><key>Icon</key><data>' + b64 + '</data><key>IsRemovable</key><true/>' +
-      '<key>Label</key><string>' + name + '</string><key>PayloadDisplayName</key><string>' + name + '</string>' +
-      '<key>PayloadIdentifier</key><string>com.app-install.admin.' + id + '.clip</string><key>PayloadType</key><string>com.apple.webClip.managed</string>' +
-      '<key>PayloadUUID</key><string>' + uid_() + '</string><key>PayloadVersion</key><integer>1</integer><key>Precomposed</key><true/>' +
-      '<key>URL</key><string>' + xml_(url) + '</string></dict></array>' +
-      '<key>PayloadDescription</key><string>在主畫面加上「資產後台」</string>' +
-      '<key>PayloadDisplayName</key><string>' + name + '</string><key>PayloadIdentifier</key><string>com.app-install.admin.' + id + '</string>' +
-      '<key>PayloadRemovalDisallowed</key><false/><key>PayloadType</key><string>Configuration</string>' +
-      '<key>PayloadUUID</key><string>' + id + '</string><key>PayloadVersion</key><integer>1</integer></dict></plist>';
-    var a = document.createElement("a");
-    a.href = URL.createObjectURL(new Blob([p], { type: "application/x-apple-aspen-config" }));
-    a.download = "admin.mobileconfig";
-    document.body.appendChild(a); a.click(); a.remove();
-    toast("已產生，去「設定」App 安裝");
-  };
-  img.onerror = function () { toast("圖示讀不到", true); };
-  img.src = "../icon.png";
-}
-
-// ---------- 外觀（存在這台裝置） ----------
-var THEMES = [["綠", "#1f5f4a"], ["藍", "#1e4fa3"], ["靛", "#3b3f9e"], ["紫", "#6a3fa0"], ["粉", "#b0306a"], ["紅", "#a3322b"], ["橘", "#b4581b"], ["金", "#8a6a12"], ["灰", "#3d4650"], ["黑", "#15181c"]];
-var T = { brand: "#1f5f4a", mode: "", bg: "", dim: 0.35, own: false, sv: 0, bgId: "" };
-try { var t0 = JSON.parse(localStorage.getItem("adm_theme") || "null"); if (t0) T = Object.assign(T, t0); } catch (e) {}
-function mix(hex, w, a) { // hex 跟白色（w=255）或黑色（w=0）混 a 比例
-  var n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255;
-  var f = function (c) { return Math.round(c + (w - c) * a); };
-  return "#" + [f(r), f(g), f(b)].map(function (c) { return ("0" + c.toString(16)).slice(-2); }).join("");
-}
-function themeApply() {
-  var root = document.documentElement, dark = T.mode === "dark" || (!T.mode && window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches);
-  if (T.mode) root.setAttribute("data-theme", T.mode); else root.removeAttribute("data-theme");
-  root.style.setProperty("--head", T.brand);
-  root.style.setProperty("--brand", dark ? mix(T.brand, 255, 0.45) : T.brand);
-  root.style.setProperty("--brand-soft", dark ? mix(T.brand, 0, 0.65) : mix(T.brand, 255, 0.86));
-  var mt = document.querySelector('meta[name="theme-color"]'); if (mt) mt.setAttribute("content", T.brand);
-  document.body.classList.toggle("hasbg", !!T.bg);
-  if (T.bg) { document.body.style.setProperty("--bgimg", "url(" + T.bg + ")"); document.body.style.setProperty("--dim", String(T.dim)); }
-  else document.body.style.removeProperty("--bgimg");
-}
-function themeLocal() { try { localStorage.setItem("adm_theme", JSON.stringify(T)); } catch (e) { toast("這台裝置存不下（圖片太大？），只有這次有效", true); } }
-// 存起來；沒有勾「這台用自己的」就同步到後台（withBg＝背景圖也有改）
-var THEME_TIMER = null;
-function themeSave(withBg) {
-  themeLocal(); themeApply();
-  if (T.own || !S.token) return;
-  clearTimeout(THEME_TIMER);
-  var arg = { brand: T.brand, mode: T.mode, dim: T.dim };
-  if (withBg) arg.bg = T.bg;
-  THEME_TIMER = setTimeout(function () {
-    api("themeSet", arg).then(function (m) { T.sv = m.theme.ver; T.bgId = m.theme.bgId || ""; themeLocal(); })
-      .catch(function (e) { toast("外觀沒有同步到其他裝置：" + e, true); });
-  }, withBg ? 0 : 700);
-}
-// 登入後：別台裝置改過外觀，就套用（背景圖有變才下載）
-function themeSync(meta) {
-  if (T.own || !meta || meta.ver === T.sv) return;
-  var apply = function (bg) {
-    T.brand = meta.brand || T.brand; T.mode = meta.mode || ""; T.dim = meta.dim === undefined ? T.dim : meta.dim;
-    if (bg !== undefined) { T.bg = bg; T.bgId = meta.bgId || ""; }
-    T.sv = meta.ver; themeLocal(); themeApply();
-    if (S.tab === "cfg" && $("thSw")) go("cfg");
-  };
-  if ((meta.bgId || "") === (T.bgId || "")) return apply();
-  if (!meta.bgId) return apply("");
-  api("themeGet").then(function (r) { apply(r.theme && r.theme.bg || ""); }).catch(function () { apply(); });
-}
-// 照片縮小再存（不然太大存不進去）
-function bgFromFile(f) {
-  var img = new Image(), url = URL.createObjectURL(f);
-  img.onload = function () {
-    // 要同步的話存小一點（後台空間有限），這台自己用就存大一點
-    var max = T.own ? 1400 : 820, w = img.width, h = img.height, k = Math.min(1, max / Math.max(w, h));
-    var c = document.createElement("canvas"); c.width = Math.round(w * k); c.height = Math.round(h * k);
-    c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
-    URL.revokeObjectURL(url);
-    var q = T.own ? 0.78 : 0.72, data = c.toDataURL("image/jpeg", q);
-    while (!T.own && data.length > 300000 && q > 0.35) { q -= 0.1; data = c.toDataURL("image/jpeg", q); }
-    T.bg = data; themeSave(true); go("cfg"); toast(T.own ? "背景已換" : "背景已換，其他裝置下次打開也會變");
-  };
-  img.onerror = function () { toast("這張圖片讀不出來", true); };
-  img.src = url;
-}
-themeApply();
-if (window.matchMedia) try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", themeApply); } catch (e) {}
-// 從「手機用連結」打開：網址後面帶著後台網址，自動存起來
-(function () {
-  var m = location.hash.match(/[#&]u=([^&]+)/);
-  if (!m) return;
-  var u = decodeURIComponent(m[1]);
-  if (/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(u)) { S.url = u; store.set("adm_url", u, true); }
-  try { history.replaceState(null, "", location.pathname); } catch (e) {}
-})();
-start();
 </script>
 </body>
 </html>
