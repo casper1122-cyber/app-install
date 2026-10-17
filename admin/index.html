@@ -419,16 +419,47 @@ function tInvites() {
 }
 
 // ---------- 🐞 錯誤 ----------
+// 錯誤分類：同一個地方、同一種訊息（數字、Email 不算）算同一類
+function errSig(x) { return (String(x.where || "") + "｜" + String(x.msg || "").replace(/[\w.+-]+@[\w.-]+/g, "@").replace(/\d+/g, "#").replace(/\s+/g, " ").slice(0, 200)).trim(); }
+function errDev(st) { st = String(st || ""); return /iPhone|iPad/.test(st) ? "iPhone" : /Android/.test(st) ? "Android" : /Windows/.test(st) ? "Windows" : /Macintosh/.test(st) ? "Mac" : /裝置/.test(st) ? "其他" : "伺服器"; }
+var ER = { tab: "open" };
 function tErrors() {
   hub("errors").then(function (d) {
-    var list = d.list || [];
+    var list = d.list || [], done = d.done || {};
     if (list.length) store.set("adm_errseen", list[0]._k, true);
     $("erDot") && $("erDot").classList.add("hidden");
-    var h = '<div class="card"><h2>錯誤紀錄 <span class="label">最近 60 筆</span>' + (list.length ? '<button class="btn ghost sm" id="erClr" style="flex:0 0 auto">全部清除</button>' : "") + "</h2>";
-    h += list.length ? list.map(function (x) {
-      return '<div class="item"><div class="row"><b style="flex:3">' + esc(x.where) + '</b><span class="label" style="text-align:right">' + esc(x.t) + '</span></div><div class="label">' + esc(x.who || "排程") + "・" + esc(x.ver) + "</div><div>" + esc(x.msg) + "</div>" + (x.stack ? "<details><summary class=\"label\">詳細</summary><pre>" + esc(x.stack) + "</pre></details>" : "") + "</div>";
-    }).join("") : '<div class="label">沒有錯誤 🎉</div>';
-    $("main").innerHTML = h + "</div>";
+    var G = {};
+    list.forEach(function (x) { var k = errSig(x); var g = G[k] || (G[k] = { sig: k, where: x.where, msg: x.msg, items: [], who: {}, ver: {}, dev: {}, last: "", first: "", lastK: "" }); g.items.push(x); g.who[x.who || "排程"] = 1; g.ver[x.ver] = 1; g.dev[errDev(x.stack)] = 1; if (!g.last || x.t > g.last) { g.last = x.t; g.lastK = x._k; } if (!g.first || x.t < g.first) g.first = x.t; });
+    var groups = Object.keys(G).map(function (k) { var g = G[k], dn = done[k]; var lastMs = 0; g.items.forEach(function (x) { lastMs = Math.max(lastMs, parseInt(String(x._k).slice(6, 14), 36) || 0); }); g.done = !!dn && lastMs <= dn.at; g.again = !!dn && !g.done; g.note = dn ? dn.note : ""; return g; }).sort(function (x, y) { return x.last < y.last ? 1 : -1; });
+    var open = groups.filter(function (g) { return !g.done; }), closed = groups.filter(function (g) { return g.done; });
+    var show = ER.tab === "open" ? open : closed;
+    var h = '<div class="card"><h2>🐞 錯誤 <span class="label">最近 120 筆，同一種的合在一起</span></h2>' +
+      '<div class="row" style="gap:6px"><button class="btn' + (ER.tab === "open" ? "" : " ghost") + ' sm" id="erT1">未處理 ' + open.length + '</button><button class="btn' + (ER.tab === "done" ? "" : " ghost") + ' sm" id="erT2">已處理 ' + closed.length + "</button>" +
+      (ER.tab === "open" && open.length ? '<button class="btn ghost sm" id="erCopyAll">📋 全部複製</button>' : "") + "</div></div>";
+    h += show.length ? show.map(function (g, i) {
+      return '<div class="card"' + (g.again ? ' style="border:2px solid var(--warn,#d97706)"' : "") + '><div class="row"><b style="flex:3">' + esc(g.where) + '</b><span class="pill' + (g.items.length > 1 ? " warn" : "") + '">' + g.items.length + " 次</span></div>" +
+        (g.again ? '<div class="pill warn" style="margin:4px 0">標過已處理，又出現了</div>' : "") +
+        '<div style="margin:6px 0;word-break:break-all">' + esc(g.msg) + "</div>" +
+        '<div class="label">最近 ' + esc(g.last) + (g.first !== g.last ? "・第一次 " + esc(g.first) : "") + "</div>" +
+        '<div class="label">誰：' + esc(Object.keys(g.who).join("、")) + "</div>" +
+        '<div class="label">版本：' + esc(Object.keys(g.ver).join("、")) + "・裝置：" + esc(Object.keys(g.dev).join("、")) + "</div>" +
+        (g.note ? '<div class="label">處理備註：' + esc(g.note) + "</div>" : "") +
+        "<details><summary class=\"label\">每一筆（" + g.items.length + "）</summary>" + g.items.slice(0, 10).map(function (x) { return '<div class="item"><div class="label">' + esc(x.t) + "・" + esc(x.who || "排程") + "・" + esc(x.ver) + "</div>" + (x.stack ? "<pre style=\"white-space:pre-wrap\">" + esc(x.stack) + "</pre>" : "") + "</div>"; }).join("") + "</details>" +
+        '<div class="row" style="gap:6px;margin-top:8px"><button class="btn ghost sm" data-copy="' + i + '">📋 複製給 Claude</button>' + (ER.tab === "open" ? '<button class="btn sm" data-done="' + i + '">✅ 標成已處理</button>' : '<button class="btn ghost sm" data-undo="' + i + '">移回未處理</button>') + "</div></div>";
+    }).join("") : '<div class="card label">' + (ER.tab === "open" ? "沒有要處理的錯誤 🎉" : "還沒有標成已處理的") + "</div>";
+    if (list.length) h += '<div class="card"><button class="btn ghost sm" id="erClr">全部清除（含已處理）</button></div>';
+    $("main").innerHTML = h;
+    var rep = function (g) {
+      return "【錯誤報告】" + g.where + "\n訊息：" + g.msg + "\n次數：" + g.items.length + "（" + g.first + " ～ " + g.last + "）\n誰：" + Object.keys(g.who).join("、") + "\n版本：" + Object.keys(g.ver).join("、") + "\n裝置：" + Object.keys(g.dev).join("、") +
+        g.items.slice(0, 3).map(function (x, j) { return "\n--- 第 " + (j + 1) + " 筆 " + x.t + "\n" + (x.stack || "（沒有詳細）"); }).join("");
+    };
+    var copy = function (t) { (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () { toast("已複製，貼給 Claude 就好"); }).catch(function () { prompt("複製下面的文字：", t); }); };
+    $("erT1").onclick = function () { ER.tab = "open"; tErrors(); };
+    $("erT2").onclick = function () { ER.tab = "done"; tErrors(); };
+    if ($("erCopyAll")) $("erCopyAll").onclick = function () { copy(open.map(rep).join("\n\n")); };
+    $("main").querySelectorAll("[data-copy]").forEach(function (b) { b.onclick = function () { copy(rep(show[Number(b.dataset.copy)])); }; });
+    $("main").querySelectorAll("[data-done]").forEach(function (b) { b.onclick = function () { var g = show[Number(b.dataset.done)], note = prompt("處理備註（選填，例如：2026.10.38b 修好了）", "") ; if (note === null) return; hub("errDone", { sig: g.sig, note: note }).then(function () { toast("已移到「已處理」"); tErrors(); }).catch(function (e) { toast(e, true); }); }; });
+    $("main").querySelectorAll("[data-undo]").forEach(function (b) { b.onclick = function () { hub("errDone", { sig: show[Number(b.dataset.undo)].sig, undo: true }).then(function () { tErrors(); }).catch(function (e) { toast(e, true); }); }; });
     if ($("erClr")) $("erClr").onclick = function () { if (confirm("清除全部錯誤紀錄？")) hub("errClear").then(function () { toast("已清除"); go("errors"); }).catch(function (e) { toast(e, true); }); };
   }).catch(fail);
 }
