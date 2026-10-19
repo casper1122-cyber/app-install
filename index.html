@@ -84,7 +84,10 @@
 
   <!-- ===== iPhone ===== -->
   <section class="sec" id="sec-ios">
-  <div class="warn" id="warn">請用 <b>iPhone 的 Safari</b> 打開這個網頁（LINE、Chrome 裡面打開的話裝不了）。可以按右下角「⋯」→「用 Safari 開啟」。</div>
+  <div class="warn" id="warn"><b>現在不是用 Safari 打開的，裝不了</b>（LINE、Messenger、Chrome 裡面按安裝，只會存成一個檔案）。<br>
+    <span id="warnHow">按右上角或右下角的「⋯」→「<b>用 Safari 開啟</b>」（Messenger 是「在外部瀏覽器開啟」），再按一次安裝。</span>
+    <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button type="button" id="toSafari" style="flex:1;min-width:140px;padding:11px;border:0;border-radius:10px;background:#0a84ff;color:#fff;font-weight:700;font-size:15px">用 Safari 打開</button><button type="button" id="copyLink" style="flex:1;min-width:140px;padding:11px;border:0;border-radius:10px;background:#fff;color:#6b4e00;font-weight:700;font-size:15px">複製連結</button></div>
+    <div id="copyMsg" style="margin-top:6px;font-size:13px"></div></div>
 
   <a class="app" href="zichan.mobileconfig"><img src="icon.png" alt=""><span><b>Casper資產配置</b><small>一般裝這個就好</small></span><span class="go">安裝</span></a>
 
@@ -167,7 +170,35 @@
   }
   [].forEach.call(document.querySelectorAll("#os button"), function (b) { b.onclick = function () { showOS(b.getAttribute("data-os")); }; });
   showOS(detected);
-  if (ios && !safari) document.getElementById("warn").style.display = "block";
+  // LINE、Messenger、Chrome 裡面打開的 iPhone：裝不了描述檔（按了只會存成檔案），先試著自動換到 Safari
+  var here = location.href.replace(/[?&]openExternalBrowser=1/, "");
+  var safariUrl = "x-safari-" + here; // iOS 17 以後：x-safari-https://… 會直接用 Safari 打開
+  var lineExt = here + (here.indexOf("?") >= 0 ? "&" : "?") + "openExternalBrowser=1"; // LINE 官方參數：改用外部瀏覽器開
+  var isLine = /Line\//i.test(ua), isFb = /FBAN|FBAV|FB_IAB|Messenger/i.test(ua);
+  function goSafari() {
+    var t0 = Date.now();
+    location.href = safariUrl;
+    setTimeout(function () { if (!document.hidden && Date.now() - t0 < 3000 && isLine) location.href = lineExt; }, 1200); // 沒換過去（舊 iPhone）：LINE 改用它自己的外部開啟
+  }
+  if (ios && !safari) {
+    document.getElementById("warn").style.display = "block";
+    if (isFb) document.getElementById("warnHow").innerHTML = "按右上角「<b>⋯</b>」→「<b>在外部瀏覽器開啟</b>」或「用 Safari 開啟」，再按一次安裝。";
+    if (isLine) document.getElementById("warnHow").innerHTML = "按右下角「<b>⋯</b>」→「<b>用 Safari 開啟</b>」，再按一次安裝。";
+    if (/CriOS|FxiOS|EdgiOS/.test(ua)) document.getElementById("warnHow").innerHTML = "這是 Chrome（或其他瀏覽器），要改用 <b>Safari</b> 打開這一頁。";
+    document.getElementById("toSafari").onclick = goSafari;
+    document.getElementById("copyLink").onclick = function () {
+      var m = document.getElementById("copyMsg"), done = function () { m.textContent = "已複製，打開 Safari，在網址列貼上就好"; };
+      try { navigator.clipboard.writeText(here).then(done, function () { prompt("長按複製這個網址，貼到 Safari：", here); }); } catch (e) { prompt("長按複製這個網址，貼到 Safari：", here); }
+    };
+    // 按安裝的時候：不要讓它下載成檔案，改成先帶去 Safari
+    [].forEach.call(document.querySelectorAll('#sec-ios a[href$=".mobileconfig"], #sec-ios2 a[href$=".mobileconfig"]'), function (a) {
+      a.addEventListener("click", function (e) { e.preventDefault(); document.getElementById("warn").scrollIntoView({ behavior: "smooth", block: "center" }); goSafari(); });
+    });
+    // 一打開就自動試一次（同一個分頁只試一次，避免一直跳）
+    try { if (!sessionStorage.getItem("triedSafari")) { sessionStorage.setItem("triedSafari", "1"); setTimeout(goSafari, 400); } } catch (e) {}
+  }
+  // Android 在 LINE 裡面：LINE 可以直接改用 Chrome 開
+  if (android && isLine && location.search.indexOf("openExternalBrowser=1") < 0) { try { if (!sessionStorage.getItem("triedExt")) { sessionStorage.setItem("triedExt", "1"); location.href = lineExt; } } catch (e) {} }
 
   // Android：Chrome 準備好可以安裝時會通知，按鈕按下去就直接跳安裝視窗
   var deferred = null, aBtn = document.getElementById("aInstall"), aHint = document.getElementById("aHint");
@@ -259,6 +290,7 @@
     });
   }
   document.getElementById("cGo").onclick = function () {
+    if (ios && !safari) { document.getElementById("warn").scrollIntoView({ behavior: "smooth", block: "center" }); goSafari(); return; } // 不是 Safari 產生的描述檔也裝不了
     var name = document.getElementById("cName").value.trim() || "Casper資產配置";
     defaultIcon().then(function (b64) {
       var id = uid();
