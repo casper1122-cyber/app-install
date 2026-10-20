@@ -34,6 +34,30 @@
   .sec { display:none; } .sec.on { display:block; }
   .big { display:block; width:100%; padding:15px; border:0; border-radius:14px; background:var(--brand); color:#fff; font-size:17px; font-weight:700; text-align:center; text-decoration:none; }
   .ok { display:none; background:#e3f5e9; color:#17512f; border-radius:12px; padding:12px 14px; font-size:15px; line-height:1.6; margin:12px 0; }
+  /* ===== iPhone 安裝引導（按下安裝後一步一步帶，箭頭指著要按的地方） ===== */
+  #gd { position:fixed; inset:0; z-index:50; background:rgba(0,0,0,.72); display:none; align-items:center; justify-content:center; padding:16px; -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px); }
+  #gd.on { display:flex; }
+  #gd .box { width:100%; max-width:420px; background:#fff; color:#111; border-radius:22px; padding:18px 18px 16px; box-shadow:0 10px 40px rgba(0,0,0,.35); }
+  #gd .dots { display:flex; gap:6px; justify-content:center; margin-bottom:10px; }
+  #gd .dots i { width:8px; height:8px; border-radius:50%; background:#d6dcd8; } #gd .dots i.on { background:#1f5a3f; width:22px; border-radius:6px; }
+  #gd h3 { margin:0 0 6px; font-size:22px; line-height:1.35; text-align:center; }
+  #gd .say { font-size:17px; line-height:1.6; text-align:center; color:#333; margin:0 0 12px; }
+  #gd .say b { color:#0a6b3d; }
+  #gd .mock { position:relative; background:#f2f2f7; border-radius:16px; padding:14px; margin:0 0 14px; min-height:150px; font-family:-apple-system,sans-serif; }
+  #gd .alert { background:rgba(255,255,255,.96); border-radius:14px; width:240px; margin:8px auto; text-align:center; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,.12); }
+  #gd .alert p { margin:0; padding:14px 12px 10px; font-size:14px; line-height:1.45; color:#111; }
+  #gd .alert .btns { display:flex; border-top:1px solid #ddd; } #gd .alert .btns span { flex:1; padding:10px; font-size:16px; color:#0a84ff; } #gd .alert .btns span + span { border-left:1px solid #ddd; }
+  #gd .hl { position:relative; font-weight:700; background:#fff7c2; border-radius:8px; box-shadow:0 0 0 3px #ffcc00; }
+  #gd .arrow { position:absolute; font-size:40px; line-height:1; animation:gdB 1s ease-in-out infinite; filter:drop-shadow(0 2px 3px rgba(0,0,0,.35)); pointer-events:none; }
+  @keyframes gdB { 0%,100% { transform:translateY(0) } 50% { transform:translateY(10px) } }
+  #gd .row { display:flex; align-items:center; gap:10px; background:#fff; padding:11px 12px; font-size:15px; border-bottom:1px solid #eee; }
+  #gd .row:first-child { border-radius:12px 12px 0 0; } #gd .row:last-child { border-radius:0 0 12px 12px; border-bottom:0; }
+  #gd .ic { width:28px; height:28px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center; font-size:17px; color:#fff; flex:0 0 28px; }
+  #gd .home { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; justify-items:center; }
+  #gd .home div { text-align:center; font-size:11px; color:#333; } #gd .home .ic2 { width:50px; height:50px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:28px; margin-bottom:3px; }
+  #gd .nav { display:flex; gap:8px; } #gd .nav button { flex:1; padding:14px 10px; border:0; border-radius:14px; font-size:17px; font-weight:700; }
+  #gd .nav .pri { background:#1f5a3f; color:#fff; } #gd .nav .sec2 { background:#eef1ef; color:#333; flex:0 0 32%; }
+  #gd .x { display:block; margin:10px auto 0; background:none; border:0; color:#888; font-size:14px; }
 </style>
 </head>
 <body>
@@ -89,7 +113,7 @@
     <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button type="button" id="toSafari" style="flex:1;min-width:140px;padding:11px;border:0;border-radius:10px;background:#0a84ff;color:#fff;font-weight:700;font-size:15px">用 Safari 打開</button><button type="button" id="copyLink" style="flex:1;min-width:140px;padding:11px;border:0;border-radius:10px;background:#fff;color:#6b4e00;font-weight:700;font-size:15px">複製連結</button></div>
     <div id="copyMsg" style="margin-top:6px;font-size:13px"></div></div>
 
-  <a class="app" href="zichan.mobileconfig"><img src="icon.png" alt=""><span><b>Casper資產配置</b><small>一般裝這個就好</small></span><span class="go">安裝</span></a>
+  <a class="app" href="zichan.mobileconfig"><img src="icon.png" alt=""><span><b>Casper資產配置</b><small>按下去會一步一步教你，大約 1 分鐘</small></span><span class="go">安裝</span></a>
 
   </section>
 
@@ -154,6 +178,8 @@
   <p class="note">這個描述檔只會在主畫面加一個網頁捷徑，不會改手機的其他設定；不要的話長按圖示移除，或到 設定 → 一般 → VPN 與裝置管理 刪掉。<br>App 是邀請制，沒有被邀請的帳號打開只會看到「尚未受邀」。</p>
   </section>
 </main>
+<div id="gd"><div class="box"><div class="dots" id="gdDots"></div><h3 id="gdT"></h3><p class="say" id="gdS"></p><div class="mock" id="gdM"></div>
+<div class="nav"><button class="sec2" id="gdPrev">上一步</button><button class="pri" id="gdNext">下一步</button></div><button class="x" id="gdX">先關掉說明</button></div></div>
 <script>
   var ua = navigator.userAgent;
   // 自動判斷是哪一種裝置，顯示那一種的安裝方式；判斷錯了可以按上面三顆按鈕自己切換
@@ -196,6 +222,46 @@
     });
     // 一打開就自動試一次（同一個分頁只試一次，避免一直跳）
     try { if (!sessionStorage.getItem("triedSafari")) { sessionStorage.setItem("triedSafari", "1"); setTimeout(goSafari, 400); } } catch (e) {}
+  }
+
+  // ===== iPhone 安裝引導：按「安裝」之後全螢幕一步一步帶，每一步有示意圖、箭頭指著要按哪裡 =====
+  var GD = [
+    { t: "① 按「允許」", s: "畫面上會跳出一個小視窗，問要不要下載。<br>請按右邊的 <b>「允許」</b>。",
+      m: '<div class="alert"><p>此網站正嘗試下載一個描述檔。要允許嗎？</p><div class="btns"><span>忽略</span><span class="hl">允許</span></div></div><div class="arrow" style="right:22%;bottom:-8px">👆</div>' },
+    { t: "② 按「關閉」", s: "接著會說 <b>「已下載描述檔」</b>，<br>按 <b>「關閉」</b> 就好。",
+      m: '<div class="alert"><p><b>已下載描述檔</b><br>若要安裝描述檔，請前往「設定」App。</p><div class="btns"><span class="hl">關閉</span></div></div><div class="arrow" style="left:46%;bottom:-8px">👆</div>' },
+    { t: "③ 打開「設定」", s: "回到手機主畫面（從最下面往上滑），<br>找到灰色齒輪的 <b>「設定」</b>，點它。",
+      m: '<div class="home"><div><div class="ic2" style="background:#34c759">📞</div>電話</div><div><div class="ic2" style="background:#0a84ff">🧭</div>Safari</div><div><div class="ic2" style="background:#ffcc00">📝</div>備忘錄</div><div><div class="ic2 hl" style="background:#8e8e93">⚙️</div><b>設定</b></div></div><div class="arrow" style="right:8%;top:62px">👆</div>' },
+    { t: "④ 點「已下載描述檔」", s: "打開設定後，<b>最上面</b>（你的名字下面）<br>會多一行 <b>「已下載描述檔」</b>，點它。",
+      m: '<div class="row"><span class="ic" style="background:#c7c7cc">👤</span>你的名字<br></div><div class="row hl"><span class="ic" style="background:#8e8e93">⚙️</span>已下載描述檔<span style="margin-left:auto;color:#999">›</span></div><div class="row"><span class="ic" style="background:#ff9500">✈️</span>飛航模式</div><div class="arrow" style="right:4%;top:44px">👈</div>' },
+    { t: "⑤ 按右上角「安裝」", s: "按右上角的 <b>「安裝」</b>，輸入<b>手機解鎖密碼</b>，<br>再按一次 <b>「安裝」</b>，最後按 <b>「完成」</b>。",
+      m: '<div style="display:flex;justify-content:space-between;font-size:15px;color:#0a84ff;padding:2px 4px 10px"><span>取消</span><b>安裝描述檔</b><span class="hl" style="padding:2px 8px">安裝</span></div><div class="row" style="border-radius:12px"><img src="icon.png" alt="" style="width:34px;height:34px;border-radius:8px">Casper資產配置</div><div class="arrow" style="right:2%;top:36px">👆</div><div style="font-size:13px;color:#666;margin-top:10px;text-align:center">密碼就是平常打開手機的那組數字</div>' },
+    { t: "⑥ 完成！", s: "回到主畫面，會多一個 <b>「Casper資產配置」</b> 圖示。<br>點它，第一次登入受邀的 <b>Google 帳號</b> 就能用了。",
+      m: '<div class="home"><div><div class="ic2" style="background:#34c759">📞</div>電話</div><div><div class="ic2" style="background:#8e8e93">⚙️</div>設定</div><div><img class="ic2 hl" src="icon.png" alt="" style="padding:0"><b>資產配置</b></div><div></div></div><div class="arrow" style="left:52%;top:62px">👆</div>' }
+  ], gdI = 0, gdLeft = false;
+  function gdShow(i) {
+    gdI = Math.max(0, Math.min(i, GD.length - 1));
+    var g = GD[gdI];
+    document.getElementById("gdT").textContent = g.t; document.getElementById("gdS").innerHTML = g.s; document.getElementById("gdM").innerHTML = g.m;
+    document.getElementById("gdDots").innerHTML = GD.map(function (x, k) { return "<i" + (k === gdI ? ' class="on"' : "") + "></i>"; }).join("");
+    document.getElementById("gdPrev").style.visibility = gdI ? "visible" : "hidden";
+    document.getElementById("gdNext").textContent = gdI === GD.length - 1 ? "好，我知道了" : gdI === 2 ? "我打開設定了" : "下一步";
+    document.getElementById("gd").classList.add("on");
+  }
+  function gdClose() { document.getElementById("gd").classList.remove("on"); }
+  document.getElementById("gdNext").onclick = function () { if (gdI === GD.length - 1) gdClose(); else gdShow(gdI + 1); };
+  document.getElementById("gdPrev").onclick = function () { gdShow(gdI - 1); };
+  document.getElementById("gdX").onclick = gdClose;
+  // 她去「設定」裝好再回來：直接停在對的那一步
+  document.addEventListener("visibilitychange", function () {
+    if (!document.getElementById("gd").classList.contains("on")) return;
+    if (document.hidden) { if (gdI >= 1) gdLeft = true; return; }
+    if (gdLeft) { gdLeft = false; gdShow(gdI <= 2 ? 3 : gdI); }
+  });
+  if (ios && safari) {
+    [].forEach.call(document.querySelectorAll('#sec-ios a[href$=".mobileconfig"], #sec-ios2 a[href$=".mobileconfig"]'), function (a) {
+      a.addEventListener("click", function () { setTimeout(function () { gdShow(0); }, 300); }); // 照常下載，同時跳出引導
+    });
   }
   // Android 在 LINE 裡面：LINE 可以直接改用 Chrome 開
   if (android && isLine && location.search.indexOf("openExternalBrowser=1") < 0) { try { if (!sessionStorage.getItem("triedExt")) { sessionStorage.setItem("triedExt", "1"); location.href = lineExt; } } catch (e) {} }
@@ -314,5 +380,6 @@
     });
   };
 </script>
+
 </body>
 </html>
