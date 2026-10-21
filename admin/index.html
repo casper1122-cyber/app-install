@@ -108,6 +108,7 @@ function toast(msg, err) {
 // 呼叫後台（用 text/plain，瀏覽器不會先問一次，Apps Script 才收得到）
 function api(op, arg) {
   if (!S.url) return Promise.reject("還沒設定後台網址");
+  if (/^(deploy|hotfix|upload|rollback|autoSet|fixAccess|logout|logoutAll)$/.test(op)) store.del("adm_dep"); // 狀態會變：上次存的不能再拿來先顯示
   return fetch(S.url, { method: "POST", body: JSON.stringify({ op: op, arg: arg || {}, token: S.token }), redirect: "follow" })
     .then(function (r) { return r.text(); })
     .then(function (t) {
@@ -264,12 +265,22 @@ function nextSeason(s) { var y = parseInt(s, 10), q = Number(String(s).slice(-1)
 
 // ---------- 🚀 部署 ----------
 var UP = { files: [] };
+// 先畫上次的狀態（存在這台裝置），同時去問最新的；最新的回來了再換掉（使用者已經在選檔案就不換，免得選的不見）
 function tDeploy() {
+  var c = null; try { c = JSON.parse(store.get("adm_dep") || "null"); } catch (e) {}
+  if (c && c.d && !c.d.needCfg) drawDeploy(c.d, c.live, true);
   Promise.all([api("deployInfo"), api("liveVer").catch(function () { return {}; })]).then(function (r) {
     var d = r[0], live = r[1].ver || "";
+    store.set("adm_dep", JSON.stringify({ d: d, live: live }), true);
+    if (S.tab !== "deploy") return;
+    if (c && $("upMap") && (UP.files.length || ($("psX") && $("psX").value))) { if ($("depStale")) $("depStale").textContent = "✅ 已讀到最新狀態（你正在選檔案，先不重畫）"; return; }
+    drawDeploy(d, live, false);
+  }).catch(function (e) { if (c && $("depStale")) { $("depStale").textContent = "⚠️ 讀不到最新狀態：" + e; } else fail(e); });
+}
+function drawDeploy(d, live, stale) {
     S.info = d;
     if (d.needCfg) return go("cfg");
-    var h = '<div class="card"><h2>目前狀態</h2><div class="kv">' +
+    var h = (stale ? '<div class="card" id="depStale" style="padding:10px 14px;font-size:14px"><span class="spin"></span> 先顯示上次的狀態，正在讀最新的…</div>' : "") + '<div class="card"><h2>目前狀態</h2><div class="kv">' +
       "<span>正式網址在跑的</span><b>" + (live ? esc(live) : '<span class="label">問不到（中央 App 要先更新到 2026.10.31a）</span>') + "</b>" +
       "<span>正式網址用的版本</span><b>第 " + esc(d.current) + " 版</b>" +
       "<span>中央專案裡的檔案</span><b>" + esc(d.headVer || "—") + "</b></div>" +
@@ -332,7 +343,6 @@ function tDeploy() {
       var b = this; busy(b, true, "修正中");
       api("fixAccess", { device: device }).then(function (r) { toast("已修正並部署第 " + r.version + " 版"); setTimeout(function () { go("deploy"); }, 1200); }).catch(function (e) { toast(e, true); busy(b, false); });
     };
-  }).catch(fail);
 }
 function guessTarget(fname, files) {
   var base = fname.replace(/\.(gs|js|html|json|txt)$/i, "").replace(/\s*\(\d+\)$/, "");
