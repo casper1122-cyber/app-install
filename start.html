@@ -36,6 +36,10 @@
   .p { background: var(--brand); color: #fff; } .s { background: #e6ebe7; color: #333; flex: 0 0 32% !important; }
   video { width: 100%; border-radius: 14px; background: #000; margin-bottom: 12px; }
   .row { display: flex; gap: 10px; align-items: center; padding: 8px; }
+  .ck { display: flex; gap: 10px; align-items: flex-start; background: #fff; border-radius: 12px; padding: 12px; margin-bottom: 8px; font-size: 16px; line-height: 1.55; }
+  .ck input { width: 26px; height: 26px; flex: 0 0 26px; margin: 0; accent-color: var(--brand); }
+  .ck.on { box-shadow: 0 0 0 2px #2e8b57; }
+  .nav button:disabled { opacity: .45; }
 </style>
 </head>
 <body>
@@ -68,6 +72,12 @@
       m: '<div class="gw"><b style="font-size:16px">✏️ 這樣記對嗎？</b><div class="row" style="justify-content:space-between"><span>支出</span><b>$120</b></div><div class="row" style="justify-content:space-between"><span>分類</span><b>餐飲</b></div><div class="row" style="justify-content:space-between"><span>從哪裡付</span><b>現金</b></div><div style="text-align:right;margin-top:6px"><span class="hl" style="background:#1f5a3f;color:#fff;border-radius:12px;padding:8px 16px">✅ 記下來</span></div></div><div class="arrow" style="right:10%;bottom:-6px">👆</div>' },
     { t: "🆘 不會用也沒關係", s: "右上角有 <b>🆘</b>，按一下就會通知幫你設定的人，<br>他看得到你卡在哪裡。",
       m: '<div class="gw" style="display:flex;justify-content:flex-end;gap:8px;background:#1f5a3f"><span class="hl" style="background:#fff5f5;font-size:20px">🆘</span><span style="background:rgba(255,255,255,.2);border-radius:10px;padding:4px 10px;color:#fff">⚙️</span></div><div class="arrow" style="right:16%;top:58px">👆</div>' },
+    { t: "✅ 開始前先檢查", ck: 1, s: "下面 <b>4 項都打勾</b>才能繼續。<br>有一項不符合，先處理好再來，<br>就不會卡在半路。",
+      m: '<label class="ck"><input type="checkbox" data-ck><span>📧 我知道要用<b>哪一個 Gmail</b>，也已經<b>告訴管理員</b>（他要先把你加進名單）</span></label>' +
+        '<label class="ck"><input type="checkbox" data-ck><span>🔑 我記得這個 Gmail 的<b>密碼</b></span></label>' +
+        '<label class="ck"><input type="checkbox" data-ck><span>💾 這個 Gmail 的 <b>Google 空間還沒滿</b><br><a href="https://one.google.com/storage" target="_blank" rel="noopener" class="lk">👉 點這裡查空間</a><small class="g" style="display:block;margin-top:2px">看到「已使用 15 GB 中的 15 GB」或紅字就是滿了：先刪一些照片、影片，或換一個 Gmail</small></span></label>' +
+        '<label class="ck"><input type="checkbox" data-ck><span>☑️ 等一下 Google 問權限，我會<b>勾「全選」</b></span></label>' +
+        '<div class="g" id="ckMsg" style="text-align:center;margin-top:6px"></div>' },
     { t: "接下來要登入 Google", s: "<b>只有第一次</b>會問，總共 3 個畫面。<br>下面一頁一頁教你怎麼按。",
       m: '<div class="gw" style="font-size:17px;line-height:2.1;text-align:center">① 選你的帳號<br>② 點「進階」→「前往」<br>③ <span class="hl">勾「全選」</span>→「繼續」</div>' },
     { t: "① 選你的 Google 帳號", s: "點<b>被邀請的那個帳號</b>。<br>（沒出現這個畫面就看下一頁）",
@@ -81,7 +91,16 @@
     { t: "準備好了！", s: "按下面的「<b>開始登入</b>」，<br>照剛剛的 ①②③ 按就好。<br>看到「<b>歡迎</b>」就按「<b>建立新的資產配置</b>」。",
       m: '<div class="gw" style="text-align:center;font-size:16px;line-height:2">① 選帳號<br>② 進階 → 前往<br>③ <span class="hl">全選</span> → 繼續<br><span class="g">之後在 App 右上角按 ❓ 可以再看一次這些說明</span></div>' }
   ];
-  var i = 0;
+  var i = 0, CK = {}; // 檢查清單打勾的狀態（換頁回來還在）
+  var CKI = 0; S.forEach(function (x, k) { if (x.ck) CKI = k; });
+  function ckAll() { var n = 0; for (var k in CK) if (CK[k]) n++; return n >= 4; }
+  function ckSync() {
+    if (!S[i].ck) return;
+    var all = ckAll(), nb = document.getElementById("next"), strict = !guide && !embed;
+    nb.disabled = strict && !all;
+    nb.textContent = all || !strict ? "下一步" : "4 項都打勾才能繼續";
+    var m = document.getElementById("ckMsg"); if (m) m.textContent = all ? "👍 都準備好了" : "";
+  }
   function show(n) {
     i = Math.max(0, Math.min(n, S.length - 1));
     var g = S[i];
@@ -91,11 +110,19 @@
     var last = i === S.length - 1;
     document.getElementById("next").textContent = last ? (embed ? "看完了" : guide ? "回到 App" : "開始登入") : "下一步";
     document.getElementById("skip").style.visibility = last || embed ? "hidden" : "visible";
+    document.getElementById("next").disabled = false;
+    if (g.ck) {
+      document.querySelectorAll("[data-ck]").forEach(function (el, k) {
+        el.checked = !!CK[k]; el.parentNode.classList.toggle("on", el.checked);
+        el.onchange = function () { CK[k] = el.checked; el.parentNode.classList.toggle("on", el.checked); ckSync(); };
+      });
+      ckSync();
+    }
     window.scrollTo(0, 0);
   }
-  document.getElementById("next").onclick = function () { if (i === S.length - 1) enter(); else show(i + 1); };
+  document.getElementById("next").onclick = function () { if (this.disabled) return; if (i === S.length - 1) enter(); else show(i + 1); };
   document.getElementById("prev").onclick = function () { show(i - 1); };
-  document.getElementById("skip").onclick = function () { if (guide && !embed) enter(); else show(S.length - 1); };
+  document.getElementById("skip").onclick = function () { if (guide && !embed) enter(); else if (!guide && !embed && !ckAll() && i < CKI) show(CKI); else show(S.length - 1); };
   if (guide || !seen()) show(0);
 </script>
 </body>
