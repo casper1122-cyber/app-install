@@ -410,7 +410,8 @@ function rollback(n) {
 
 // ---------- 👥 使用者 ----------
 function tUsers() {
-  hub("users").then(function (d) {
+  Promise.all([hub("users"), hub("visits").catch(function () { return null; })]).then(function (rs) {
+    var d = rs[0], vs = rs[1];
     var h = '<div class="card"><h2>使用者 <span class="label">最新版 ' + esc(d.ver) + "</span></h2>";
     h += (d.list || []).map(function (u) {
       var trig = Object.keys(u.trig || {}).map(function (k) { var x = u.trig[k]; return '<div class="label">' + (x.ok ? "✅" : "❌") + " " + esc(k) + "：" + esc(x.at) + (x.ok ? "" : '<br><span style="color:var(--bad)">' + esc(x.err) + "</span>") + "</div>"; }).join("");
@@ -420,8 +421,32 @@ function tUsers() {
         '<div class="label">最後打開：' + esc(u.last || "—") + "</div>" + (trig || '<div class="label">還沒有排程紀錄（更新到 2026.10.31a 之後才開始記）</div>') + "</div>";
     }).join("") + "</div>";
     h += '<div class="card label">「最後打開」10 分鐘內只記一次。排程的時間是那個人最後一次自動跑的時間；❌ 代表失敗，常見原因是新版需要重新授權（請他打開 App 一次）。</div>';
+    h += visitsCard(vs);
     $("main").innerHTML = h;
+    $("main").querySelectorAll("button[data-inv]").forEach(function (b) {
+      b.onclick = function () {
+        var e = b.dataset.inv; if (!confirm("邀請 " + e + "？\n（請先確定這是你要邀請的人）")) return;
+        busy(b, true); hub("inviteSave", { email: e, name: "" }).then(function (r) { toast(r.message || "已邀請"); go("users"); }).catch(function (er) { toast(er, true); busy(b, false); });
+      };
+    });
   }).catch(fail);
+}
+
+// 最近打開 App 的人（包含沒受邀的）：看他用哪個 Gmail、卡在哪一步
+function visitsCard(vs) {
+  if (!vs) return '<div class="card"><h2>🚪 最近打開 App 的人</h2><div class="label">讀不到（中央 App 要更新到 2026.10.52i 之後才有）</div></div>';
+  var L = vs.list || [];
+  var h = '<div class="card"><h2>🚪 最近打開 App 的人 <span class="label">包含沒受邀的・最新在上面</span></h2>';
+  if (!L.length) return h + '<div class="label">還沒有紀錄（更新到 2026.10.52i 之後才開始記）</div></div>';
+  h += L.map(function (v) {
+    var bad = /沒受邀|失敗|沒勾/.test(v.s), good = /✅|正常/.test(v.s);
+    return '<div class="item"><div class="row"><div style="flex:3;word-break:break-all"><b>' + esc(v.name || v.e) + "</b>" + (v.name ? '<div class="label">' + esc(v.e) + "</div>" : "") + "</div>" +
+      '<div style="text-align:right">' + (v.invited ? '<span class="pill">已受邀</span>' : '<button class="btn sm" data-inv="' + esc(v.e) + '">邀請</button>') + "</div></div>" +
+      '<div class="label" style="color:' + (bad ? "var(--bad)" : good ? "var(--ok,#1f7a4d)" : "inherit") + '">' + esc(v.s) + (v.n > 1 ? "（" + v.n + " 次）" : "") + "</div>" +
+      (v.note ? '<div class="label">' + esc(v.note) + "</div>" : "") +
+      '<div class="label">最後：' + esc(v.t) + (v.first && v.first !== v.t ? "・第一次：" + esc(v.first) : "") + (v.v ? "・" + esc(v.v) : "") + "</div></div>";
+  }).join("");
+  return h + '<div class="label" style="margin-top:6px">看到「沒受邀」但名字很像：多半是對方用了另一個 Gmail 登入，對一下 Email 再按邀請。</div></div>';
 }
 
 // ---------- ✉️ 邀請 ----------
