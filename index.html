@@ -344,7 +344,7 @@
     (aIcon ? Promise.resolve(aIcon) : loadImg("icon-512.png")).then(function (img) {
       return Promise.all([toBlob(square(img, 192)), toBlob(square(img, 512)), navigator.serviceWorker.ready, caches.open("custom-v1")]);
     }).then(function (r) {
-      var man = { name: name, short_name: name, id: "custom-" + ver, start_url: "./go.html?c=" + ver, scope: "./", display: "standalone", orientation: "portrait", background_color: "#1f5a3f", theme_color: "#1f5a3f",
+      var man = { name: name, short_name: name, id: "custom-" + ver, start_url: "./start.html?c=" + ver, scope: "./", display: "standalone", orientation: "portrait", background_color: "#1f5a3f", theme_color: "#1f5a3f",
         icons: [{ src: "custom-icon-192.png?v=" + ver, sizes: "192x192", type: "image/png", purpose: "any" }, { src: "custom-icon-512.png?v=" + ver, sizes: "512x512", type: "image/png", purpose: "any" }] };
       var c = r[3], png = { headers: { "Content-Type": "image/png", "Cache-Control": "no-store" } };
       return Promise.all([c.put("custom-icon-192.png", new Response(r[0], png)), c.put("custom-icon-512.png", new Response(r[1], png)),
@@ -412,7 +412,7 @@
         '<key>Label</key><string>' + xml(name) + '</string><key>PayloadDisplayName</key><string>' + xml(name) + '</string>' +
         '<key>PayloadIdentifier</key><string>com.app-install.custom.' + id + '.clip</string><key>PayloadType</key><string>com.apple.webClip.managed</string>' +
         '<key>PayloadUUID</key><string>' + uid() + '</string><key>PayloadVersion</key><integer>1</integer><key>Precomposed</key><true/>' +
-        '<key>URL</key><string>' + xml(APP_URL) + '</string></dict></array>' +
+        '<key>URL</key><string>' + xml("https://casper1122-cyber.github.io/app-install/start.html") + '</string></dict></array>' + // 先開開場教學（第一次才會看，之後直接進 App）
         '<key>PayloadDescription</key><string>在主畫面加上「' + xml(name) + '」</string>' +
         '<key>PayloadDisplayName</key><string>' + xml(name) + '</string><key>PayloadIdentifier</key><string>com.app-install.custom.' + id + '</string>' +
         '<key>PayloadRemovalDisallowed</key><false/><key>PayloadType</key><string>Configuration</string>' +

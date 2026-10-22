@@ -3,7 +3,7 @@
   "short_name": "Casper資產配置",
   "description": "Casper資產配置 App",
   "lang": "zh-Hant",
-  "start_url": "./go.html",
+  "start_url": "./start.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",

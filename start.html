@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f5a3f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<title>Casper資產配置</title>
+<style>
+  :root { --brand: #1f5a3f; --ink: #17241d; --muted: #6b7a71; --bg: #eef2ee; --card: #fff; --hl: #ffcc00; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
+  body { min-height: 100vh; display: flex; flex-direction: column; padding: calc(12px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom)); }
+  #go { position: fixed; inset: 0; background: var(--brand); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; font-size: 16px; }
+  #go img { width: 88px; height: 88px; border-radius: 20px; }
+  .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .dots { display: flex; gap: 6px; } .dots i { width: 9px; height: 9px; border-radius: 50%; background: #c9d3cc; } .dots i.on { background: var(--brand); width: 24px; border-radius: 6px; }
+  .skip { background: none; border: 0; color: var(--muted); font-size: 15px; padding: 6px; }
+  .box { flex: 1; background: var(--card); border-radius: 22px; padding: 20px 18px; box-shadow: 0 4px 18px rgba(0,0,0,.06); display: flex; flex-direction: column; max-width: 520px; width: 100%; margin: 0 auto; }
+  h1 { font-size: 25px; line-height: 1.35; margin: 4px 0 10px; text-align: center; }
+  .say { font-size: 18px; line-height: 1.65; text-align: center; color: #333; margin: 0 0 14px; } .say b { color: #0a6b3d; }
+  .mock { position: relative; background: #f2f2f7; border-radius: 16px; padding: 14px; margin: 0 0 12px; font-size: 14px; color: #333; }
+  .gw { background: #fff; border-radius: 12px; padding: 12px; }
+  .g { color: #777; font-size: 12px; }
+  .hl { font-weight: 700; background: #fff7c2; border-radius: 8px; box-shadow: 0 0 0 3px var(--hl); padding: 2px 6px; }
+  .lk { color: #1a73e8; } .gb { display: inline-block; background: #1a73e8; color: #fff; border-radius: 16px; padding: 5px 14px; }
+  .arrow { position: absolute; font-size: 42px; line-height: 1; animation: b 1s ease-in-out infinite; filter: drop-shadow(0 2px 3px rgba(0,0,0,.35)); pointer-events: none; }
+  @keyframes b { 0%,100% { transform: translateY(0) } 50% { transform: translateY(9px) } }
+  .feat { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .feat div { background: #fff; border-radius: 14px; padding: 12px; font-size: 15px; line-height: 1.5; } .feat b { display: block; font-size: 17px; margin-bottom: 2px; }
+  .tip { background: #fff7e0; border-radius: 12px; padding: 10px 12px; font-size: 14px; line-height: 1.6; color: #6b5300; margin-top: 4px; }
+  .nav { display: flex; gap: 10px; margin-top: auto; padding-top: 12px; }
+  .nav button { flex: 1; padding: 17px 10px; border: 0; border-radius: 16px; font-size: 19px; font-weight: 800; font-family: inherit; }
+  .p { background: var(--brand); color: #fff; } .s { background: #e6ebe7; color: #333; flex: 0 0 32% !important; }
+  video { width: 100%; border-radius: 14px; background: #000; margin-bottom: 12px; }
+  .row { display: flex; gap: 10px; align-items: center; padding: 8px; }
+</style>
+</head>
+<body>
+<!-- 開場教學：第一次從主畫面打開 App 時先看這幾頁（Google 會問的 3 個畫面、App 怎麼用），看完才去登入。
+     之後打開就直接進 App。網址加 ?guide=1 可以再看一次（App 裡右上角的 ❓）。 -->
+<div id="go" style="display:none"><img src="icon-192.png" alt=""><div>開啟中…</div></div>
+<div class="top"><div class="dots" id="dots"></div><button class="skip" id="skip">跳過 ›</button></div>
+<div class="box"><div id="body"></div><div class="nav"><button class="s" id="prev">上一步</button><button class="p" id="next">下一步</button></div></div>
+<script>
+  var APP = "https://script.google.com/macros/s/AKfycbx042OQj64SXi_RAVY-joWC7rEnAxYhPX3q_NcZ9WcL_hSwpJ8OnnZY0_QjPscGULMq/exec";
+  var VIDEO = ""; // 之後有錄好的示範影片（例如 intro.mp4 放在同一個資料夾），填檔名就會出現在第一頁
+  var q = location.search, guide = /[?&]guide=1/.test(q), embed = /[?&]embed=1/.test(q);
+  var android = /Android/i.test(navigator.userAgent);
+  var KEY = "zc_intro_seen";
+  function seen() { try { return localStorage.getItem(KEY) === "1"; } catch (e) { return false; } }
+  // Android 裝的 App 從 go.html 開（全螢幕框住 App）；iPhone 直接到 App
+  function enter() {
+    try { localStorage.setItem(KEY, "1"); } catch (e) {}
+    if (embed) { try { parent.postMessage({ src: "zichan-guide", type: "done" }, "*"); } catch (e) {} return; }
+    document.getElementById("go").style.display = "flex";
+    location.replace(android ? "go.html" + (location.search.indexOf("c=") >= 0 ? location.search.replace(/[?&]guide=1/, "") : "") : APP);
+  }
+  if (!guide && seen()) { document.getElementById("go").style.display = "flex"; enter(); }
+
+  var S = [
+    { t: "👋 歡迎使用", s: "這是幫你<b>記帳、看總資產</b>的 App。<br>先花 1 分鐘看怎麼用，<br>再登入你的 Google 帳號。",
+      m: (VIDEO ? '<video src="' + VIDEO + '" controls playsinline></video>' : "") +
+        '<div class="feat"><div><b>✏️ 記一筆</b>說一句「午餐 120 現金」就記好</div><div><b>💰 這週還能花</b>一打開就知道</div><div><b>📊 總資產</b>股票、存款、房子都算進去</div><div><b>❗ 要處理的事</b>該做什麼會提醒你</div></div>' },
+    { t: "✏️ 記帳很簡單", s: "按「<b>記一筆</b>」，打或<b>用講的</b>（按鍵盤上的 🎤）<br>說一句話，確認一下就記好了。",
+      m: '<div class="gw"><b style="font-size:16px">✏️ 這樣記對嗎？</b><div class="row" style="justify-content:space-between"><span>支出</span><b>$120</b></div><div class="row" style="justify-content:space-between"><span>分類</span><b>餐飲</b></div><div class="row" style="justify-content:space-between"><span>從哪裡付</span><b>現金</b></div><div style="text-align:right;margin-top:6px"><span class="hl" style="background:#1f5a3f;color:#fff;border-radius:12px;padding:8px 16px">✅ 記下來</span></div></div><div class="arrow" style="right:10%;bottom:-6px">👆</div>' },
+    { t: "🆘 不會用也沒關係", s: "右上角有 <b>🆘</b>，按一下就會通知幫你設定的人，<br>他看得到你卡在哪裡。",
+      m: '<div class="gw" style="display:flex;justify-content:flex-end;gap:8px;background:#1f5a3f"><span class="hl" style="background:#fff5f5;font-size:20px">🆘</span><span style="background:rgba(255,255,255,.2);border-radius:10px;padding:4px 10px;color:#fff">⚙️</span></div><div class="arrow" style="right:16%;top:58px">👆</div>' },
+    { t: "接下來要登入 Google", s: "<b>只有第一次</b>會問，總共 3 個畫面。<br>下面一頁一頁教你怎麼按。",
+      m: '<div class="gw" style="font-size:17px;line-height:2.1;text-align:center">① 選你的帳號<br>② 點「進階」→「前往」<br>③ <span class="hl">勾「全選」</span>→「繼續」</div>' },
+    { t: "① 選你的 Google 帳號", s: "點<b>被邀請的那個帳號</b>。<br>（沒出現這個畫面就看下一頁）",
+      m: '<div class="gw"><div style="text-align:center;font-size:15px"><b>選擇帳戶</b><div class="g">以繼續使用「資產配置 App」</div></div><div class="hl" style="display:flex;gap:10px;align-items:center;margin-top:10px;padding:8px"><span style="width:30px;height:30px;border-radius:50%;background:#7b61ff;color:#fff;display:flex;align-items:center;justify-content:center">你</span><span>你的名字<br><small class="g">xxx@gmail.com</small></span></div></div><div class="arrow" style="right:8%;top:76px">👈</div>' },
+    { t: "② 點「進階」→「前往」", s: "看到「<b>Google 尚未驗證這個應用程式</b>」不用怕。<br>點左下角小字「<b>進階</b>」，<br>再點最下面「<b>前往…（不安全）</b>」。",
+      m: '<div class="gw"><b style="font-size:15px">⚠️ Google 尚未驗證這個應用程式</b><div class="g" style="margin:6px 0 10px">這個應用程式要求存取你 Google 帳戶中的機密資訊…</div><div style="display:flex;justify-content:space-between;align-items:center"><span class="hl lk">進階</span><span class="gb">返回安全頁面</span></div><div class="g" style="margin-top:10px">↓ 點完「進階」，下面會多一行</div><div style="margin-top:4px"><span class="hl lk" style="text-decoration:underline">前往 資產配置 App（不安全）</span></div></div><div class="arrow" style="left:28%;top:74px">👈</div><div class="arrow" style="right:4%;top:140px">👈</div>' +
+        '<div class="tip">💡 寫「不安全」只是因為這個 App 是私人做的、沒送 Google 審查。你的資料只存在<b>你自己的</b> Google 雲端硬碟，做 App 的人看不到。</div>' },
+    { t: "③ 勾「全選」→「繼續」", s: "<b>最重要的一步！</b><br>勾最上面的「<b>全選</b>」，每一項都要打勾，<br>再按右下角「<b>繼續</b>」。",
+      m: '<div class="gw"><b>資產配置 App 想要存取你的 Google 帳戶</b><div class="hl" style="margin:8px 0 6px;padding:6px 8px">☑️ 全選</div><div style="padding:3px 8px">☑️ 查看、編輯 Google 試算表</div><div style="padding:3px 8px">☑️ 以你的身分傳送電子郵件</div><div class="g" style="padding:3px 8px">☑️ …（每一項都要打勾）</div><div style="text-align:right;margin-top:8px"><span class="gb hl" style="background:#1a73e8;color:#fff">繼續</span></div></div><div class="arrow" style="right:8%;top:44px">👈</div><div class="arrow" style="right:24%;top:150px">👉</div>' +
+        '<div class="tip" style="background:#fdecea;color:#a61b1b">沒勾全選，App 會沒辦法幫你建立資料。萬一漏了，App 會跳出圖解教你補。</div>' },
+    { t: "準備好了！", s: "按下面的「<b>開始登入</b>」，<br>照剛剛的 ①②③ 按就好。<br>看到「<b>歡迎</b>」就按「<b>建立新的資產配置</b>」。",
+      m: '<div class="gw" style="text-align:center;font-size:16px;line-height:2">① 選帳號<br>② 進階 → 前往<br>③ <span class="hl">全選</span> → 繼續<br><span class="g">之後在 App 右上角按 ❓ 可以再看一次這些說明</span></div>' }
+  ];
+  var i = 0;
+  function show(n) {
+    i = Math.max(0, Math.min(n, S.length - 1));
+    var g = S[i];
+    document.getElementById("body").innerHTML = "<h1>" + g.t + "</h1><p class=\"say\">" + g.s + "</p><div class=\"mock\">" + g.m + "</div>";
+    document.getElementById("dots").innerHTML = S.map(function (x, k) { return "<i" + (k === i ? ' class="on"' : "") + "></i>"; }).join("");
+    document.getElementById("prev").style.visibility = i ? "visible" : "hidden";
+    var last = i === S.length - 1;
+    document.getElementById("next").textContent = last ? (embed ? "看完了" : guide ? "回到 App" : "開始登入") : "下一步";
+    document.getElementById("skip").style.visibility = last || embed ? "hidden" : "visible";
+    window.scrollTo(0, 0);
+  }
+  document.getElementById("next").onclick = function () { if (i === S.length - 1) enter(); else show(i + 1); };
+  document.getElementById("prev").onclick = function () { show(i - 1); };
+  document.getElementById("skip").onclick = function () { if (guide && !embed) enter(); else show(S.length - 1); };
+  if (guide || !seen()) show(0);
+</script>
+</body>
+</html>
