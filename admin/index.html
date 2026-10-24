@@ -92,6 +92,14 @@ var $ = function (id) { return document.getElementById(id); };
 window.addEventListener("error", function (e) {
   try { var m = document.getElementById("main"); if (m && !m.textContent.trim()) m.innerHTML = '<div class="card center"><h2>頁面出錯了</h2><div class="label" style="word-break:break-all">' + String(e.message || e) + "（第 " + (e.lineno || "?") + " 行）</div><button class=\"btn\" onclick=\"location.reload()\" style=\"margin-top:10px\">重新整理</button></div>"; } catch (x) {}
 });
+// 比版本：2026.10.52m（年.月.號碼＋字母）；a 比 b 舊回傳負數，看不懂回傳 0
+function verCmp(a, b) {
+  var p = function (v) { var m = String(v || "").match(/^(\d+)\.(\d+)\.(\d+)([a-z]*)$/); return m ? [Number(m[1]), Number(m[2]), Number(m[3]), m[4]] : null; };
+  var x = p(a), y = p(b); if (!x || !y) return 0;
+  for (var i = 0; i < 3; i++) if (x[i] !== y[i]) return x[i] - y[i];
+  if (x[3].length !== y[3].length) return x[3].length - y[3].length;
+  return x[3] < y[3] ? -1 : x[3] > y[3] ? 1 : 0;
+}
 var esc = function (s) { return String(s === undefined || s === null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
 var store = {
   get: function (k) { try { return localStorage.getItem(k) || sessionStorage.getItem(k) || ""; } catch (e) { return ""; } },
@@ -285,7 +293,9 @@ function drawDeploy(d, live, stale) {
       "<span>正式網址用的版本</span><b>第 " + esc(d.current) + " 版</b>" +
       "<span>中央專案裡的檔案</span><b>" + esc(d.headVer || "—") + "</b></div>" +
       (d.accessOk === false ? '<div style="margin-top:10px;padding:10px;border-radius:10px;background:var(--bad-soft);color:var(--bad)"><b>⚠️ 中央 App 現在只有部分人打得開</b><br><span style="font-size:13px">存取設定是「' + esc((d.webapp && d.webapp.access) || "?") + "／" + esc((d.webapp && d.webapp.executeAs) || "?") + '」，應該是「ANYONE／USER_ACCESSING」。其他人打開會看到「無法開啟這個檔案」。</span><button class="btn bad full" id="fixAcc" style="margin-top:8px">一鍵修正（重新部署一次）</button></div>' : "") +
-      (live && d.headVer && live !== d.headVer ? '<div class="pill warn" style="margin-top:8px;white-space:normal">正式網址跑的版本跟專案裡的檔案不一樣（可能上傳了還沒部署，或剛退回舊版）</div>' : "") + "</div>";
+      (live && d.headVer && verCmp(d.headVer, live) < 0 ? '<div style="margin-top:10px;padding:10px;border-radius:10px;background:var(--bad-soft);color:var(--bad);line-height:1.6"><b>⚠️ 測試版（' + esc(d.headVer) + "）比正式版（" + esc(live) + "）舊</b><br>" +
+        '<span style="font-size:13px">通常是用「除錯發佈」把新版直接發到正式版，測試版沒跟上。請把 ' + esc(live) + ' 的檔案用「上傳到測試版」再傳一次。<br>（9 點自動發佈遇到這種情況會跳過，不會把正式版退回舊版）</span></div>'
+      : live && d.headVer && live !== d.headVer ? '<div class="pill warn" style="margin-top:8px;white-space:normal">' + (stale ? "（上次讀到的）" : "") + "測試版有新的還沒發佈（" + esc(d.headVer) + "）</div>" : "") + "</div>";
     var au = d.auto || {};
     h += '<div class="card"><h2>🧪 測試版 → 正式版</h2><div class="kv">' +
       "<span>測試版（專案裡的檔案）</span><b>" + esc(d.headVer || "—") + "</b>" +
@@ -337,7 +347,10 @@ function drawDeploy(d, live, stale) {
       }).catch(function (e) { toast(e, true); busy(b, false); });
     };
     $("autoTg").onclick = function () { var b = this; busy(b, true, "設定中"); api("autoSet", { on: !au.on }).then(function () { toast(au.on ? "已關掉自動發佈" : "已打開：每天 9 點自動發佈"); go("deploy"); }).catch(function (e) { toast(e, true); busy(b, false); }); };
-    $("pubNow").onclick = function () { if (!confirm("把測試版立刻發佈成正式版？所有人下次打開就是新版。")) return; var b = this; busy(b, true, "發佈中");
+    $("pubNow").onclick = function () {
+      if (live && d.headVer && verCmp(d.headVer, live) < 0) { if (!confirm("⚠️ 測試版（" + d.headVer + "）比正式版（" + live + "）舊！\n發佈的話，正式版會退回舊版。\n\n確定要這樣做嗎？（不確定就按取消）")) return; }
+      else if (!confirm("把測試版立刻發佈成正式版？所有人下次打開就是新版。")) return;
+      var b = this; busy(b, true, "發佈中");
       api("deploy", { desc: (d.headVer || "") + "（立刻發佈）", device: device }).then(function (r) { toast("已發佈第 " + r.version + " 版"); setTimeout(function () { go("deploy"); }, 1200); }).catch(function (e) { toast(e, true); busy(b, false); }); };
     if ($("fixAcc")) $("fixAcc").onclick = function () {
       var b = this; busy(b, true, "修正中");
@@ -571,6 +584,41 @@ function tLogs() {
 }
 
 // ---------- ⚙️ 設定 ----------
+// 「⚙️ 設定 → 更新後台程式」：上傳 後台.gs，後台自己換程式、建版本、部署；打不開會自動退回
+function selfBind() {
+  var src = "";
+  var info = function () {
+    api("selfInfo").then(function (d) {
+      if (!$("selfInfo")) return;
+      $("selfInfo").innerHTML = "現在的後台程式：<b>" + esc(d.ver || "?") + "</b>" + (d.current ? "（第 " + esc(d.current) + " 版）" : "");
+      $("selfVers").innerHTML = (d.versions || []).length > 1 ? '<details><summary class="label" style="cursor:pointer">新版有問題？退回以前的後台</summary>' + d.versions.map(function (v) {
+        return '<div class="item row"><div class="label" style="flex:3">第 ' + v.n + " 版 " + esc(v.desc) + "</div>" + (v.n === d.current ? '<span class="pill">現在</span>' : '<button class="btn ghost sm" data-sv="' + v.n + '">退回</button>') + "</div>";
+      }).join("") + "</details>" : "";
+      $("selfVers").querySelectorAll("[data-sv]").forEach(function (b) {
+        b.onclick = function () { if (!confirm("後台退回第 " + b.dataset.sv + " 版？")) return; busy(b, true); api("selfRollback", { version: Number(b.dataset.sv), device: device }).then(function () { toast("已退回，重新整理就是舊版"); info(); }).catch(function (e) { toast(e, true); busy(b, false); }); };
+      });
+    }).catch(function (e) { if ($("selfInfo")) $("selfInfo").textContent = /不支援的動作/.test(String(e)) ? "這個功能要先手動更新一次後台（之後就能在這裡更新）" : "讀不到：" + e; });
+  };
+  info();
+  $("selfF").onchange = function () {
+    var f = this.files[0]; if (!f) return;
+    f.text().then(function (t) {
+      src = t;
+      var v = (t.match(/ADMIN_VER_\s*=\s*"([^"]+)"/) || [])[1];
+      var good = /function doPost\(/.test(t) && /function api_\(/.test(t);
+      $("selfPick").innerHTML = good ? "✅ " + esc(f.name) + (v ? "（後台 " + esc(v) + "）" : "") : '<span style="color:var(--bad)">❌ ' + esc(f.name) + " 不是後台的程式。中央 App 的檔案（核心.gs、App.html）請到「🚀 部署」上傳</span>";
+      $("selfGo").classList.toggle("hidden", !good);
+    });
+  };
+  $("selfGo").onclick = function () {
+    if (!src || !confirm("更新後台程式？大約 10～20 秒。")) return;
+    var b = this; busy(b, true, "更新中");
+    api("selfUpdate", { source: src, device: device }).then(function (r) {
+      toast(r.same ? "跟現在的一樣，不用更新" : "後台已更新到 " + (r.ver || "新版") + "，重新整理就是新版");
+      busy(b, false); b.classList.add("hidden"); $("selfPick").textContent = ""; info();
+    }).catch(function (e) { toast(e, true); busy(b, false); });
+  };
+}
 function tCfg() {
   api("me").then(function (d) {
     var c = d.cfg || {};
@@ -582,6 +630,10 @@ function tCfg() {
       '<div class="label">後台跟 App 管理員不是同一個 Google 帳號時要用（例如你用 A 帳號改程式、B 帳號當管理員）。按下面產生一組金鑰，再貼到中央 App：</div>' +
       '<ol class="label" style="padding-left:20px;margin:8px 0"><li>打開中央 App 的 Apps Script 編輯器 → 左邊 ⚙️「專案設定」</li><li>拉到最下面「指令碼屬性」→「新增指令碼屬性」</li><li>屬性填 <b>ADMIN_API_KEY</b>，值貼上金鑰 →「儲存指令碼屬性」</li></ol>' +
       '<button class="btn ghost full" id="kGen">' + (c.hasKey ? "重新產生金鑰（舊的會失效）" : "產生金鑰") + '</button><div id="kOut"></div></div>' +
+      '<div class="card" id="selfCard"><h2>🔧 更新後台程式</h2><div class="label" id="selfInfo">讀取中…</div>' +
+      '<div class="label" style="margin:8px 0">Claude 給你新的「後台.gs」（或 後台.txt）時，在這裡選檔案就好，不用開 Apps Script 編輯器。會先檢查有沒有錯字，更新完打不開會自動退回原本的。</div>' +
+      '<label class="btn ghost full" style="position:relative;overflow:hidden">選 後台.gs／後台.txt<input type="file" id="selfF" accept=".gs,.txt,.js,text/plain" style="opacity:0;position:absolute;inset:0"></label>' +
+      '<div id="selfPick" class="label" style="margin-top:8px"></div><button class="btn full hidden" id="selfGo" style="margin-top:8px">更新後台</button><div id="selfVers" style="margin-top:10px"></div></div>' +
       '<div class="card"><h2>改密碼</h2><form id="pf"><input type="text" name="username" autocomplete="username" value="' + esc(d.user) + '" class="hidden">' +
       '<label class="f">原本的密碼<input type="password" id="pOld" autocomplete="current-password"></label><label class="f">新密碼<input type="password" id="pNew" autocomplete="new-password"></label>' +
       '<label class="f">再輸入一次<input type="password" id="pNew2" autocomplete="new-password"></label><button class="btn full" type="submit">更改密碼</button></form></div>' +
@@ -619,6 +671,7 @@ function tCfg() {
     if ($("thDim")) $("thDim").oninput = function () { T.dim = Number(this.value); themeSave(); };
     $("phCopy").onclick = function () { var v = $("phLink"); v.select(); (navigator.clipboard ? navigator.clipboard.writeText(v.value) : Promise.reject()).then(function () { toast("已複製，用 LINE 或 Email 傳給自己，在手機打開"); }, function () { try { document.execCommand("copy"); toast("已複製"); } catch (e) { toast("請長按欄位手動複製", true); } }); };
     installBind();
+    selfBind();
     $("kGen").onclick = function () {
       if (c.hasKey && !confirm("重新產生後，中央 App 裡的舊金鑰就不能用了，要再貼一次新的。確定？")) return;
       api("genKey", { device: device }).then(function (r) {
