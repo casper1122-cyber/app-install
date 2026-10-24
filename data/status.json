@@ -1,0 +1,127 @@
+{
+ "at": "2026-10-24T22:03",
+ "ver": "2026-10-24b",
+ "items": [
+  {
+   "id": "prices",
+   "name": "股票、ETF、債券、黃金價格和配息",
+   "how": "yahoo",
+   "every": 1,
+   "last": "",
+   "next": "",
+   "state": "fail",
+   "msg": "網站上還沒有 rate/latest.json：先把「v52v_網站上傳.zip」裡的檔案傳到 GitHub 的 app-install，再跑一次"
+  },
+  {
+   "id": "fx",
+   "name": "美元兌台幣匯率",
+   "how": "fred",
+   "every": 1,
+   "last": "",
+   "next": "",
+   "state": "fail",
+   "msg": "DEXTAUS 網站沒回應（The read operation timed out），明天會再試"
+  },
+  {
+   "id": "uscpi",
+   "name": "美國 CPI、利率",
+   "how": "fred",
+   "every": 7,
+   "last": "",
+   "next": "",
+   "state": "fail",
+   "msg": "CPIAUCSL 網站沒回應（Remote end closed connection without res），明天會再試"
+  },
+  {
+   "id": "twdep",
+   "name": "台灣五大銀行存款利率",
+   "how": "twdep",
+   "every": 30,
+   "last": "",
+   "next": "",
+   "state": "est",
+   "msg": "先用估計值（官方網站不能自動下載；超過 3 個月沒更新才會請你按一下）"
+  },
+  {
+   "id": "twcpi",
+   "name": "台灣消費者物價指數（CPI）",
+   "how": "twcpi",
+   "every": 30,
+   "last": "",
+   "next": "",
+   "state": "est",
+   "msg": "先用估計值（官方網站不能自動下載；超過 3 個月沒更新才會請你按一下）"
+  },
+  {
+   "id": "rate",
+   "name": "評級用的回測資料（整理後放上網站）",
+   "how": "rate",
+   "every": 1,
+   "last": "",
+   "next": "",
+   "state": "fail",
+   "msg": "網站上還沒有 rate/latest.json：先把「v52v_網站上傳.zip」裡的檔案傳到 GitHub 的 app-install，再跑一次"
+  },
+  {
+   "id": "long",
+   "name": "長期歷史（Shiller、Fama-French、金價）",
+   "how": "files",
+   "every": 180,
+   "last": "2026-10-24T22:01:44",
+   "next": "2027-04-22",
+   "state": "ok",
+   "msg": "3 個檔案"
+  },
+  {
+   "id": "war",
+   "name": "棒球 WAR（球員卡評級用）",
+   "how": "files",
+   "every": 7,
+   "last": "",
+   "next": "",
+   "state": "fail",
+   "msg": "war_bat.txt（HTTP Error 403: Forbidden）、war_pitch.txt（HTTP Error 403: Forbidden）"
+  },
+  {
+   "id": "lahman",
+   "name": "棒球資料庫（生涯數據、名人堂、獎項）",
+   "how": "files",
+   "every": 30,
+   "last": "",
+   "next": "",
+   "state": "fail",
+   "msg": "lahman.zip（HTTP Error 404: Not Found）"
+  },
+  {
+   "id": "brokers",
+   "name": "券商手續費資料",
+   "how": "manual",
+   "every": 365,
+   "last": "2026-01-01",
+   "next": "2027-01-01",
+   "state": "ok",
+   "msg": "每年一月跟 Claude 說一聲，查各家券商新方案"
+  },
+  {
+   "id": "tax",
+   "name": "遺產稅、贈與稅免稅額",
+   "how": "manual",
+   "every": 365,
+   "last": "2026-01-01",
+   "next": "2027-01-01",
+   "state": "ok",
+   "msg": "每年一月跟 Claude 說一聲（財政部年底公告新的免稅額）"
+  },
+  {
+   "id": "fo",
+   "name": "家族辦公室參考配置",
+   "how": "manual",
+   "every": 365,
+   "last": "2026-07-01",
+   "next": "2027-07-01",
+   "state": "ok",
+   "msg": "每年七月跟 Claude 說一聲（UBS 報告出來）"
+  }
+ ],
+ "pack": "資產配置資料_給Claude_20261024.zip"
+}
