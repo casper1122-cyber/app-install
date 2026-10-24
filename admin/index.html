@@ -193,12 +193,12 @@ $("btnLogout").onclick = function () {
 };
 
 // ---------- 登入之後 ----------
-var TABS = [["deploy", "🚀", "部署"], ["todo", "📅", "待辦"], ["users", "👥", "使用者"], ["invites", "✉️", "邀請"], ["errors", "🐞", "錯誤"], ["feedback", "💬", "意見"], ["ann", "📢", "公告"], ["logs", "🔐", "紀錄"], ["cfg", "⚙️", "設定"]];
+var TABS = [["deploy", "🚀", "部署"], ["todo", "📅", "待辦"], ["users", "👥", "使用者"], ["invites", "✉️", "邀請"], ["errors", "🐞", "錯誤"], ["data", "📡", "資料"], ["feedback", "💬", "意見"], ["ann", "📢", "公告"], ["logs", "🔐", "紀錄"], ["cfg", "⚙️", "設定"]];
 function hideNav() { $("nav").classList.add("hidden"); }
 function enter() {
   $("btnLogout").classList.remove("hidden");
   $("nav").classList.remove("hidden");
-  $("nav").innerHTML = TABS.map(function (t) { return '<button data-t="' + t[0] + '"><span class="ic">' + t[1] + "</span>" + t[2] + (t[0] === "feedback" ? '<span class="dot hidden" id="fbDot"></span>' : t[0] === "errors" ? '<span class="dot hidden" id="erDot"></span>' : t[0] === "todo" ? '<span class="dot hidden" id="tdDot"></span>' : "") + "</button>"; }).join("");
+  $("nav").innerHTML = TABS.map(function (t) { return '<button data-t="' + t[0] + '"><span class="ic">' + t[1] + "</span>" + t[2] + (t[0] === "feedback" ? '<span class="dot hidden" id="fbDot"></span>' : t[0] === "errors" ? '<span class="dot hidden" id="erDot"></span>' : t[0] === "todo" ? '<span class="dot hidden" id="tdDot"></span>' : t[0] === "data" ? '<span class="dot hidden" id="dtDot"></span>' : "") + "</button>"; }).join("");
   $("nav").querySelectorAll("button").forEach(function (b) { b.onclick = function () { go(b.dataset.t); }; });
   api("me").then(function (d) { S.cfg = d.cfg; try { themeSync(d.theme); } catch (te) {} $("hdrSub").textContent = "已登入：" + d.user; if (!d.cfg.scriptId || !d.cfg.hubUrl) { toast("先到「設定」填中央 App 的資料"); go("cfg"); } else go(S.tab); })
     .catch(function (e) { toast(e, true); });
@@ -206,6 +206,7 @@ function enter() {
   api("reData").then(function (r) { if (r && r.ok && r.monthNeed) { $("tdDot").classList.remove("hidden"); rePopup(r); } }).catch(function () {});
   // 有沒有沒看過的意見／錯誤（小紅點）
   hub("feedback").then(function (d) { if ((d.list || []).some(function (f) { return !f.read; })) $("fbDot").classList.remove("hidden"); }).catch(function () {});
+  hub("dataStatus").then(function (d) { if (d.issues && d.issues.length) $("dtDot").classList.remove("hidden"); }).catch(function () {});
   hub("errors").then(function (d) { var seen = store.get("adm_errseen"); if ((d.list || []).some(function (x) { return x._k > seen; })) $("erDot").classList.remove("hidden"); }).catch(function () {});
 }
 function go(t) {
@@ -213,7 +214,7 @@ function go(t) {
   $("nav").querySelectorAll("button").forEach(function (b) { b.classList.toggle("on", b.dataset.t === t); });
   $("main").innerHTML = '<div class="card"><span class="spin"></span> 讀取中…</div>';
   window.scrollTo(0, 0);
-  ({ deploy: tDeploy, todo: tTodo, users: tUsers, invites: tInvites, errors: tErrors, feedback: tFeedback, ann: tAnn, logs: tLogs, cfg: tCfg })[t]();
+  ({ deploy: tDeploy, todo: tTodo, users: tUsers, invites: tInvites, errors: tErrors, data: tData, feedback: tFeedback, ann: tAnn, logs: tLogs, cfg: tCfg })[t]();
 }
 function fail(e) { $("main").innerHTML = '<div class="card"><h2>讀取失敗</h2><div class="label">' + esc(e) + '</div><button class="btn ghost" style="margin-top:10px" onclick="go(S.tab)">再試一次</button></div>'; }
 
@@ -244,6 +245,35 @@ function rePopup(r) {
   $("rpCal").onclick = function () { $("rpCal").disabled = true; api("calSync").then(function (x) { toast(x.already ? "Google 日曆已經有每月提醒了" : "已加到 Google 日曆：每月 11 日早上 9 點提醒"); w.remove(); }).catch(function (e) { $("rpCal").disabled = false; toast(calErr(e), true); }); };
 }
 function calErr(e) { e = String(e || ""); return /權限|permission|authoriz|CalendarApp/i.test(e) ? "要先授權 Google 日曆：到後台的 Apps Script 編輯器選「authorizeOnce」按執行，允許存取日曆，再試一次" : e; }
+
+// ---------- 📡 資料：評級用的資料多新、桌面程式有沒有在跑、富果即時報價金鑰 ----------
+function tData() {
+  var col = { ok: "", est: "", fail: "bad", "need-user": "warn", "manual-due": "warn", manual: "", "new": "" };
+  var lab = { ok: "正常", est: "用估計值", fail: "失敗", "need-user": "要你按一下", "manual-due": "有空跟 Claude 說", manual: "人工更新", "new": "還沒跑過" };
+  var rate = fetch("../rate/latest.json?t=" + Date.now()).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+  Promise.all([hub("dataStatus"), rate]).then(function (x) {
+    var d = x[0], rd = x[1], rm = d.remote;
+    var h = "";
+    if (d.issues && d.issues.length) {
+      h += '<div class="card" style="border:2px solid var(--bad)"><h2>有 ' + d.issues.length + " 項要處理</h2>" + d.issues.map(function (i) { return '<div style="line-height:1.7">・' + esc(i.name) + "：" + esc(i.msg || lab[i.state] || i.state) + "</div>"; }).join("") +
+        '<div class="label" style="margin-top:8px;line-height:1.7">' + (rm && rm.pack ? "👉 把電腦桌面上的「" + esc(rm.pack) + "」傳給 Claude 就好（程式已經自動打包了）。" : "・失敗的：把電腦桌面上「資產配置資料_給Claude」開頭的 zip 傳給 Claude。") + "<br>・要你按一下的：按電腦桌面的「資產配置資料更新」，照畫面做（很少發生）。</div></div>";
+    } else h += '<div class="card"><h2>✅ 資料都正常</h2><div class="label">桌面程式每天下午 4 點自動更新，有問題這裡和登入時會出現紅點，也會寄信給你。</div></div>';
+    h += '<div class="card"><h2>評級用的回測資料</h2><div class="kv"><span>資料到</span><b>' + esc(rd ? rd.last : "讀不到網站上的 rate/latest.json") + "</b>" + (rd && rd.upd && rd.upd.est && rd.upd.est.length ? "<span>最近一個月估計的</span><b>" + esc(rd.upd.est.join("、")) + "</b>" : "") + "</div>" +
+      (rd && rd.upd && rd.upd.est && rd.upd.est.length ? '<div class="label" style="margin-top:6px">官方資料公布後，桌面程式會自動換成正式數字。</div>' : "") + "</div>";
+    h += '<div class="card"><h2>桌面程式每天更新的</h2><div class="label" style="margin-bottom:6px">' + (rm ? "上次執行：" + esc(String(rm.at || "").replace("T", " ")) + (rm.ver ? "・程式版本 " + esc(rm.ver) : "") : "網站上還沒有狀態檔：桌面程式還沒裝，或還沒跑過") + "</div>" +
+      (rm && rm.items ? rm.items.map(function (i) {
+        return '<div style="display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-top:1px solid var(--line)"><div><b>' + esc(i.name) + '</b><div class="label">' + (i.last ? "上次 " + esc(String(i.last).replace("T", " ").slice(0, 16)) : "還沒更新過") + (i.next ? "・下次 " + esc(i.next) : "") + (i.msg ? "<br>" + esc(i.msg) : "") + '</div></div><span class="pill ' + (col[i.state] || "") + '" style="align-self:flex-start">' + esc(lab[i.state] || i.state) + "</span></div>";
+      }).join("") : "") + "</div>";
+    h += '<div class="card"><h2>App 自己更新的</h2>' + (d.local || []).map(function (i) { return '<div class="kv"><span>' + esc(i.name) + "</span><b>" + esc(i.every) + (i.last ? "・上次 " + esc(i.last) : "") + "</b></div>"; }).join("") + "</div>";
+    h += '<div class="card"><h2>⚡ 下單即時報價（富果）</h2><div class="label" style="line-height:1.7;margin-bottom:8px">' + (d.fugle ? "已經設定：所有使用者下單時都用富果的即時價（延遲幾秒），大家不用自己申請。" : "還沒設定：下單時先試證交所的即時行情，抓不到就用試算表的價格（約延遲 20 分鐘）。") +
+      '<br>金鑰到 <a href="https://developer.fugle.tw" target="_blank" rel="noopener">developer.fugle.tw</a> 免費註冊 →「API 金鑰」→ 建立 → 複製貼到下面。只要設一次，所有人共用。</div>' +
+      '<label class="f">富果 API 金鑰<input type="password" id="fgKey" autocomplete="off" placeholder="' + (d.fugle ? "已設定（要換才貼新的）" : "貼上金鑰") + '"></label><div class="row"><button class="btn" id="fgSave">儲存金鑰</button>' + (d.fugle ? '<button class="btn ghost" id="fgDel">移除金鑰</button>' : "") + "</div></div>";
+    $("main").innerHTML = h;
+    $("dtDot").classList.toggle("hidden", !(d.issues && d.issues.length));
+    $("fgSave").onclick = function () { var k = $("fgKey").value.trim(); if (!k) return toast("先貼上金鑰", true); hub("fugleSet", { key: k }).then(function () { toast("富果金鑰已儲存，所有人共用"); go("data"); }).catch(function (e) { toast(e, true); }); };
+    if ($("fgDel")) $("fgDel").onclick = function () { if (!confirm("移除富果金鑰？下單時會改用證交所的即時行情。")) return; hub("fugleSet", { key: "" }).then(function () { toast("已移除"); go("data"); }).catch(function (e) { toast(e, true); }); };
+  }).catch(function (e) { fail(/不支援的動作|dataStatus|unknown/i.test(String(e)) ? "中央 App 還沒更新到有這個功能的版本（2026.10.52x 以後）。測試版放上去、正式版升級後再來看。" : e); });
+}
 
 // ---------- 📅 待辦 ----------
 function tTodo() {
