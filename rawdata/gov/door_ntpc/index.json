@@ -1,0 +1,14 @@
+{
+ "id": 168887,
+ "title": "新北市門牌位置數值資料",
+ "at": "2026-10-25",
+ "files": {
+  "door_ntpc_00.csv.gz": {
+   "desc": "新北市門牌位置數值資料11509",
+   "fmt": "CSV",
+   "url": "https://data.ntpc.gov.tw/api/datasets/d7b568ab-3819-40c8-a6e7-a6b199443101/csv/file",
+   "bytes": 14756612,
+   "parts": 1
+  }
+ }
+}
