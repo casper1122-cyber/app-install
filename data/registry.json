@@ -1,0 +1,131 @@
+{
+ "items": [
+  {
+   "id": "prices",
+   "name": "股票、ETF、債券、黃金價格和配息",
+   "every": 1,
+   "how": "yahoo"
+  },
+  {
+   "id": "fx",
+   "name": "美元兌台幣匯率",
+   "every": 1,
+   "how": "fred",
+   "series": [
+    "DEXTAUS"
+   ]
+  },
+  {
+   "id": "uscpi",
+   "name": "美國 CPI、利率",
+   "every": 7,
+   "how": "fred",
+   "series": [
+    "CPIAUCSL",
+    "TB3MS",
+    "GS10"
+   ]
+  },
+  {
+   "id": "twdep",
+   "name": "台灣五大銀行存款利率",
+   "every": 30,
+   "how": "twdep"
+  },
+  {
+   "id": "twcpi",
+   "name": "台灣消費者物價指數（CPI）",
+   "every": 30,
+   "how": "twcpi"
+  },
+  {
+   "id": "rate",
+   "name": "評級用的回測資料（整理後放上網站）",
+   "every": 1,
+   "how": "rate",
+   "after": [
+    "prices",
+    "fx",
+    "uscpi",
+    "twdep",
+    "twcpi"
+   ]
+  },
+  {
+   "id": "long",
+   "name": "長期歷史（Shiller、Fama-French、金價）",
+   "every": 180,
+   "how": "files",
+   "files": [
+    [
+     "FF_factors.zip",
+     "https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/F-F_Research_Data_Factors_CSV.zip"
+    ],
+    [
+     "gold_monthly.csv",
+     "https://raw.githubusercontent.com/datasets/gold-prices/main/data/monthly.csv"
+    ],
+    [
+     "shiller_ie_data.xls",
+     "http://www.econ.yale.edu/~shiller/data/ie_data.xls"
+    ]
+   ]
+  },
+  {
+   "id": "war",
+   "name": "棒球 WAR（球員卡評級用）",
+   "every": 7,
+   "every_off": 30,
+   "how": "later",
+   "note": "做球員卡評級時再設定（baseball-reference 不讓程式直接下載，要換方法）",
+   "files": [
+    [
+     "war_bat.txt",
+     "https://www.baseball-reference.com/data/war_daily_bat.txt"
+    ],
+    [
+     "war_pitch.txt",
+     "https://www.baseball-reference.com/data/war_daily_pitch.txt"
+    ]
+   ]
+  },
+  {
+   "id": "lahman",
+   "name": "棒球資料庫（生涯數據、名人堂、獎項）",
+   "every": 30,
+   "how": "later",
+   "note": "做球員卡評級時再設定（原本的下載網址搬家了）",
+   "files": [
+    [
+     "lahman.zip",
+     "https://github.com/chadwickbureau/baseballdatabank/archive/refs/heads/master.zip"
+    ]
+   ]
+  },
+  {
+   "id": "brokers",
+   "name": "券商手續費資料",
+   "every": 365,
+   "how": "manual",
+   "done": "2026-01-01",
+   "note": "每年一月跟 Claude 說一聲，查各家券商新方案"
+  },
+  {
+   "id": "tax",
+   "name": "遺產稅、贈與稅免稅額",
+   "every": 365,
+   "how": "manual",
+   "done": "2026-01-01",
+   "note": "每年一月跟 Claude 說一聲（財政部年底公告新的免稅額）"
+  },
+  {
+   "id": "fo",
+   "name": "家族辦公室參考配置",
+   "every": 365,
+   "how": "manual",
+   "done": "2026-07-01",
+   "note": "每年七月跟 Claude 說一聲（UBS 報告出來）"
+  }
+ ],
+ "v": "2026-10-25"
+}

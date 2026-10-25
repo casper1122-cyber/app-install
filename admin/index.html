@@ -248,8 +248,8 @@ function calErr(e) { e = String(e || ""); return /權限|permission|authoriz|Cal
 
 // ---------- 📡 資料：評級用的資料多新、桌面程式有沒有在跑、富果即時報價金鑰 ----------
 function tData() {
-  var col = { ok: "", est: "", fail: "bad", "need-user": "warn", "manual-due": "warn", manual: "", "new": "" };
-  var lab = { ok: "正常", est: "用估計值", fail: "失敗", "need-user": "要你按一下", "manual-due": "有空跟 Claude 說", manual: "人工更新", "new": "還沒跑過" };
+  var col = { ok: "", est: "", fail: "bad", "need-user": "warn", "manual-due": "warn", manual: "", "new": "", later: "" };
+  var lab = { ok: "正常", est: "用估計值", fail: "失敗", "need-user": "要你按一下", "manual-due": "有空跟 Claude 說", manual: "人工更新", "new": "還沒跑過", later: "之後才用" };
   var rate = fetch("../rate/latest.json?t=" + Date.now()).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
   Promise.all([hub("dataStatus"), rate]).then(function (x) {
     var d = x[0], rd = x[1], rm = d.remote;
