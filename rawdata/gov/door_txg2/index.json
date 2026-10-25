@@ -1,0 +1,14 @@
+{
+ "id": 146376,
+ "title": "臺中市112年GIS門牌號碼(各月份版本)",
+ "at": "2026-10-25",
+ "files": {
+  "door_txg2_00.csv.gz": {
+   "desc": "臺中市112年1至12月各月份GIS門牌資料 (1).CSV",
+   "fmt": "CSV",
+   "url": "https://newdatacenter.taichung.gov.tw/api/v1/no-auth/resource.download?rid=f8811b57-27bb-4def-9f04-2814d93721e2",
+   "bytes": 21921567,
+   "parts": 1
+  }
+ }
+}
