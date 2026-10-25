@@ -13,7 +13,7 @@ import json, os, sys, time, csv, glob, io, re, shutil, zipfile, gzip, base64, da
 try: sys.stdout.reconfigure(errors="replace")
 except Exception: pass
 
-VERSION = "2026-10-25j"
+VERSION = "2026-10-25k"
 REPO = "casper1122-cyber/app-install"
 PAGES = "https://casper1122-cyber.github.io/app-install/"
 HOME = os.path.join(os.environ.get("APPDATA") or os.path.expanduser("~"), "資產配置資料更新")
@@ -601,6 +601,15 @@ def h_twstk(it):
         st["list"] = [[x["c"], x["mk"]] for x in L]; st["listAt"] = datetime.date.today().isoformat(); jsave(STATE_F, STATE)
         log("   台股清單：%d 檔" % len(L))
     codes = st["list"]
+    try:   # 別台電腦已經放上網站的，這台就不用再抓
+        tok = CFG.get("token"); hd2 = {"Authorization": "Bearer " + tok, "Accept": "application/vnd.github+json"} if tok else {}
+        have = [x["name"] for x in json.loads(fetch("https://api.github.com/repos/%s/contents/rawdata/twstk" % REPO, 30, hd2).decode("utf-8"))]
+        for nm in have:
+            m1 = re.match(r"^(y\d\d)\.json\.gz$", nm); m2 = re.match(r"^twse_(\d{4})\.json\.gz$", nm)
+            if m1 and m1.group(1) not in st["y"]: st["y"].append(m1.group(1))
+            if m2 and int(m2.group(1)) < datetime.date.today().year and "t" + m2.group(1) not in st["m"]: st["m"].append("t" + m2.group(1))
+        jsave(STATE_F, STATE)
+    except Exception: pass
     # 2. Yahoo 每月股價：100 檔一包
     packs = [codes[i:i + 100] for i in range(0, len(codes), 100)]
     limit = 3 if AUTO else 99; done_now = 0
