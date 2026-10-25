@@ -6,5 +6,15 @@
  "gov_search_fundfee": {
   "url": "https://data.gov.tw/api/v2/rest/dataset?q=%E5%9F%BA%E9%87%91%E5%90%84%E9%A0%85%E8%B2%BB%E7%94%A8",
   "err": "HTTP Error 405: Method Not Allowed"
+ },
+ "sitca_home": {
+  "url": "https://www.sitca.org.tw/",
+  "bytes": 11385,
+  "at": "2026-10-25T22:05:49"
+ },
+ "twse_openapi": {
+  "url": "https://openapi.twse.com.tw/v1/swagger.json",
+  "bytes": 309960,
+  "at": "2026-10-25T22:05:52"
  }
 }
