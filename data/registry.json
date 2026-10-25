@@ -157,7 +157,21 @@
     170852,
     171571,
     165015,
-    168887
+    168887,
+    154557,
+    154744,
+    155148,
+    155301,
+    46364,
+    120044,
+    158889,
+    162899,
+    146376,
+    47063,
+    167327,
+    172490,
+    177586,
+    166889
    ]
   },
   {
@@ -186,17 +200,17 @@
   },
   {
    "id": "probe",
-   "name": "探路：先抓新資料的樣子給 Claude 看（ETF 費用）",
+   "name": "探路：先抓新資料的樣子給 Claude 看（ETF 費用、成分股）",
    "every": 1,
    "how": "probe",
    "urls": [
     {
-     "key": "fsc_swagger",
-     "url": "https://stat.fsc.gov.tw/FSC_OAS3_RESTORE/swagger/docs/v1"
+     "key": "sitca_home",
+     "url": "https://www.sitca.org.tw/"
     },
     {
-     "key": "gov_search_fundfee",
-     "url": "https://data.gov.tw/api/v2/rest/dataset?q=%E5%9F%BA%E9%87%91%E5%90%84%E9%A0%85%E8%B2%BB%E7%94%A8"
+     "key": "twse_openapi",
+     "url": "https://openapi.twse.com.tw/v1/swagger.json"
     }
    ]
   },
