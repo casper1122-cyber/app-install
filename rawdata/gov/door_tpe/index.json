@@ -1,0 +1,14 @@
+{
+ "id": 155472,
+ "title": "臺北市門牌位置數值資料",
+ "at": "2026-10-25",
+ "files": {
+  "door_tpe_00.csv.gz": {
+   "desc": "臺北市門牌位置數值資料",
+   "fmt": "CSV",
+   "url": "https://data.taipei/api/dataset/b7c8e724-1e98-45ee-a0bd-f3840623ed97/resource/ce76ca0c-7f94-4935-ab47-1d2a41ca2abb/download",
+   "bytes": 9814561,
+   "parts": 1
+  }
+ }
+}
