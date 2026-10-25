@@ -1,66 +1,990 @@
 {
  "154557": {
   "id": 154557,
-  "err": "curl 下載失敗：curl: (23) client returned ERROR on write of 78 bytes\r\n"
+  "title": null,
+  "org": null,
+  "updated": null,
+  "dist": []
  },
  "154744": {
   "id": 154744,
-  "err": "curl 下載失敗：curl: (23) client returned ERROR on write of 78 bytes\r\n"
+  "title": null,
+  "org": null,
+  "updated": null,
+  "dist": []
  },
  "155148": {
   "id": 155148,
-  "err": "curl 下載失敗：curl: (23) client returned ERROR on write of 78 bytes\r\n"
+  "title": null,
+  "org": null,
+  "updated": null,
+  "dist": []
  },
  "155301": {
   "id": 155301,
-  "err": "curl 下載失敗：curl: (23) client returned ERROR on write of 78 bytes\r\n"
+  "title": null,
+  "org": null,
+  "updated": null,
+  "dist": []
  },
  "46364": {
   "id": 46364,
-  "err": "curl 下載失敗：curl: (23) client returned ERROR on write of 157 bytes\r\n"
+  "title": "桃園市A1及A2道路交通事故-按事故等級、發生時間、地區及路段每年統計(106至114年)",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "1",
+   "unittime": "年"
+  },
+  "dist": [
+   {
+    "desc": "桃園市A1及A2道路交通事故-按發生時間、地區及路段統計(113年)",
+    "fmt": "CSV",
+    "url": "https://opendata.tycg.gov.tw/api/dataset/d06dd55d-aac7-4b17-9211-82cbf467cc2d/resource/16f535c0-2c16-4e1d-a103-d10e55c78fbb/download",
+    "mod": null
+   },
+   {
+    "desc": "桃園市A1及A2道路交通事故-按發生時間、地區及路段統計(106年)",
+    "fmt": "CSV",
+    "url": "https://opendata.tycg.gov.tw/api/dataset/d06dd55d-aac7-4b17-9211-82cbf467cc2d/resource/911a53af-be4e-4dbf-939e-b435227ff56a/download",
+    "mod": null
+   },
+   {
+    "desc": "桃園市A1及A2道路交通事故-按發生時間、地區及路段統計(107年)",
+    "fmt": "CSV",
+    "url": "https://opendata.tycg.gov.tw/api/dataset/d06dd55d-aac7-4b17-9211-82cbf467cc2d/resource/12a7c38f-67c8-421f-b968-c5ad144c4360/download",
+    "mod": null
+   },
+   {
+    "desc": "桃園市A1及A2道路交通事故-按發生時間、地區及路段統計(108年)",
+    "fmt": "CSV",
+    "url": "https://opendata.tycg.gov.tw/api/dataset/d06dd55d-aac7-4b17-9211-82cbf467cc2d/resource/f2fd3c7c-4331-4ace-900d-724f5af5aab2/download",
+    "mod": null
+   },
+   {
+    "desc": "桃園市A1及A2道路交通事故-按發生時間、地區及路段統計(112年)",
+    "fmt": "CSV",
+    "url": "https://opendata.tycg.gov.tw/api/dataset/d06dd55d-aac7-4b17-9211-82cbf467cc2d/resource/e88f783c-6375-43b7-93d6-6ec2a839da8b/download",
+    "mod": null
+   },
+   {
+    "desc": "桃園市A1及A2道路交通事故-按發生時間、地區及路段統計(111年)",
+    "fmt": "CSV",
+    "url": "https://opendata.tycg.gov.tw/api/dataset/d06dd55d-aac7-4b17-9211-82cbf467cc2d/resource/af934167-c82d-4ca9-92e7-9ec69074ce1f/download",
+    "mod": null
+   },
+   {
+    "desc": "桃園市A1及A2道路交通事故-按發生時間、地區及路段統計(110年)",
+    "fmt": "CSV",
+    "url": "https://opendata.tycg.gov.tw/api/dataset/d06dd55d-aac7-4b17-9211-82cbf467cc2d/resource/bab715d5-d0d5-4fcf-9fb8-e24dd52f9ab9/download",
+    "mod": null
+   },
+   {
+    "desc": "桃園市A1及A2道路交通事故-按發生時間、地區及路段統計(109年)",
+    "fmt": "CSV",
+    "url": "https://opendata.tycg.gov.tw/api/dataset/d06dd55d-aac7-4b17-9211-82cbf467cc2d/resource/f09b983d-d2e1-415a-81d5-7afe6347f954/download",
+    "mod": null
+   },
+   {
+    "desc": "桃園市A1及A2道路交通事故-按發生時間、地區及路段統計(114年)",
+    "fmt": "CSV",
+    "url": "https://opendata.tycg.gov.tw/api/dataset/d06dd55d-aac7-4b17-9211-82cbf467cc2d/resource/e8a4e4b6-ab84-4365-b612-fd0f38e7c011/download",
+    "mod": null
+   }
+  ]
  },
  "120044": {
   "id": 120044,
-  "err": "curl 下載失敗：curl: (23) client returned ERROR on write of 157 bytes\r\n"
+  "title": "臺南市門牌坐標資料-僅供參考",
+  "org": null,
+  "updated": "每年",
+  "dist": [
+   {
+    "desc": "114年臺南市門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/af44f904-2f4c-49b2-aaf8-1a64dce09bd4",
+    "mod": null
+   },
+   {
+    "desc": "114年臺南市門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/af44f904-2f4c-49b2-aaf8-1a64dce09bd4",
+    "mod": null
+   },
+   {
+    "desc": "112年臺南市門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/4f331289-0570-4df1-84f6-6b64df245bf8",
+    "mod": null
+   },
+   {
+    "desc": "112年臺南市門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/4f331289-0570-4df1-84f6-6b64df245bf8",
+    "mod": null
+   },
+   {
+    "desc": "108年臺南市門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/44a2d61a-c9bd-492e-9fd1-89896229c91f",
+    "mod": null
+   },
+   {
+    "desc": "108年臺南市門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/44a2d61a-c9bd-492e-9fd1-89896229c91f",
+    "mod": null
+   },
+   {
+    "desc": "111年臺南市門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/5045ab86-7761-417b-b9b5-d5e379e2e47e",
+    "mod": null
+   },
+   {
+    "desc": "111年臺南市門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/5045ab86-7761-417b-b9b5-d5e379e2e47e",
+    "mod": null
+   },
+   {
+    "desc": "113年臺南市門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/019a635b-a886-4d37-83fa-d67b753738c2",
+    "mod": null
+   },
+   {
+    "desc": "113年臺南市門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/019a635b-a886-4d37-83fa-d67b753738c2",
+    "mod": null
+   },
+   {
+    "desc": "110年臺南市門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/3f65bff9-a7e0-4ccd-97f5-fd7e2ec6d68e",
+    "mod": null
+   },
+   {
+    "desc": "110年臺南市門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/3f65bff9-a7e0-4ccd-97f5-fd7e2ec6d68e",
+    "mod": null
+   },
+   {
+    "desc": "109年臺南市門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/133a37b3-e55c-42c6-bc73-fe8f7d5776c6",
+    "mod": null
+   },
+   {
+    "desc": "109年臺南市門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/133a37b3-e55c-42c6-bc73-fe8f7d5776c6",
+    "mod": null
+   }
+  ]
  },
  "158889": {
   "id": 158889,
-  "err": "curl 下載失敗：curl: (23) client returned ERROR on write of 159 bytes\r\n"
+  "title": "臺中市建物GIS圖資(114年版本_最新版)",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "臺中市建物_114.CSV",
+    "fmt": "CSV",
+    "url": "https://newdatacenter.taichung.gov.tw/api/v1/no-auth/resource.download?rid=26a83c09-e67d-428e-bcd7-0af7a3f37ca2",
+    "mod": null
+   }
+  ]
  },
  "162899": {
   "id": 162899,
-  "err": "curl 下載失敗：curl: (23) client returned ERROR on write of 159 bytes\r\n"
+  "title": "臺中市各類GIS道路圖(最新114年成果版)",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "臺中市道路圖(最新版114成果版本v5.CSV",
+    "fmt": "CSV",
+    "url": "https://newdatacenter.taichung.gov.tw/api/v1/no-auth/resource.download?rid=a6d0f454-1a01-4e8d-a742-9326335fe41e",
+    "mod": null
+   }
+  ]
  },
  "146376": {
   "id": 146376,
-  "err": "curl 下載失敗：curl: (23) client returned ERROR on write of 158 bytes\r\n"
+  "title": "臺中市112年GIS門牌號碼(各月份版本)",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "臺中市112年1至12月各月份GIS門牌資料 (1).CSV",
+    "fmt": "CSV",
+    "url": "https://newdatacenter.taichung.gov.tw/api/v1/no-auth/resource.download?rid=f8811b57-27bb-4def-9f04-2814d93721e2",
+    "mod": null
+   }
+  ]
  },
  "47063": {
   "id": 47063,
-  "err": "curl 下載失敗：curl: (23) client returned ERROR on write of 158 bytes\r\n"
+  "title": "高雄市里活動中心",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "高雄市里活動中心",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/6343c063-2d98-44f9-baae-d85bca8af691",
+    "mod": null
+   },
+   {
+    "desc": "高雄市里活動中心",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/directDownload/6343c063-2d98-44f9-baae-d85bca8af691",
+    "mod": null
+   }
+  ]
  },
  "167327": {
   "id": 167327,
-  "err": "curl 下載失敗：curl: (23) client returned ERROR on write of 159 bytes\r\n"
+  "title": "高雄市區代碼",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "高雄市區代碼",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/e5924d74-c4ec-4ad6-af34-a88dcfb493ba",
+    "mod": null
+   },
+   {
+    "desc": "高雄市區代碼",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/e5924d74-c4ec-4ad6-af34-a88dcfb493ba",
+    "mod": null
+   }
+  ]
  },
  "172490": {
   "id": 172490,
-  "err": "curl 下載失敗：curl: (23) client returned ERROR on write of 157 bytes\r\n"
+  "title": "114年高雄市各行政區公告土地現值",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "高雄市六龜區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/d1b74ffe-7d4b-4db0-8c91-0016cf962211",
+    "mod": null
+   },
+   {
+    "desc": "高雄市六龜區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/d1b74ffe-7d4b-4db0-8c91-0016cf962211",
+    "mod": null
+   },
+   {
+    "desc": "高雄市彌陀區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/f55397e3-707d-443a-a22f-13a12b8f1ec5",
+    "mod": null
+   },
+   {
+    "desc": "高雄市彌陀區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/f55397e3-707d-443a-a22f-13a12b8f1ec5",
+    "mod": null
+   },
+   {
+    "desc": "高雄市橋頭區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/68ae10da-95d1-4326-b332-1e21d3acd822",
+    "mod": null
+   },
+   {
+    "desc": "高雄市橋頭區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/68ae10da-95d1-4326-b332-1e21d3acd822",
+    "mod": null
+   },
+   {
+    "desc": "高雄市路竹區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/773402bc-1477-4742-a417-2b0758cf94a5",
+    "mod": null
+   },
+   {
+    "desc": "高雄市路竹區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/773402bc-1477-4742-a417-2b0758cf94a5",
+    "mod": null
+   },
+   {
+    "desc": "高雄市苓雅區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/077149ce-c48b-44eb-8bc0-2bf465297b83",
+    "mod": null
+   },
+   {
+    "desc": "高雄市苓雅區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/077149ce-c48b-44eb-8bc0-2bf465297b83",
+    "mod": null
+   },
+   {
+    "desc": "高雄市大寮區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/866b397b-ccd8-477f-82c4-2ceb6de22383",
+    "mod": null
+   },
+   {
+    "desc": "高雄市大寮區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/866b397b-ccd8-477f-82c4-2ceb6de22383",
+    "mod": null
+   },
+   {
+    "desc": "高雄市林園區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/10d5b260-b5bf-4a1b-874a-2d402f89cd7c",
+    "mod": null
+   },
+   {
+    "desc": "高雄市林園區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/10d5b260-b5bf-4a1b-874a-2d402f89cd7c",
+    "mod": null
+   },
+   {
+    "desc": "高雄市阿蓮區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/61e91128-e743-446d-b68b-39517e68620b",
+    "mod": null
+   },
+   {
+    "desc": "高雄市阿蓮區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/61e91128-e743-446d-b68b-39517e68620b",
+    "mod": null
+   },
+   {
+    "desc": "高雄市田寮區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/5df1a521-5202-4839-8122-41daede25b97",
+    "mod": null
+   },
+   {
+    "desc": "高雄市田寮區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/5df1a521-5202-4839-8122-41daede25b97",
+    "mod": null
+   },
+   {
+    "desc": "高雄市鳥松區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/b946c6dc-5edb-4bbd-8a8d-534a76c840cc",
+    "mod": null
+   },
+   {
+    "desc": "高雄市鳥松區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/b946c6dc-5edb-4bbd-8a8d-534a76c840cc",
+    "mod": null
+   },
+   {
+    "desc": "高雄市湖內區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/2f4a2cc2-3c9c-4cc3-81ec-5edd523abe6f",
+    "mod": null
+   },
+   {
+    "desc": "高雄市湖內區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/2f4a2cc2-3c9c-4cc3-81ec-5edd523abe6f",
+    "mod": null
+   },
+   {
+    "desc": "高雄市燕巢區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/0ccbe6d6-5421-4bc9-b2b9-655927a62e3e",
+    "mod": null
+   },
+   {
+    "desc": "高雄市燕巢區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/0ccbe6d6-5421-4bc9-b2b9-655927a62e3e",
+    "mod": null
+   },
+   {
+    "desc": "高雄市旗津區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/54d47dd5-27b2-48e1-a753-660f5c1d0c98",
+    "mod": null
+   },
+   {
+    "desc": "高雄市旗津區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/54d47dd5-27b2-48e1-a753-660f5c1d0c98",
+    "mod": null
+   },
+   {
+    "desc": "高雄市旗山區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/56e2dd39-8be8-41d1-a2ad-6bc1088d0651",
+    "mod": null
+   },
+   {
+    "desc": "高雄市旗山區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/56e2dd39-8be8-41d1-a2ad-6bc1088d0651",
+    "mod": null
+   },
+   {
+    "desc": "高雄市大樹區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/f2f9f238-8508-469b-9168-77fffc1bcdd4",
+    "mod": null
+   },
+   {
+    "desc": "高雄市大樹區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/f2f9f238-8508-469b-9168-77fffc1bcdd4",
+    "mod": null
+   },
+   {
+    "desc": "高雄市仁武區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/07eca283-8a9e-47d6-9e64-7b5e960ee68b",
+    "mod": null
+   },
+   {
+    "desc": "高雄市仁武區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/07eca283-8a9e-47d6-9e64-7b5e960ee68b",
+    "mod": null
+   },
+   {
+    "desc": "高雄市梓官區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/1bc3378a-fe48-4242-91ad-7c78ab2fa021",
+    "mod": null
+   },
+   {
+    "desc": "高雄市梓官區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/1bc3378a-fe48-4242-91ad-7c78ab2fa021",
+    "mod": null
+   },
+   {
+    "desc": "高雄市鼓山區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/c2cb55e8-a073-4595-930d-7f89a5990bc8",
+    "mod": null
+   },
+   {
+    "desc": "高雄市鼓山區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/c2cb55e8-a073-4595-930d-7f89a5990bc8",
+    "mod": null
+   },
+   {
+    "desc": "高雄市茄萣區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/07783673-6acb-4c2d-8fa6-8507fd4d7d95",
+    "mod": null
+   },
+   {
+    "desc": "高雄市茄萣區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/07783673-6acb-4c2d-8fa6-8507fd4d7d95",
+    "mod": null
+   },
+   {
+    "desc": "高雄市永安區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/3fa8dd81-d4db-4a54-82cf-852852dbf060",
+    "mod": null
+   },
+   {
+    "desc": "高雄市永安區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/3fa8dd81-d4db-4a54-82cf-852852dbf060",
+    "mod": null
+   },
+   {
+    "desc": "高雄市那瑪夏區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/9a4a8cfe-2045-45a5-ba96-87d6bde4dd6e",
+    "mod": null
+   },
+   {
+    "desc": "高雄市那瑪夏區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/9a4a8cfe-2045-45a5-ba96-87d6bde4dd6e",
+    "mod": null
+   },
+   {
+    "desc": "高雄市大社區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/be8f4870-3fbc-4d00-bf87-8c2f2cf21743",
+    "mod": null
+   },
+   {
+    "desc": "高雄市大社區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/be8f4870-3fbc-4d00-bf87-8c2f2cf21743",
+    "mod": null
+   },
+   {
+    "desc": "高雄市茂林區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/8c35dffe-1471-4cd1-a074-8eef0b582271",
+    "mod": null
+   },
+   {
+    "desc": "高雄市茂林區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/8c35dffe-1471-4cd1-a074-8eef0b582271",
+    "mod": null
+   },
+   {
+    "desc": "高雄市鳳山區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/ed37a060-b5e0-4304-88aa-9a53366c5a0e",
+    "mod": null
+   },
+   {
+    "desc": "高雄市鳳山區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/ed37a060-b5e0-4304-88aa-9a53366c5a0e",
+    "mod": null
+   },
+   {
+    "desc": "高雄市甲仙區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/2e56f1ff-ac3f-4a56-9e95-9ce87f6e4b2b",
+    "mod": null
+   },
+   {
+    "desc": "高雄市甲仙區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/2e56f1ff-ac3f-4a56-9e95-9ce87f6e4b2b",
+    "mod": null
+   },
+   {
+    "desc": "高雄市前金區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/679281d0-3cc0-4e33-974f-9daf3d740746",
+    "mod": null
+   },
+   {
+    "desc": "高雄市前金區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/679281d0-3cc0-4e33-974f-9daf3d740746",
+    "mod": null
+   },
+   {
+    "desc": "高雄市內門區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/0db31eee-b4a4-48fd-a845-a00457ee3c9b",
+    "mod": null
+   },
+   {
+    "desc": "高雄市內門區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/0db31eee-b4a4-48fd-a845-a00457ee3c9b",
+    "mod": null
+   },
+   {
+    "desc": "高雄市三民區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/92940f69-0c76-45b3-87d8-a613fff608b0",
+    "mod": null
+   },
+   {
+    "desc": "高雄市三民區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/92940f69-0c76-45b3-87d8-a613fff608b0",
+    "mod": null
+   },
+   {
+    "desc": "高雄市新興區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/5f6c2f51-6d4d-45f8-a81e-b05bbe0897d4",
+    "mod": null
+   },
+   {
+    "desc": "高雄市新興區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/5f6c2f51-6d4d-45f8-a81e-b05bbe0897d4",
+    "mod": null
+   },
+   {
+    "desc": "高雄市楠梓區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/122feb79-04df-4a54-bf53-b1b249dbe4d2",
+    "mod": null
+   },
+   {
+    "desc": "高雄市楠梓區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/122feb79-04df-4a54-bf53-b1b249dbe4d2",
+    "mod": null
+   },
+   {
+    "desc": "高雄市桃源區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/3f60b012-e805-4405-90cb-b8ceedea0b26",
+    "mod": null
+   },
+   {
+    "desc": "高雄市桃源區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/3f60b012-e805-4405-90cb-b8ceedea0b26",
+    "mod": null
+   },
+   {
+    "desc": "高雄市鹽埕區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/e5b2ef1d-163c-4f3f-a81b-c7d85313d744",
+    "mod": null
+   },
+   {
+    "desc": "高雄市鹽埕區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/e5b2ef1d-163c-4f3f-a81b-c7d85313d744",
+    "mod": null
+   },
+   {
+    "desc": "高雄市前鎮區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/e7d15a56-d66b-4916-a5ea-e0cc80fb7933",
+    "mod": null
+   },
+   {
+    "desc": "高雄市前鎮區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/e7d15a56-d66b-4916-a5ea-e0cc80fb7933",
+    "mod": null
+   },
+   {
+    "desc": "高雄市左營區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/5e7cb816-3b51-4ea4-84c0-e49fe865e712",
+    "mod": null
+   },
+   {
+    "desc": "高雄市左營區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/5e7cb816-3b51-4ea4-84c0-e49fe865e712",
+    "mod": null
+   },
+   {
+    "desc": "高雄市美濃區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/438ac077-82b2-4433-b7c5-e6773a0700a5",
+    "mod": null
+   },
+   {
+    "desc": "高雄市美濃區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/438ac077-82b2-4433-b7c5-e6773a0700a5",
+    "mod": null
+   },
+   {
+    "desc": "高雄市小港區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/a2d56a8c-d1e1-4581-b76e-e87191296693",
+    "mod": null
+   },
+   {
+    "desc": "高雄市小港區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/a2d56a8c-d1e1-4581-b76e-e87191296693",
+    "mod": null
+   },
+   {
+    "desc": "高雄市杉林區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/914a7de3-9c73-432f-83c1-ef8344346c76",
+    "mod": null
+   },
+   {
+    "desc": "高雄市杉林區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/914a7de3-9c73-432f-83c1-ef8344346c76",
+    "mod": null
+   },
+   {
+    "desc": "高雄市岡山區114年公告土地現值",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/8697f017-8755-41fc-a2bd-f6e728ea6084",
+    "mod": null
+   },
+   {
+    "desc": "高雄市岡山區114年公告土地現值",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/8697f017-8755-41fc-a2bd-f6e728ea6084",
+    "mod": null
+   }
+  ]
  },
  "177586": {
   "id": 177586,
-  "err": "curl 下載失敗：curl: (23) client returned ERROR on write of 157 bytes\r\n"
+  "title": "高雄市115年不動產買賣實價登錄資料下載",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "高雄市115年第2季不動產買賣實價登錄資料下載",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/b2795896-3bc5-4e48-8693-87fca79708ff",
+    "mod": null
+   },
+   {
+    "desc": "高雄市115年第2季不動產買賣實價登錄資料下載",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/b2795896-3bc5-4e48-8693-87fca79708ff",
+    "mod": null
+   },
+   {
+    "desc": "高雄市115年第3季不動產買賣實價登錄資料下載",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/a477f543-3126-438f-9657-df69dd7431a1",
+    "mod": null
+   },
+   {
+    "desc": "高雄市115年第3季不動產買賣實價登錄資料下載",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/a477f543-3126-438f-9657-df69dd7431a1",
+    "mod": null
+   },
+   {
+    "desc": "高雄市115年第1季不動產買賣實價登錄資料下載",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/cf41120f-3673-489a-88e8-fc57e2db067f",
+    "mod": null
+   },
+   {
+    "desc": "高雄市115年第1季不動產買賣實價登錄資料下載",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/cf41120f-3673-489a-88e8-fc57e2db067f",
+    "mod": null
+   }
+  ]
  },
  "166889": {
   "id": 166889,
-  "err": "curl 下載失敗：curl: (23) client returned ERROR on write of 158 bytes\r\n"
+  "title": "高雄住宅補貼歷年租金補貼申請地址（TWD97）",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "高雄住宅補貼歷年租金補貼申請地址（TWD97）",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/6844bcd7-fae5-4548-8e38-8c591fdc0cc5",
+    "mod": null
+   }
+  ]
  },
  "165015": {
   "id": 165015,
-  "err": "curl 下載失敗：curl: (23) client returned ERROR on write of 158 bytes\r\n"
+  "title": "臺中市112年GIS門牌號碼1至12月各月份版本",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "臺中市112年1至12月各月份GIS門牌資料.XML",
+    "fmt": "XML",
+    "url": "https://newdatacenter.taichung.gov.tw/api/v1/no-auth/resource.download?rid=273aba95-5bd2-4c6f-b798-8ee47f553988",
+    "mod": null
+   },
+   {
+    "desc": "臺中市112年1至12月各月份GIS門牌資料.CSV",
+    "fmt": "CSV",
+    "url": "https://newdatacenter.taichung.gov.tw/api/v1/no-auth/resource.download?rid=06051e8e-eeb9-4286-bdae-6250f47c9f11",
+    "mod": null
+   },
+   {
+    "desc": "臺中市112年1至12月各月份GIS門牌資料.JSON",
+    "fmt": "JSON",
+    "url": "https://newdatacenter.taichung.gov.tw/api/v1/no-auth/resource.download?rid=17fc837c-88af-4128-9069-322fd63c59b5",
+    "mod": null
+   }
+  ]
  },
  "167131": {
   "id": 167131,
-  "err": "curl 下載失敗：curl: (23) client returned ERROR on write of 157 bytes\r\n"
+  "title": "高雄市113年門牌坐標資料-TWD97",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "113年3月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/650ce2b9-bb17-43a7-a9f3-164970569b92",
+    "mod": null
+   },
+   {
+    "desc": "113年3月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/650ce2b9-bb17-43a7-a9f3-164970569b92",
+    "mod": null
+   },
+   {
+    "desc": "113年8月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/548b56d2-6bca-4532-b4dc-512643da4232",
+    "mod": null
+   },
+   {
+    "desc": "113年8月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/548b56d2-6bca-4532-b4dc-512643da4232",
+    "mod": null
+   },
+   {
+    "desc": "113年5月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/7f1612d7-3b99-4bfe-9583-63856d924a08",
+    "mod": null
+   },
+   {
+    "desc": "113年5月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/7f1612d7-3b99-4bfe-9583-63856d924a08",
+    "mod": null
+   },
+   {
+    "desc": "113年1月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/d63ec97b-9b81-4556-b295-698d1372c6a1",
+    "mod": null
+   },
+   {
+    "desc": "113年1月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/d63ec97b-9b81-4556-b295-698d1372c6a1",
+    "mod": null
+   },
+   {
+    "desc": "113年12月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/eb12ff9e-3792-494e-99bf-71d9f08eaaa4",
+    "mod": null
+   },
+   {
+    "desc": "113年12月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/eb12ff9e-3792-494e-99bf-71d9f08eaaa4",
+    "mod": null
+   },
+   {
+    "desc": "113年10月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/85cdd762-e718-4b68-9c83-7f9438675b21",
+    "mod": null
+   },
+   {
+    "desc": "113年10月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/85cdd762-e718-4b68-9c83-7f9438675b21",
+    "mod": null
+   },
+   {
+    "desc": "113年11月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/f8548670-53ea-4f86-ab95-8a779939fd9c",
+    "mod": null
+   },
+   {
+    "desc": "113年11月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/f8548670-53ea-4f86-ab95-8a779939fd9c",
+    "mod": null
+   },
+   {
+    "desc": "113年2月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/4dbc0c8f-9c48-4834-b0f8-9745caab9c3b",
+    "mod": null
+   },
+   {
+    "desc": "113年2月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/4dbc0c8f-9c48-4834-b0f8-9745caab9c3b",
+    "mod": null
+   },
+   {
+    "desc": "113年4月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/6d353be8-9a2c-42e1-a2ce-a0dd23522185",
+    "mod": null
+   },
+   {
+    "desc": "113年4月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/6d353be8-9a2c-42e1-a2ce-a0dd23522185",
+    "mod": null
+   },
+   {
+    "desc": "113年9月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/48b62935-ed18-47b2-92dc-b1bca3f2da8a",
+    "mod": null
+   },
+   {
+    "desc": "113年9月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/48b62935-ed18-47b2-92dc-b1bca3f2da8a",
+    "mod": null
+   },
+   {
+    "desc": "113年7月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/0649e851-9c8c-4b0d-80ab-d1c32780baa5",
+    "mod": null
+   },
+   {
+    "desc": "113年7月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/0649e851-9c8c-4b0d-80ab-d1c32780baa5",
+    "mod": null
+   },
+   {
+    "desc": "113年6月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/587cc30f-85c3-4e01-93b5-e65f07652b0e",
+    "mod": null
+   },
+   {
+    "desc": "113年6月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/587cc30f-85c3-4e01-93b5-e65f07652b0e",
+    "mod": null
+   }
+  ]
  }
 }
