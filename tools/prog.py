@@ -13,7 +13,7 @@ import json, os, sys, time, csv, glob, io, re, shutil, zipfile, gzip, base64, da
 try: sys.stdout.reconfigure(errors="replace")
 except Exception: pass
 
-VERSION = "2026-10-25o"
+VERSION = "2026-10-25p"
 REPO = "casper1122-cyber/app-install"
 PAGES = "https://casper1122-cyber.github.io/app-install/"
 HOME = os.path.join(os.environ.get("APPDATA") or os.path.expanduser("~"), "資產配置資料更新")
@@ -773,7 +773,7 @@ def h_twstk(it):
                         try: raw.setdefault(r0[0], {})[ym] = float(str(r0[ic]).replace(",", ""))
                         except ValueError: pass
             A = stk_build(pk, snap, L, M, sym, raw)
-            res = {"v": datetime.date.today().isoformat(), "last": sym, "model": {k: M[k] for k in M if k in ("src", "auc", "ver")}, "a": A}
+            res = {"v": datetime.date.today().isoformat(), "last": sym, "model": {k: M[k] for k in M if k in ("src", "auc", "ver", "elt", "eltSrc")}, "a": A}
             gh_put("stk/hist.json", json.dumps(res, ensure_ascii=False, separators=(",", ":")).encode("utf-8"), "個股評級資料 " + sym)
             st["histAt"] = sym; st.pop("dirty", None); jsave(STATE_F, STATE); msg = "；個股評級資料到 " + sym + "（%d 檔）" % len(A)
     return "台股 %d 檔股價、證交所 %d 年每月資料都放上網站了" % (len(codes), ynow - y0 + 1) + msg
