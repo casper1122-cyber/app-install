@@ -20,9 +20,10 @@ def fit(d, qcol='qi', fe=None):
     b,*_=np.linalg.lstsq(X,y,rcond=None)
     res=y-X@b
     return dict(zip(qs,b[:len(qs)])), b, res
+COH=[(1900,1974),(1975,1984),(1985,1994),(1995,2004),(2005,2014),(2015,2030)]
 out={"q":[f"{2012+i//4}/Q{i%4+1}" for i in range(QN)]}
 stat={}
-age_coef={}; typd={}
+age_coef={}; typd={}; coh={}
 for city,dc in df.groupby('city'):
     if len(dc)<3000: continue
     qc,b,res=fit(dc,fe='dist')
@@ -42,6 +43,23 @@ for city,dc in df.groupby('city'):
         dev=pd.Series(ti-ci); dev[tc<30]=np.nan; dev=dev.interpolate(limit_direction='both').values
         dsm=dev.copy(); dsm[2:-2]=(dev[:-4]+2*dev[1:-3]+3*dev[2:-2]+2*dev[3:-1]+dev[4:])/9
         typd.setdefault(city,{})[typ]=list(np.round(np.exp(dsm-dsm[-1])*1000).astype(int).tolist())
+    # 同一批年份蓋的房子（世代）一路追下去：每個世代（＋房型）自己的季指數，跟縣市整體比
+    #（同一棟房子一年一年變老；老公寓這幾年因為都更、危老反而漲比較多，用固定的屋齡係數會算錯，所以直接追世代）
+    dcb=dc.assign(by=(dc.y-dc.age).round())
+    for lo,hi in COH:
+        dco=dcb[(dcb.by>=lo)&(dcb.by<=hi)]
+        for typ in [None]+sorted(dco.typ.unique()):
+            dt=dco if typ is None else dco[dco.typ==typ]
+            if len(dt)<(1500 if typ is None else 1200): continue
+            dt2=dt.copy(); dt2['age']=0.0
+            if typ is not None: dt2['typ']='x'
+            qt,_,_=fit(dt2,fe='dist')
+            ti=np.array([qt.get(i,np.nan) for i in range(QN)]); tc=dt.groupby('qi').size().reindex(range(QN)).fillna(0).values
+            dev=pd.Series(ti-ci); dev[tc<15]=np.nan
+            if dev.notna().sum()<20: continue
+            dev=dev.interpolate(limit_direction='both').values
+            dsm=dev.copy(); dsm[2:-2]=(dev[:-4]+2*dev[1:-3]+3*dev[2:-2]+2*dev[3:-1]+dev[4:])/9
+            coh.setdefault(city,{})["%d-%d"%(lo,hi)+("|"+typ if typ else "")]=list(np.round(np.exp(dsm-dsm[-1])*1000).astype(int).tolist())
     # 年紀係數（城市）：age, age^2/100, max(age-30,0) 在 T 之後
     nt=dc.typ.nunique()-1; k=len(qc)+nt
     age_coef[city]=[float(b[k]),float(b[k+1]),float(b[k+2])]
@@ -70,4 +88,6 @@ cut=lambda a:a[S0:]
 out={k:(cut(v) if isinstance(v,list) else v) for k,v in out.items()}
 for c in typd:
     for t in typd[c]: typd[c][t]=cut(typd[c][t])
-json.dump({"v":1,"src":"內政部實價登錄（2012 年 8 月起，住家用、一棟一戶、排除親友特殊交易）","q":out.pop("q"),"idx":out,"type":typd,"age":{k:[round(x,5) for x in v] for k,v in age_coef.items()},"n":{k:v[1] for k,v in stat.items()}},open('/tmp/claude-0/hpid/hpid.json','w'),ensure_ascii=False)
+for c in coh:
+    for t in coh[c]: coh[c][t]=cut(coh[c][t])
+json.dump({"v":1,"src":"內政部實價登錄（2012 年 8 月起，住家用、一棟一戶、排除親友特殊交易）","q":out.pop("q"),"idx":out,"type":typd,"coh":coh,"age":{k:[round(x,5) for x in v] for k,v in age_coef.items()},"n":{k:v[1] for k,v in stat.items()}},open('/tmp/claude-0/hpid/hpid.json','w'),ensure_ascii=False)

@@ -53,8 +53,8 @@ for f in sorted(glob.glob('/tmp/claude-0/plvr57/*.csv.gz')):
         mm=re.match(r"^([一二三四五六七八九十]+)層$",x["移轉層次"].strip())
         if mm: fl=cnum(mm.group(1))
         if typ!="透天厝" and (not tot or not fl or fl>tot): continue
-        rows.append((CITY.get(x["縣市代碼"],x["縣市代碼"]), x["鄉鎮市區"], ty, (tm-1)//3+1, typ, age, barea/3.30579, unit, fl or 1, tot or 1, x.get("電梯")=="有", x.get("有無管理組織")=="有"))
+        rows.append((CITY.get(x["縣市代碼"],x["縣市代碼"]), x["鄉鎮市區"], ty, (tm-1)//3+1, typ, age, barea/3.30579, unit, fl or 1, tot or 1, x.get("電梯")=="有", x.get("有無管理組織")=="有", x["土地位置建物門牌"].strip()))
     print(f.split('/')[-1], len(rows), flush=True, file=sys.stderr)
-df=pd.DataFrame(rows,columns="city dist y q typ age ping unit fl tot elev mgmt".split())
+df=pd.DataFrame(rows,columns="city dist y q typ age ping unit fl tot elev mgmt addr".split())
 df["dist"]=df.city+df.dist
 df.to_pickle('/tmp/claude-0/hpid/res.pkl'); print(df.shape); print(df.groupby('y').size())
