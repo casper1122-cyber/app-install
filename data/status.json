@@ -1,6 +1,6 @@
 {
- "at": "2026-10-25T21:58",
- "ver": "2026-10-25",
+ "at": "2026-10-25T22:05",
+ "ver": "2026-10-25k",
  "items": [
   {
    "id": "prices",
@@ -97,30 +97,40 @@
    "name": "內政部實價登錄（2012 年起每一季，房價細到行政區用）",
    "how": "plvr",
    "every": 1,
-   "last": "",
-   "next": "",
-   "state": "fail",
-   "msg": "這個程式太舊，不認得「plvr」，請重新下載"
+   "last": "2026-10-25T22:01:53",
+   "next": "2026-10-26",
+   "state": "ok",
+   "msg": "已經放上 57 季（這次 2 季）"
   },
   {
    "id": "twstk",
    "name": "台股個股歷史（股價、產業、本益比，個股評級用）",
    "how": "twstk",
    "every": 1,
-   "last": "",
-   "next": "",
-   "state": "fail",
-   "msg": "這個程式太舊，不認得「twstk」，請重新下載"
+   "last": "2026-10-25T22:03:46",
+   "next": "2026-10-26",
+   "state": "ok",
+   "msg": "台股 1984 檔股價、證交所 22 年每月資料都放上網站了"
   },
   {
    "id": "govmeta",
    "name": "政府開放資料：先查資料集說明（地段、天災用）",
    "how": "govmeta",
    "every": 7,
-   "last": "",
-   "next": "",
-   "state": "fail",
-   "msg": "這個程式太舊，不認得「govmeta」，請重新下載"
+   "last": "2026-10-25T22:05:17",
+   "next": "2026-11-01",
+   "state": "ok",
+   "msg": "查了 52 個資料集（0 個成功）"
+  },
+  {
+   "id": "govmeta2",
+   "name": "政府開放資料：查門牌坐標候選資料集（桃園、臺中、臺南、高雄）",
+   "how": "govmeta",
+   "every": 3650,
+   "last": "2026-10-25T22:05:46",
+   "next": "2036-10-22",
+   "state": "ok",
+   "msg": "查了 16 個資料集（0 個成功）"
   },
   {
    "id": "door",
@@ -130,17 +140,17 @@
    "last": "",
    "next": "",
    "state": "fail",
-   "msg": "這個程式太舊，不認得「govdata」，請重新下載"
+   "msg": "curl 下載失敗：curl: (23) client returned ERROR on write of 158 bytes\r\n"
   },
   {
    "id": "probe",
    "name": "探路：先抓新資料的樣子給 Claude 看（ETF 費用、成分股）",
    "how": "probe",
    "every": 1,
-   "last": "",
-   "next": "",
-   "state": "fail",
-   "msg": "這個程式太舊，不認得「probe」，請重新下載"
+   "last": "2026-10-25T22:05:57",
+   "next": "2026-10-26",
+   "state": "ok",
+   "msg": "抓了 sitca_home、twse_openapi"
   },
   {
    "id": "brokers",
