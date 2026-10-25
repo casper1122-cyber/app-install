@@ -31,5 +31,14 @@
   "url": "https://www.sitca.org.tw/ROC/FundFee/index.html",
   "bytes": 12070,
   "at": "2026-10-25T22:38:53"
+ },
+ "tycg_meta": {
+  "url": "https://opendata.tycg.gov.tw/api/dataset/ec47dbd5-9ed8-4c8d-8ce1-ccb63b1b72e6",
+  "err": "curl 下載失敗：curl: (22) The requested URL returned error: 404\r\n"
+ },
+ "tycg_door": {
+  "url": "https://opendata.tycg.gov.tw/api/dataset/ec47dbd5-9ed8-4c8d-8ce1-ccb63b1b72e6/resource/ef5d93eb-2b55-4eeb-9f98-1eccaa9c428d/download",
+  "bytes": 94571099,
+  "at": "2026-10-25T23:35:11"
  }
 }
