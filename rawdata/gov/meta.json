@@ -1,0 +1,1337 @@
+{
+ "103066": {
+  "id": 103066,
+  "title": "綜稅綜合所得總額全國各縣市鄉鎮村里統計分析表",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "1",
+   "unittime": "年"
+  },
+  "dist": [
+   {
+    "desc": "101年度綜稅所得總額全國各縣市鄉鎮村里統計分析表",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias101/101_165-9.csv",
+    "mod": null
+   },
+   {
+    "desc": "102年度綜稅所得總額全國各縣市鄉鎮村里統計分析表",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias102/102_165-9.csv",
+    "mod": null
+   },
+   {
+    "desc": "103年度綜稅所得總額全國各縣市鄉鎮村里統計分析表",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias103/103_165-9.csv",
+    "mod": null
+   },
+   {
+    "desc": "104年度綜稅所得總額全國各縣市鄉鎮村里統計分析表",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias104/104_165-9.csv",
+    "mod": null
+   },
+   {
+    "desc": "105年度綜稅所得總額全國各縣市鄉鎮村里統計分析表",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias105/105_165-9.csv",
+    "mod": null
+   },
+   {
+    "desc": "106年度綜稅所得總額全國各縣市鄉鎮村里統計分析表",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias106/106_165-9.csv",
+    "mod": null
+   },
+   {
+    "desc": "107年度綜稅所得總額全國各縣市鄉鎮村里統計分析表",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias107/107_165-9.csv",
+    "mod": null
+   },
+   {
+    "desc": "108年度綜稅所得總額全國各縣市鄉鎮村里統計分析表",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias108/108_165-9.csv",
+    "mod": null
+   },
+   {
+    "desc": "109年度綜稅綜合所得總額全國各縣市鄉鎮村里統計分析表",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias109/109_165-9.csv",
+    "mod": null
+   },
+   {
+    "desc": "110年度綜稅綜合所得總額全國各縣市鄉鎮村里統計分析表",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias110/110_165-9.csv",
+    "mod": null
+   },
+   {
+    "desc": "111年度綜稅綜合所得總額全國各縣市鄉鎮村里統計分析表",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias111/111_165-9.csv",
+    "mod": null
+   },
+   {
+    "desc": "112年度綜稅綜合所得總額全國各縣市鄉鎮村里統計分析表",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias112/112_165-9.csv",
+    "mod": null
+   }
+  ]
+ },
+ "17988": {
+  "id": 17988,
+  "title": "綜稅綜合所得總額各縣市鄉鎮村里統計分析表-澎湖縣",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "1",
+   "unittime": "年"
+  },
+  "dist": [
+   {
+    "desc": "101年度綜稅所得總額各縣市鄉鎮村里統計分析表-澎湖縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias101/101_165-X.csv",
+    "mod": null
+   },
+   {
+    "desc": "102年度綜稅所得總額各縣市鄉鎮村里統計分析表-澎湖縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias102/102_165-X.csv",
+    "mod": null
+   },
+   {
+    "desc": "103年度綜稅所得總額各縣市鄉鎮村里統計分析表-澎湖縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias103/103_165-X.csv",
+    "mod": null
+   },
+   {
+    "desc": "104年度綜稅所得總額各縣市鄉鎮村里統計分析表-澎湖縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias104/104_165-X.csv",
+    "mod": null
+   },
+   {
+    "desc": "105年度綜稅所得總額各縣市鄉鎮村里統計分析表-澎湖縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias105/105_165-X.csv",
+    "mod": null
+   },
+   {
+    "desc": "106年度綜稅所得總額各縣市鄉鎮村里統計分析表-澎湖縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias106/106_165-X.csv",
+    "mod": null
+   },
+   {
+    "desc": "107年度綜稅所得總額各縣市鄉鎮村里統計分析表-澎湖縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias107/107_165-X.csv",
+    "mod": null
+   },
+   {
+    "desc": "108年度綜稅所得總額各縣市鄉鎮村里統計分析表-澎湖縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias108/108_165-X.csv",
+    "mod": null
+   },
+   {
+    "desc": "109年度綜稅綜合所得總額各縣市鄉鎮村里統計分析表-澎湖縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias109/109_165-X.csv",
+    "mod": null
+   },
+   {
+    "desc": "110年度綜稅綜合所得總額各縣市鄉鎮村里統計分析表-澎湖縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias110/110_165-X.csv",
+    "mod": null
+   },
+   {
+    "desc": "111年度綜稅綜合所得總額各縣市鄉鎮村里統計分析表-澎湖縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias111/111_165-X.csv",
+    "mod": null
+   },
+   {
+    "desc": "112年度綜稅綜合所得總額各縣市鄉鎮村里統計分析表-澎湖縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias112/112_165-X.csv",
+    "mod": null
+   }
+  ]
+ },
+ "17986": {
+  "id": 17986,
+  "title": "綜稅綜合所得總額各縣市鄉鎮村里統計分析表-臺東縣",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "1",
+   "unittime": "年"
+  },
+  "dist": [
+   {
+    "desc": "101年度綜稅所得總額各縣市鄉鎮村里統計分析表-臺東縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias101/101_165-V.csv",
+    "mod": null
+   },
+   {
+    "desc": "102年度綜稅所得總額各縣市鄉鎮村里統計分析表-臺東縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias102/102_165-V.csv",
+    "mod": null
+   },
+   {
+    "desc": "103年度綜稅所得總額各縣市鄉鎮村里統計分析表-臺東縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias103/103_165-V.csv",
+    "mod": null
+   },
+   {
+    "desc": "104年度綜稅所得總額各縣市鄉鎮村里統計分析表-臺東縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias104/104_165-V.csv",
+    "mod": null
+   },
+   {
+    "desc": "105年度綜稅所得總額各縣市鄉鎮村里統計分析表-臺東縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias105/105_165-V.csv",
+    "mod": null
+   },
+   {
+    "desc": "106年度綜稅所得總額各縣市鄉鎮村里統計分析表-臺東縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias106/106_165-V.csv",
+    "mod": null
+   },
+   {
+    "desc": "107年度綜稅所得總額各縣市鄉鎮村里統計分析表-臺東縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias107/107_165-V.csv",
+    "mod": null
+   },
+   {
+    "desc": "108年度綜稅所得總額各縣市鄉鎮村里統計分析表-臺東縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias108/108_165-V.csv",
+    "mod": null
+   },
+   {
+    "desc": "109年度綜稅綜合所得總額各縣市鄉鎮村里統計分析表-臺東縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias109/109_165-V.csv",
+    "mod": null
+   },
+   {
+    "desc": "110年度綜稅綜合所得總額各縣市鄉鎮村里統計分析表-臺東縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias110/110_165-V.csv",
+    "mod": null
+   },
+   {
+    "desc": "111年度綜稅綜合所得總額各縣市鄉鎮村里統計分析表-臺東縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias111/111_165-V.csv",
+    "mod": null
+   },
+   {
+    "desc": "112年度綜稅綜合所得總額各縣市鄉鎮村里統計分析表-臺東縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias112/112_165-V.csv",
+    "mod": null
+   }
+  ]
+ },
+ "17978": {
+  "id": 17978,
+  "title": "綜稅綜合所得總額各縣市鄉鎮村里統計分析表-嘉義市",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "1",
+   "unittime": "年"
+  },
+  "dist": [
+   {
+    "desc": "101年度綜稅所得總額各縣市鄉鎮村里統計分析表-嘉義市",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias101/101_165-I.csv",
+    "mod": null
+   },
+   {
+    "desc": "102年度綜稅所得總額各縣市鄉鎮村里統計分析表-嘉義市",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias102/102_165-I.csv",
+    "mod": null
+   },
+   {
+    "desc": "103年度綜稅所得總額各縣市鄉鎮村里統計分析表-嘉義市",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias103/103_165-I.csv",
+    "mod": null
+   },
+   {
+    "desc": "104年度綜稅所得總額各縣市鄉鎮村里統計分析表-嘉義市",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias104/104_165-I.csv",
+    "mod": null
+   },
+   {
+    "desc": "105年度綜稅所得總額各縣市鄉鎮村里統計分析表-嘉義市",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias105/105_165-I.csv",
+    "mod": null
+   },
+   {
+    "desc": "106年度綜稅所得總額各縣市鄉鎮村里統計分析表-嘉義市",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias106/106_165-I.csv",
+    "mod": null
+   },
+   {
+    "desc": "107年度綜稅所得總額各縣市鄉鎮村里統計分析表-嘉義市",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias107/107_165-I.csv",
+    "mod": null
+   },
+   {
+    "desc": "108年度綜稅所得總額各縣市鄉鎮村里統計分析表-嘉義市",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias108/108_165-I.csv",
+    "mod": null
+   },
+   {
+    "desc": "109年度綜稅綜合所得總額各縣市鄉鎮村里統計分析表-嘉義市",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias109/109_165-I.csv",
+    "mod": null
+   },
+   {
+    "desc": "110年度綜稅綜合所得總額各縣市鄉鎮村里統計分析表-嘉義市",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias110/110_165-I.csv",
+    "mod": null
+   },
+   {
+    "desc": "111年度綜稅綜合所得總額各縣市鄉鎮村里統計分析表-嘉義市",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias111/111_165-I.csv",
+    "mod": null
+   },
+   {
+    "desc": "112年度綜稅綜合所得總額各縣市鄉鎮村里統計分析表-嘉義市",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias112/112_165-I.csv",
+    "mod": null
+   }
+  ]
+ },
+ "17977": {
+  "id": 17977,
+  "title": "綜稅綜合所得總額各縣市鄉鎮村里統計分析表-新竹縣",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "1",
+   "unittime": "年"
+  },
+  "dist": [
+   {
+    "desc": "101年度綜稅所得總額各縣市鄉鎮村里統計分析表-新竹縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias101/101_165-J.csv",
+    "mod": null
+   },
+   {
+    "desc": "102年度綜稅所得總額各縣市鄉鎮村里統計分析表-新竹縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias102/102_165-J.csv",
+    "mod": null
+   },
+   {
+    "desc": "103年度綜稅所得總額各縣市鄉鎮村里統計分析表-新竹縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias103/103_165-J.csv",
+    "mod": null
+   },
+   {
+    "desc": "104年度綜稅所得總額各縣市鄉鎮村里統計分析表-新竹縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias104/104_165-J.csv",
+    "mod": null
+   },
+   {
+    "desc": "105年度綜稅所得總額各縣市鄉鎮村里統計分析表-新竹縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias105/105_165-J.csv",
+    "mod": null
+   },
+   {
+    "desc": "106年度綜稅所得總額各縣市鄉鎮村里統計分析表-新竹縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias106/106_165-J.csv",
+    "mod": null
+   },
+   {
+    "desc": "107年度綜稅所得總額各縣市鄉鎮村里統計分析表-新竹縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias107/107_165-J.csv",
+    "mod": null
+   },
+   {
+    "desc": "108年度綜稅所得總額各縣市鄉鎮村里統計分析表-新竹縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias108/108_165-J.csv",
+    "mod": null
+   },
+   {
+    "desc": "109年度綜稅綜合所得總額各縣市鄉鎮村里統計分析表-新竹縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias109/109_165-J.csv",
+    "mod": null
+   },
+   {
+    "desc": "110年度綜稅綜合所得總額各縣市鄉鎮村里統計分析表-新竹縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias110/110_165-J.csv",
+    "mod": null
+   },
+   {
+    "desc": "111年度綜稅綜合所得總額各縣市鄉鎮村里統計分析表-新竹縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias111/111_165-J.csv",
+    "mod": null
+   },
+   {
+    "desc": "112年度綜稅綜合所得總額各縣市鄉鎮村里統計分析表-新竹縣",
+    "fmt": "CSV",
+    "url": "https://www.fia.gov.tw/WEB/fia/ias/ias112/112_165-J.csv",
+    "mod": null
+   }
+  ]
+ },
+ "162052": {
+  "id": 162052,
+  "title": "各鄉鎮市區住宅使用情形",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "10",
+   "unittime": "年"
+  },
+  "dist": [
+   {
+    "desc": "民國109年各鄉鎮市區住宅使用情形",
+    "fmt": "XML",
+    "url": "https://ws.dgbas.gov.tw/001/Upload/461/relfile/11525/231699/mp06235a109.xml",
+    "mod": null
+   }
+  ]
+ },
+ "17062": {
+  "id": 17062,
+  "title": "台灣電力公司住宅用戶每月平均用電度數及電費",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "1",
+   "unittime": "月"
+  },
+  "dist": [
+   {
+    "desc": "",
+    "fmt": "CSV",
+    "url": "https://service.taipower.com.tw/data/opendata/apply/file/d007004/001.csv",
+    "mod": null
+   }
+  ]
+ },
+ "38959": {
+  "id": 38959,
+  "title": "台灣電力公司各縣市年度住宅、服務業、機關及工業用電比例",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "1",
+   "unittime": "年"
+  },
+  "dist": [
+   {
+    "desc": "",
+    "fmt": "CSV",
+    "url": "https://service.taipower.com.tw/data/opendata/apply/file/d007019/001.csv",
+    "mod": null
+   }
+  ]
+ },
+ "77875": {
+  "id": 77875,
+  "title": "公告訂定「活動斷層地質敏感區(F0017六甲斷層)」",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "",
+    "fmt": "CSV",
+    "url": "https://www.gsmma.gov.tw/uploads/1718788367845h9XvjeqA.csv",
+    "mod": null
+   }
+  ]
+ },
+ "16787": {
+  "id": 16787,
+  "title": "F0003旗山斷層活動斷層地質敏感區劃定計畫書",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "",
+    "fmt": "CSV",
+    "url": "https://www.gsmma.gov.tw/uploads/1718788367845h9XvjeqA.csv",
+    "mod": null
+   }
+  ]
+ },
+ "32607": {
+  "id": 32607,
+  "title": "F0009鹿野斷層活動斷層地質敏感區劃定計畫書",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "",
+    "fmt": "CSV",
+    "url": "https://www.gsmma.gov.tw/uploads/1718788367845h9XvjeqA.csv",
+    "mod": null
+   }
+  ]
+ },
+ "32609": {
+  "id": 32609,
+  "title": "F0010三義斷層活動斷層地質敏感區劃定計畫書",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "",
+    "fmt": "CSV",
+    "url": "https://www.gsmma.gov.tw/uploads/1718788367845h9XvjeqA.csv",
+    "mod": null
+   }
+  ]
+ },
+ "32598": {
+  "id": 32598,
+  "title": "F0005新竹斷層活動斷層地質敏感區劃定計畫書",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "",
+    "fmt": "CSV",
+    "url": "https://www.gsmma.gov.tw/uploads/1718788367845h9XvjeqA.csv",
+    "mod": null
+   }
+  ]
+ },
+ "32620": {
+  "id": 32620,
+  "title": "活動斷層近地表構造特性調查(1/4)",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "",
+    "fmt": "CSV",
+    "url": "https://www.gsmma.gov.tw/uploads/1719535146782kTereRwv.csv",
+    "mod": null
+   }
+  ]
+ },
+ "16785": {
+  "id": 16785,
+  "title": "F0001車籠埔斷層活動斷層地質敏感區劃定計畫書",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "",
+    "fmt": "CSV",
+    "url": "https://www.gsmma.gov.tw/uploads/1718788367845h9XvjeqA.csv",
+    "mod": null
+   }
+  ]
+ },
+ "139086": {
+  "id": 139086,
+  "title": "臺中市降雨淹水潛勢圖、模擬圖",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "臺中市降雨淹水潛勢圖、模擬圖 (1).CSV",
+    "fmt": "CSV",
+    "url": "https://newdatacenter.taichung.gov.tw/api/v1/no-auth/resource.download?rid=2514988d-9166-4653-83b5-baadde321558",
+    "mod": null
+   }
+  ]
+ },
+ "121550": {
+  "id": 121550,
+  "title": "臺北市降雨積水模擬圖（112年更新版）",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "5",
+   "unittime": "年"
+  },
+  "dist": [
+   {
+    "desc": "降雨強度78.8mm/h的情況下可能積水範圍KML",
+    "fmt": "KML",
+    "url": "https://data.taipei/api/dataset/fa1e8012-ebb4-473b-888e-97f9a9ce365e/resource/173adcbe-0f2e-4941-b2bc-127c09db0391/download",
+    "mod": null
+   },
+   {
+    "desc": "降雨強度100mm/h的情況下可能積水範圍KML",
+    "fmt": "KML",
+    "url": "https://data.taipei/api/dataset/fa1e8012-ebb4-473b-888e-97f9a9ce365e/resource/4b14c3a0-fcf2-48d4-9c93-e27784cae29d/download",
+    "mod": null
+   },
+   {
+    "desc": "降雨強度130mm/h的情況下可能積水範圍KML",
+    "fmt": "KML",
+    "url": "https://data.taipei/api/dataset/fa1e8012-ebb4-473b-888e-97f9a9ce365e/resource/2954e8d4-cb67-40c9-8ab8-019ad10b758e/download",
+    "mod": null
+   }
+  ]
+ },
+ "45634": {
+  "id": 45634,
+  "title": null,
+  "org": null,
+  "updated": null,
+  "dist": []
+ },
+ "28262": {
+  "id": 28262,
+  "title": "102年度1664條土石流潛勢溪流圖(TWD97)",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "UDL346-102年度土石流潛勢溪流圖(TWD97",
+    "fmt": "SHP",
+    "url": "https://data.moa.gov.tw/OpenData/GetOpenDataFile.aspx?id=526&FileType=SHP&RID=1921",
+    "mod": null
+   }
+  ]
+ },
+ "28290": {
+  "id": 28290,
+  "title": "102年度1664條土石流潛勢溪流圖(TWD67)",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "UDL347-102年度土石流潛勢溪流圖(TWD67",
+    "fmt": "SHP",
+    "url": "https://data.moa.gov.tw/OpenData/GetOpenDataFile.aspx?id=527&FileType=SHP&RID=1922",
+    "mod": null
+   }
+  ]
+ },
+ "28708": {
+  "id": 28708,
+  "title": "土壤液化潛勢圖",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "",
+    "fmt": "CSV",
+    "url": "https://www.gsmma.gov.tw/uploads/1750318561108Iks9tWmM.csv",
+    "mod": null
+   }
+  ]
+ },
+ "100221": {
+  "id": 100221,
+  "title": "土壤液化潛勢圖資",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "臺南土壤液化潛勢圖資",
+    "fmt": "SHP",
+    "url": "https://data.tainan.gov.tw/Resource/fce873b0-8408-4def-9a5f-6d81e6aded11?fileId=f56e97ab-0133-4435-9646-435f56b1a14e&importFileType=ShapeFile&handler=DLGisFile",
+    "mod": null
+   }
+  ]
+ },
+ "122721": {
+  "id": 122721,
+  "title": "臺南市土壤液化資訊",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "臺南市土壤液化資訊",
+    "fmt": "SHP",
+    "url": "https://data.tainan.gov.tw/Resource/075ad516-b1cc-4b59-856a-816c303a76da?fileId=d9f5a87e-0fd6-4746-9446-334666211244&importFileType=ShapeFile&handler=DLGisFile",
+    "mod": null
+   }
+  ]
+ },
+ "33604": {
+  "id": 33604,
+  "title": "彰化縣各鄉鎮市現住人口數按性別及年齡分統計表",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "1",
+   "unittime": "月"
+  },
+  "dist": [
+   {
+    "desc": "彰化縣各鄉鎮市每月現住人口數按性別及年齡分統計表",
+    "fmt": "CSV",
+    "url": "https://email.chcg.gov.tw/df/pozzwu5crax1gssw4psv238qsm6cra",
+    "mod": null
+   }
+  ]
+ },
+ "42518": {
+  "id": 42518,
+  "title": "全國各鄉鎮市區前二十大姓人口數按性別分",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "11206全國各鄉鎮市區前二十大姓人口數按性別分",
+    "fmt": "CSV",
+    "url": "https://opdadm.moi.gov.tw/api/v1/no-auth/resource/api/dataset/54BED408-2A7D-49D2-A247-FC63C156A8BB/resource/55A47BF4-F21F-4429-AC34-03581DA45B02/download",
+    "mod": null
+   },
+   {
+    "desc": "10706全國各鄉鎮市區前二十大姓人口數按性別分 ",
+    "fmt": "CSV",
+    "url": "https://opdadm.moi.gov.tw/api/v1/no-auth/resource/api/dataset/54BED408-2A7D-49D2-A247-FC63C156A8BB/resource/E3620BA6-9564-4F13-A86F-CBFAAEAE878F/download",
+    "mod": null
+   },
+   {
+    "desc": "全國各鄉鎮市區前二十大姓人口數按性別分",
+    "fmt": "JSON",
+    "url": "https://www.ris.gov.tw/rs-opendata/api/v1/datastore/ODRP034/10506",
+    "mod": null
+   },
+   {
+    "desc": "10506全國各鄉鎮市區前二十大姓人口數按性別分",
+    "fmt": "CSV",
+    "url": "https://opdadm.moi.gov.tw/api/v1/no-auth/resource/api/dataset/54BED408-2A7D-49D2-A247-FC63C156A8BB/resource/36A6134B-FC71-4B3C-96B2-EBD435CD5351/download",
+    "mod": null
+   }
+  ]
+ },
+ "132574": {
+  "id": 132574,
+  "title": "臺北市各區人口數按年齡分",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "1",
+   "unittime": "月"
+  },
+  "dist": [
+   {
+    "desc": "109年每月各行政區人口數按年齡分",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/64c8a3a0-3b9a-4f49-a13a-fb1eb2ffa4b1/resource/140c2fac-a403-4395-a0b6-39fc953c623f/download",
+    "mod": null
+   },
+   {
+    "desc": "110年每月各行政區人口數按年齡分",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/64c8a3a0-3b9a-4f49-a13a-fb1eb2ffa4b1/resource/f5a72bf0-4ef5-4a9a-95cf-538d8af26508/download",
+    "mod": null
+   },
+   {
+    "desc": "111年迄今-每月各行政區人口數按年齡分",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/64c8a3a0-3b9a-4f49-a13a-fb1eb2ffa4b1/resource/edf9a589-7095-4f18-995f-f8657c0d8c1a/download",
+    "mod": null
+   }
+  ]
+ },
+ "132946": {
+  "id": 132946,
+  "title": "臺北市各區原住民人口數按年齡分",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "1",
+   "unittime": "月"
+  },
+  "dist": [
+   {
+    "desc": "109年每月各區原住民人口數按年齡分",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/91d3835b-97ec-4f7b-9e44-a3e0d4ef8b9d/resource/f2937208-b551-44bc-84d3-eeb486dfbafa/download",
+    "mod": null
+   },
+   {
+    "desc": "110年每月各區原住民人口數按年齡分",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/91d3835b-97ec-4f7b-9e44-a3e0d4ef8b9d/resource/b789b6d9-241b-456b-8ccb-3e74d57cde0b/download",
+    "mod": null
+   },
+   {
+    "desc": "111年起迄今-每月各區原住民人口數按年齡分",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/91d3835b-97ec-4f7b-9e44-a3e0d4ef8b9d/resource/75061346-0883-4c28-a736-a1cd8ffdba72/download",
+    "mod": null
+   }
+  ]
+ },
+ "148179": {
+  "id": 148179,
+  "title": "桃園市總人口數按三階段年齡別分每年統計",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "桃園市總人口數按三階段年齡別分",
+    "fmt": "CSV",
+    "url": "https://opendata.tycg.gov.tw/api/dataset/36036e29-3216-4363-ae0f-1a3f4a84263a/resource/04f55aee-14f1-475f-a0fb-3958856f26cf/download",
+    "mod": null
+   }
+  ]
+ },
+ "169795": {
+  "id": 169795,
+  "title": "113年現住人口數按性別及年齡分",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "113年5月現住人口數按性別及年齡分",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/85728bc9-0cce-470b-b5df-0ba5340b70c2",
+    "mod": null
+   },
+   {
+    "desc": "113年5月現住人口數按性別及年齡分",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/85728bc9-0cce-470b-b5df-0ba5340b70c2",
+    "mod": null
+   },
+   {
+    "desc": "113年7月現住人口數按性別及年齡分",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/9c1f383b-7a42-4760-bb49-13584f58c235",
+    "mod": null
+   },
+   {
+    "desc": "113年7月現住人口數按性別及年齡分",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/9c1f383b-7a42-4760-bb49-13584f58c235",
+    "mod": null
+   },
+   {
+    "desc": "113年2月現住人口數按性別及年齡分",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/79e84df9-d47f-4e2e-8dd1-1a4f2dfd0c19",
+    "mod": null
+   },
+   {
+    "desc": "113年2月現住人口數按性別及年齡分",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/79e84df9-d47f-4e2e-8dd1-1a4f2dfd0c19",
+    "mod": null
+   },
+   {
+    "desc": "113年4月現住人口數按性別及年齡分",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/34e2177b-c24a-46b8-bed4-4735f87e3c24",
+    "mod": null
+   },
+   {
+    "desc": "113年4月現住人口數按性別及年齡分",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/34e2177b-c24a-46b8-bed4-4735f87e3c24",
+    "mod": null
+   },
+   {
+    "desc": "113年8月現住人口數按性別及年齡分",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/726163f9-8cbf-4534-9eb2-5e1c7574749c",
+    "mod": null
+   },
+   {
+    "desc": "113年8月現住人口數按性別及年齡分",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/726163f9-8cbf-4534-9eb2-5e1c7574749c",
+    "mod": null
+   },
+   {
+    "desc": "113年6月現住人口數按性別及年齡分",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/71f8d736-c757-466a-b2fa-78698b30f789",
+    "mod": null
+   },
+   {
+    "desc": "113年6月現住人口數按性別及年齡分",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/71f8d736-c757-466a-b2fa-78698b30f789",
+    "mod": null
+   },
+   {
+    "desc": "113年1月現住人口數按性別及年齡分",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/efe0bf05-fbd4-438b-a525-886605882d85",
+    "mod": null
+   },
+   {
+    "desc": "113年1月現住人口數按性別及年齡分",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/efe0bf05-fbd4-438b-a525-886605882d85",
+    "mod": null
+   },
+   {
+    "desc": "113年12月現住人口數按性別及年齡分",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/7270ad88-50a7-470f-8196-a1fb662b6a4f",
+    "mod": null
+   },
+   {
+    "desc": "113年12月現住人口數按性別及年齡分",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/7270ad88-50a7-470f-8196-a1fb662b6a4f",
+    "mod": null
+   },
+   {
+    "desc": "113年3月現住人口數按性別及年齡分",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/15cf3d67-0138-4237-960a-b2ddeeff4893",
+    "mod": null
+   },
+   {
+    "desc": "113年3月現住人口數按性別及年齡分",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/15cf3d67-0138-4237-960a-b2ddeeff4893",
+    "mod": null
+   },
+   {
+    "desc": "113年11月現住人口數按性別及年齡分",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/61bb5aaf-5f99-44a2-a796-c27a2c5f2091",
+    "mod": null
+   },
+   {
+    "desc": "113年11月現住人口數按性別及年齡分",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/61bb5aaf-5f99-44a2-a796-c27a2c5f2091",
+    "mod": null
+   },
+   {
+    "desc": "113年10月現住人口數按性別及年齡分",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/4ed1b34f-188c-46fb-a315-df8a3fb4ab38",
+    "mod": null
+   },
+   {
+    "desc": "113年10月現住人口數按性別及年齡分",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/4ed1b34f-188c-46fb-a315-df8a3fb4ab38",
+    "mod": null
+   },
+   {
+    "desc": "113年9月現住人口數按性別及年齡分",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/50a94317-c376-49d9-a138-fa9179e8f0e0",
+    "mod": null
+   },
+   {
+    "desc": "113年9月現住人口數按性別及年齡分",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/50a94317-c376-49d9-a138-fa9179e8f0e0",
+    "mod": null
+   }
+  ]
+ },
+ "140142": {
+  "id": 140142,
+  "title": "臺南市政府核發建築物使用執照依層數別統計",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "111年度臺南市政府核發建築物使用執照依層數別統計",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/a2aee2d6-31a8-4888-b368-a93e780c72d5",
+    "mod": null
+   },
+   {
+    "desc": "111年度臺南市政府核發建築物使用執照依層數別統計",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/a2aee2d6-31a8-4888-b368-a93e780c72d5",
+    "mod": null
+   }
+  ]
+ },
+ "140145": {
+  "id": 140145,
+  "title": "臺南市政府核發建築物使用執照依構造別統計",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "111年度臺南市政府核發建築物使用執照依構造別統計",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/c94a673b-a53d-4055-b299-841501f6f98d",
+    "mod": null
+   },
+   {
+    "desc": "111年度臺南市政府核發建築物使用執照依構造別統計",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/c94a673b-a53d-4055-b299-841501f6f98d",
+    "mod": null
+   }
+  ]
+ },
+ "167131": {
+  "id": 167131,
+  "title": "高雄市113年門牌坐標資料-TWD97",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "113年3月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/650ce2b9-bb17-43a7-a9f3-164970569b92",
+    "mod": null
+   },
+   {
+    "desc": "113年3月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/650ce2b9-bb17-43a7-a9f3-164970569b92",
+    "mod": null
+   },
+   {
+    "desc": "113年8月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/548b56d2-6bca-4532-b4dc-512643da4232",
+    "mod": null
+   },
+   {
+    "desc": "113年8月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/548b56d2-6bca-4532-b4dc-512643da4232",
+    "mod": null
+   },
+   {
+    "desc": "113年5月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/7f1612d7-3b99-4bfe-9583-63856d924a08",
+    "mod": null
+   },
+   {
+    "desc": "113年5月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/7f1612d7-3b99-4bfe-9583-63856d924a08",
+    "mod": null
+   },
+   {
+    "desc": "113年1月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/d63ec97b-9b81-4556-b295-698d1372c6a1",
+    "mod": null
+   },
+   {
+    "desc": "113年1月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/d63ec97b-9b81-4556-b295-698d1372c6a1",
+    "mod": null
+   },
+   {
+    "desc": "113年12月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/eb12ff9e-3792-494e-99bf-71d9f08eaaa4",
+    "mod": null
+   },
+   {
+    "desc": "113年12月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/eb12ff9e-3792-494e-99bf-71d9f08eaaa4",
+    "mod": null
+   },
+   {
+    "desc": "113年10月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/85cdd762-e718-4b68-9c83-7f9438675b21",
+    "mod": null
+   },
+   {
+    "desc": "113年10月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/85cdd762-e718-4b68-9c83-7f9438675b21",
+    "mod": null
+   },
+   {
+    "desc": "113年11月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/f8548670-53ea-4f86-ab95-8a779939fd9c",
+    "mod": null
+   },
+   {
+    "desc": "113年11月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/f8548670-53ea-4f86-ab95-8a779939fd9c",
+    "mod": null
+   },
+   {
+    "desc": "113年2月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/4dbc0c8f-9c48-4834-b0f8-9745caab9c3b",
+    "mod": null
+   },
+   {
+    "desc": "113年2月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/4dbc0c8f-9c48-4834-b0f8-9745caab9c3b",
+    "mod": null
+   },
+   {
+    "desc": "113年4月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/6d353be8-9a2c-42e1-a2ce-a0dd23522185",
+    "mod": null
+   },
+   {
+    "desc": "113年4月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/6d353be8-9a2c-42e1-a2ce-a0dd23522185",
+    "mod": null
+   },
+   {
+    "desc": "113年9月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/48b62935-ed18-47b2-92dc-b1bca3f2da8a",
+    "mod": null
+   },
+   {
+    "desc": "113年9月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/48b62935-ed18-47b2-92dc-b1bca3f2da8a",
+    "mod": null
+   },
+   {
+    "desc": "113年7月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/0649e851-9c8c-4b0d-80ab-d1c32780baa5",
+    "mod": null
+   },
+   {
+    "desc": "113年7月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/0649e851-9c8c-4b0d-80ab-d1c32780baa5",
+    "mod": null
+   },
+   {
+    "desc": "113年6月門牌坐標資料",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/587cc30f-85c3-4e01-93b5-e65f07652b0e",
+    "mod": null
+   },
+   {
+    "desc": "113年6月門牌坐標資料",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/587cc30f-85c3-4e01-93b5-e65f07652b0e",
+    "mod": null
+   }
+  ]
+ },
+ "121639": {
+  "id": 121639,
+  "title": "臺北市水準點",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "水準點CSV",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/42cd537d-6788-4bd9-99e8-8e7a9db4f6f5/resource/a10ba39d-f366-40a6-8f91-f984547aff6a/download",
+    "mod": null
+   }
+  ]
+ },
+ "155472": {
+  "id": 155472,
+  "title": "臺北市門牌位置數值資料",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "1",
+   "unittime": "月"
+  },
+  "dist": [
+   {
+    "desc": "臺北市門牌位置數值資料",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/b7c8e724-1e98-45ee-a0bd-f3840623ed97/resource/ce76ca0c-7f94-4935-ab47-1d2a41ca2abb/download",
+    "mod": null
+   }
+  ]
+ },
+ "170852": {
+  "id": 170852,
+  "title": "澎湖縣門牌位置數值資料",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "澎湖縣門牌位置相關數值資料",
+    "fmt": "CSV",
+    "url": "https://opendata.penghu.gov.tw/dataset/302f94b3-89f9-4877-969a-bd931df82cb3/resource/c52c06b9-024f-4442-92ee-acc7b1ed5b4c/download/u600000-03-2024-09-26-1727342410.csv",
+    "mod": null
+   },
+   {
+    "desc": "澎湖縣門牌位置相關數值資料",
+    "fmt": "XML",
+    "url": "https://opendata.penghu.gov.tw/dataset/302f94b3-89f9-4877-969a-bd931df82cb3/resource/aeb02db3-4196-48bf-9326-7dce886cabdc/download/u600000-03-2024-09-26-1727342410.xml",
+    "mod": null
+   },
+   {
+    "desc": "澎湖縣門牌位置相關數值資料",
+    "fmt": "JSON",
+    "url": "https://opendata.penghu.gov.tw/dataset/302f94b3-89f9-4877-969a-bd931df82cb3/resource/8105bad2-64d4-48a5-8680-2add667ed5eb/download/u600000-03-2024-09-26-1727342410.json",
+    "mod": null
+   }
+  ]
+ },
+ "171571": {
+  "id": 171571,
+  "title": "金門縣門牌位置數值資料",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "金門縣門牌資料",
+    "fmt": "XML",
+    "url": "https://ws.kinmen.gov.tw/001/Upload/0/relfile/0/0/4ec84cf6-9ff7-4dd9-ab66-593eb1e4f8d5.xml",
+    "mod": null
+   },
+   {
+    "desc": "金門縣門牌資料",
+    "fmt": "JSON",
+    "url": "https://ws.kinmen.gov.tw/001/Upload/0/relfile/0/0/4ec84cf6-9ff7-4dd9-ab66-593eb1e4f8d5.json",
+    "mod": null
+   },
+   {
+    "desc": "金門縣門牌資料",
+    "fmt": "XLSX",
+    "url": "https://ws.kinmen.gov.tw/001/Upload/0/relfile/0/0/4ec84cf6-9ff7-4dd9-ab66-593eb1e4f8d5.xlsx",
+    "mod": null
+   }
+  ]
+ },
+ "165015": {
+  "id": 165015,
+  "title": "臺中市112年GIS門牌號碼1至12月各月份版本",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "臺中市112年1至12月各月份GIS門牌資料.XML",
+    "fmt": "XML",
+    "url": "https://newdatacenter.taichung.gov.tw/api/v1/no-auth/resource.download?rid=273aba95-5bd2-4c6f-b798-8ee47f553988",
+    "mod": null
+   },
+   {
+    "desc": "臺中市112年1至12月各月份GIS門牌資料.CSV",
+    "fmt": "CSV",
+    "url": "https://newdatacenter.taichung.gov.tw/api/v1/no-auth/resource.download?rid=06051e8e-eeb9-4286-bdae-6250f47c9f11",
+    "mod": null
+   },
+   {
+    "desc": "臺中市112年1至12月各月份GIS門牌資料.JSON",
+    "fmt": "JSON",
+    "url": "https://newdatacenter.taichung.gov.tw/api/v1/no-auth/resource.download?rid=17fc837c-88af-4128-9069-322fd63c59b5",
+    "mod": null
+   }
+  ]
+ },
+ "168887": {
+  "id": 168887,
+  "title": "新北市門牌位置數值資料",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "1",
+   "unittime": "月"
+  },
+  "dist": [
+   {
+    "desc": "新北市門牌位置數值資料11509",
+    "fmt": "CSV",
+    "url": "https://data.ntpc.gov.tw/api/datasets/d7b568ab-3819-40c8-a6e7-a6b199443101/csv/file",
+    "mod": null
+   }
+  ]
+ }
+}
