@@ -13,7 +13,7 @@ import json, os, sys, time, csv, glob, io, re, shutil, zipfile, gzip, base64, da
 try: sys.stdout.reconfigure(errors="replace")
 except Exception: pass
 
-VERSION = "2026-10-25r"
+VERSION = "2026-10-25s"
 REPO = "casper1122-cyber/app-install"
 PAGES = "https://casper1122-cyber.github.io/app-install/"
 HOME = os.path.join(os.environ.get("APPDATA") or os.path.expanduser("~"), "資產配置資料更新")
@@ -813,7 +813,9 @@ def h_govdata(it):
         last = st.get(key)
         if last and (datetime.date.today() - datetime.date.fromisoformat(last)).days < every: continue
         if not AUTO: print("   " + S.get("name", key) + "…", flush=True)
-        M = gov_meta(S["id"]); pat = re.compile(S.get("pick", "."), re.I); n = 0
+        if S.get("url"): M = {"title": S.get("name", key), "dist": [{"url": S["url"], "fmt": S.get("fmt", "CSV"), "desc": S.get("name", key)}]}   # 不在政府資料平臺上的（例如桃園市自己的開放資料平臺）：直接給下載網址
+        else: M = gov_meta(S["id"])
+        pat = re.compile(S.get("pick", "."), re.I); n = 0
         files = {}
         dl = M["dist"]
         if S.get("last"):   # 同一個資料集有很多個月份的版本：只抓清單上最後一個符合的（最新的）
@@ -835,7 +837,7 @@ def h_govdata(it):
             n += 1; time.sleep(1)
             if n >= S.get("max", 60): break
         if not n: raise RuntimeError("%s：資料集 %s 裡沒有符合的檔案（網站可能改版）" % (S.get("name", key), S["id"]))
-        gh_put("rawdata/gov/%s/index.json" % key, json.dumps({"id": S["id"], "title": M.get("title"), "at": datetime.date.today().isoformat(), "files": files}, ensure_ascii=False, indent=1).encode("utf-8"), S.get("name", key))
+        gh_put("rawdata/gov/%s/index.json" % key, json.dumps({"id": S.get("id") or S.get("url"), "title": M.get("title"), "at": datetime.date.today().isoformat(), "files": files}, ensure_ascii=False, indent=1).encode("utf-8"), S.get("name", key))
         st[key] = datetime.date.today().isoformat(); jsave(STATE_F, STATE); got.append(S.get("name", key))
     return ("更新：" + "、".join(got)) if got else "都還沒到更新時間"
 
