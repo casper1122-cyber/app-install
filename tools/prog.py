@@ -13,7 +13,7 @@ import json, os, sys, time, csv, glob, io, re, shutil, zipfile, gzip, base64, da
 try: sys.stdout.reconfigure(errors="replace")
 except Exception: pass
 
-VERSION = "2026-10-25f"
+VERSION = "2026-10-25g"
 REPO = "casper1122-cyber/app-install"
 PAGES = "https://casper1122-cyber.github.io/app-install/"
 HOME = os.path.join(os.environ.get("APPDATA") or os.path.expanduser("~"), "資產配置資料更新")
@@ -614,7 +614,55 @@ def h_twstk(it):
     if left: raise Estimate("台股資料還有 %d 包，下次自動接著抓" % left)
     return "台股 %d 檔股價、證交所 %d 年每月資料都放上網站了" % (len(codes), ynow - y0 + 1)
 
-HANDLERS = {"files": h_files, "fred": h_fred, "yahoo": h_yahoo, "twdep": h_twdep, "twcpi": h_twcpi, "rate": h_rate, "plvr": h_plvr, "twstk": h_twstk}
+# ---------- 政府開放資料平臺（data.gov.tw）：先查資料集的說明（govmeta），再照網站資料清單指定的下載（govdata）----------
+# 資料清單放在網站 data/registry.json，之後要加新資料只要改清單，不用改程式
+GOV_API = "https://data.gov.tw/api/v2/rest/dataset/%s"
+def gov_meta(did):
+    j = json.loads(fetch(GOV_API % did, 40).decode("utf-8"))
+    r = j.get("result") or j
+    return {"id": did, "title": r.get("title"), "org": r.get("publisher") or r.get("organization"), "updated": r.get("modified") or r.get("updateFrequency"),
+            "dist": [{"desc": d.get("resourceDescription"), "fmt": d.get("resourceFormat"), "url": d.get("resourceDownloadUrl"), "mod": d.get("resourceModified")} for d in (r.get("distribution") or [])]}
+def h_govmeta(it):
+    out = {}
+    for did in it.get("ids", []):
+        try: out[str(did)] = gov_meta(did)
+        except Exception as e: out[str(did)] = {"id": did, "err": str(e)[:120]}
+        time.sleep(1)
+    gh_put("rawdata/gov/meta.json", json.dumps(out, ensure_ascii=False, indent=1).encode("utf-8"), "政府資料集說明")
+    ok = len([1 for v in out.values() if not v.get("err")])
+    return "查了 %d 個資料集（%d 個成功）" % (len(out), ok)
+def gh_put_big(path, data, msg):   # GitHub 一個檔案最好不要超過 50MB：大的切成幾份
+    lim = 45 * 1024 * 1024
+    if len(data) <= lim: gh_put(path, data, msg); return 1
+    n = 0
+    for i in range(0, len(data), lim): gh_put("%s.part%02d" % (path, n), data[i:i + lim], msg + " part%d" % n); n += 1
+    return n
+def h_govdata(it):
+    st = STATE.setdefault("_gov", {}); got = []
+    for S in it.get("sets", []):
+        key = S["key"]; every = S.get("every", 30)
+        last = st.get(key)
+        if last and (datetime.date.today() - datetime.date.fromisoformat(last)).days < every: continue
+        if not AUTO: print("   " + S.get("name", key) + "…", flush=True)
+        M = gov_meta(S["id"]); pat = re.compile(S.get("pick", "."), re.I); n = 0
+        files = {}
+        for d in M["dist"]:
+            lab = "%s %s" % (d.get("desc") or "", d.get("fmt") or "")
+            if not d.get("url") or not pat.search(lab): continue
+            b = fetch(d["url"], 300)
+            ext = (d.get("fmt") or "bin").lower().split("/")[-1][:5]
+            fn = "%s_%02d.%s" % (key, n, re.sub(r"[^a-z0-9]", "", ext) or "bin")
+            if not fn.endswith(".gz") and ext in ("csv", "json", "xml", "txt"): b = gzip.compress(b, 9); fn += ".gz"
+            parts = gh_put_big("rawdata/gov/%s/%s" % (key, fn), b, S.get("name", key))
+            files[fn] = {"desc": d.get("desc"), "fmt": d.get("fmt"), "url": d.get("url"), "bytes": len(b), "parts": parts}
+            n += 1; time.sleep(1)
+            if n >= S.get("max", 60): break
+        if not n: raise RuntimeError("%s：資料集 %s 裡沒有符合的檔案（網站可能改版）" % (S.get("name", key), S["id"]))
+        gh_put("rawdata/gov/%s/index.json" % key, json.dumps({"id": S["id"], "title": M.get("title"), "at": datetime.date.today().isoformat(), "files": files}, ensure_ascii=False, indent=1).encode("utf-8"), S.get("name", key))
+        st[key] = datetime.date.today().isoformat(); jsave(STATE_F, STATE); got.append(S.get("name", key))
+    return ("更新：" + "、".join(got)) if got else "都還沒到更新時間"
+
+HANDLERS = {"files": h_files, "fred": h_fred, "yahoo": h_yahoo, "twdep": h_twdep, "twcpi": h_twcpi, "rate": h_rate, "plvr": h_plvr, "twstk": h_twstk, "govmeta": h_govmeta, "govdata": h_govdata}
 def run(force=False):
     reg = registry()
     log("===== 開始（%s）=====" % ("自動" if AUTO else "手動"))
