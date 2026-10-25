@@ -345,13 +345,14 @@
      "last": true
     },
     {
-     "key": "door_txg",
-     "name": "臺中市 GIS 門牌",
+     "key": "door_txg2",
+     "name": "臺中市 GIS 門牌（雲端硬碟最新月份）",
      "id": 146376,
      "pick": "csv",
      "every": 180,
      "max": 1,
-     "last": true
+     "last": true,
+     "gdrive": true
     },
     {
      "key": "door_khh",
@@ -367,6 +368,15 @@
      "name": "臺北捷運車站出入口座標",
      "id": 128428,
      "pick": "csv|json",
+     "every": 180,
+     "max": 1,
+     "last": true
+    },
+    {
+     "key": "mrt_metro",
+     "name": "臺北都會區大眾捷運系統車站點位（含新北、機場捷運）",
+     "id": 121140,
+     "pick": "json",
      "every": 180,
      "max": 1,
      "last": true

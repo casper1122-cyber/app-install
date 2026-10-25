@@ -13,7 +13,7 @@ import json, os, sys, time, csv, glob, io, re, shutil, zipfile, gzip, base64, da
 try: sys.stdout.reconfigure(errors="replace")
 except Exception: pass
 
-VERSION = "2026-10-25q"
+VERSION = "2026-10-25r"
 REPO = "casper1122-cyber/app-install"
 PAGES = "https://casper1122-cyber.github.io/app-install/"
 HOME = os.path.join(os.environ.get("APPDATA") or os.path.expanduser("~"), "資產配置資料更新")
@@ -524,7 +524,11 @@ def h_plvr(it):
         if b[:2] != b"PK":
             if se == allS[-1]: break
             raise NeedUser("%s 下載到的不是資料檔（內政部網站可能改版或要驗證），請把這個程式的紀錄傳給 Claude" % se)
-        gz, n = plvr_pack(se, b, letter)
+        try: gz, n = plvr_pack(se, b, letter)
+        except RuntimeError as e:
+            if letter != "A" and "沒有" in str(e):   # 早期幾季沒有租賃資料（租賃實價登錄 2012 年 8 月才開始），記成做完、跳過
+                done.add(se); at[se] = datetime.date.today().isoformat(); STATE[sk] = sorted(done); jsave(STATE_F, STATE); continue
+            raise
         gh_put("rawdata/%s/%s.csv.gz" % (fd, se), gz, ("實價登錄 " if letter == "A" else "實價登錄租賃 ") + se)
         done.add(se); got += 1; at[se] = datetime.date.today().isoformat(); STATE[sk] = sorted(done); jsave(STATE_F, STATE)
         log("   %s：%d 筆，%.1f MB" % (se, n, len(gz) / 1e6))
@@ -818,6 +822,11 @@ def h_govdata(it):
             lab = "%s %s" % (d.get("desc") or "", d.get("fmt") or "")
             if not d.get("url") or not pat.search(lab): continue
             b = fetch(d["url"], 300)
+            if S.get("gdrive"):   # 下載到的是「各月份檔案清單」：照清單最後一列的雲端硬碟連結再抓一次真正的資料
+                ids = re.findall(rb"drive\.google\.com/file/d/([A-Za-z0-9_-]{20,})", b)
+                if not ids: raise RuntimeError("%s：清單裡找不到雲端硬碟連結" % S.get("name", key))
+                b = fetch("https://drive.usercontent.google.com/download?id=%s&export=download&confirm=t" % ids[-1].decode("ascii"), 600)
+                if b[:15].lower().startswith(b"<!doctype html") or b[:5].lower() == b"<html": raise RuntimeError("%s：雲端硬碟要確認才能下載（檔案太大），請把這個程式的紀錄傳給 Claude" % S.get("name", key))
             ext = (d.get("fmt") or "bin").lower().split("/")[-1][:5]
             fn = "%s_%02d.%s" % (key, n, re.sub(r"[^a-z0-9]", "", ext) or "bin")
             if not fn.endswith(".gz") and ext in ("csv", "json", "xml", "txt"): b = gzip.compress(b, 9); fn += ".gz"
