@@ -109,6 +109,12 @@
    "how": "plvr"
   },
   {
+   "id": "twstk",
+   "name": "台股個股歷史（股價、產業、本益比，個股評級用）",
+   "every": 1,
+   "how": "twstk"
+  },
+  {
    "id": "brokers",
    "name": "券商手續費資料",
    "every": 365,
