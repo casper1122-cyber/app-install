@@ -13,7 +13,7 @@ import json, os, sys, time, csv, glob, io, re, shutil, zipfile, gzip, base64, da
 try: sys.stdout.reconfigure(errors="replace")
 except Exception: pass
 
-VERSION = "2026-10-25i"
+VERSION = "2026-10-25j"
 REPO = "casper1122-cyber/app-install"
 PAGES = "https://casper1122-cyber.github.io/app-install/"
 HOME = os.path.join(os.environ.get("APPDATA") or os.path.expanduser("~"), "資產配置資料更新")
@@ -44,11 +44,12 @@ def fetch(url, timeout=40, headers=None):
         # 有些政府網站沒附完整的憑證鏈，Python 驗不過；改用系統內建的 curl（Windows 用系統憑證、會自己補中間憑證），一樣有驗證
         if "CERTIFICATE_VERIFY_FAILED" not in str(e) or headers: raise
         return curl_get(url, timeout)
+NOWIN = {"creationflags": 0x08000000} if os.name == "nt" else {}   # Windows：背景執行 curl、系統指令時不要跳出黑色視窗
 def curl_get(url, timeout):
     exe = shutil.which("curl.exe") or shutil.which("curl")
     if not exe: raise RuntimeError("憑證驗證失敗，這台電腦也沒有 curl")
     tmp = os.path.join(CACHE, "_curl.tmp")
-    r = subprocess.run([exe, "-sSL", "--fail", "--max-time", str(int(timeout)), "-A", UA["User-Agent"], "-o", tmp, url], capture_output=True)
+    r = subprocess.run([exe, "-sSL", "--fail", "--max-time", str(int(timeout)), "-A", UA["User-Agent"], "-o", tmp, url], capture_output=True, **NOWIN)
     if r.returncode != 0: raise RuntimeError("curl 下載失敗：" + r.stderr.decode("utf-8", "replace")[:80])
     b = open(tmp, "rb").read(); os.remove(tmp); return b
 def desktop():
@@ -65,7 +66,7 @@ def desktop():
         if os.path.isdir(p): return p
     return home
 def run_out(cmd):   # 執行系統指令；Windows 中文輸出是 cp950，用 replace 避免解碼錯誤
-    r = subprocess.run(cmd, capture_output=True)
+    r = subprocess.run(cmd, capture_output=True, **NOWIN)
     enc = "cp950" if os.name == "nt" else "utf-8"
     return r.returncode, (r.stdout or b"").decode(enc, "replace") + (r.stderr or b"").decode(enc, "replace")
 
