@@ -1,6 +1,6 @@
 {
- "at": "2026-10-25T13:21",
- "ver": "2026-10-25b",
+ "at": "2026-10-25T13:48",
+ "ver": "2026-10-25e",
  "items": [
   {
    "id": "prices",
@@ -97,10 +97,10 @@
    "name": "內政部實價登錄（2012 年起每一季，房價細到行政區用）",
    "how": "plvr",
    "every": 1,
-   "last": "",
-   "next": "",
-   "state": "fail",
-   "msg": "101S3 下載失敗：<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate （已完成 0 季，下次會接著抓）"
+   "last": "2026-10-25T13:48:43",
+   "next": "2026-10-26",
+   "state": "ok",
+   "msg": "已經放上 57 季（這次 57 季）"
   },
   {
    "id": "brokers",
