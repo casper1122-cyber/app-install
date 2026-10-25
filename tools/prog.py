@@ -13,7 +13,7 @@ import json, os, sys, time, csv, glob, io, re, shutil, zipfile, gzip, base64, da
 try: sys.stdout.reconfigure(errors="replace")
 except Exception: pass
 
-VERSION = "2026-10-25g"
+VERSION = "2026-10-25h"
 REPO = "casper1122-cyber/app-install"
 PAGES = "https://casper1122-cyber.github.io/app-install/"
 HOME = os.path.join(os.environ.get("APPDATA") or os.path.expanduser("~"), "資產配置資料更新")
@@ -318,6 +318,29 @@ def tw_dep():
         except (TypeError, ValueError): pass
     return {k: sum(v) / len(v) for k, v in acc.items()}
 
+# 房貸利率（回測扣利息用）：五大行庫「指數型房貸指標利率（機動）」平均＋0.551
+# 加碼用央行「五大銀行新承做購屋貸款利率」2009～2022 年平均校正（每年誤差平均 0.036 個百分點）
+MORT_SPREAD = 0.551
+def tw_mort():
+    f = os.path.join(CACHE, "twdep.csv"); acc = {}
+    if not os.path.exists(f): return {}
+    for r in csv.DictReader(io.StringIO(open(f, encoding="utf-8-sig", errors="replace").read())):
+        ym = str(r.get("年月") or "").strip()
+        if not re.match(r"^\d{4,5}$", ym): continue
+        try: v = float(r.get("指數房貸-機動") or r.get("房貸月指-機動"))
+        except (TypeError, ValueError): continue
+        acc.setdefault("%04d-%s" % (int(ym[:-2]) + 1911, ym[-2:]), []).append(v)
+    return {k: sum(v) / len(v) + MORT_SPREAD for k, v in acc.items()}
+def mort_series(last, old=None):
+    m = tw_mort()
+    if not m: return old
+    first = min(m); out = []; k = "2001-01"; prev = m[first]
+    while k <= last:
+        if k in m: prev = m[k]
+        out.append(int(round(prev * 1000))); k = ym_add(k, 1)
+    return {"s": "2001-01", "r": out, "first": first, "spread": MORT_SPREAD,
+            "src": "五大行庫指數型房貸指標利率（機動）平均＋0.551（用央行五大銀行新承做購屋貸款利率 2009～2022 年校正，每年誤差平均 0.04 個百分點）；" + first[:4] + " 年 " + str(int(first[5:7])) + " 月以前沒有資料，先用那個月的利率（當時實際利率可能更高）"}
+
 def h_rate(it):
     B = rate_base()
     old_last = B["last"]
@@ -396,6 +419,8 @@ def h_rate(it):
         c = mret(ucpi, k)
         if c is None: c = sum(L["cpi"][-12:]) / 12 / 1e5; est.append("美國 CPI（還沒公布）")
         L["cpi"].append(int(round(c * 1e5)))
+    B["mort"] = mort_series(new_last, B.get("mort"))
+    if not B["mort"]: B.pop("mort"); est.append("房貸利率（沒有五大銀行利率檔）")
     B["last"] = new_last; B["v"] = today.isoformat()
     B["upd"] = {"at": datetime.datetime.now().isoformat(timespec="minutes"), "from": old_last, "est": sorted(set(est)), "bad": sorted(set(bad))}
     js = json.dumps(B, ensure_ascii=False, separators=(",", ":"))
