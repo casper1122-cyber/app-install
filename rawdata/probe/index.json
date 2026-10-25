@@ -1,0 +1,10 @@
+{
+ "fsc_swagger": {
+  "url": "https://stat.fsc.gov.tw/FSC_OAS3_RESTORE/swagger/docs/v1",
+  "err": "curl 下載失敗：curl: (22) The requested URL returned error: 404\r\n"
+ },
+ "gov_search_fundfee": {
+  "url": "https://data.gov.tw/api/v2/rest/dataset?q=%E5%9F%BA%E9%87%91%E5%90%84%E9%A0%85%E8%B2%BB%E7%94%A8",
+  "err": "HTTP Error 405: Method Not Allowed"
+ }
+}
