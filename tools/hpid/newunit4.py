@@ -47,8 +47,8 @@ N.update({'dist':dist,'city':city,'roadPrem':prem,
  'premSrc':'這條路的房子（屋齡 5 年以上，2019 年起）跟同區、同年、同類型、同屋齡的比，貴或便宜多少（成交少的會往 0 縮）',
  'near':{'p':{c:[[int(round(a*1e0)),int(round(b)),int(round(u)),int(k),int(y)] for a,b,u,k,y in zip(g2.x,g2.y,g2.u,g2.c,g2.by)] for c,g2 in P.groupby('city')},
    'k':5,'cs':CS,'cells':cells,'K':20,'xy':'TWD97 TM2（公尺）',
-   'src':'實價登錄 2016 年起、屋齡 3 年內的大樓華廈，用行政區房價指數換算成現在的價格；地址對到臺北、新北、臺南、高雄市政府的門牌坐標，80 公尺內、完工年差 1 年內的算同一個建案（至少 5 筆）',
-   'check':'整個建案拿掉驗證 5 次（誤差中位數）：臺北、新北 1,435 個建案，只看行政區 9.3%、這個方法 7.0%；臺南 324 個建案 9.6%→9.3%；高雄 656 個建案 8.4%→7.6%'}})
+   'src':'實價登錄 2016 年起、屋齡 3 年內的大樓華廈，用行政區房價指數換算成現在的價格；地址對到臺北、新北、臺中、臺南、高雄市政府的門牌坐標，80 公尺內、完工年差 1 年內的算同一個建案（至少 5 筆）',
+   'check':'整個建案拿掉驗證 5 次（誤差中位數）：臺北、新北 1,435 個建案，只看行政區 9.3%、這個方法 7.0%；臺南 324 個建案 9.6%→9.3%；高雄 656 個建案 8.4%→7.6%；臺中 572 個建案 11.4%→9.2%'}})
 for k in ['newSrc']: N.pop(k,None)
 json.dump(H,open(J,'w'),ensure_ascii=False,separators=(',',':'))
 print('dist',len(dist),'prem',len(prem),'proj',{c:len(v) for c,v in N['near']['p'].items()},'cells',len(cells))
