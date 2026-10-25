@@ -13,7 +13,7 @@ import json, os, sys, time, csv, glob, io, re, shutil, zipfile, gzip, base64, da
 try: sys.stdout.reconfigure(errors="replace")
 except Exception: pass
 
-VERSION = "2026-10-25e"
+VERSION = "2026-10-25f"
 REPO = "casper1122-cyber/app-install"
 PAGES = "https://casper1122-cyber.github.io/app-install/"
 HOME = os.path.join(os.environ.get("APPDATA") or os.path.expanduser("~"), "資產配置資料更新")
@@ -89,6 +89,7 @@ BUILTIN = {"items": [
   {"id": "lahman", "name": "棒球資料庫（生涯數據、名人堂、獎項）", "every": 30, "how": "later", "note": "做球員卡評級時再設定（原本的下載網址搬家了）", "files": [
      ["lahman.zip", "https://github.com/chadwickbureau/baseballdatabank/archive/refs/heads/master.zip"]]},
   {"id": "plvr", "name": "內政部實價登錄（2012 年起每一季，房價細到行政區用）", "every": 1, "how": "plvr"},
+  {"id": "twstk", "name": "台股個股歷史（股價、產業、本益比，個股評級用）", "every": 1, "how": "twstk"},
   {"id": "brokers", "name": "券商手續費資料", "every": 365, "how": "manual", "done": "2026-01-01", "note": "每年一月跟 Claude 說一聲，查各家券商新方案"},
   {"id": "tax", "name": "遺產稅、贈與稅免稅額", "every": 365, "how": "manual", "done": "2026-01-01", "note": "每年一月跟 Claude 說一聲（財政部年底公告新的免稅額）"},
   {"id": "fo", "name": "家族辦公室參考配置", "every": 365, "how": "manual", "done": "2026-07-01", "note": "每年七月跟 Claude 說一聲（UBS 報告出來）"}
@@ -505,7 +506,115 @@ def h_plvr(it):
     if left > 1: raise Estimate("已經放上 %d 季，還有 %d 季，下次自動接著抓" % (len(done), left))
     return "已經放上 %d 季（這次 %d 季）" % (len(done), got)
 
-HANDLERS = {"files": h_files, "fred": h_fred, "yahoo": h_yahoo, "twdep": h_twdep, "twcpi": h_twcpi, "rate": h_rate, "plvr": h_plvr}
+# ---------- 台股個股歷史：個股評級用（研究「什麼樣的股票風險大」要全部的股票，包含已經下市的）----------
+# 1. 證交所 ISIN 清單：上市、上櫃普通股的代號、名稱、上市日、產業別
+# 2. Yahoo 每月股價（含還原權息）：每檔一次，100 檔一包放上網站
+# 3. 證交所每個月最後一個交易日的「全部股票收盤價」和「本益比、殖利率、淨值比」：2005 年起（含後來下市的股票，避免只看活下來的公司）
+# 4. 櫃買中心同樣的資料（網站常改版，抓不到不影響前面的）
+TW_ISIN = {"上市": "https://isin.twse.com.tw/isin/C_public.jsp?strMode=2", "上櫃": "https://isin.twse.com.tw/isin/C_public.jsp?strMode=4"}
+def tw_list():
+    out = []
+    for mk, url in TW_ISIN.items():
+        raw = fetch(url, 60)
+        try: html = raw.decode("cp950")
+        except UnicodeDecodeError: html = raw.decode("big5", errors="replace")
+        for tr in re.findall(r"<tr>(.*?)</tr>", html, re.S):
+            td = [re.sub(r"<[^>]+>", "", x).replace("　", " ").strip() for x in re.findall(r"<td[^>]*>(.*?)</td>", tr, re.S)]
+            if len(td) < 6: continue
+            m = re.match(r"^(\d{4})\s+(.+)$", td[0])
+            if not m or not td[5].startswith("ES"): continue   # 只要普通股（CFI 是 ES 開頭）
+            out.append({"c": m.group(1), "n": m.group(2).strip(), "since": td[2], "mk": mk, "ind": td[4]})
+    if len(out) < 1000: raise RuntimeError("股票清單只抓到 %d 檔（證交所網站可能改版）" % len(out))
+    return out
+def ymonth(sym):
+    url = "https://query1.finance.yahoo.com/v8/finance/chart/%s?range=max&interval=1mo&events=div%%2Csplit" % urllib.parse.quote(sym)
+    last = None
+    for host in YHOSTS[:]:
+        try:
+            j = json.loads(fetch(url.replace("query1", host), 30).decode("utf-8"))["chart"]["result"][0]
+            ts = j.get("timestamp") or []; q = j["indicators"]["quote"][0]
+            adj = ((j["indicators"].get("adjclose") or [{}])[0]).get("adjclose") or []
+            rows = []
+            for i, t in enumerate(ts):
+                c = (q.get("close") or [None] * len(ts))[i]; a = adj[i] if i < len(adj) else None; v = (q.get("volume") or [None] * len(ts))[i]
+                if c: rows.append([datetime.datetime.fromtimestamp(t + 8 * 3600, datetime.timezone.utc).strftime("%Y-%m"), round(c, 4), round(a, 4) if a else None, int(v or 0)])
+            return rows
+        except Exception as e: last = e
+    if last and "404" in str(last): return []
+    raise last
+def twse_json(url):
+    for k in range(3):
+        try:
+            j = json.loads(fetch(url, 40).decode("utf-8"))
+            return j
+        except Exception as e:
+            if k == 2: raise
+            time.sleep(10)
+def twse_month(ym):   # 這個月最後一個交易日：從月底往前找，先看收盤價有沒有，再抓同一天的本益比
+    y, m = int(ym[:4]), int(ym[5:])
+    d = datetime.date(y + (m == 12), m % 12 + 1, 1) - datetime.timedelta(days=1)
+    for k in range(8):
+        dd = d - datetime.timedelta(days=k)
+        if dd.weekday() >= 5: continue
+        day = dd.strftime("%Y%m%d")
+        px = twse_json("https://www.twse.com.tw/rwd/zh/afterTrading/MI_INDEX?date=%s&type=ALLBUT0999&response=json" % day); time.sleep(3.5)
+        tbl = None
+        for t in (px.get("tables") or []):
+            f = t.get("fields") or []
+            if "證券代號" in f and "收盤價" in f and len(t.get("data") or []) > 300: tbl = t; break
+        if tbl is None and px.get("fields9"): tbl = {"fields": px["fields9"], "data": px.get("data9") or []}   # 舊格式
+        if tbl is None: continue
+        pe = twse_json("https://www.twse.com.tw/rwd/zh/afterTrading/BWIBBU_d?date=%s&selectType=ALL&response=json" % day); time.sleep(3.5)
+        return {"d": day, "px": {"f": tbl["fields"], "r": tbl["data"]}, "pe": {"f": pe.get("fields"), "r": pe.get("data")} if pe.get("stat") == "OK" else None}
+    return None
+def h_twstk(it):
+    st = STATE.setdefault("_twstk", {"y": [], "m": []}); hd = {}
+    # 1. 清單（每 30 天更新）
+    if not st.get("listAt") or (datetime.date.today() - datetime.date.fromisoformat(st["listAt"])).days > 30:
+        L = tw_list(); gh_put("rawdata/twstk/list.json", json.dumps(L, ensure_ascii=False).encode("utf-8"), "台股清單")
+        st["list"] = [[x["c"], x["mk"]] for x in L]; st["listAt"] = datetime.date.today().isoformat(); jsave(STATE_F, STATE)
+        log("   台股清單：%d 檔" % len(L))
+    codes = st["list"]
+    # 2. Yahoo 每月股價：100 檔一包
+    packs = [codes[i:i + 100] for i in range(0, len(codes), 100)]
+    limit = 3 if AUTO else 99; done_now = 0
+    for k, pk in enumerate(packs):
+        key = "y%02d" % k
+        if key in st["y"]: continue
+        if done_now >= limit: break
+        if not AUTO: print("   個股股價 第 %d/%d 包…" % (k + 1, len(packs)), flush=True)
+        out, bad = {}, 0
+        for c, mk in pk:
+            try: out[c] = ymonth(c + (".TW" if mk == "上市" else ".TWO"))
+            except Exception: bad += 1
+            time.sleep(0.8)
+        if bad > len(pk) * 0.5: raise RuntimeError("Yahoo 這一包有 %d 檔抓不到，晚點再試" % bad)
+        gh_put("rawdata/twstk/%s.json.gz" % key, gzip.compress(json.dumps(out, separators=(",", ":")).encode("utf-8"), 9), "台股股價 " + key)
+        st["y"].append(key); jsave(STATE_F, STATE); done_now += 1
+    # 3. 證交所每月快照（2005 年起，一年一包）
+    y0, ynow = 2005, datetime.date.today().year
+    for y in range(y0, ynow + 1):
+        key = "t%d" % y
+        if key in st["m"] and y < ynow: continue
+        if done_now >= limit and y < ynow: break
+        if y == ynow and st.get("mAt") == datetime.date.today().strftime("%Y-%m"): continue   # 今年的每月更新一次
+        if not AUTO: print("   證交所 %d 年每月資料…" % y, flush=True)
+        snaps = {}
+        for m in range(1, 13):
+            ym = "%d-%02d" % (y, m)
+            if datetime.date(y, m, 1) >= datetime.date.today().replace(day=1): break
+            r = twse_month(ym)
+            if r: snaps[ym] = r
+        if not snaps: continue
+        gh_put("rawdata/twstk/twse_%d.json.gz" % y, gzip.compress(json.dumps(snaps, ensure_ascii=False, separators=(",", ":")).encode("utf-8"), 9), "證交所每月 %d" % y)
+        if key not in st["m"]: st["m"].append(key)
+        if y == ynow: st["mAt"] = datetime.date.today().strftime("%Y-%m")
+        jsave(STATE_F, STATE); done_now += 1
+    left = len([1 for k in range(len(packs)) if "y%02d" % k not in st["y"]]) + len([1 for y in range(y0, ynow) if "t%d" % y not in st["m"]])
+    if left: raise Estimate("台股資料還有 %d 包，下次自動接著抓" % left)
+    return "台股 %d 檔股價、證交所 %d 年每月資料都放上網站了" % (len(codes), ynow - y0 + 1)
+
+HANDLERS = {"files": h_files, "fred": h_fred, "yahoo": h_yahoo, "twdep": h_twdep, "twcpi": h_twcpi, "rate": h_rate, "plvr": h_plvr, "twstk": h_twstk}
 def run(force=False):
     reg = registry()
     log("===== 開始（%s）=====" % ("自動" if AUTO else "手動"))
