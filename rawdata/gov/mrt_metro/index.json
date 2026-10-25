@@ -1,0 +1,14 @@
+{
+ "id": 121140,
+ "title": "臺北都會區大眾捷運系統車站點位圖",
+ "at": "2026-10-25",
+ "files": {
+  "mrt_metro_00.json.gz": {
+   "desc": "臺北都會區大眾捷運系統車站點位圖",
+   "fmt": "JSON",
+   "url": "https://data.taipei/api/dataset/758e5ae0-e6ee-448b-81f5-316eb68a5ba7/resource/a63e3278-9d10-4916-9f24-e5a4d78afb31/download",
+   "bytes": 6737,
+   "parts": 1
+  }
+ }
+}
