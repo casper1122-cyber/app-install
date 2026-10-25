@@ -13,7 +13,7 @@ import json, os, sys, time, csv, glob, io, re, shutil, zipfile, gzip, base64, da
 try: sys.stdout.reconfigure(errors="replace")
 except Exception: pass
 
-VERSION = "2026-10-25p"
+VERSION = "2026-10-25q"
 REPO = "casper1122-cyber/app-install"
 PAGES = "https://casper1122-cyber.github.io/app-install/"
 HOME = os.path.join(os.environ.get("APPDATA") or os.path.expanduser("~"), "資產配置資料更新")
@@ -477,10 +477,10 @@ def plvr_seasons():
             if (yy, qq) < (101, 3) or (yy, qq) >= (y, q): continue
             out.append("%dS%d" % (yy, qq))
     return out   # 這一季還沒結束的不抓；上一季要等內政部公布（季後第二個月）
-def plvr_pack(season, b):
+def plvr_pack(season, b, letter="A"):   # A＝買賣、C＝租賃
     z = zipfile.ZipFile(io.BytesIO(b)); master = None; rows = []
     for name in sorted(z.namelist()):
-        m = re.match(r"^(?:.*/)?([A-Z])_LVR_LAND_A\.CSV$", name.upper())
+        m = re.match(r"^(?:.*/)?([A-Z])_LVR_LAND_" + letter + r"\.CSV$", name.upper())
         if not m: continue
         raw = z.read(name)
         try: txt = raw.decode("utf-8-sig")
@@ -494,22 +494,23 @@ def plvr_pack(season, b):
             if h not in PLVR_DROP and h not in master: master.append(h)
         ti = head.index("交易標的") if "交易標的" in head else -1
         for r in body:
-            if ti >= 0 and not (r[ti].startswith("房地") or r[ti].startswith("土地")): continue
+            if letter == "A" and ti >= 0 and not (r[ti].startswith("房地") or r[ti].startswith("土地")): continue
             dct = dict(zip(head, r)); dct["縣市代碼"] = m.group(1); rows.append(dct)
-    if master is None: raise RuntimeError(season + " 的壓縮檔裡沒有買賣資料")
+    if master is None: raise RuntimeError(season + " 的壓縮檔裡沒有" + ("買賣" if letter == "A" else "租賃") + "資料")
     out = io.StringIO(); w = csv.writer(out); w.writerow(master)
     for dct in rows: w.writerow([dct.get(h, "") for h in master])
     return gzip.compress(out.getvalue().encode("utf-8"), 9), len(rows)
 def h_plvr(it):
-    done = set(STATE.get("_plvr", [])); allS = plvr_seasons(); at = STATE.setdefault("_plvrAt", {})
+    letter = it.get("letter", "A"); fd = it.get("dir", "plvr"); sk = "_" + fd   # 同一支程式抓買賣（plvr）和租賃（plvrr）
+    done = set(STATE.get(sk, [])); allS = plvr_seasons(); at = STATE.setdefault(sk + "At", {})
     for se in allS[-2:]:   # 最近兩季：內政部會陸續補登（申報期 30 天），每 30 天重抓一次
         if se in done and (datetime.date.today() - datetime.date.fromisoformat(at.get(se, "2000-01-01"))).days > 30: done.discard(se)
     try:   # 別台電腦已經放上網站的，這台就不用再抓
         tok = CFG.get("token"); hd = {"Authorization": "Bearer " + tok, "Accept": "application/vnd.github+json"} if tok else {}
-        have = [x["name"][:-7] for x in json.loads(fetch("https://api.github.com/repos/%s/contents/rawdata/plvr" % REPO, 30, hd).decode("utf-8")) if x["name"].endswith(".csv.gz")]
+        have = [x["name"][:-7] for x in json.loads(fetch("https://api.github.com/repos/%s/contents/rawdata/%s" % (REPO, fd), 30, hd).decode("utf-8")) if x["name"].endswith(".csv.gz")]
         for se in have:
             if se not in done and se not in allS[-2:]: done.add(se); at.setdefault(se, datetime.date.today().isoformat())
-        STATE["_plvr"] = sorted(done); jsave(STATE_F, STATE)
+        STATE[sk] = sorted(done); jsave(STATE_F, STATE)
     except Exception: pass
     todo = [x for x in allS if x not in done]
     if not todo: return "全部 %d 季都已經放上網站" % len(allS)
@@ -523,9 +524,9 @@ def h_plvr(it):
         if b[:2] != b"PK":
             if se == allS[-1]: break
             raise NeedUser("%s 下載到的不是資料檔（內政部網站可能改版或要驗證），請把這個程式的紀錄傳給 Claude" % se)
-        gz, n = plvr_pack(se, b)
-        gh_put("rawdata/plvr/%s.csv.gz" % se, gz, "實價登錄 " + se)
-        done.add(se); got += 1; at[se] = datetime.date.today().isoformat(); STATE["_plvr"] = sorted(done); jsave(STATE_F, STATE)
+        gz, n = plvr_pack(se, b, letter)
+        gh_put("rawdata/%s/%s.csv.gz" % (fd, se), gz, ("實價登錄 " if letter == "A" else "實價登錄租賃 ") + se)
+        done.add(se); got += 1; at[se] = datetime.date.today().isoformat(); STATE[sk] = sorted(done); jsave(STATE_F, STATE)
         log("   %s：%d 筆，%.1f MB" % (se, n, len(gz) / 1e6))
         time.sleep(3)   # 一季一季慢慢抓，不要太快
     left = len([x for x in allS if x not in done])
@@ -854,7 +855,7 @@ def h_probe(it):
     # 抓不到不算失敗（只是探路，原因寫在 index.json 給 Claude 看）
     return ("抓了 " + "、".join(got) if got else "沒有新的") + ("（失敗：" + "、".join(bad) + "）" if bad else "")
 
-HANDLERS = {"files": h_files, "fred": h_fred, "yahoo": h_yahoo, "twdep": h_twdep, "twcpi": h_twcpi, "rate": h_rate, "plvr": h_plvr, "twstk": h_twstk, "govmeta": h_govmeta, "govdata": h_govdata, "probe": h_probe}
+HANDLERS = {"files": h_files, "fred": h_fred, "yahoo": h_yahoo, "twdep": h_twdep, "twcpi": h_twcpi, "rate": h_rate, "plvr": h_plvr, "plvrr": h_plvr, "twstk": h_twstk, "govmeta": h_govmeta, "govdata": h_govdata, "probe": h_probe}
 def run(force=False):
     reg = registry()
     log("===== 開始（%s）=====" % ("自動" if AUTO else "手動"))
