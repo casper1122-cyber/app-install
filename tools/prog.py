@@ -13,7 +13,7 @@ import json, os, sys, time, csv, glob, io, re, shutil, zipfile, gzip, base64, da
 try: sys.stdout.reconfigure(errors="replace")
 except Exception: pass
 
-VERSION = "2026-10-25l"
+VERSION = "2026-10-25n"
 REPO = "casper1122-cyber/app-install"
 PAGES = "https://casper1122-cyber.github.io/app-install/"
 HOME = os.path.join(os.environ.get("APPDATA") or os.path.expanduser("~"), "資產配置資料更新")
@@ -593,6 +593,72 @@ def twse_month(ym):   # 這個月最後一個交易日：從月底往前找，�
         pe = twse_json("https://www.twse.com.tw/rwd/zh/afterTrading/BWIBBU_d?date=%s&selectType=ALL&response=json" % day); time.sleep(3.5)
         return {"d": day, "px": {"f": tbl["fields"], "r": tbl["data"]}, "pe": {"f": pe.get("fields"), "r": pe.get("data")} if pe.get("stat") == "OK" else None}
     return None
+# ---- 個股評級給 App 的資料（stk/hist.json）：每檔每月還原報酬＋「公司自己出事」的機率 ----
+import math, statistics
+TWD = lambda: os.path.join(CACHE, "twstk")
+def tw_local(name, data=None):   # 本機也存一份，算的時候不用再下載
+    os.makedirs(TWD(), exist_ok=True); f = os.path.join(TWD(), name)
+    if data is not None: open(f, "wb").write(data); return data
+    if os.path.exists(f): return open(f, "rb").read()
+    b = fetch(PAGES + "rawdata/twstk/" + name + "?t=%d" % time.time(), 120); open(f, "wb").write(b); return b
+def stk_build(packs, snap, lst, model, last):
+    # packs: {code: [[ym, close, adjclose, volume], ...]}；snap: 證交所某月 {'px':{f,r},'pe':{f,r}}；lst: 清單；last: 要對齊到的最後一個月（App 回測資料的最後一個月）
+    def ymadd(ym, k): y, m = int(ym[:4]), int(ym[5:7]) - 1 + k; return "%04d-%02d" % (y + m // 12, m % 12 + 1)
+    L = {x["c"]: x for x in lst}
+    S = {}
+    for c, rows in packs.items():
+        d = {}
+        for ym, cl, ac, vol in rows:
+            if ac and ac > 0 and ym <= last: d[ym] = ac
+        if len(d) >= 2: S[c] = d
+    # 每月報酬（對數，算風險用）、等權重市場（上市股票的中位數）
+    lr = {}
+    for c, d in S.items():
+        ks = sorted(d); lr[c] = {}
+        for a, b in zip(ks, ks[1:]):
+            if ymadd(a, 1) == b: lr[c][b] = max(-1.5, min(1.5, math.log(d[b] / d[a])))
+    mons = [ymadd(last, -k) for k in range(35, -1, -1)]
+    mk = {}
+    for ym in mons:
+        v = [lr[c][ym] for c in lr if ym in lr[c] and L.get(c, {}).get("mk") == "上市"]
+        mk[ym] = statistics.median(v) if v else 0.0
+    pe = {}
+    if snap and snap.get("pe"):
+        f = snap["pe"]["f"]; ip, ib, iy = f.index("本益比"), f.index("股價淨值比"), f.index("殖利率(%)")
+        num = lambda s: float(str(s).replace(",", "")) if str(s).replace(",", "").replace(".", "", 1).replace("-", "", 1).isdigit() else None
+        for r in snap["pe"]["r"]: pe[r[0]] = (num(r[ip]), num(r[ib]), num(r[iy]))
+    out = {}
+    for c, d in S.items():
+        x = L.get(c, {}); rr = [(lr[c].get(ym), mk[ym]) for ym in mons]; ok = [(a, b) for a, b in rr if a is not None]
+        info = {"n": x.get("n", c), "mk": x.get("mk", ""), "ind": x.get("ind", "")}
+        ks = sorted(d); s0 = ks[0]
+        # App 用的每月簡單報酬（萬分之一），從第一個月接到 last
+        r = []; k = s0
+        while k < last:
+            k2 = ymadd(k, 1); r.append(int(round((d[k2] / d[k] - 1) * 1e4)) if k in d and k2 in d else None); k = k2
+        info["s"] = ymadd(s0, 1); info["r"] = r
+        if len(ok) >= 24:
+            ma = sum(b for a, b in ok) / len(ok); sa = sum(a for a, b in ok) / len(ok)
+            vb = sum((b - ma) ** 2 for a, b in ok) / (len(ok) - 1); cov = sum((a - sa) * (b - ma) for a, b in ok) / (len(ok) - 1)
+            beta = cov / vb if vb > 0 else 1.0
+            res = [a - beta * b for a, b in ok]; mr = sum(res) / len(res)
+            ivol = min(1.2, math.sqrt(sum((v - mr) ** 2 for v in res) / (len(res) - 1)) * math.sqrt(12))
+            p12 = d.get(ymadd(last, -12)); mom = math.log(d[last] / p12) if p12 and last in d else 0.0
+            F = {"ivol": ivol, "mom_dn": max(0.0, -mom - 0.15), "mom_up": max(0.0, mom - 0.3)}
+            q = pe.get(c)
+            if x.get("mk") == "上市" and q:
+                pev, pbv, dyv = q; F["pb_hi"] = math.log(max(pbv if pbv and pbv > 0 else 1.5, 2) / 2); F["loss"] = 0 if pev and pev > 0 else 1
+                dy = dyv if dyv and dyv > 0 else 0.0; F["nodiv"] = 1 if dy <= 0.01 else 0; F["dy"] = min(10.0, dy); M = model["full"]
+            else: M = model["px"]
+            z = M["b0"] + sum(M["w"][k2] * F[k2] for k2 in M["w"]); p = 1 / (1 + math.exp(-z))
+            # 比一般股票多（或少）的預期損失：只算驗證過的 3 年（不往後推 10 年，風險條件會變）
+            info["p"] = round(p, 4); info["x"] = round(model["sev"] * (p - model["pTyp"]), 4)
+            info["f"] = {"ivol": round(ivol, 3), "mom": round(mom, 3), "beta": round(beta, 2)}
+            if "loss" in F: info["f"].update({"pb": q[1], "loss": F["loss"], "dy": round(F["dy"], 2)})
+            info["m"] = "full" if M is model["full"] else "px"
+        out[c] = info
+    return out
+
 def h_twstk(it):
     st = STATE.setdefault("_twstk", {"y": [], "m": []}); hd = {}
     # 1. 清單（每 30 天更新）
@@ -606,7 +672,7 @@ def h_twstk(it):
         have = [x["name"] for x in json.loads(fetch("https://api.github.com/repos/%s/contents/rawdata/twstk" % REPO, 30, hd2).decode("utf-8"))]
         for nm in have:
             m1 = re.match(r"^(y\d\d)\.json\.gz$", nm); m2 = re.match(r"^twse_(\d{4})\.json\.gz$", nm)
-            if m1 and m1.group(1) not in st["y"]: st["y"].append(m1.group(1))
+            if m1 and m1.group(1) not in st["y"]: st["y"].append(m1.group(1)); st.setdefault("yAt", {}).setdefault(m1.group(1), datetime.date.today().isoformat())
             if m2 and int(m2.group(1)) < datetime.date.today().year and "t" + m2.group(1) not in st["m"]: st["m"].append("t" + m2.group(1))
         jsave(STATE_F, STATE)
     except Exception: pass
@@ -615,8 +681,10 @@ def h_twstk(it):
     limit = 3 if AUTO else 99; done_now = 0
     for k, pk in enumerate(packs):
         key = "y%02d" % k
-        if key in st["y"]: continue
-        if done_now >= limit: break
+        yat = st.setdefault("yAt", {}).get(key)
+        fresh = yat and (datetime.date.today() - datetime.date.fromisoformat(yat)).days < 30   # 每個月更新一次股價（評級要用最新的）
+        if key in st["y"] and fresh: continue
+        if done_now >= (limit if key not in st["y"] else 3): break
         if not AUTO: print("   個股股價 第 %d/%d 包…" % (k + 1, len(packs)), flush=True)
         out, bad = {}, 0
         for c, mk in pk:
@@ -624,8 +692,10 @@ def h_twstk(it):
             except Exception: bad += 1
             time.sleep(0.8)
         if bad > len(pk) * 0.5: raise RuntimeError("Yahoo 這一包有 %d 檔抓不到，晚點再試" % bad)
-        gh_put("rawdata/twstk/%s.json.gz" % key, gzip.compress(json.dumps(out, separators=(",", ":")).encode("utf-8"), 9), "台股股價 " + key)
-        st["y"].append(key); jsave(STATE_F, STATE); done_now += 1
+        gzb = gzip.compress(json.dumps(out, separators=(",", ":")).encode("utf-8"), 9)
+        gh_put("rawdata/twstk/%s.json.gz" % key, gzb, "台股股價 " + key); tw_local(key + ".json.gz", gzb)
+        if key not in st["y"]: st["y"].append(key)
+        st["yAt"][key] = datetime.date.today().isoformat(); jsave(STATE_F, STATE); done_now += 1; st["dirty"] = 1
     # 3. 證交所每月快照（2005 年起，一年一包）
     y0, ynow = 2005, datetime.date.today().year
     for y in range(y0, ynow + 1):
@@ -641,13 +711,32 @@ def h_twstk(it):
             r = twse_month(ym)
             if r: snaps[ym] = r
         if not snaps: continue
-        gh_put("rawdata/twstk/twse_%d.json.gz" % y, gzip.compress(json.dumps(snaps, ensure_ascii=False, separators=(",", ":")).encode("utf-8"), 9), "證交所每月 %d" % y)
+        gzb = gzip.compress(json.dumps(snaps, ensure_ascii=False, separators=(",", ":")).encode("utf-8"), 9)
+        gh_put("rawdata/twstk/twse_%d.json.gz" % y, gzb, "證交所每月 %d" % y); tw_local("twse_%d.json.gz" % y, gzb); st["dirty"] = 1
         if key not in st["m"]: st["m"].append(key)
         if y == ynow: st["mAt"] = datetime.date.today().strftime("%Y-%m")
         jsave(STATE_F, STATE); done_now += 1
     left = len([1 for k in range(len(packs)) if "y%02d" % k not in st["y"]]) + len([1 for y in range(y0, ynow) if "t%d" % y not in st["m"]])
     if left: raise Estimate("台股資料還有 %d 包，下次自動接著抓" % left)
-    return "台股 %d 檔股價、證交所 %d 年每月資料都放上網站了" % (len(codes), ynow - y0 + 1)
+    # 4. 給 App 的個股資料：股價或證交所資料有更新、或還沒做過，就重算一次
+    M = it.get("model"); msg = ""
+    if M and (st.get("dirty") or not st.get("histAt")):
+        if not AUTO: print("   計算個股風險…", flush=True)
+        pk = {}
+        for k in range(len(packs)): pk.update(json.loads(gzip.decompress(tw_local("y%02d.json.gz" % k)).decode("utf-8")))
+        snap, sym = None, None
+        for y in (ynow, ynow - 1):
+            try: T = json.loads(gzip.decompress(tw_local("twse_%d.json.gz" % y)).decode("utf-8"))
+            except Exception: continue
+            ks = sorted(k for k in T if T[k].get("pe")); 
+            if ks: sym = ks[-1]; snap = T[sym]; break
+        if snap:
+            L = json.loads(fetch(PAGES + "rawdata/twstk/list.json?t=%d" % time.time(), 60).decode("utf-8"))
+            A = stk_build(pk, snap, L, M, sym)
+            res = {"v": datetime.date.today().isoformat(), "last": sym, "model": {k: M[k] for k in M if k in ("src", "auc", "ver")}, "a": A}
+            gh_put("stk/hist.json", json.dumps(res, ensure_ascii=False, separators=(",", ":")).encode("utf-8"), "個股評級資料 " + sym)
+            st["histAt"] = sym; st.pop("dirty", None); jsave(STATE_F, STATE); msg = "；個股評級資料到 " + sym + "（%d 檔）" % len(A)
+    return "台股 %d 檔股價、證交所 %d 年每月資料都放上網站了" % (len(codes), ynow - y0 + 1) + msg
 
 # ---------- 政府開放資料平臺（data.gov.tw）：先查資料集的說明（govmeta），再照網站資料清單指定的下載（govdata）----------
 # 資料清單放在網站 data/registry.json，之後要加新資料只要改清單，不用改程式
@@ -681,7 +770,10 @@ def h_govdata(it):
         if not AUTO: print("   " + S.get("name", key) + "…", flush=True)
         M = gov_meta(S["id"]); pat = re.compile(S.get("pick", "."), re.I); n = 0
         files = {}
-        for d in M["dist"]:
+        dl = M["dist"]
+        if S.get("last"):   # 同一個資料集有很多個月份的版本：只抓清單上最後一個符合的（最新的）
+            mm = [d for d in dl if d.get("url") and pat.search("%s %s" % (d.get("desc") or "", d.get("fmt") or ""))]; dl = mm[-1:]
+        for d in dl:
             lab = "%s %s" % (d.get("desc") or "", d.get("fmt") or "")
             if not d.get("url") or not pat.search(lab): continue
             b = fetch(d["url"], 300)
