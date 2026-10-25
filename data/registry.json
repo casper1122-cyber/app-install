@@ -390,6 +390,16 @@
     {
      "key": "sitca_fundfee",
      "url": "https://www.sitca.org.tw/ROC/FundFee/index.html"
+    },
+    {
+     "key": "tycg_meta",
+     "url": "https://opendata.tycg.gov.tw/api/dataset/ec47dbd5-9ed8-4c8d-8ce1-ccb63b1b72e6",
+     "timeout": 300
+    },
+    {
+     "key": "tycg_door",
+     "url": "https://opendata.tycg.gov.tw/api/dataset/ec47dbd5-9ed8-4c8d-8ce1-ccb63b1b72e6/resource/ef5d93eb-2b55-4eeb-9f98-1eccaa9c428d/download",
+     "timeout": 300
     }
    ]
   },
