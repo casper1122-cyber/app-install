@@ -1,0 +1,14 @@
+{
+ "id": 120044,
+ "title": "臺南市門牌坐標資料-僅供參考",
+ "at": "2026-10-25",
+ "files": {
+  "door_tnn_00.csv.gz": {
+   "desc": "109年臺南市門牌坐標資料",
+   "fmt": "CSV",
+   "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/133a37b3-e55c-42c6-bc73-fe8f7d5776c6",
+   "bytes": 7752533,
+   "parts": 1
+  }
+ }
+}
