@@ -1,0 +1,14 @@
+{
+ "id": 128428,
+ "title": "臺北捷運車站出入口座標",
+ "at": "2026-10-25",
+ "files": {
+  "mrt_tpe_00.csv.gz": {
+   "desc": "台北捷運出入口座標",
+   "fmt": "CSV",
+   "url": "https://data.taipei/api/dataset/cfa4778c-62c1-497b-b704-756231de348b/resource/307a7f61-e302-4108-a817-877ccbfca7c1/download",
+   "bytes": 5791,
+   "parts": 1
+  }
+ }
+}
