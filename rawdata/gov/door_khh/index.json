@@ -1,0 +1,14 @@
+{
+ "id": 167131,
+ "title": "高雄市113年門牌坐標資料-TWD97",
+ "at": "2026-10-25",
+ "files": {
+  "door_khh_00.csv.gz": {
+   "desc": "113年6月門牌坐標資料",
+   "fmt": "CSV",
+   "url": "https://data.kcg.gov.tw/File/DirectDownload/587cc30f-85c3-4e01-93b5-e65f07652b0e",
+   "bytes": 10574748,
+   "parts": 1
+  }
+ }
+}
