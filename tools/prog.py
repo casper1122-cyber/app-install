@@ -13,7 +13,7 @@ import json, os, sys, time, csv, glob, io, re, shutil, zipfile, gzip, base64, da
 try: sys.stdout.reconfigure(errors="replace")
 except Exception: pass
 
-VERSION = "2026-10-25k"
+VERSION = "2026-10-25l"
 REPO = "casper1122-cyber/app-install"
 PAGES = "https://casper1122-cyber.github.io/app-install/"
 HOME = os.path.join(os.environ.get("APPDATA") or os.path.expanduser("~"), "資產配置資料更新")
@@ -48,10 +48,10 @@ NOWIN = {"creationflags": 0x08000000} if os.name == "nt" else {}   # Windows：�
 def curl_get(url, timeout):
     exe = shutil.which("curl.exe") or shutil.which("curl")
     if not exe: raise RuntimeError("憑證驗證失敗，這台電腦也沒有 curl")
-    tmp = os.path.join(CACHE, "_curl.tmp")
-    r = subprocess.run([exe, "-sSL", "--fail", "--max-time", str(int(timeout)), "-A", UA["User-Agent"], "-o", tmp, url], capture_output=True, **NOWIN)
+    # 直接從 curl 的輸出拿資料（不寫暫存檔：有些電腦的資料夾路徑有中文或權限，curl 會寫不進去）
+    r = subprocess.run([exe, "-sSL", "--fail", "--max-time", str(int(timeout)), "-A", UA["User-Agent"], url], capture_output=True, **NOWIN)
     if r.returncode != 0: raise RuntimeError("curl 下載失敗：" + r.stderr.decode("utf-8", "replace")[:80])
-    b = open(tmp, "rb").read(); os.remove(tmp); return b
+    return r.stdout
 def desktop():
     # 桌面位置：OneDrive 備份會把桌面搬到 OneDrive\Desktop（或「桌面」），照 Windows 設定找；找不到就放使用者資料夾
     if os.name == "nt":

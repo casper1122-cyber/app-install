@@ -199,6 +199,30 @@
    ]
   },
   {
+   "id": "govmeta3",
+   "name": "政府開放資料：再查一次門牌坐標候選資料集（上次這台電腦 curl 寫不進暫存檔）",
+   "every": 3650,
+   "how": "govmeta",
+   "ids": [
+    154557,
+    154744,
+    155148,
+    155301,
+    46364,
+    120044,
+    158889,
+    162899,
+    146376,
+    47063,
+    167327,
+    172490,
+    177586,
+    166889,
+    165015,
+    167131
+   ]
+  },
+  {
    "id": "door",
    "name": "門牌坐標（臺北市、新北市；都更、地段用「離你家多遠」的成交）",
    "every": 7,
@@ -229,12 +253,16 @@
    "how": "probe",
    "urls": [
     {
-     "key": "sitca_home",
-     "url": "https://www.sitca.org.tw/"
+     "key": "twse_fundbasic",
+     "url": "https://openapi.twse.com.tw/v1/opendata/t187ap47_L"
     },
     {
-     "key": "twse_openapi",
-     "url": "https://openapi.twse.com.tw/v1/swagger.json"
+     "key": "sitca_pc",
+     "url": "https://www.sitca.org.tw/index_pc.aspx"
+    },
+    {
+     "key": "sitca_fundfee",
+     "url": "https://www.sitca.org.tw/ROC/FundFee/index.html"
     }
    ]
   },
