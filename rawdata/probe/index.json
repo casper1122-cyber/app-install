@@ -16,5 +16,20 @@
   "url": "https://openapi.twse.com.tw/v1/swagger.json",
   "bytes": 309960,
   "at": "2026-10-25T22:05:52"
+ },
+ "twse_fundbasic": {
+  "url": "https://openapi.twse.com.tw/v1/opendata/t187ap47_L",
+  "bytes": 343593,
+  "at": "2026-10-25T22:38:47"
+ },
+ "sitca_pc": {
+  "url": "https://www.sitca.org.tw/index_pc.aspx",
+  "bytes": 133660,
+  "at": "2026-10-25T22:38:50"
+ },
+ "sitca_fundfee": {
+  "url": "https://www.sitca.org.tw/ROC/FundFee/index.html",
+  "bytes": 12070,
+  "at": "2026-10-25T22:38:53"
  }
 }
