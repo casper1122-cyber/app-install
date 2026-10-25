@@ -1,22 +1,50 @@
 # 個股資料給 App：每檔的每月還原報酬（評級回測用）＋「公司自己出事」的機率（3 年內比大盤多跌一半）
 # 純 Python（桌面程式也用同一段），模型係數放在網站的資料清單裡，之後重新訓練不用改程式
 import json, gzip, math, statistics
-def stk_build(packs, snap, lst, model, last):
+def stk_clean(d, rawc, ymadd):
+    # 每月還原報酬，去掉明顯的資料錯誤：
+    #  台股每天漲跌最多 10%（2015 年以前 7%），一個月漲超過 160% 或跌超過 62% 很少見；遇到這種月份：
+    #  1) 有證交所原始收盤價：兩邊差超過 35 個百分點，就改用證交所的（Yahoo 偶爾會錯）
+    #  2) 沒有：3 個月內又整個回來（暴漲又暴跌）＝資料錯，這幾個月當沒資料；單月漲超過 5 倍也當沒資料
+    ks = sorted(d); r = {}
+    for a, b in zip(ks, ks[1:]):
+        if ymadd(a, 1) == b: r[b] = d[b] / d[a] - 1
+    fix = 0; ms = sorted(r)
+    for i, k in enumerate(ms):
+        v = r[k]
+        if v is None or (-0.62 <= v <= 1.6): continue
+        a0, b0 = rawc.get(ymadd(k, -1)), rawc.get(k)
+        if a0 and b0 and a0 > 0:
+            rr = b0 / a0 - 1
+            if abs(rr - v) > 0.35: r[k] = rr; fix += 1
+            continue
+        g = 1 + v; rev = None
+        for j in range(i + 1, min(i + 4, len(ms))):
+            if r[ms[j]] is None: continue
+            g *= 1 + r[ms[j]]
+            if 0.5 < g < 1.5: rev = j; break
+        if rev is not None:
+            for j in range(i, rev + 1): r[ms[j]] = None
+            fix += 1
+        elif v > 5: r[k] = None; fix += 1
+    return r, fix
+def stk_build(packs, snap, lst, model, last, raw=None):
     # packs: {code: [[ym, close, adjclose, volume], ...]}；snap: 證交所某月 {'px':{f,r},'pe':{f,r}}；lst: 清單；last: 要對齊到的最後一個月（App 回測資料的最後一個月）
     def ymadd(ym, k): y, m = int(ym[:4]), int(ym[5:7]) - 1 + k; return "%04d-%02d" % (y + m // 12, m % 12 + 1)
     L = {x["c"]: x for x in lst}
-    S = {}
+    S = {}; R = {}; FIX = {}; VOL0 = {}
+    raw = raw or {}
     for c, rows in packs.items():
-        d = {}
+        d = {}; z = 0
         for ym, cl, ac, vol in rows:
             if ac and ac > 0 and ym <= last: d[ym] = ac
-        if len(d) >= 2: S[c] = d
+            if ymadd(last, -11) <= ym <= last and not vol: z += 1
+        if len(d) >= 2:
+            S[c] = d; R[c], FIX[c] = stk_clean(d, raw.get(c, {}), ymadd); VOL0[c] = z
     # 每月報酬（對數，算風險用）、等權重市場（上市股票的中位數）
     lr = {}
-    for c, d in S.items():
-        ks = sorted(d); lr[c] = {}
-        for a, b in zip(ks, ks[1:]):
-            if ymadd(a, 1) == b: lr[c][b] = max(-1.5, min(1.5, math.log(d[b] / d[a])))
+    for c in S:
+        lr[c] = {k: max(-1.5, min(1.5, math.log(1 + v))) for k, v in R[c].items() if v is not None and v > -1}
     mons = [ymadd(last, -k) for k in range(35, -1, -1)]
     mk = {}
     for ym in mons:
@@ -32,10 +60,12 @@ def stk_build(packs, snap, lst, model, last):
         x = L.get(c, {}); rr = [(lr[c].get(ym), mk[ym]) for ym in mons]; ok = [(a, b) for a, b in rr if a is not None]
         info = {"n": x.get("n", c), "mk": x.get("mk", ""), "ind": x.get("ind", "")}
         ks = sorted(d); s0 = ks[0]
-        # App 用的每月簡單報酬（萬分之一），從第一個月接到 last
+        # App 用的每月簡單報酬（萬分之一），從第一個月接到 last；資料錯的月份是 null（App 會用大盤補）
         r = []; k = s0
         while k < last:
-            k2 = ymadd(k, 1); r.append(int(round((d[k2] / d[k] - 1) * 1e4)) if k in d and k2 in d else None); k = k2
+            k2 = ymadd(k, 1); v0 = R[c].get(k2); r.append(int(round(v0 * 1e4)) if v0 is not None else None); k = k2
+        if FIX[c]: info["fix"] = FIX[c]
+        if VOL0[c] >= 6: info["stale"] = VOL0[c]   # 最近 12 個月有幾個月沒成交
         info["s"] = ymadd(s0, 1); info["r"] = r
         if len(ok) >= 24:
             ma = sum(b for a, b in ok) / len(ok); sa = sum(a for a, b in ok) / len(ok)
@@ -43,7 +73,7 @@ def stk_build(packs, snap, lst, model, last):
             beta = cov / vb if vb > 0 else 1.0
             res = [a - beta * b for a, b in ok]; mr = sum(res) / len(res)
             ivol = min(1.2, math.sqrt(sum((v - mr) ** 2 for v in res) / (len(res) - 1)) * math.sqrt(12))
-            p12 = d.get(ymadd(last, -12)); mom = math.log(d[last] / p12) if p12 and last in d else 0.0
+            mom = sum(lr[c].get(ymadd(last, -k), 0.0) for k in range(12)) if last in d else 0.0   # 過去 12 個月（用清過的報酬）
             F = {"ivol": ivol, "mom_dn": max(0.0, -mom - 0.15), "mom_up": max(0.0, mom - 0.3)}
             q = pe.get(c)
             if x.get("mk") == "上市" and q:
