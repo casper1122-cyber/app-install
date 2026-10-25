@@ -13,7 +13,7 @@ import json, os, sys, time, csv, glob, io, re, shutil, zipfile, gzip, base64, da
 try: sys.stdout.reconfigure(errors="replace")
 except Exception: pass
 
-VERSION = "2026-10-25h"
+VERSION = "2026-10-25i"
 REPO = "casper1122-cyber/app-install"
 PAGES = "https://casper1122-cyber.github.io/app-install/"
 HOME = os.path.join(os.environ.get("APPDATA") or os.path.expanduser("~"), "資產配置資料更新")
@@ -687,7 +687,32 @@ def h_govdata(it):
         st[key] = datetime.date.today().isoformat(); jsave(STATE_F, STATE); got.append(S.get("name", key))
     return ("更新：" + "、".join(got)) if got else "都還沒到更新時間"
 
-HANDLERS = {"files": h_files, "fred": h_fred, "yahoo": h_yahoo, "twdep": h_twdep, "twcpi": h_twcpi, "rate": h_rate, "plvr": h_plvr, "twstk": h_twstk, "govmeta": h_govmeta, "govdata": h_govdata}
+# 先看看新資料長什麼樣子（探路）：照網站清單抓幾個網址原樣放上網站，Claude 看過格式再寫正式的下載
+def h_probe(it):
+    st = STATE.setdefault("_probe", {}); idx = {}; got = []
+    for P in it.get("urls", []):
+        key = re.sub(r"[^A-Za-z0-9_-]", "", P["key"])[:40]
+        if st.get(key) == P["url"] and not P.get("again"): continue
+        try:
+            b = fetch(P["url"], P.get("timeout", 60), P.get("headers"))
+            info = {"url": P["url"], "bytes": len(b), "at": datetime.datetime.now().isoformat(timespec="seconds")}
+            b = b[:20 * 1024 * 1024]
+            gh_put("rawdata/probe/%s.gz" % key, gzip.compress(b, 9), "探路 " + key)
+            st[key] = P["url"]; got.append(key)
+        except Exception as e:
+            info = {"url": P["url"], "err": str(e)[:200]}
+        idx[key] = info; time.sleep(1)
+    if idx:
+        old = {}
+        try: old = json.loads(fetch(PAGES + "rawdata/probe/index.json?t=%d" % time.time(), 20).decode("utf-8"))
+        except Exception: pass
+        old.update(idx); gh_put("rawdata/probe/index.json", json.dumps(old, ensure_ascii=False, indent=1).encode("utf-8"), "探路清單")
+    jsave(STATE_F, STATE)
+    bad = [k for k, v in idx.items() if v.get("err")]
+    # 抓不到不算失敗（只是探路，原因寫在 index.json 給 Claude 看）
+    return ("抓了 " + "、".join(got) if got else "沒有新的") + ("（失敗：" + "、".join(bad) + "）" if bad else "")
+
+HANDLERS = {"files": h_files, "fred": h_fred, "yahoo": h_yahoo, "twdep": h_twdep, "twcpi": h_twcpi, "rate": h_rate, "plvr": h_plvr, "twstk": h_twstk, "govmeta": h_govmeta, "govdata": h_govdata, "probe": h_probe}
 def run(force=False):
     reg = registry()
     log("===== 開始（%s）=====" % ("自動" if AUTO else "手動"))
