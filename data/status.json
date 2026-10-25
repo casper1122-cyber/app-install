@@ -1,13 +1,13 @@
 {
- "at": "2026-10-25T11:52",
- "ver": "2026-10-25",
+ "at": "2026-10-25T13:21",
+ "ver": "2026-10-25b",
  "items": [
   {
    "id": "prices",
    "name": "股票、ETF、債券、黃金價格和配息",
    "how": "yahoo",
    "every": 1,
-   "last": "2026-10-25T11:45:08",
+   "last": "2026-10-25T13:20:44",
    "next": "2026-10-26",
    "state": "ok",
    "msg": "65 檔"
@@ -17,7 +17,7 @@
    "name": "美元兌台幣匯率",
    "how": "fred",
    "every": 1,
-   "last": "2026-10-25T11:42:03",
+   "last": "2026-10-25T13:21:15",
    "next": "2026-10-26",
    "state": "ok",
    "msg": "DEXTAUS（DEXTAUS 用Yahoo）"
@@ -29,8 +29,8 @@
    "every": 7,
    "last": "",
    "next": "",
-   "state": "fail",
-   "msg": "CPIAUCSL 聯準會和備用來源都抓不到（The read operation timed out；HTTP Error 503: Service Unavai），明天會再試"
+   "state": "est",
+   "msg": "CPIAUCSL 今天抓不到（聯準會、勞工統計局都沒回應），先用估計值，明天再試"
   },
   {
    "id": "twdep",
@@ -57,7 +57,7 @@
    "name": "評級用的回測資料（整理後放上網站）",
    "how": "rate",
    "every": 1,
-   "last": "2026-10-25T11:48:04",
+   "last": "2026-10-25T13:21:30",
    "next": "2026-10-26",
    "state": "ok",
    "msg": "資料到 2026-09"
@@ -67,8 +67,8 @@
    "name": "長期歷史（Shiller、Fama-French、金價）",
    "how": "files",
    "every": 180,
-   "last": "2026-10-24T22:01:44",
-   "next": "2027-04-22",
+   "last": "2026-10-25T13:21:36",
+   "next": "2027-04-23",
    "state": "ok",
    "msg": "3 個檔案"
   },
@@ -91,6 +91,16 @@
    "next": "",
    "state": "later",
    "msg": "做球員卡評級時再設定（原本的下載網址搬家了）"
+  },
+  {
+   "id": "plvr",
+   "name": "內政部實價登錄（2012 年起每一季，房價細到行政區用）",
+   "how": "plvr",
+   "every": 1,
+   "last": "",
+   "next": "",
+   "state": "fail",
+   "msg": "101S3 下載失敗：<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate （已完成 0 季，下次會接著抓）"
   },
   {
    "id": "brokers",
@@ -123,5 +133,5 @@
    "msg": "每年七月跟 Claude 說一聲（UBS 報告出來）"
   }
  ],
- "pack": "資產配置資料_給Claude_20261025.zip"
+ "pack": ""
 }
