@@ -1,0 +1,14 @@
+{
+ "id": "https://data.tainan.gov.tw/File/ResourceCsvDownload/a7e21d6b-7942-4c26-9b31-9e7cd8c41971",
+ "title": "臺南市公園設施",
+ "at": "2026-10-26",
+ "files": {
+  "poi_tnn_park_00.csv.gz": {
+   "desc": "臺南市公園設施",
+   "fmt": "CSV",
+   "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/a7e21d6b-7942-4c26-9b31-9e7cd8c41971",
+   "bytes": 23669,
+   "parts": 1
+  }
+ }
+}
