@@ -1,0 +1,14 @@
+{
+ "id": "https://data.kcg.gov.tw/File/DirectDownload/01350804-5d2f-47a9-94bb-e4765d75da34",
+ "title": "高雄市都市更新成果",
+ "at": "2026-10-26",
+ "files": {
+  "renew_khh_00.csv.gz": {
+   "desc": "高雄市都市更新成果",
+   "fmt": "CSV",
+   "url": "https://data.kcg.gov.tw/File/DirectDownload/01350804-5d2f-47a9-94bb-e4765d75da34",
+   "bytes": 743,
+   "parts": 1
+  }
+ }
+}
