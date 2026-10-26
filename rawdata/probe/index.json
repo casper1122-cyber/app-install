@@ -40,5 +40,105 @@
   "url": "https://opendata.tycg.gov.tw/api/dataset/ec47dbd5-9ed8-4c8d-8ce1-ccb63b1b72e6/resource/ef5d93eb-2b55-4eeb-9f98-1eccaa9c428d/download",
   "bytes": 94571099,
   "at": "2026-10-25T23:35:11"
+ },
+ "poi_funeral": {
+  "url": "https://opdadm.moi.gov.tw/api/v1/no-auth/resource/api/dataset/CFF7163A-8C96-417E-B93D-156461404881/resource/0B675274-AA5F-4163-8C9A-16604BC53A2E/download",
+  "bytes": 568221,
+  "at": "2026-10-26T12:09:32"
+ },
+ "poi_funeral1": {
+  "url": "https://opdadm.moi.gov.tw/api/v1/no-auth/resource/api/dataset/CFF7163A-8C96-417E-B93D-156461404881/resource/8BE38334-0AC0-479C-B591-251F78127A8E/download",
+  "bytes": 310,
+  "at": "2026-10-26T12:09:36"
+ },
+ "poi_funeral2": {
+  "url": "https://opdadm.moi.gov.tw/api/v1/no-auth/resource/api/dataset/CFF7163A-8C96-417E-B93D-156461404881/resource/8DEBC5BE-802B-43A9-B685-786136632084/download",
+  "bytes": 59689,
+  "at": "2026-10-26T12:09:39"
+ },
+ "poi_tpe_funeral": {
+  "url": "https://data.taipei/api/dataset/a4229edc-3a95-4a68-8b8f-32be5f07bc18/resource/3b895c5c-82c0-4a1d-b003-a49a137566cd/download",
+  "bytes": 1235,
+  "at": "2026-10-26T12:09:46"
+ },
+ "poi_tpe_ossuary": {
+  "url": "https://data.taipei/api/dataset/0f17a006-272c-413c-93f1-90cb77eb98e3/resource/d6e73f2e-1c15-472b-b067-0432f19d8a31/download",
+  "bytes": 767,
+  "at": "2026-10-26T12:09:49"
+ },
+ "poi_tpc_emf": {
+  "url": "https://service.taipower.com.tw/data/opendata/apply/file/d005002/001.zip",
+  "bytes": 28932,
+  "at": "2026-10-26T12:09:52"
+ },
+ "poi_tpc_plan": {
+  "url": "https://service.taipower.com.tw/data/opendata/apply/file/d023004/001.csv",
+  "bytes": 256,
+  "at": "2026-10-26T12:09:55"
+ },
+ "poi_tpe_park_gate": {
+  "url": "https://data.taipei/api/dataset/5a7258c2-5ded-4149-8664-ae10903fe372/resource/70defec1-fd51-471b-89fa-5c7636150e6a/download",
+  "bytes": 46966,
+  "at": "2026-10-26T12:10:02"
+ },
+ "poi_market_all": {
+  "url": "https://www.cto.moea.gov.tw/OD/%E9%9B%B6%E5%94%AE%E5%B8%82%E5%A0%B4%E5%9F%BA%E6%9C%AC%E8%B3%87%E6%96%99.csv",
+  "bytes": 70644,
+  "at": "2026-10-26T12:10:12"
+ },
+ "poi_tnn_market": {
+  "url": "https://soa.tainan.gov.tw/Api/Service/Get/672b1e66-1460-48f0-9e5f-62b7a4fc9e44",
+  "bytes": 13626,
+  "at": "2026-10-26T12:10:19"
+ },
+ "poi_tnn_market2": {
+  "url": "https://soa.tainan.gov.tw/Api/Service/Get/02a73907-011a-4628-b860-06130cfbdf8e",
+  "bytes": 6570,
+  "at": "2026-10-26T12:10:22"
+ },
+ "poi_cpc_gas": {
+  "url": "https://vipmbr.cpc.com.tw/openData/getStationInfo",
+  "bytes": 1111817,
+  "at": "2026-10-26T12:10:25"
+ },
+ "poi_hsz_gas": {
+  "url": "https://odws.hccg.gov.tw/001/Upload/25/opendataback/9059/68/c85949d5-78ea-405b-9c8a-97e4a5b8277b.xlsx",
+  "bytes": 13085,
+  "at": "2026-10-26T12:10:34"
+ },
+ "poi_tpe_school": {
+  "url": "https://data.taipei/api/dataset/58b4f7b9-d0c5-4de8-aa7f-981fcb625e45/resource/28c5792b-3af6-4bff-8ad8-f5b5e53d4062/download",
+  "bytes": 25578,
+  "at": "2026-10-26T12:10:36"
+ },
+ "poi_tpe_incin": {
+  "url": "https://data.taipei/api/dataset/5b0ee34e-83c8-4e76-b044-22bd3e7d23d7/resource/143d0f32-56e4-4d5f-b44c-cbd78a9f05fc/download",
+  "bytes": 245,
+  "at": "2026-10-26T12:10:39"
+ },
+ "poi_khh_incin": {
+  "url": "https://data.kcg.gov.tw/File/DirectDownload/747ad9ca-80a5-4edd-8466-16793e8dbc22",
+  "bytes": 368,
+  "at": "2026-10-26T12:10:44"
+ },
+ "poi_ntpc_incin": {
+  "url": "https://data.ntpc.gov.tw/api/datasets/39e17852-9ac9-45b7-bc60-d8d0ed7e3161/csv/file",
+  "bytes": 490,
+  "at": "2026-10-26T12:10:52"
+ },
+ "poi_khh_temple": {
+  "url": "https://data.kcg.gov.tw/File/DirectDownload/e5a922ab-f0c2-4767-a882-be74771adfb0",
+  "bytes": 3841,
+  "at": "2026-10-26T12:10:55"
+ },
+ "poi_tyn_temple": {
+  "url": "https://opendata.tycg.gov.tw/api/dataset/6484b20f-8525-4437-ae81-d1e1601067d0/resource/a30f40d8-9982-458a-98c1-00f8a9e24f0f/download",
+  "bytes": 26253,
+  "at": "2026-10-26T12:10:59"
+ },
+ "poi_hsz_temple": {
+  "url": "https://odws.hccg.gov.tw/001/Upload/25/opendataback/9059/95/92486a24-e070-4a56-a7f2-3e00a2d6b269.csv",
+  "bytes": 22845,
+  "at": "2026-10-26T12:11:05"
  }
 }
