@@ -1,0 +1,14 @@
+{
+ "id": "https://www.cto.moea.gov.tw/OD/%E9%9B%B6%E5%94%AE%E5%B8%82%E5%A0%B4%E5%9F%BA%E6%9C%AC%E8%B3%87%E6%96%99.csv",
+ "title": "全國零售市場基本資料",
+ "at": "2026-10-26",
+ "files": {
+  "poi_market_all_00.csv.gz": {
+   "desc": "全國零售市場基本資料",
+   "fmt": "CSV",
+   "url": "https://www.cto.moea.gov.tw/OD/%E9%9B%B6%E5%94%AE%E5%B8%82%E5%A0%B4%E5%9F%BA%E6%9C%AC%E8%B3%87%E6%96%99.csv",
+   "bytes": 18090,
+   "parts": 1
+  }
+ }
+}
