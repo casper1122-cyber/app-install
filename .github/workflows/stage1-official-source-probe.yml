@@ -1,0 +1,39 @@
+name: Stage 1 Official Source Probe (research only)
+on:
+  push:
+    branches:
+      - work/evidence-quality-gate-20261026
+    paths:
+      - 'research/stage1/official_pilot.py'
+      - 'research/stage1/test_official_pilot.py'
+      - '.github/workflows/stage1-official-source-probe.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fetch-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Unit tests (no source access)
+        run: python -m unittest discover -s research/stage1 -p 'test_*.py' -v
+      - name: Fetch four TWSE/TPEx date snapshots (research only)
+        id: probe
+        continue-on-error: true
+        run: python research/stage1/official_pilot.py "$RUNNER_TEMP/stage1-source-probe"
+      - name: Retain source and errors as private run artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage1-source-probe
+          path: ${{ runner.temp }}/stage1-source-probe/
+          retention-days: 14
+      - name: Show source gate result
+        if: steps.probe.outcome != 'success'
+        run: |
+          echo 'Official source pilot failed or returned unverifiable data. Model release stays BLOCKED.'
+          exit 1
