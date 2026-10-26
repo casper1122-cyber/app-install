@@ -1,0 +1,31 @@
+{
+  "stage": "1/18",
+  "date": "2026-10-26",
+  "source": "user 54h snapshot",
+  "source_official_verified": false,
+  "observed_assets": 1977,
+  "all_history_ends": "2026-09",
+  "assets_end_earlier": 0,
+  "historical_windows": 15163,
+  "unique_assets_windows": 1574,
+  "mean_windows_per_asset": 9.6334180432,
+  "matched_2001_2011": {
+    "assets": 434,
+    "first_period_terminal_loss50_observed_share": 0.0645,
+    "second_period_terminal_loss50_observed_share": 0.0507
+  },
+  "research_only": true,
+  "grade_release": "BLOCK",
+  "AAA_CCC": false,
+  "ten_year_probability": false,
+  "asset_allocation_tail_model": false,
+  "blockers": [
+    "CURRENT_ENDPOINT_SELECTION_BIAS",
+    "DELISTED_LOSS_HISTORY_MISSING",
+    "DIVIDEND_SPLIT_ADJUSTMENTS_UNVERIFIED",
+    "POINT_IN_TIME_PROOF_MISSING",
+    "TEN_YEAR_PROBABILITY_UNCALIBRATED",
+    "JOINT_TAIL_UNCALIBRATED",
+    "OVERLAPPING_10YR_WINDOWS"
+  ]
+}
