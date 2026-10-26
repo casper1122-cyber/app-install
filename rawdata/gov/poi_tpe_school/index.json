@@ -1,0 +1,14 @@
+{
+ "id": "https://data.taipei/api/dataset/58b4f7b9-d0c5-4de8-aa7f-981fcb625e45/resource/28c5792b-3af6-4bff-8ad8-f5b5e53d4062/download",
+ "title": "臺北市各級學校",
+ "at": "2026-10-26",
+ "files": {
+  "poi_tpe_school_00.csv.gz": {
+   "desc": "臺北市各級學校",
+   "fmt": "CSV",
+   "url": "https://data.taipei/api/dataset/58b4f7b9-d0c5-4de8-aa7f-981fcb625e45/resource/28c5792b-3af6-4bff-8ad8-f5b5e53d4062/download",
+   "bytes": 7711,
+   "parts": 1
+  }
+ }
+}
