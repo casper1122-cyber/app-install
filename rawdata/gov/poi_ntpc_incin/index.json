@@ -1,0 +1,14 @@
+{
+ "id": "https://data.ntpc.gov.tw/api/datasets/39e17852-9ac9-45b7-bc60-d8d0ed7e3161/csv/file",
+ "title": "新北市焚化廠",
+ "at": "2026-10-26",
+ "files": {
+  "poi_ntpc_incin_00.csv.gz": {
+   "desc": "新北市焚化廠",
+   "fmt": "CSV",
+   "url": "https://data.ntpc.gov.tw/api/datasets/39e17852-9ac9-45b7-bc60-d8d0ed7e3161/csv/file",
+   "bytes": 307,
+   "parts": 1
+  }
+ }
+}
