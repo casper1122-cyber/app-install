@@ -1,0 +1,14 @@
+{
+ "id": "https://religion.moi.gov.tw/Report/temple.xml",
+ "title": "全國寺廟（內政部全國宗教資訊系統）",
+ "at": "2026-10-26",
+ "files": {
+  "poi_temple_all_00.xml.gz": {
+   "desc": "全國寺廟（內政部全國宗教資訊系統）",
+   "fmt": "XML",
+   "url": "https://religion.moi.gov.tw/Report/temple.xml",
+   "bytes": 896956,
+   "parts": 1
+  }
+ }
+}
