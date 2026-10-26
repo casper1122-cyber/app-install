@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-26",
+  "stage": "1/18",
+  "status": "BLOCK",
+  "data_source": "54h snapshot; manually verified TWSE official excerpts only",
+  "current_stocks": {
+    "TWSE": 1084,
+    "TPEx": 893,
+    "total": 1977
+  },
+  "sampled_TWSE_exit_events": 78,
+  "missing_from_54h": 77,
+  "verified_market_transfer": 1,
+  "transfer_example": {
+    "code": "6423",
+    "date": "2026-01-22",
+    "destination": "TPEx",
+    "source": "https://news.ustv.com.tw/companynews/183702"
+  },
+  "source_population_complete": false,
+  "official_raw_registry_downloaded": false,
+  "tpex_exits_included": false,
+  "exit_recovery_cashflow_verified": false,
+  "delisted_price_history_complete": false,
+  "allowed_to_assign_10y_probability": false,
+  "AAA_CCC_release": false,
+  "GAS_deploy_allowed": false,
+  "blockers": [
+    "HISTORICAL_DELISTED_TWSE_SECURITIES_MISSING",
+    "TPEX_DELISTINGS_NOT_COLLECTED",
+    "EXITS_INCLUDE_CORPORATE_ACTIONS_NOT_TOTAL_LOSS",
+    "HISTORICAL_PRICE_AND_CASH_RECOVERY_MISSING",
+    "NO_INDEPENDENT_POINT_IN_TIME_VERIFICATION",
+    "DELISTED_UNIVERSE_SELECTION_BIAS",
+    "NOT_AN_EMPIRICALLY_CALIBRATED_10Y_LOSS_MODEL"
+  ]
+}
