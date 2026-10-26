@@ -6,7 +6,7 @@ parser.add_argument("output", type=Path)
 args = parser.parse_args()
 p = args.source
 if p.resolve() == args.output.resolve(): raise SystemExit("Refusing to overwrite source")
-known = {"35914f99b2986c850d9e08490142432688e8da9ea8b856968a578bce4718dd28", "3d6453555bdb7d02fbdb76c99b3ff9e68af677be4ac485ab253c73739e59df5f"}
+known = {"35914f99b2986c850d9e08490142432688e8da9ea8b856968a578bce4718dd28", "3d6453555bdb7d02fbdb76c99b3ff9e68af677be4ac485ab253c73739e59df5f", "9814e8317a38c149f815bccb32d06ee1888b5b5a0be5304506be24ab45c71bae"}
 if hashlib.sha256(p.read_bytes()).hexdigest() not in known:
     raise SystemExit("Unknown source revision; inspect and port the patch before using it")
 s=p.read_text()

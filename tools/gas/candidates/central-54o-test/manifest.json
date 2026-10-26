@@ -1,0 +1,15 @@
+{
+  "status": "TEST CANDIDATE - NOT DEPLOYED",
+  "version": "2026.10.54o",
+  "base": "user supplied current central 2026.10.54n",
+  "app_source_sha256": "9814e8317a38c149f815bccb32d06ee1888b5b5a0be5304506be24ab45c71bae",
+  "core_source_sha256": "8a3aa8aa6d32980abac7ea76408e247fb2125bf766b2dda72606c145b7f13a86",
+  "files": {
+    "App.html": "c6cd3e9a12066428a1777cffc48b4a4094010f11c5700be43e19239b5fe9f4b6",
+    "核心.gs": "dad8c59b11995737f767edc8285df1fcd716e8f26ef019e9791f106e53fab215"
+  },
+  "offline_app_checks_passed": 22,
+  "offline_backend_checks_passed": 14,
+  "live_test_deployment": false,
+  "production_deployment": false
+}
