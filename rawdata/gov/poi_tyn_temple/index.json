@@ -1,0 +1,14 @@
+{
+ "id": "https://opendata.tycg.gov.tw/api/dataset/6484b20f-8525-4437-ae81-d1e1601067d0/resource/a30f40d8-9982-458a-98c1-00f8a9e24f0f/download",
+ "title": "桃園市寺廟名冊",
+ "at": "2026-10-26",
+ "files": {
+  "poi_tyn_temple_00.csv.gz": {
+   "desc": "桃園市寺廟名冊",
+   "fmt": "CSV",
+   "url": "https://opendata.tycg.gov.tw/api/dataset/6484b20f-8525-4437-ae81-d1e1601067d0/resource/a30f40d8-9982-458a-98c1-00f8a9e24f0f/download",
+   "bytes": 9481,
+   "parts": 1
+  }
+ }
+}
