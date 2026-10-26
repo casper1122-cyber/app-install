@@ -1,0 +1,20 @@
+{
+  "version": "downside-research-20261026-v1",
+  "stage": "1/18",
+  "status": "RESEARCH_ONLY_NOT_APPROVED",
+  "GAS_test_release": false,
+  "GAS_production_release": false,
+  "AAA_CCC_approved": false,
+  "ten_year_loss_probability_approved": false,
+  "tail_correlation_approved": false,
+  "forecast_target": "next-month loss >=10%; not 10-year loss",
+  "source": "user 54h backup; not exchange verified",
+  "blockers": [
+    "survivorship and delisted universe",
+    "corporate actions and total return not validated",
+    "calibration drift in 2026",
+    "coarse decile incidence not per-stock calibrated probability",
+    "10-year windows heavily overlapping",
+    "no portfolio-level joint tail calibration"
+  ]
+}
