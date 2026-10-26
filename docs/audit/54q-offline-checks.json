@@ -1,0 +1,71 @@
+{
+  "scope": "offline program checks, not market validation or live GAS acceptance",
+  "app_sha256": "3eea02ca2a99dcb094470addca0546cf6a8bb78bad7aba92d533d7db902216be",
+  "backend_sha256": "80c2a0eb2650b20ab0efe8ccad287c324b4ff24f8fdf6713de6ef43f276c17d4",
+  "all_checks_passed": true,
+  "release_approval_granted": false,
+  "requirements_ledger": "docs/MASTER_BACKLOG.md",
+  "results": [
+    {
+      "suite": "app_regressions",
+      "command": [
+        "node",
+        "tests/gas/regression.cjs",
+        "/workspace/central-54q-research/App.html"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS all seven original presets evaluate with embedded data\nPASS unknown requested asset cannot silently disappear\nPASS null monthly return cannot become observed zero\nPASS short monthly return series rejects incomplete backtest\nPASS null CPI cannot become zero inflation\nPASS USD backtest rejects null FX and foreign CPI\nPASS missing preset comparison does not abort other rows\nPASS missing age does not produce personalized recommendation\nPASS future birth year rejected\nPASS known birth year preserves existing retirement interval\nPASS recommendation opens age step when age absent\nPASS 50 percent cash can reflect declared expenses, not an age default\nPASS different cards do not receive fabricated CCC or loss\nPASS unknown card detail retains value without synthetic quality labels\nPASS unknown grade never described as very poor\nPASS unknown loss never rendered as zero loss\nPASS all-card account preserves total and suspends aggregate rating\nPASS unknown account history performs no write\nPASS mixed account retains financial value and exposes coverage\nPASS full aggregate view handles unknown risk and shows coverage\nPASS compact home view does not show null risk or zero expected loss\nPASS failed configuration evaluation clears stale result and gives missing code\n22 offline integration regressions passed; no live GAS, user data or market validation performed.\n",
+      "stderr": ""
+    },
+    {
+      "suite": "coverage_and_chart_rendering",
+      "command": [
+        "node",
+        "tests/gas/coverage-panel.test.cjs",
+        "/workspace/central-54q-research/App.html"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS existing house result stays visible beside pending card\nPASS coverage includes complete total and shows evaluated amount\nPASS pending card does not dilute the existing house grade\nPASS small unknown value cannot round coverage to 100 percent\nPASS tiny financial balance stays in denominator without double counting\nPASS all-pending assets retain value without manufactured grade\nPASS asset names are escaped\nPASS compact home preserves real estate result and existing chart\nPASS absent financial backtest does not hide other asset results\nPASS full account view retains scoped results and existing chart\n10 coverage/UI integration checks passed; fixtures only.\n",
+      "stderr": ""
+    },
+    {
+      "suite": "own_history_provenance",
+      "command": [
+        "node",
+        "tests/gas/provenance.test.cjs",
+        "/workspace/central-54q-research/App.html"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS missing own stock history cannot be rated from benchmark\nPASS missing ETF history cannot be rated from benchmark\nPASS scenario-only benchmark data is explicitly identified\nPASS own history begins at actual stock start, not benchmark inception\nPASS true zero monthly return remains an observation\nPASS interior missing month stays missing and cannot yield grade\nPASS mixed default portfolio history is not claimed to be all real\nPASS stale source ending before global cutoff cannot be silently padded\n8 own-history provenance tests passed; synthetic fixtures only, no market-performance validation.\n",
+      "stderr": ""
+    },
+    {
+      "suite": "release_gate",
+      "command": [
+        "node",
+        "tests/gas/release-gate.test.cjs",
+        "/workspace/release-candidate/後台新.gs"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS default automatic release requires approval\nPASS approval alone does not deploy; exact approved version can release once\nPASS manual revocation blocks release\nPASS direct editor content change invalidates approval\nPASS test upload revokes prior approval without publishing\nPASS production base version change invalidates approval\nPASS project change invalidates approval\nPASS unknown production fingerprint cannot be approved or promoted\nPASS immutable snapshot mismatch blocks production even if HEAD raced\nPASS malformed approval fails closed\nPASS wrong central access setting rejects approval without rewriting source\nPASS existing explicit manual deployment still works\nPASS hotfix preserves test HEAD and releases only production-based patch\nPASS rollback remains explicit and revokes stale approval\n14 offline backend integration tests passed; no live deployment performed.\n",
+      "stderr": ""
+    },
+    {
+      "suite": "updater_publication_safety",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-W",
+        "error::ResourceWarning",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/updater",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_each_missing_long_term_asset_blocks_publish (test_publish_safety.PublicationSafety.test_each_missing_long_term_asset_blocks_publish) ... ok\ntest_empty_government_request_is_not_success (test_publish_safety.PublicationSafety.test_empty_government_request_is_not_success) ... ok\ntest_existing_failure_threshold_runs_before_publish (test_publish_safety.PublicationSafety.test_existing_failure_threshold_runs_before_publish) ... ok\ntest_failed_or_partial_government_fetch_preserves_remote_data (test_publish_safety.PublicationSafety.test_failed_or_partial_government_fetch_preserves_remote_data) ... ok\ntest_missing_fx_does_not_become_zero (test_publish_safety.PublicationSafety.test_missing_fx_does_not_become_zero) ... ok\ntest_observed_zero_is_preserved_and_publish_succeeds (test_publish_safety.PublicationSafety.test_observed_zero_is_preserved_and_publish_succeeds) ... ok\ntest_short_optional_asset_does_not_get_zero_padding (test_publish_safety.PublicationSafety.test_short_optional_asset_does_not_get_zero_padding) ... ok\ntest_successful_government_fetch_publishes (test_publish_safety.PublicationSafety.test_successful_government_fetch_publishes) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 0.229s\n\nOK\n"
+    }
+  ]
+}

@@ -7,3 +7,5 @@ Preserve original task numbers 1–16, original D1–D13, and unresolved placeho
 Keep all changes on a test/development branch. Do not merge to main, approve a release, or publish production without the user's explicit release instruction after testing. GAS /dev may use the user's real sheet: do not run destructive tests against it. Preserve existing holdings, bookkeeping, models and charts while making scoped changes.
 
 Do not invent model coefficients, transactions, market backtests, or a completion claim. Missing data is neither CCC nor zero risk. Keep researching missing sources; mark current limitations without pretending the full model is delivered. Prefer automated operations and minimize repeated user download/upload work.
+
+Batch delivery is required: do not ask the user to install every incremental candidate or research revision. Integrate the current rating/data, allocation, age/cash and release-safety fixes, run consolidated regression checks, and deliver one reviewable batch. Keep full-market research tasks tracked separately without pretending they are delivered. Bundle truly necessary questions and device checks.
