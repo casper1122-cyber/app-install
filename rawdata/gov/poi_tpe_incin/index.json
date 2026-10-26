@@ -1,0 +1,14 @@
+{
+ "id": "https://data.taipei/api/dataset/5b0ee34e-83c8-4e76-b044-22bd3e7d23d7/resource/143d0f32-56e4-4d5f-b44c-cbd78a9f05fc/download",
+ "title": "臺北市焚化廠",
+ "at": "2026-10-26",
+ "files": {
+  "poi_tpe_incin_00.csv.gz": {
+   "desc": "臺北市焚化廠",
+   "fmt": "CSV",
+   "url": "https://data.taipei/api/dataset/5b0ee34e-83c8-4e76-b044-22bd3e7d23d7/resource/143d0f32-56e4-4d5f-b44c-cbd78a9f05fc/download",
+   "bytes": 209,
+   "parts": 1
+  }
+ }
+}
