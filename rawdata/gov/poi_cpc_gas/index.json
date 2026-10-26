@@ -1,0 +1,14 @@
+{
+ "id": "https://vipmbr.cpc.com.tw/openData/getStationInfo",
+ "title": "中油加油站（有經緯度）",
+ "at": "2026-10-26",
+ "files": {
+  "poi_cpc_gas_00.json.gz": {
+   "desc": "中油加油站（有經緯度）",
+   "fmt": "JSON",
+   "url": "https://vipmbr.cpc.com.tw/openData/getStationInfo",
+   "bytes": 92366,
+   "parts": 1
+  }
+ }
+}
