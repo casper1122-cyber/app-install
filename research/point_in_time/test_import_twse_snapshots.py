@@ -2,7 +2,7 @@ import json,tempfile,unittest
 from pathlib import Path
 from import_twse_snapshots import import_directory
 from asof_join import asof_join
-SAMPLE={'stat':'OK','fields':['證券代號','本益比','股價淨值比','殖利率(%)'],'data':[['2330','25.5','6.4','1.8'],['1101','--','1.4','2.1']]}
+SAMPLE={'date':'20251231','stat':'OK','fields':['證券代號','本益比','股價淨值比','殖利率(%)'],'data':[['2330','25.5','6.4','1.8'],['1101','--','1.4','2.1']]}
 class Tests(unittest.TestCase):
  def test_verified_vs_sensitivity(self):
   with tempfile.TemporaryDirectory() as t:
