@@ -1,5 +1,5 @@
 {
- "at": "2026-10-26T12:11",
+ "at": "2026-10-26T12:23",
  "ver": "2026-10-25s",
  "items": [
   {
@@ -167,7 +167,7 @@
    "name": "門牌坐標（臺北、新北、臺中、臺南、高雄；都更、地段用「離你家多遠」的成交）",
    "how": "govdata",
    "every": 0,
-   "last": "2026-10-26T12:09:29",
+   "last": "2026-10-26T12:23:32",
    "next": "2026-10-26",
    "state": "ok",
    "msg": "都還沒到更新時間"
@@ -177,10 +177,10 @@
    "name": "探路：先抓新資料的樣子給 Claude 看（ETF 費用、成分股）",
    "how": "probe",
    "every": 0,
-   "last": "2026-10-26T12:11:11",
+   "last": "2026-10-26T12:23:32",
    "next": "2026-10-26",
    "state": "ok",
-   "msg": "抓了 poi_funeral、poi_funeral1、poi_funeral2、poi_tpe_funeral、poi_tpe_ossuary、poi_tpc_emf、poi_tpc_plan、poi_tpe_park_gate、poi_market_all、poi_tnn_market、poi_tnn_market2、poi_cpc_gas、poi_hsz_gas、poi_tpe_school、poi_tpe_incin、poi_khh_incin、poi_ntpc_incin、poi_khh_temple、poi_tyn_temple、poi_hsz_temple"
+   "msg": "沒有新的"
   },
   {
    "id": "brokers",
