@@ -1,0 +1,14 @@
+{
+ "id": "https://data.ntpc.gov.tw/api/datasets/60ecc055-2252-4370-bba4-ec64e37c05d5/csv/file",
+ "title": "新北市都更核定成果（逐案、有核定日期）",
+ "at": "2026-10-26",
+ "files": {
+  "renew_ntpc_00.csv.gz": {
+   "desc": "新北市都更核定成果（逐案、有核定日期）",
+   "fmt": "CSV",
+   "url": "https://data.ntpc.gov.tw/api/datasets/60ecc055-2252-4370-bba4-ec64e37c05d5/csv/file",
+   "bytes": 7605,
+   "parts": 1
+  }
+ }
+}
