@@ -1,0 +1,155 @@
+{
+  "complete_parameter_inventory": false,
+  "inventory_scope": "initial model groups only; every influencing parameter is not yet individually traced",
+  "groups": [
+    {
+      "id": "grade_mapping",
+      "title": "AAA–CCC門檻與十年損失轉換",
+      "kind": "market_model",
+      "symbols": [
+        "RATE_CUT",
+        "RATE_EL_BANDS",
+        "rateGrade",
+        "rateScoreEl"
+      ],
+      "review_status": "not_verified",
+      "gap": "未找到完整門檻校準與獨立樣本外證據",
+      "evidence": []
+    },
+    {
+      "id": "financial_history",
+      "title": "ETF／個股歷史、長期代理與風險模型",
+      "kind": "market_model",
+      "symbols": [
+        "rateDataWith",
+        "rateLong",
+        "STK_HIST.model"
+      ],
+      "review_status": "not_verified",
+      "gap": "ownOnly局部已修；預設與長期代理尚未完全整合，檔內AUC不是獨立驗證",
+      "evidence": []
+    },
+    {
+      "id": "real_estate",
+      "title": "房產因子、急售、災害、槓桿及區域校準",
+      "kind": "market_model",
+      "symbols": [
+        "RE_EL",
+        "RE_RS",
+        "RE_EL_MAP",
+        "reElBuild"
+      ],
+      "review_status": "not_verified",
+      "gap": "程式有文獻／樣本數聲稱，未逐參數核實與重跑",
+      "evidence": []
+    },
+    {
+      "id": "renewal",
+      "title": "都更完成機率、年數及費用",
+      "kind": "market_model",
+      "symbols": [
+        "renewCalc"
+      ],
+      "review_status": "not_verified",
+      "gap": "未取得各縣市母體、失敗案件與時間留出完整報告",
+      "evidence": []
+    },
+    {
+      "id": "vehicle",
+      "title": "汽車折舊與同類比較",
+      "kind": "market_model",
+      "symbols": [
+        "assetVeh",
+        "reVehCurve_"
+      ],
+      "review_status": "not_verified",
+      "gap": "未完成全品牌／年份留出及費用比較",
+      "evidence": []
+    },
+    {
+      "id": "insurance",
+      "title": "保險收益、解約與宣告利率假設",
+      "kind": "market_model",
+      "symbols": [
+        "assetAlt",
+        "polGuar"
+      ],
+      "review_status": "not_verified",
+      "gap": "逐保單契約真值與預設收益來源／不確定性待核實",
+      "evidence": []
+    },
+    {
+      "id": "collectibles",
+      "title": "逐卡／藝術品／收藏品市場模型",
+      "kind": "market_model",
+      "symbols": [
+        "assetAlt"
+      ],
+      "review_status": "not_verified",
+      "gap": "停用無證據固定評級不是完成模型；沒有真實市場樣本或OOS",
+      "evidence": []
+    },
+    {
+      "id": "retirement_allocation",
+      "title": "年齡下滑與配置保護績效",
+      "kind": "market_model",
+      "symbols": [
+        "RECO_EQ_MAX",
+        "RECO_EQ_MIN",
+        "RECO_EQ_RET",
+        "RECO_FAR",
+        "RECO_AFTER",
+        "recoCompute"
+      ],
+      "review_status": "not_verified",
+      "gap": "Vanguard等籠統註記不能代替實際參數、適用母體與台灣回測",
+      "evidence": []
+    },
+    {
+      "id": "policy_defaults",
+      "title": "最低現金、緊急金、估計通膨及情境設定",
+      "kind": "policy_and_assumptions",
+      "symbols": [
+        "RATE_MIN_CASH",
+        "RECO_EMERG",
+        "elCalc"
+      ],
+      "review_status": "not_verified",
+      "gap": "既定政策須保留並明示；不是市場估計已驗證，完整口徑與敏感度仍待補",
+      "evidence": []
+    },
+    {
+      "id": "costs",
+      "title": "費率、換手率、價格／匯率近似及稅",
+      "kind": "market_model",
+      "symbols": [
+        "RATE_TER",
+        "COST_TURN",
+        "COST_USD_TWD",
+        "COST_USD_PX",
+        "costAnnual"
+      ],
+      "review_status": "not_verified",
+      "gap": "需官方費率日期、個人條件及避免重複扣除；固定換手近似待驗證",
+      "evidence": []
+    },
+    {
+      "id": "loss_math_kernel",
+      "title": "給定對數常態與事件／槓桿假設下的數值計算",
+      "kind": "mathematics_only",
+      "symbols": [
+        "elNormalCdf_",
+        "elLognormalLoss_",
+        "elCalc"
+      ],
+      "review_status": "verified_for_intended_use",
+      "scope": "僅核對既定公式數值；不是分布、機率、報酬、波動或評級門檻的市場驗證",
+      "evidence": [
+        {
+          "path": "docs/audit/el-math-corrected.json",
+          "sha256": "6ae15021909604d04e6b721f8bbf5c920861c2f22665801ff9fa5064f85687b3"
+        }
+      ]
+    }
+  ]
+}

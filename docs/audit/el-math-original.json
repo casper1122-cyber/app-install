@@ -1,0 +1,900 @@
+{
+  "scope": "mathematical correctness only, synthetic parameters, not historical backtesting",
+  "cases": 72,
+  "passed": false,
+  "tolerance": 1e-05,
+  "worst": {
+    "parameters": {
+      "mu": 0.01,
+      "sig": 0.4,
+      "ltv": 0.9
+    },
+    "actual": 0.588867613721614,
+    "independent_quadrature": 0.641213218441056,
+    "absolute_error": 0.05234560471944205
+  },
+  "results": [
+    {
+      "parameters": {
+        "mu": -0.05,
+        "sig": 0.05,
+        "ltv": 0
+      },
+      "actual": 0.39393882770779065,
+      "independent_quadrature": 0.39349548920244,
+      "absolute_error": 0.00044333850535066555
+    },
+    {
+      "parameters": {
+        "mu": -0.05,
+        "sig": 0.05,
+        "ltv": 0.5
+      },
+      "actual": 0.6049989853833906,
+      "independent_quadrature": 0.604090572859189,
+      "absolute_error": 0.0009084125242015961
+    },
+    {
+      "parameters": {
+        "mu": -0.05,
+        "sig": 0.05,
+        "ltv": 0.9
+      },
+      "actual": 0.9595176359537857,
+      "independent_quadrature": 0.9519776457099117,
+      "absolute_error": 0.007539990243873973
+    },
+    {
+      "parameters": {
+        "mu": -0.05,
+        "sig": 0.1,
+        "ltv": 0
+      },
+      "actual": 0.40021263894039555,
+      "independent_quadrature": 0.3993980969667985,
+      "absolute_error": 0.0008145419735970383
+    },
+    {
+      "parameters": {
+        "mu": -0.05,
+        "sig": 0.1,
+        "ltv": 0.5
+      },
+      "actual": 0.6123130946894886,
+      "independent_quadrature": 0.6104208313204469,
+      "absolute_error": 0.0018922633690416912
+    },
+    {
+      "parameters": {
+        "mu": -0.05,
+        "sig": 0.1,
+        "ltv": 0.9
+      },
+      "actual": 0.8430655859701137,
+      "independent_quadrature": 0.8331159030054326,
+      "absolute_error": 0.009949682964681128
+    },
+    {
+      "parameters": {
+        "mu": -0.05,
+        "sig": 0.2,
+        "ltv": 0
+      },
+      "actual": 0.4541819515502835,
+      "independent_quadrature": 0.45192972968043604,
+      "absolute_error": 0.0022522218698474705
+    },
+    {
+      "parameters": {
+        "mu": -0.05,
+        "sig": 0.2,
+        "ltv": 0.5
+      },
+      "actual": 0.6523729718144288,
+      "independent_quadrature": 0.6493477192568952,
+      "absolute_error": 0.0030252525575336087
+    },
+    {
+      "parameters": {
+        "mu": -0.05,
+        "sig": 0.2,
+        "ltv": 0.9
+      },
+      "actual": 0.7509078953923589,
+      "independent_quadrature": 0.765004530279166,
+      "absolute_error": 0.014096634886807125
+    },
+    {
+      "parameters": {
+        "mu": -0.05,
+        "sig": 0.4,
+        "ltv": 0
+      },
+      "actual": 0.6066827855035649,
+      "independent_quadrature": 0.6015535582164132,
+      "absolute_error": 0.005129227287151705
+    },
+    {
+      "parameters": {
+        "mu": -0.05,
+        "sig": 0.4,
+        "ltv": 0.5
+      },
+      "actual": 0.7529216839280831,
+      "independent_quadrature": 0.7476202004474808,
+      "absolute_error": 0.005301483480602331
+    },
+    {
+      "parameters": {
+        "mu": -0.05,
+        "sig": 0.4,
+        "ltv": 0.9
+      },
+      "actual": 0.7706870360683662,
+      "independent_quadrature": 0.798379332825495,
+      "absolute_error": 0.02769229675712881
+    },
+    {
+      "parameters": {
+        "mu": 0,
+        "sig": 0.05,
+        "ltv": 0
+      },
+      "actual": 0.06125972767399114,
+      "independent_quadrature": 0.06301265983337107,
+      "absolute_error": 0.0017529321593799246
+    },
+    {
+      "parameters": {
+        "mu": 0,
+        "sig": 0.05,
+        "ltv": 0.5
+      },
+      "actual": 0.04747526666188589,
+      "independent_quadrature": 0.050208613896491394,
+      "absolute_error": 0.0027333472346055057
+    },
+    {
+      "parameters": {
+        "mu": 0,
+        "sig": 0.05,
+        "ltv": 0.9
+      },
+      "actual": 0.07499246129901782,
+      "independent_quadrature": 0.07848068165114795,
+      "absolute_error": 0.003488220352130131
+    },
+    {
+      "parameters": {
+        "mu": 0,
+        "sig": 0.1,
+        "ltv": 0
+      },
+      "actual": 0.12379464915204767,
+      "independent_quadrature": 0.12563294275873046,
+      "absolute_error": 0.001838293606682792
+    },
+    {
+      "parameters": {
+        "mu": 0,
+        "sig": 0.1,
+        "ltv": 0.5
+      },
+      "actual": 0.15480634104726543,
+      "independent_quadrature": 0.15888243691849382,
+      "absolute_error": 0.004076095871228397
+    },
+    {
+      "parameters": {
+        "mu": 0,
+        "sig": 0.1,
+        "ltv": 0.9
+      },
+      "actual": 0.2573134041107035,
+      "independent_quadrature": 0.272936851464415,
+      "absolute_error": 0.015623447353711462
+    },
+    {
+      "parameters": {
+        "mu": 0,
+        "sig": 0.2,
+        "ltv": 0
+      },
+      "actual": 0.24586298677052315,
+      "independent_quadrature": 0.24817037795054142,
+      "absolute_error": 0.00230739118001827
+    },
+    {
+      "parameters": {
+        "mu": 0,
+        "sig": 0.2,
+        "ltv": 0.5
+      },
+      "actual": 0.35778551317275986,
+      "independent_quadrature": 0.35977503025074253,
+      "absolute_error": 0.001989517077982672
+    },
+    {
+      "parameters": {
+        "mu": 0,
+        "sig": 0.2,
+        "ltv": 0.9
+      },
+      "actual": 0.4406982381193226,
+      "independent_quadrature": 0.47339438199387457,
+      "absolute_error": 0.03269614387455194
+    },
+    {
+      "parameters": {
+        "mu": 0,
+        "sig": 0.4,
+        "ltv": 0
+      },
+      "actual": 0.4768166074972664,
+      "independent_quadrature": 0.4729107630027119,
+      "absolute_error": 0.0039058444945545
+    },
+    {
+      "parameters": {
+        "mu": 0,
+        "sig": 0.4,
+        "ltv": 0.5
+      },
+      "actual": 0.6179438253894376,
+      "independent_quadrature": 0.6095300170483504,
+      "absolute_error": 0.008413808341087181
+    },
+    {
+      "parameters": {
+        "mu": 0,
+        "sig": 0.4,
+        "ltv": 0.9
+      },
+      "actual": 0.688185126964879,
+      "independent_quadrature": 0.6702951966533495,
+      "absolute_error": 0.017889930311529523
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.05,
+        "ltv": 0
+      },
+      "actual": 0.025215850775132657,
+      "independent_quadrature": 0.026540893953200282,
+      "absolute_error": 0.0013250431780676246
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.05,
+        "ltv": 0.5
+      },
+      "actual": 0.015246753448252081,
+      "independent_quadrature": 0.016362848963715402,
+      "absolute_error": 0.0011160955154633206
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.05,
+        "ltv": 0.9
+      },
+      "actual": 0.01864826013395335,
+      "independent_quadrature": 0.021074007969948304,
+      "absolute_error": 0.0024257478359949528
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.1,
+        "ltv": 0
+      },
+      "actual": 0.08399517847175952,
+      "independent_quadrature": 0.08615014257291183,
+      "absolute_error": 0.002154964101152304
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.1,
+        "ltv": 0.5
+      },
+      "actual": 0.09564950739296596,
+      "independent_quadrature": 0.10274170844001433,
+      "absolute_error": 0.0070922010470483715
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.1,
+        "ltv": 0.9
+      },
+      "actual": 0.17233058139302038,
+      "independent_quadrature": 0.1792920908326455,
+      "absolute_error": 0.006961509439625119
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0
+      },
+      "actual": 0.2097888752498819,
+      "independent_quadrature": 0.21178308533134005,
+      "absolute_error": 0.001994210081458142
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0.5
+      },
+      "actual": 0.29382375494066476,
+      "independent_quadrature": 0.305756878622309,
+      "absolute_error": 0.011933123681644231
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0.9
+      },
+      "actual": 0.4111323862783856,
+      "independent_quadrature": 0.4111504506213028,
+      "absolute_error": 1.8064342917178955e-05
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.4,
+        "ltv": 0
+      },
+      "actual": 0.4479901751128029,
+      "independent_quadrature": 0.44655039753587294,
+      "absolute_error": 0.0014397775769299792
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.4,
+        "ltv": 0.5
+      },
+      "actual": 0.574762182033797,
+      "independent_quadrature": 0.5793776177855143,
+      "absolute_error": 0.004615435751717301
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.4,
+        "ltv": 0.9
+      },
+      "actual": 0.588867613721614,
+      "independent_quadrature": 0.641213218441056,
+      "absolute_error": 0.05234560471944205
+    },
+    {
+      "parameters": {
+        "mu": 0.03,
+        "sig": 0.05,
+        "ltv": 0
+      },
+      "actual": 0.0015990558328599501,
+      "independent_quadrature": 0.002039697004566312,
+      "absolute_error": 0.0004406411717063621
+    },
+    {
+      "parameters": {
+        "mu": 0.03,
+        "sig": 0.05,
+        "ltv": 0.5
+      },
+      "actual": 0.0005627024945885888,
+      "independent_quadrature": 0.0006913536569638241,
+      "absolute_error": 0.00012865116237523525
+    },
+    {
+      "parameters": {
+        "mu": 0.03,
+        "sig": 0.05,
+        "ltv": 0.9
+      },
+      "actual": 0.0004119112541245767,
+      "independent_quadrature": 0.0005426436507176505,
+      "absolute_error": 0.00013073239659307386
+    },
+    {
+      "parameters": {
+        "mu": 0.03,
+        "sig": 0.1,
+        "ltv": 0
+      },
+      "actual": 0.031136813100797536,
+      "independent_quadrature": 0.03345900108346899,
+      "absolute_error": 0.0023221879826714545
+    },
+    {
+      "parameters": {
+        "mu": 0.03,
+        "sig": 0.1,
+        "ltv": 0.5
+      },
+      "actual": 0.03293004383856074,
+      "independent_quadrature": 0.034974031454931616,
+      "absolute_error": 0.002043987616370875
+    },
+    {
+      "parameters": {
+        "mu": 0.03,
+        "sig": 0.1,
+        "ltv": 0.9
+      },
+      "actual": 0.05298415116483214,
+      "independent_quadrature": 0.06101474650798725,
+      "absolute_error": 0.00803059534315511
+    },
+    {
+      "parameters": {
+        "mu": 0.03,
+        "sig": 0.2,
+        "ltv": 0
+      },
+      "actual": 0.1445523740369511,
+      "independent_quadrature": 0.1475070101903251,
+      "absolute_error": 0.0029546361533740184
+    },
+    {
+      "parameters": {
+        "mu": 0.03,
+        "sig": 0.2,
+        "ltv": 0.5
+      },
+      "actual": 0.20434206827935397,
+      "independent_quadrature": 0.21010743217360173,
+      "absolute_error": 0.005765363894247755
+    },
+    {
+      "parameters": {
+        "mu": 0.03,
+        "sig": 0.2,
+        "ltv": 0.9
+      },
+      "actual": 0.24909210460764075,
+      "independent_quadrature": 0.2945017403451904,
+      "absolute_error": 0.045409635737549636
+    },
+    {
+      "parameters": {
+        "mu": 0.03,
+        "sig": 0.4,
+        "ltv": 0
+      },
+      "actual": 0.38819736843615626,
+      "independent_quadrature": 0.39417011960667764,
+      "absolute_error": 0.005972751170521373
+    },
+    {
+      "parameters": {
+        "mu": 0.03,
+        "sig": 0.4,
+        "ltv": 0.5
+      },
+      "actual": 0.5184865053808166,
+      "independent_quadrature": 0.5178296426773839,
+      "absolute_error": 0.0006568627034327923
+    },
+    {
+      "parameters": {
+        "mu": 0.03,
+        "sig": 0.4,
+        "ltv": 0.9
+      },
+      "actual": 0.588867613721614,
+      "independent_quadrature": 0.5806888033930545,
+      "absolute_error": 0.008178810328559494
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0,
+        "amort": 0,
+        "jumps": []
+      },
+      "actual": 0.2097888752498819,
+      "independent_quadrature": 0.21178308533134005,
+      "absolute_error": 0.001994210081458142
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0,
+        "amort": 0,
+        "jumps": [
+          {
+            "p": 0.3,
+            "s": 0.12
+          }
+        ]
+      },
+      "actual": 0.22343570983486427,
+      "independent_quadrature": 0.22586363699013065,
+      "absolute_error": 0.0024279271552663795
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0,
+        "amort": 0,
+        "jumps": [
+          {
+            "p": 0.2,
+            "s": 1
+          }
+        ]
+      },
+      "actual": 0.36783110019990545,
+      "independent_quadrature": 0.36942646826506936,
+      "absolute_error": 0.0015953680651639157
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0,
+        "amort": 0,
+        "jumps": [
+          {
+            "p": 0.3,
+            "s": 0.25
+          },
+          {
+            "p": 0.1,
+            "s": 0.4
+          }
+        ]
+      },
+      "actual": 0.26426290495605365,
+      "independent_quadrature": 0.2653754197741449,
+      "absolute_error": 0.0011125148180912703
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0,
+        "amort": 0.5,
+        "jumps": []
+      },
+      "actual": 0.2097888752498819,
+      "independent_quadrature": 0.21178308533134005,
+      "absolute_error": 0.001994210081458142
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0,
+        "amort": 0.5,
+        "jumps": [
+          {
+            "p": 0.3,
+            "s": 0.12
+          }
+        ]
+      },
+      "actual": 0.22343570983486427,
+      "independent_quadrature": 0.22586363699013065,
+      "absolute_error": 0.0024279271552663795
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0,
+        "amort": 0.5,
+        "jumps": [
+          {
+            "p": 0.2,
+            "s": 1
+          }
+        ]
+      },
+      "actual": 0.36783110019990545,
+      "independent_quadrature": 0.36942646826506936,
+      "absolute_error": 0.0015953680651639157
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0,
+        "amort": 0.5,
+        "jumps": [
+          {
+            "p": 0.3,
+            "s": 0.25
+          },
+          {
+            "p": 0.1,
+            "s": 0.4
+          }
+        ]
+      },
+      "actual": 0.26426290495605365,
+      "independent_quadrature": 0.2653754197741449,
+      "absolute_error": 0.0011125148180912703
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0,
+        "amort": 1,
+        "jumps": []
+      },
+      "actual": 0.2097888752498819,
+      "independent_quadrature": 0.21178308533134005,
+      "absolute_error": 0.001994210081458142
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0,
+        "amort": 1,
+        "jumps": [
+          {
+            "p": 0.3,
+            "s": 0.12
+          }
+        ]
+      },
+      "actual": 0.22343570983486427,
+      "independent_quadrature": 0.22586363699013065,
+      "absolute_error": 0.0024279271552663795
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0,
+        "amort": 1,
+        "jumps": [
+          {
+            "p": 0.2,
+            "s": 1
+          }
+        ]
+      },
+      "actual": 0.36783110019990545,
+      "independent_quadrature": 0.36942646826506936,
+      "absolute_error": 0.0015953680651639157
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0,
+        "amort": 1,
+        "jumps": [
+          {
+            "p": 0.3,
+            "s": 0.25
+          },
+          {
+            "p": 0.1,
+            "s": 0.4
+          }
+        ]
+      },
+      "actual": 0.26426290495605365,
+      "independent_quadrature": 0.2653754197741449,
+      "absolute_error": 0.0011125148180912703
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0.8,
+        "amort": 0,
+        "jumps": []
+      },
+      "actual": 0.17822554504261998,
+      "independent_quadrature": 0.18461232814420958,
+      "absolute_error": 0.006386783101589605
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0.8,
+        "amort": 0,
+        "jumps": [
+          {
+            "p": 0.3,
+            "s": 0.12
+          }
+        ]
+      },
+      "actual": 0.19300865951506374,
+      "independent_quadrature": 0.19789419904315608,
+      "absolute_error": 0.004885539528092342
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0.8,
+        "amort": 0,
+        "jumps": [
+          {
+            "p": 0.2,
+            "s": 1
+          }
+        ]
+      },
+      "actual": 0.34258043603409594,
+      "independent_quadrature": 0.34768986251536455,
+      "absolute_error": 0.0051094264812686085
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0.8,
+        "amort": 0,
+        "jumps": [
+          {
+            "p": 0.3,
+            "s": 0.25
+          },
+          {
+            "p": 0.1,
+            "s": 0.4
+          }
+        ]
+      },
+      "actual": 0.23124736373784321,
+      "independent_quadrature": 0.23626760706611716,
+      "absolute_error": 0.005020243328273943
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0.8,
+        "amort": 0.5,
+        "jumps": []
+      },
+      "actual": 0.25550854954721947,
+      "independent_quadrature": 0.2657882454395514,
+      "absolute_error": 0.010279695892331908
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0.8,
+        "amort": 0.5,
+        "jumps": [
+          {
+            "p": 0.3,
+            "s": 0.12
+          }
+        ]
+      },
+      "actual": 0.27736353133283476,
+      "independent_quadrature": 0.28498973482707135,
+      "absolute_error": 0.007626203494236594
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0.8,
+        "amort": 0.5,
+        "jumps": [
+          {
+            "p": 0.2,
+            "s": 1
+          }
+        ]
+      },
+      "actual": 0.40440683963777546,
+      "independent_quadrature": 0.41263059635163696,
+      "absolute_error": 0.008223756713861496
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0.8,
+        "amort": 0.5,
+        "jumps": [
+          {
+            "p": 0.3,
+            "s": 0.25
+          },
+          {
+            "p": 0.1,
+            "s": 0.4
+          }
+        ]
+      },
+      "actual": 0.33068695332058046,
+      "independent_quadrature": 0.33913371322994196,
+      "absolute_error": 0.008446759909361501
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0.8,
+        "amort": 1,
+        "jumps": []
+      },
+      "actual": 0.38218679628066443,
+      "independent_quadrature": 0.3853194719189387,
+      "absolute_error": 0.003132675638274296
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0.8,
+        "amort": 1,
+        "jumps": [
+          {
+            "p": 0.3,
+            "s": 0.12
+          }
+        ]
+      },
+      "actual": 0.40617382764898186,
+      "independent_quadrature": 0.40885949469410593,
+      "absolute_error": 0.002685667045124074
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0.8,
+        "amort": 1,
+        "jumps": [
+          {
+            "p": 0.2,
+            "s": 1
+          }
+        ]
+      },
+      "actual": 0.5057494370245315,
+      "independent_quadrature": 0.5082555775351478,
+      "absolute_error": 0.0025061405106163726
+    },
+    {
+      "parameters": {
+        "mu": 0.01,
+        "sig": 0.2,
+        "ltv": 0.8,
+        "amort": 1,
+        "jumps": [
+          {
+            "p": 0.3,
+            "s": 0.25
+          },
+          {
+            "p": 0.1,
+            "s": 0.4
+          }
+        ]
+      },
+      "actual": 0.46822794486398905,
+      "independent_quadrature": 0.46852132836167365,
+      "absolute_error": 0.00029338349768459615
+    }
+  ]
+}
