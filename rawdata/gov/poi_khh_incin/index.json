@@ -1,0 +1,14 @@
+{
+ "id": "https://data.kcg.gov.tw/File/DirectDownload/747ad9ca-80a5-4edd-8466-16793e8dbc22",
+ "title": "高雄市焚化廠",
+ "at": "2026-10-26",
+ "files": {
+  "poi_khh_incin_00.csv.gz": {
+   "desc": "高雄市焚化廠",
+   "fmt": "CSV",
+   "url": "https://data.kcg.gov.tw/File/DirectDownload/747ad9ca-80a5-4edd-8466-16793e8dbc22",
+   "bytes": 275,
+   "parts": 1
+  }
+ }
+}
