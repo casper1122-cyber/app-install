@@ -1,5 +1,5 @@
 {
- "at": "2026-10-26T11:58",
+ "at": "2026-10-26T12:11",
  "ver": "2026-10-25s",
  "items": [
   {
@@ -167,20 +167,20 @@
    "name": "門牌坐標（臺北、新北、臺中、臺南、高雄；都更、地段用「離你家多遠」的成交）",
    "how": "govdata",
    "every": 0,
-   "last": "2026-10-26T11:57:20",
+   "last": "2026-10-26T12:09:29",
    "next": "2026-10-26",
    "state": "ok",
-   "msg": "更新：桃園市門牌位置坐標資料（桃園市開放資料平臺）"
+   "msg": "都還沒到更新時間"
   },
   {
    "id": "probe",
    "name": "探路：先抓新資料的樣子給 Claude 看（ETF 費用、成分股）",
    "how": "probe",
    "every": 0,
-   "last": "2026-10-26T11:57:20",
+   "last": "2026-10-26T12:11:11",
    "next": "2026-10-26",
    "state": "ok",
-   "msg": "沒有新的"
+   "msg": "抓了 poi_funeral、poi_funeral1、poi_funeral2、poi_tpe_funeral、poi_tpe_ossuary、poi_tpc_emf、poi_tpc_plan、poi_tpe_park_gate、poi_market_all、poi_tnn_market、poi_tnn_market2、poi_cpc_gas、poi_hsz_gas、poi_tpe_school、poi_tpe_incin、poi_khh_incin、poi_ntpc_incin、poi_khh_temple、poi_tyn_temple、poi_hsz_temple"
   },
   {
    "id": "brokers",
@@ -221,6 +221,16 @@
    "next": "2036-10-23",
    "state": "ok",
    "msg": "查了 44 個資料集（44 個成功）"
+  },
+  {
+   "id": "govmeta6",
+   "name": "政府開放資料：再查寺廟、公園、學校、都更核定成果的資料集",
+   "how": "govmeta",
+   "every": 3650,
+   "last": "2026-10-26T12:11:57",
+   "next": "2036-10-23",
+   "state": "ok",
+   "msg": "查了 28 個資料集（28 個成功）"
   }
  ],
  "pack": "資產配置資料_給Claude_20261026.zip"
