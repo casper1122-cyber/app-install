@@ -1,0 +1,14 @@
+{
+ "id": 6087,
+ "title": "國民小學名錄",
+ "at": "2026-10-26",
+ "files": {
+  "poi_school_e_00.csv.gz": {
+   "desc": "115學年國民小學名錄（CSV檔）",
+   "fmt": "CSV",
+   "url": "https://stats.moe.gov.tw/files/school/115/e1_new.csv",
+   "bytes": 75239,
+   "parts": 1
+  }
+ }
+}
