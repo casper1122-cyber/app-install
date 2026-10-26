@@ -5,6 +5,7 @@ import argparse, json, re
 from twse_pit import convert_snapshot
 from validate_twse_response import validate_response
 from twse_openapi_adapter import adapt_openapi
+from audit_archive import create_ledger
 def parse_snapshot(raw):
  if isinstance(raw.get('pe'),dict):return raw
  if 'tables' in raw:
