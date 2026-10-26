@@ -1,0 +1,411 @@
+[
+  {
+    "filename": "核心 (1).gs",
+    "sha256": "a3c702ab9df32e68a9735f5b6f0b13569eb8760f0cd3ec902ef926e7de607983",
+    "bytes": 892391,
+    "version_markers": [
+      "2026.10.54j"
+    ]
+  },
+  {
+    "filename": "網站_南高.zip",
+    "sha256": "a7cc88a8475dd1f465d8aab51f959f046d0c53407c3adb75edd009f32a2b5742",
+    "bytes": 237779,
+    "files": [
+      {
+        "path": "re/hpid.json",
+        "bytes": 731578,
+        "sha256": "b13586600dffe20e3cc10e286da62a267f2c5356b8278c3a069fc4ff969ab722"
+      },
+      {
+        "path": "data/prog.json",
+        "bytes": 48,
+        "sha256": "3826e8e2b54e50d4c7f667d30cc421a911ddda7438b6067a60b609439073575a"
+      },
+      {
+        "path": "data/registry.json",
+        "bytes": 8611,
+        "sha256": "d5751da13cc34c1edea30764abe0f6686a1651a90f15a37e7a1b2e423b9ce357"
+      },
+      {
+        "path": "tools/prog.py",
+        "bytes": 68535,
+        "sha256": "32f49480301cd864c5d5c1b53a5f14697f7bfa5610ce91b4f51b042d8ab8207c"
+      },
+      {
+        "path": "tools/hpid/newunit4.py",
+        "bytes": 4893,
+        "sha256": "556c63bcff603198e1bf1478f2d040fc79180fc7d1cb357dbb72329f73a51818"
+      },
+      {
+        "path": "tools/hpid/geoall.py",
+        "bytes": 1793,
+        "sha256": "5370298be1d3bc41a337eee3b100059edfb91c8b2e694c46b335a2b8ba8f90ba"
+      },
+      {
+        "path": "tools/hpid/matchall.py",
+        "bytes": 2550,
+        "sha256": "663adc5d8dd6911c7319bcc853543873ee00225012a4fa761852d3d926b56cf6"
+      },
+      {
+        "path": "tools/hpid/ringall.py",
+        "bytes": 6954,
+        "sha256": "504150585043b6d970c5807090224de11087f7cda040bb18d10f061c29200cd1"
+      }
+    ]
+  },
+  {
+    "filename": "網站_門牌清單.zip",
+    "sha256": "040e030f015882b498d22b91212cbaa1fcce852fa6a239e8ea9b0c35ac04f061",
+    "bytes": 2197,
+    "files": [
+      {
+        "path": "data/registry.json",
+        "bytes": 4699,
+        "sha256": "0918661d809109336b08aa219a7d2c56484bdccf7eca4a311a096dcfc7f259d3"
+      }
+    ]
+  },
+  {
+    "filename": "核心 (2).gs",
+    "sha256": "e11e9a0b8aac61de235015cc77fa354c796d61474e3244d34ae5d3502d4cbb2d",
+    "bytes": 887303,
+    "version_markers": [
+      "2026.10.54c"
+    ]
+  },
+  {
+    "filename": "網站_54m.zip",
+    "sha256": "3eff9ceb434dee70cf9553568bde9192d79211e74dcfde3555a79d8d54a99900",
+    "bytes": 6187,
+    "files": [
+      {
+        "path": "tools/hpid/rs_feat2.py",
+        "bytes": 1300,
+        "sha256": "a04292088f61ad6df2c7a86d8890c06144243baaf009b2192d13cb1b03d5ff4d"
+      },
+      {
+        "path": "tools/hpid/rs_time.py",
+        "bytes": 880,
+        "sha256": "364a0fd0bcff25fcf6315f915eef8dd458cb63779d0dd67d705a7848521766fe"
+      },
+      {
+        "path": "tools/hpid/rs_time2.py",
+        "bytes": 1440,
+        "sha256": "0cc1be9a670cb9239e5a20e699085864aac09a113f031c121bd3526465e9f1b4"
+      },
+      {
+        "path": "tools/hpid/rs_fit.py",
+        "bytes": 2839,
+        "sha256": "ec6d0ec7da24bf67699b9a46740e5d710d5fb817b3fb881813cc36851a38bdd7"
+      },
+      {
+        "path": "tools/hpid/rs_time3.py",
+        "bytes": 428,
+        "sha256": "a4a9bd0af85bd9c846a74e7b21ff9633a0f49048e82b0cbb4e032f1a97b19f20"
+      },
+      {
+        "path": "tools/hpid/rs_final.py",
+        "bytes": 1297,
+        "sha256": "da4f787814b5340f4c227799d9157fcf572e97387948dce5f51457a49450e14b"
+      }
+    ]
+  },
+  {
+    "filename": "核心.gs",
+    "sha256": "ce240144a8f4d88a63d217198ef7c9ab7cdb9e117bf6490bb712ad95281b5541",
+    "bytes": 887579,
+    "version_markers": [
+      "2026.10.54d"
+    ]
+  },
+  {
+    "filename": "網站_54h.zip",
+    "sha256": "03f8798d88c08f5ac63499980b7114f39d1d960e8c9e01b79c606929d1320aa6",
+    "bytes": 922207,
+    "files": [
+      {
+        "path": "stk/hist.json",
+        "bytes": 2214108,
+        "sha256": "10d9b02a0d36da83d1817ffcdc3d9bcc86cbe7bf54129d5d046a3a8c6518087a"
+      },
+      {
+        "path": "data/prog.json",
+        "bytes": 48,
+        "sha256": "3a441a035cc7c1199586648efab9da8d85b61e47c33a5e7dde347b04dd8b3fb2"
+      },
+      {
+        "path": "data/registry.json",
+        "bytes": 7413,
+        "sha256": "c3667172663ac1f34220889253f7fe22e07b1175f20ca2ae850a8fe469af0408"
+      },
+      {
+        "path": "tools/prog.py",
+        "bytes": 66859,
+        "sha256": "c2697da738a6d0b7dc1abaae27f9fdb336d15c0d8bb2c741b2e9a5d5277a26d0"
+      },
+      {
+        "path": "tools/stk/audit2.py",
+        "bytes": 1015,
+        "sha256": "2ebde24c2deab3fb9c60f107654fe00d9bc543d8612e369a1d6c5771ad2f26be"
+      },
+      {
+        "path": "tools/stk/el10.py",
+        "bytes": 3956,
+        "sha256": "bbd7fe0291137cfa86b38da1562fe62adc87bf7150b60e096853728a9b90b76f"
+      },
+      {
+        "path": "tools/stk/stk_build.py",
+        "bytes": 5693,
+        "sha256": "064c9755250e148e19286749626ec1d559cb3f75704ce2b5e8956c6a99be0e1d"
+      },
+      {
+        "path": "tools/stk/audit.py",
+        "bytes": 2629,
+        "sha256": "f4ba01c54e93d596e3778e9d755d51433eb45fabd5291f28d21387711e65c1d7"
+      }
+    ]
+  },
+  {
+    "filename": "App (1).html",
+    "sha256": "8ec15cd54e4a00c2a84cccab60a356cd1fe1672b4fe33bb511e3c42669660438",
+    "bytes": 1425483,
+    "version_markers": []
+  },
+  {
+    "filename": "Codex_app-install_%E5%AE%8C%E6%95%B4%E4%BA%A4%E6%8E%A5_2026-10-26.md",
+    "sha256": "de100932fa2c8283e56d6144497647f3aeef92e2d13ce0164282aa9314e2e6f6",
+    "bytes": 9929,
+    "version_markers": []
+  },
+  {
+    "filename": "網站_桃園.zip",
+    "sha256": "71090efcac722e8996035341c00dc5d2e70c812cea5960ea537a1c9f4a73974e",
+    "bytes": 3238,
+    "files": [
+      {
+        "path": "data/registry.json",
+        "bytes": 8376,
+        "sha256": "49fcf270a51be88e85091c9e18f01beb43bc6c90653a9a29ed019cbb128c4489"
+      }
+    ]
+  },
+  {
+    "filename": "網站_查地點資料.zip",
+    "sha256": "4881faec584a5c9ad8344b183ed9ebbd1997b3ca18aa964e1eb2d96ab6e5bc3d",
+    "bytes": 3620,
+    "files": [
+      {
+        "path": "data/registry.json",
+        "bytes": 9350,
+        "sha256": "24002d1c2dd2e1092c8ce882356612a7f7fcbc32cb6a3d9f139c084e8646128d"
+      }
+    ]
+  },
+  {
+    "filename": "網站_門牌清單2.zip",
+    "sha256": "63b82a261e97524a63f80f3527e62d9d1570d3a743dd0899a956d0b50f4ff962",
+    "bytes": 2265,
+    "files": [
+      {
+        "path": "data/registry.json",
+        "bytes": 5079,
+        "sha256": "7ab50ef9fecd03ea5c1968b89472e7710e1f963b5cddb76cada2e2ea5a8288c9"
+      }
+    ]
+  },
+  {
+    "filename": "Codex_app-install_完整交接_2026-10-26.md",
+    "sha256": "de100932fa2c8283e56d6144497647f3aeef92e2d13ce0164282aa9314e2e6f6",
+    "bytes": 9929,
+    "version_markers": []
+  },
+  {
+    "filename": "App (2).html",
+    "sha256": "fe2729943ec1a3b99aec292cd83a12301414d4f6d45da333a582ee5a03b9ef70",
+    "bytes": 1420046,
+    "version_markers": []
+  },
+  {
+    "filename": "網站_54n.zip",
+    "sha256": "64fa000c074615b73751e74e607be785bb269117a062071c784b4e6d4b5ce609",
+    "bytes": 6891,
+    "files": [
+      {
+        "path": "tools/hpid/land_an.py",
+        "bytes": 1836,
+        "sha256": "1ca8d62ff6b35ead561898508ed114640266adc07400681bfb58c202ce04e660"
+      },
+      {
+        "path": "tools/hpid/lane_rs.py",
+        "bytes": 1815,
+        "sha256": "a07073246c0a664d8485af149c5690b2d7e1a5fef7cf3760b5df26397c8d5ad3"
+      },
+      {
+        "path": "tools/hpid/loc_an.py",
+        "bytes": 1754,
+        "sha256": "080ae8675c8e5c95feacfef21d784082c0333d4a9c003cc95f8a25122e1a972f"
+      },
+      {
+        "path": "tools/hpid/land_rs.py",
+        "bytes": 3060,
+        "sha256": "93fcbb660ff06643dce127ffa09fb8ae697578ecdb56188809a29271bceb2084"
+      },
+      {
+        "path": "tools/hpid/loc_rs.py",
+        "bytes": 1589,
+        "sha256": "b0c3f9f466936d23e99e7fff92371ff2a1f5e9b4dc298661c312efae9cd90722"
+      }
+    ]
+  },
+  {
+    "filename": "Codex_app-install_%E5%AE%8C%E6%95%B4%E4%BA%A4%E6%8E%A5_2026-10-26.md",
+    "sha256": "de100932fa2c8283e56d6144497647f3aeef92e2d13ce0164282aa9314e2e6f6",
+    "bytes": 9929,
+    "version_markers": []
+  },
+  {
+    "filename": "App.html",
+    "sha256": "35914f99b2986c850d9e08490142432688e8da9ea8b856968a578bce4718dd28",
+    "bytes": 1433654,
+    "version_markers": []
+  },
+  {
+    "filename": "Codex_app-install_完整交接_2026-10-26.md",
+    "sha256": "de100932fa2c8283e56d6144497647f3aeef92e2d13ce0164282aa9314e2e6f6",
+    "bytes": 9929,
+    "version_markers": []
+  },
+  {
+    "filename": "App (3).html",
+    "sha256": "3d6453555bdb7d02fbdb76c99b3ff9e68af677be4ac485ab253c73739e59df5f",
+    "bytes": 1440725,
+    "version_markers": []
+  },
+  {
+    "filename": "網站_探路2.zip",
+    "sha256": "10c03d3d640f49d3d93da24fbaf6755a96c8237b0f174990fe1f93252fc7021f",
+    "bytes": 2137,
+    "files": [
+      {
+        "path": "data/registry.json",
+        "bytes": 4533,
+        "sha256": "5b5a1dc444f50fa086ef4a286d4ad53990b6df293e5b907377d2d105d80a36be"
+      }
+    ]
+  },
+  {
+    "filename": "網站_程式j.zip",
+    "sha256": "d71575540e86a85b1f47af49c1b165a8dc92ea7c8348e0839182acc228748ad3",
+    "bytes": 21246,
+    "files": [
+      {
+        "path": "data/prog.json",
+        "bytes": 48,
+        "sha256": "a92d6ce4c24444573066e587f066e324ddee117f31dd51b16dc62f26bd010d2f"
+      },
+      {
+        "path": "tools/prog.py",
+        "bytes": 57306,
+        "sha256": "f2b15b7f131dc0d9dd8f2fb7d7e1341def22d0b72488fe90c7d9faec44b01795"
+      }
+    ]
+  },
+  {
+    "filename": "資產配置資料更新.py",
+    "sha256": "5d9beb090024eb5ba284c3e556e30ef44ba40478614d16ebaa8c04c5a558af8b",
+    "bytes": 58051,
+    "version_markers": [
+      "2026-10-25k"
+    ]
+  },
+  {
+    "filename": "網站_程式l.zip",
+    "sha256": "27665aa015719f7d13d7a22482f26be1cbdb37f8ba8e19f222c5031d2d80cde5",
+    "bytes": 23627,
+    "files": [
+      {
+        "path": "data/prog.json",
+        "bytes": 48,
+        "sha256": "5dcad157e11a737b75adca6ac455a885373686fbd2db72d4299f7c0ad1adbf03"
+      },
+      {
+        "path": "data/registry.json",
+        "bytes": 5601,
+        "sha256": "080750e702cec2496d41c49ada50b924be0aaf78bc8e7a620d3f47230c9e78a1"
+      },
+      {
+        "path": "tools/prog.py",
+        "bytes": 58095,
+        "sha256": "5502952d6c44629f1aa0bbea36cc64bd6100e40421a2cb2d6853958ed8784e5d"
+      }
+    ]
+  },
+  {
+    "filename": "網站_54c.zip",
+    "sha256": "20b9f7075f19d84bcc912df95d3b851e68085aa86f76ce93e07ddc9916ed0961",
+    "bytes": 924642,
+    "files": [
+      {
+        "path": "stk/hist.json",
+        "bytes": 2213465,
+        "sha256": "0b28bff16cd22db4f5153cccd520cc0e3948d94ba846e8dbcc73b47b4085fd5f"
+      },
+      {
+        "path": "data/prog.json",
+        "bytes": 48,
+        "sha256": "1d3de91cdaf4e5bc7abbcb73427ec703246f298c0cdcbba7ce61dc3367ebaff1"
+      },
+      {
+        "path": "data/registry.json",
+        "bytes": 6808,
+        "sha256": "d89c26cdd21cde9058bafc0dd00a223af7575ef9072aa903f77f9e00ff864b8d"
+      },
+      {
+        "path": "tools/prog.py",
+        "bytes": 64540,
+        "sha256": "51e153a78e5b85e7dcaa0a9965422bffe85f3e10c3821cc293e73bf3c3ed78d7"
+      },
+      {
+        "path": "tools/stk/model.py",
+        "bytes": 2675,
+        "sha256": "8918dadb4ceebaa06018a700976492899c97d104d5df2bb7c09418925e199421"
+      },
+      {
+        "path": "tools/stk/cv.py",
+        "bytes": 2813,
+        "sha256": "1dea0a47a5d85106ec23aa1f82c2ecbdb673eb9eca5a21ced4cff6b3d9fc150e"
+      },
+      {
+        "path": "tools/stk/model2.py",
+        "bytes": 2399,
+        "sha256": "540e87348b0281984aafd083d6a101ecb2aef3c59b4810c1ef692d6fed4dd3eb"
+      },
+      {
+        "path": "tools/stk/cv2.py",
+        "bytes": 1318,
+        "sha256": "bc3d6425279cc4a6ec3dc0f0e34fb1ade659a0bd6ea018b88018f77f691265dc"
+      },
+      {
+        "path": "tools/stk/panel.py",
+        "bytes": 1425,
+        "sha256": "a80ec1ec7d073cd522c6d02a80b492e52397138689fa5b288ba6f0abf356a6c7"
+      },
+      {
+        "path": "tools/stk/feat2.py",
+        "bytes": 1921,
+        "sha256": "3fc4f9076ce1109029697da68561246b8858a5766ccc8cd15e3ba8f35330ca65"
+      },
+      {
+        "path": "tools/stk/cv3.py",
+        "bytes": 3218,
+        "sha256": "ad3445b2826cd2d9d5e8d1006a1344ea25b3af76aeb26e1273c6aa7106aeedf4"
+      },
+      {
+        "path": "tools/stk/stk_build.py",
+        "bytes": 4034,
+        "sha256": "90a6a3dae28232d3fb04597bc8bd92a75d9c006d51eb9ef4b30cbc46c8bad0fa"
+      }
+    ]
+  }
+]

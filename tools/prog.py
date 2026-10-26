@@ -383,10 +383,11 @@ def h_rate(it):
     ends = [ym_add(a["s"], len(a["r"]) - 1) for c, a in B["a"].items() if c != "TWDCASH" and a.get("ok", True) and (a.get("src") or {}).get("y")]
     new_last = min(ends) if ends else old_last
     if new_last < old_last: new_last = old_last
-    for c, a in B["a"].items():   # 超過的切掉、不夠的補 0（只會發生在少數沒抓到的），大家一樣長
+    for c, a in B["a"].items():   # 超過的切掉；缺月報酬則停止發布，保留網站原資料
         n = ym_idx(a["s"], new_last) + 1
         if c != "TWDCASH" and len(a["r"]) > n: del a["r"][n:]
-        if c != "TWDCASH" and len(a["r"]) < n: bad.append(c); est.append(a.get("n", c) + "（這個月沒抓到，先當 0%）"); a["r"] += [0] * (n - len(a["r"]))
+        if c != "TWDCASH" and len(a["r"]) < n:
+            raise RuntimeError("停止發布回測資料：%s 缺月報酬，不可補成 0%%" % c)
     # 台幣定存
     dep = tw_dep(); tc = B["a"]["TWDCASH"]; lastdep = None
     for k in sorted(dep):
@@ -406,8 +407,9 @@ def h_rate(it):
     # 匯率
     n = ym_idx(B["fxs"], new_last) + 1
     while len(B["fxr"]) < n:
-        k = ym_add(B["fxs"], len(B["fxr"])); B["fxr"].append(int(round(fx_ret.get(k, 0) * 100000)))
-        if k not in fx_ret: est.append("匯率")
+        k = ym_add(B["fxs"], len(B["fxr"]))
+        if k not in fx_ret: raise RuntimeError("停止發布回測資料：%s 缺匯率月報酬" % k)
+        B["fxr"].append(int(round(fx_ret[k] * 100000)))
     # 美國長期歷史：股票用 SPY、債券用 IEF、現金用 BIL、黃金用期貨、通膨用 CPIAUCSL
     L = B["L"]; n = ym_idx(L["s"], new_last) + 1
     spy, ief, bil, gld = month_tr("SPY")[0] or {}, month_tr("IEF")[0] or {}, month_tr("BIL")[0] or {}, month_tr("GC=F")[0] or {}
@@ -416,7 +418,9 @@ def h_rate(it):
     while len(L["stock"]) < n:
         k = ym_add(L["s"], len(L["stock"]))
         for key, m, sc in (("stock", spy, 1e4), ("bond", ief, 1e4), ("cash", bil, 1e5), ("gold", gld, 1e4)):
-            r = mret(m, k); L[key].append(int(round((r if r is not None else 0) * sc)))
+            r = mret(m, k)
+            if r is None: raise RuntimeError("停止發布回測資料：%s %s 缺月報酬" % (key, k))
+            L[key].append(int(round(r * sc)))
         c = mret(ucpi, k)
         if c is None: c = sum(L["cpi"][-12:]) / 12 / 1e5; est.append("美國 CPI（還沒公布）")
         L["cpi"].append(int(round(c * 1e5)))
@@ -424,10 +428,11 @@ def h_rate(it):
     if not B["mort"]: B.pop("mort"); est.append("房貸利率（沒有五大銀行利率檔）")
     B["last"] = new_last; B["v"] = today.isoformat()
     B["upd"] = {"at": datetime.datetime.now().isoformat(timespec="minutes"), "from": old_last, "est": sorted(set(est)), "bad": sorted(set(bad))}
-    js = json.dumps(B, ensure_ascii=False, separators=(",", ":"))
-    open(os.path.join(CACHE, "rate_latest.json"), "w", encoding="utf-8").write(js)
-    gh_put("rate/latest.json", js.encode("utf-8"), "資料自動更新：回測資料到 " + new_last)
     if len(set(bad)) > 3: raise RuntimeError("有 %d 檔沒接上：%s" % (len(set(bad)), ",".join(sorted(set(bad))[:8])))
+    js = json.dumps(B, ensure_ascii=False, separators=(",", ":"))
+    with open(os.path.join(CACHE, "rate_latest.json"), "w", encoding="utf-8") as f:
+        f.write(js)
+    gh_put("rate/latest.json", js.encode("utf-8"), "資料自動更新：回測資料到 " + new_last)
     return "資料到 " + new_last + ("（估計：" + "、".join(sorted(set(est))) + "）" if est else "")
 
 # ---------- 放上 GitHub（你的 app-install 網站）----------
@@ -792,13 +797,16 @@ def gov_meta(did):
     return {"id": did, "title": r.get("title"), "org": r.get("publisher") or r.get("organization"), "updated": r.get("modified") or r.get("updateFrequency"),
             "dist": [{"desc": d.get("resourceDescription"), "fmt": d.get("resourceFormat"), "url": d.get("resourceDownloadUrl"), "mod": d.get("resourceModified")} for d in (r.get("distribution") or [])]}
 def h_govmeta(it):
+    if not it.get("ids"): raise RuntimeError("沒有政府資料集 ID，保留原資料")
     out = {}
     for did in it.get("ids", []):
         try: out[str(did)] = gov_meta(did)
         except Exception as e: out[str(did)] = {"id": did, "err": str(e)[:120]}
         time.sleep(1)
-    gh_put("rawdata/gov/meta.json", json.dumps(out, ensure_ascii=False, indent=1).encode("utf-8"), "政府資料集說明")
     ok = len([1 for v in out.values() if not v.get("err")])
+    if not ok: raise RuntimeError("查了 %d 個資料集（0 個成功），保留原資料" % len(out))
+    if ok < len(out): raise RuntimeError("查了 %d 個資料集（%d 個成功），保留原資料並等待重試" % (len(out), ok))
+    gh_put("rawdata/gov/meta.json", json.dumps(out, ensure_ascii=False, indent=1).encode("utf-8"), "政府資料集說明")
     return "查了 %d 個資料集（%d 個成功）" % (len(out), ok)
 def gh_put_big(path, data, msg):   # GitHub 一個檔案最好不要超過 50MB：大的切成幾份
     lim = 45 * 1024 * 1024
