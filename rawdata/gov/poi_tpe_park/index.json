@@ -1,0 +1,14 @@
+{
+ "id": "https://parks.gov.taipei/parks/api/",
+ "title": "臺北市公園基本資料",
+ "at": "2026-10-26",
+ "files": {
+  "poi_tpe_park_00.json.gz": {
+   "desc": "臺北市公園基本資料",
+   "fmt": "JSON",
+   "url": "https://parks.gov.taipei/parks/api/",
+   "bytes": 413020,
+   "parts": 1
+  }
+ }
+}
