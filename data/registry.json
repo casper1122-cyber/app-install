@@ -602,7 +602,195 @@
     129516,
     121262
    ]
+  },
+  {
+   "id": "poi",
+   "name": "地點資料（殯葬、市場、加油站、焚化廠、寺廟、學校、公園、都更核定成果；地段細項用）",
+   "every": 0,
+   "how": "govdata",
+   "sets": [
+    {
+     "key": "poi_funeral_nbk",
+     "name": "殯葬設施（北北基，有經緯度）",
+     "url": "https://opdadm.moi.gov.tw/api/v1/no-auth/resource/api/dataset/CFF7163A-8C96-417E-B93D-156461404881/resource/8DEBC5BE-802B-43A9-B685-786136632084/download",
+     "fmt": "CSV",
+     "pick": ".",
+     "every": 180,
+     "max": 1
+    },
+    {
+     "key": "poi_funeral_all",
+     "name": "殯葬設施（全國，地址）",
+     "url": "https://opdadm.moi.gov.tw/api/v1/no-auth/resource/api/dataset/CFF7163A-8C96-417E-B93D-156461404881/resource/0B675274-AA5F-4163-8C9A-16604BC53A2E/download",
+     "fmt": "CSV",
+     "pick": ".",
+     "every": 180,
+     "max": 1
+    },
+    {
+     "key": "poi_tpe_funeral",
+     "name": "臺北市殯儀館、納骨塔（有經緯度）",
+     "url": "https://data.taipei/api/dataset/a4229edc-3a95-4a68-8b8f-32be5f07bc18/resource/3b895c5c-82c0-4a1d-b003-a49a137566cd/download",
+     "fmt": "CSV",
+     "pick": ".",
+     "every": 180,
+     "max": 1
+    },
+    {
+     "key": "poi_market_all",
+     "name": "全國零售市場基本資料",
+     "url": "https://www.cto.moea.gov.tw/OD/%E9%9B%B6%E5%94%AE%E5%B8%82%E5%A0%B4%E5%9F%BA%E6%9C%AC%E8%B3%87%E6%96%99.csv",
+     "fmt": "CSV",
+     "pick": ".",
+     "every": 180,
+     "max": 1
+    },
+    {
+     "key": "poi_tnn_market",
+     "name": "臺南市公有零售市場",
+     "url": "https://soa.tainan.gov.tw/Api/Service/Get/672b1e66-1460-48f0-9e5f-62b7a4fc9e44",
+     "fmt": "JSON",
+     "pick": ".",
+     "every": 180,
+     "max": 1
+    },
+    {
+     "key": "poi_tnn_market2",
+     "name": "臺南市民有市場",
+     "url": "https://soa.tainan.gov.tw/Api/Service/Get/02a73907-011a-4628-b860-06130cfbdf8e",
+     "fmt": "JSON",
+     "pick": ".",
+     "every": 180,
+     "max": 1
+    },
+    {
+     "key": "poi_cpc_gas",
+     "name": "中油加油站（有經緯度）",
+     "url": "https://vipmbr.cpc.com.tw/openData/getStationInfo",
+     "fmt": "JSON",
+     "pick": ".",
+     "every": 180,
+     "max": 1
+    },
+    {
+     "key": "poi_tpe_incin",
+     "name": "臺北市焚化廠",
+     "url": "https://data.taipei/api/dataset/5b0ee34e-83c8-4e76-b044-22bd3e7d23d7/resource/143d0f32-56e4-4d5f-b44c-cbd78a9f05fc/download",
+     "fmt": "CSV",
+     "pick": ".",
+     "every": 365,
+     "max": 1
+    },
+    {
+     "key": "poi_ntpc_incin",
+     "name": "新北市焚化廠",
+     "url": "https://data.ntpc.gov.tw/api/datasets/39e17852-9ac9-45b7-bc60-d8d0ed7e3161/csv/file",
+     "fmt": "CSV",
+     "pick": ".",
+     "every": 365,
+     "max": 1
+    },
+    {
+     "key": "poi_khh_incin",
+     "name": "高雄市焚化廠",
+     "url": "https://data.kcg.gov.tw/File/DirectDownload/747ad9ca-80a5-4edd-8466-16793e8dbc22",
+     "fmt": "CSV",
+     "pick": ".",
+     "every": 365,
+     "max": 1
+    },
+    {
+     "key": "poi_tyn_temple",
+     "name": "桃園市寺廟名冊",
+     "url": "https://opendata.tycg.gov.tw/api/dataset/6484b20f-8525-4437-ae81-d1e1601067d0/resource/a30f40d8-9982-458a-98c1-00f8a9e24f0f/download",
+     "fmt": "CSV",
+     "pick": ".",
+     "every": 180,
+     "max": 1
+    },
+    {
+     "key": "poi_ntpc_temple",
+     "name": "新北市寺廟資料",
+     "url": "https://data.ntpc.gov.tw/api/datasets/f0e1879f-3c5b-429f-a12b-9540acac26e8/csv/file",
+     "fmt": "CSV",
+     "pick": ".",
+     "every": 180,
+     "max": 1
+    },
+    {
+     "key": "poi_tpe_school",
+     "name": "臺北市各級學校",
+     "url": "https://data.taipei/api/dataset/58b4f7b9-d0c5-4de8-aa7f-981fcb625e45/resource/28c5792b-3af6-4bff-8ad8-f5b5e53d4062/download",
+     "fmt": "CSV",
+     "pick": ".",
+     "every": 365,
+     "max": 1
+    },
+    {
+     "key": "poi_tpe_park_gate",
+     "name": "臺北市公園出入口",
+     "url": "https://data.taipei/api/dataset/5a7258c2-5ded-4149-8664-ae10903fe372/resource/70defec1-fd51-471b-89fa-5c7636150e6a/download",
+     "fmt": "CSV",
+     "pick": ".",
+     "every": 365,
+     "max": 1
+    },
+    {
+     "key": "poi_tnn_park",
+     "name": "臺南市公園設施",
+     "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/a7e21d6b-7942-4c26-9b31-9e7cd8c41971",
+     "fmt": "CSV",
+     "pick": ".",
+     "every": 365,
+     "max": 1
+    },
+    {
+     "key": "renew_ntpc",
+     "name": "新北市都更核定成果（逐案、有核定日期）",
+     "url": "https://data.ntpc.gov.tw/api/datasets/60ecc055-2252-4370-bba4-ec64e37c05d5/csv/file",
+     "fmt": "CSV",
+     "pick": ".",
+     "every": 30,
+     "max": 1
+    },
+    {
+     "key": "renew_khh",
+     "name": "高雄市都市更新成果",
+     "url": "https://data.kcg.gov.tw/File/DirectDownload/01350804-5d2f-47a9-94bb-e4765d75da34",
+     "fmt": "CSV",
+     "pick": ".",
+     "every": 90,
+     "max": 1
+    },
+    {
+     "key": "poi_tpe_park",
+     "name": "臺北市公園基本資料",
+     "url": "https://parks.gov.taipei/parks/api/",
+     "fmt": "JSON",
+     "pick": ".",
+     "every": 365,
+     "max": 1
+    },
+    {
+     "key": "poi_temple_all",
+     "name": "全國寺廟（內政部全國宗教資訊系統）",
+     "url": "https://religion.moi.gov.tw/Report/temple.xml",
+     "fmt": "XML",
+     "pick": ".",
+     "every": 180,
+     "max": 1
+    },
+    {
+     "key": "poi_school_e",
+     "name": "全國國民小學名錄（最新學年）",
+     "id": 6087,
+     "pick": "csv",
+     "every": 365,
+     "max": 1,
+     "last": true
+    }
+   ]
   }
  ],
- "v": "2026-10-26b"
+ "v": "2026-10-26c"
 }
