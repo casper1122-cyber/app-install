@@ -1,0 +1,31 @@
+{
+  "model_id": "tw-stock-magnitude-trailing12-shrink50",
+  "date": "2026-10-26",
+  "status": "RESEARCH_ONLY_BLOCKED_FOR_GRADING",
+  "production_deployment_allowed": false,
+  "target": "next month absolute return magnitude",
+  "data_source": "user supplied 54h stock returns backup, not exchange verified",
+  "evidence": {
+    "train_selection": "2021-2024",
+    "holdout": "2025",
+    "retrospective_extension": "2026-01..09",
+    "extension_mae_baseline_pct_points": 7.88419,
+    "extension_mae_model_pct_points": 7.22007,
+    "extension_auc_down10": 0.70738,
+    "extension_auc_negative_sign": 0.4958
+  },
+  "blocked_for": [
+    "AAA-CCC",
+    "10-year major loss risk",
+    "calibrated probability of crash",
+    "signed direction",
+    "allocation advice"
+  ],
+  "reasons": [
+    "survivor universe not validated",
+    "price adjustments not verified",
+    "risk target differs from 10-year grading",
+    "no tail-correlation calibration",
+    "not a prospective live track record"
+  ]
+}
