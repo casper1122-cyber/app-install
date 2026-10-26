@@ -1,0 +1,14 @@
+{
+ "id": "https://data.taipei/api/dataset/5a7258c2-5ded-4149-8664-ae10903fe372/resource/70defec1-fd51-471b-89fa-5c7636150e6a/download",
+ "title": "臺北市公園出入口",
+ "at": "2026-10-26",
+ "files": {
+  "poi_tpe_park_gate_00.csv.gz": {
+   "desc": "臺北市公園出入口",
+   "fmt": "CSV",
+   "url": "https://data.taipei/api/dataset/5a7258c2-5ded-4149-8664-ae10903fe372/resource/70defec1-fd51-471b-89fa-5c7636150e6a/download",
+   "bytes": 13284,
+   "parts": 1
+  }
+ }
+}
