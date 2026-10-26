@@ -1,0 +1,14 @@
+{
+ "id": "https://opdadm.moi.gov.tw/api/v1/no-auth/resource/api/dataset/CFF7163A-8C96-417E-B93D-156461404881/resource/0B675274-AA5F-4163-8C9A-16604BC53A2E/download",
+ "title": "殯葬設施（全國，地址）",
+ "at": "2026-10-26",
+ "files": {
+  "poi_funeral_all_00.csv.gz": {
+   "desc": "殯葬設施（全國，地址）",
+   "fmt": "CSV",
+   "url": "https://opdadm.moi.gov.tw/api/v1/no-auth/resource/api/dataset/CFF7163A-8C96-417E-B93D-156461404881/resource/0B675274-AA5F-4163-8C9A-16604BC53A2E/download",
+   "bytes": 74981,
+   "parts": 1
+  }
+ }
+}
