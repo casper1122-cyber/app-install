@@ -1,0 +1,1 @@
+{"name":"app-install-gas-regressions","private":true,"scripts":{"test":"node regression.cjs"},"devDependencies":{"acorn":"8.15.0"}}

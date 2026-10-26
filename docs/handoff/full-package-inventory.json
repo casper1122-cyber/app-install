@@ -1,0 +1,332 @@
+{
+  "date": "2026-10-26",
+  "file_count": 65,
+  "total_bytes": 17563275,
+  "files": [
+    {
+      "path": "App (1).html",
+      "bytes": 1425483,
+      "sha256": "8ec15cd54e4a00c2a84cccab60a356cd1fe1672b4fe33bb511e3c42669660438"
+    },
+    {
+      "path": "App (2).html",
+      "bytes": 1420046,
+      "sha256": "fe2729943ec1a3b99aec292cd83a12301414d4f6d45da333a582ee5a03b9ef70"
+    },
+    {
+      "path": "App (3).html",
+      "bytes": 1440725,
+      "sha256": "3d6453555bdb7d02fbdb76c99b3ff9e68af677be4ac485ab253c73739e59df5f"
+    },
+    {
+      "path": "App.html",
+      "bytes": 1433654,
+      "sha256": "35914f99b2986c850d9e08490142432688e8da9ea8b856968a578bce4718dd28"
+    },
+    {
+      "path": "App_證據把關_測試候選版.html",
+      "bytes": 1435553,
+      "sha256": "d0dbb34d715c774c71f31fc53c1bafcef80e4a780a46926293877635e227824b"
+    },
+    {
+      "path": "Codex_app-install_完整交接_2026-10-26.md",
+      "bytes": 9929,
+      "sha256": "de100932fa2c8283e56d6144497647f3aeef92e2d13ce0164282aa9314e2e6f6"
+    },
+    {
+      "path": "app_candidate_extracted.js",
+      "bytes": 1395621,
+      "sha256": "69a860ab63153c3afd7d386b782613aa4ce3520f233d4a08c8d2d631be8d9274"
+    },
+    {
+      "path": "app_research/card_backtest.py",
+      "bytes": 2553,
+      "sha256": "c60a5eb4709fa8a8d737a83854d741a6039a5427bef7b1cc46ac2ec6f3f7cb53"
+    },
+    {
+      "path": "appbridge.js",
+      "bytes": 1369,
+      "sha256": "9d4edd9bcc1f9dd9c61acb4e8a4635c732e5da4421564a90948cf63a1ca16be6"
+    },
+    {
+      "path": "asset-quality-patch/quality-gate.js",
+      "bytes": 2214,
+      "sha256": "15e12cc4121ad9c9c8a2160c499fe363debe87991ab4104e3cc76e04e06cc21a"
+    },
+    {
+      "path": "asset-quality-patch/quality-gate.test.js",
+      "bytes": 1107,
+      "sha256": "0d454b29c26e092010e8e3a103d75632ac363657a26ad7d96b977987ca682d26"
+    },
+    {
+      "path": "bg.js",
+      "bytes": 9291,
+      "sha256": "9e0b40a3706f44a5c54358977e54b8fa6879e05941c7e8999a65572150f5d46f"
+    },
+    {
+      "path": "bridge130.js",
+      "bytes": 1641,
+      "sha256": "a5c10f948d6d71c9327cd5dac8dc7871d524b8c7dd49a3dec538ce9150fe8f29"
+    },
+    {
+      "path": "card_helper_v2_8/appbridge.js",
+      "bytes": 1369,
+      "sha256": "7563668ad2009d0a74371f84afd11600bb626ed375385d06d04c1fdac46cca05"
+    },
+    {
+      "path": "card_helper_v2_8/bg.js",
+      "bytes": 10650,
+      "sha256": "7c955c2149b18c861fa8d651bab7d783fb3555f36de40f562f0e605e3c2bf723"
+    },
+    {
+      "path": "card_helper_v2_8/bridge130.js",
+      "bytes": 1641,
+      "sha256": "a5c10f948d6d71c9327cd5dac8dc7871d524b8c7dd49a3dec538ce9150fe8f29"
+    },
+    {
+      "path": "card_helper_v2_8/content.js",
+      "bytes": 6065,
+      "sha256": "d5f89aefa19f8f8601288cbacdc0efd507bf5749e786adefdef2929b35834242"
+    },
+    {
+      "path": "card_helper_v2_8/manifest.json",
+      "bytes": 1371,
+      "sha256": "fa90f8b7ce3a1ca4275b25feb2133e3be422326b1a789f4d6d62da978a5426a1"
+    },
+    {
+      "path": "card_helper_v2_8/popup.html",
+      "bytes": 2024,
+      "sha256": "456385c2beebb73ce8c50167e050d8e6244286fb961cdba5e83669bd42c692df"
+    },
+    {
+      "path": "card_helper_v2_8/popup.js",
+      "bytes": 2066,
+      "sha256": "cd19c0be5b907c337d14618efe556c51fce67bf0e1951abb0a6387818894e754"
+    },
+    {
+      "path": "card_helper_v2_8/使用說明.txt",
+      "bytes": 665,
+      "sha256": "ff8835456500227011db95e62bb2afaf4df5f00c591afee97fb14a58424d119a"
+    },
+    {
+      "path": "content.js",
+      "bytes": 6065,
+      "sha256": "3cb5efac4adf3343d8d690d204188a2305969b800d4e88c94f88ae0b4d1ad147"
+    },
+    {
+      "path": "image(10).png",
+      "bytes": 51697,
+      "sha256": "b5a525b1d4e6423ff340f5a40963cd93787b063f50599fda6f293569422848a7"
+    },
+    {
+      "path": "image(20261026-093112).png",
+      "bytes": 9015,
+      "sha256": "0d1c01fe1ad4105047ccf7e30939a2d1722d841298181b4488a8b2a7d45694ec"
+    },
+    {
+      "path": "image(3).png",
+      "bytes": 379318,
+      "sha256": "5035494badc077fa57eb3473d07a4bd485eb042e7968578b06f8ee6bdd7c3553"
+    },
+    {
+      "path": "image(4).png",
+      "bytes": 348754,
+      "sha256": "91ddcdd703709e461a24fe5bbd9c6c200c5eb2f3c19b91d09f9a293c4830fe61"
+    },
+    {
+      "path": "image(5).png",
+      "bytes": 358107,
+      "sha256": "a58ec6c56d587bc9364911518e7f8b72bad5e26b7ac564d9ec2d6bbae0b3964d"
+    },
+    {
+      "path": "image(6).png",
+      "bytes": 397039,
+      "sha256": "8da69277ef6a607e60856f1d5f8f7f6527f553592179e7aa3b0387ab02950339"
+    },
+    {
+      "path": "image(7).png",
+      "bytes": 266727,
+      "sha256": "2db3504021162f8bc6d664762e3fc81d3bdea14c6d30cfa64da7cb2989aba388"
+    },
+    {
+      "path": "image(8).png",
+      "bytes": 60831,
+      "sha256": "e78e601828677d197eb1e0437d5a71fcf4695ba01903f39c3e74a6100f4b092a"
+    },
+    {
+      "path": "image(9).png",
+      "bytes": 67773,
+      "sha256": "81338eea86d8de9d4d0cb355d51166d1fb64aae651f35028dfa250fa8efb601b"
+    },
+    {
+      "path": "image.png",
+      "bytes": 100990,
+      "sha256": "fc93bfdc4c400fdc7de280c42f55f09ebbcf7707722af148027ea93050e52e44"
+    },
+    {
+      "path": "manifest.json",
+      "bytes": 1137,
+      "sha256": "d54671429942252e1929199c67ca8dedb663d6c789c1f127c3e9f82016afcf04"
+    },
+    {
+      "path": "patch_asset_evidence.py",
+      "bytes": 5650,
+      "sha256": "525cd577957ebed2b747249e890aea388b6ad4a682a4bcc54f141a21cb3fc99d"
+    },
+    {
+      "path": "test_card_regression.js",
+      "bytes": 940,
+      "sha256": "0b4ca22282f525e5c5cceaf6c0ef89470afb39e51e7e8064221f639ae3abf059"
+    },
+    {
+      "path": "test_evidence_candidate.js",
+      "bytes": 1105,
+      "sha256": "6bbdfb9614a7110eb8c2b9574645ae621c4e35d8270eef77271fd8f935294de5"
+    },
+    {
+      "path": "test_script_0.js",
+      "bytes": 93,
+      "sha256": "5182ac9f918cd45e9ec31e609eb50ce7b67e4b81195f4c3873e512cc94f35cba"
+    },
+    {
+      "path": "test_script_1.js",
+      "bytes": 1221,
+      "sha256": "1bad421ba76974d5e96e69bc7de1239f5dee84fccd319ce1451958f8b7aa76d0"
+    },
+    {
+      "path": "test_script_2.js",
+      "bytes": 84943,
+      "sha256": "7103fee68ccd0af51784f3bda5ffefd49330a94e46cb3854c33d4490a7583265"
+    },
+    {
+      "path": "test_script_3.js",
+      "bytes": 14,
+      "sha256": "30bba5b05309d61c40e34d477b5d54a2ff5cd7ad315b892b6e7e1f5eeb2f32e9"
+    },
+    {
+      "path": "test_script_4.js",
+      "bytes": 1309292,
+      "sha256": "994faae95737a9717eaada54227803ec8c85f31b4ff1539f1c0f17a2e06b1fed"
+    },
+    {
+      "path": "核心 (1).gs",
+      "bytes": 892391,
+      "sha256": "a3c702ab9df32e68a9735f5b6f0b13569eb8760f0cd3ec902ef926e7de607983"
+    },
+    {
+      "path": "核心 (2).gs",
+      "bytes": 887303,
+      "sha256": "e11e9a0b8aac61de235015cc77fa354c796d61474e3244d34ae5d3502d4cbb2d"
+    },
+    {
+      "path": "核心.gs",
+      "bytes": 887579,
+      "sha256": "ce240144a8f4d88a63d217198ef7c9ab7cdb9e117bf6490bb712ad95281b5541"
+    },
+    {
+      "path": "球員卡小幫手_v2.8_測試候選版.zip",
+      "bytes": 12933,
+      "sha256": "d12d7b684e355424afd0dcb828af266d9991728a41a72292f0448746bcea8b25"
+    },
+    {
+      "path": "網站_54c.zip",
+      "bytes": 924642,
+      "sha256": "20b9f7075f19d84bcc912df95d3b851e68085aa86f76ce93e07ddc9916ed0961"
+    },
+    {
+      "path": "網站_54h.zip",
+      "bytes": 922207,
+      "sha256": "03f8798d88c08f5ac63499980b7114f39d1d960e8c9e01b79c606929d1320aa6"
+    },
+    {
+      "path": "網站_54m.zip",
+      "bytes": 6187,
+      "sha256": "3eff9ceb434dee70cf9553568bde9192d79211e74dcfde3555a79d8d54a99900"
+    },
+    {
+      "path": "網站_54n.zip",
+      "bytes": 6891,
+      "sha256": "64fa000c074615b73751e74e607be785bb269117a062071c784b4e6d4b5ce609"
+    },
+    {
+      "path": "網站_南高.zip",
+      "bytes": 237779,
+      "sha256": "a7cc88a8475dd1f465d8aab51f959f046d0c53407c3adb75edd009f32a2b5742"
+    },
+    {
+      "path": "網站_探路2.zip",
+      "bytes": 2137,
+      "sha256": "10c03d3d640f49d3d93da24fbaf6755a96c8237b0f174990fe1f93252fc7021f"
+    },
+    {
+      "path": "網站_查地點資料.zip",
+      "bytes": 3620,
+      "sha256": "4881faec584a5c9ad8344b183ed9ebbd1997b3ca18aa964e1eb2d96ab6e5bc3d"
+    },
+    {
+      "path": "網站_桃園.zip",
+      "bytes": 3238,
+      "sha256": "71090efcac722e8996035341c00dc5d2e70c812cea5960ea537a1c9f4a73974e"
+    },
+    {
+      "path": "網站_程式j.zip",
+      "bytes": 21246,
+      "sha256": "d71575540e86a85b1f47af49c1b165a8dc92ea7c8348e0839182acc228748ad3"
+    },
+    {
+      "path": "網站_程式l.zip",
+      "bytes": 23627,
+      "sha256": "27665aa015719f7d13d7a22482f26be1cbdb37f8ba8e19f222c5031d2d80cde5"
+    },
+    {
+      "path": "網站_門牌清單.zip",
+      "bytes": 2197,
+      "sha256": "040e030f015882b498d22b91212cbaa1fcce852fa6a239e8ea9b0c35ac04f061"
+    },
+    {
+      "path": "網站_門牌清單2.zip",
+      "bytes": 2265,
+      "sha256": "63b82a261e97524a63f80f3527e62d9d1570d3a743dd0899a956d0b50f4ff962"
+    },
+    {
+      "path": "資產配置App_交接待辦_2026-10-26.md",
+      "bytes": 3935,
+      "sha256": "205d0e5adc91455145f55d48be7fd6e989b5d610acd17baa7a7bad3ca2f242b5"
+    },
+    {
+      "path": "資產配置App_交接總表_V2_2026-10-26.md",
+      "bytes": 9093,
+      "sha256": "a6069a16c8c2fdd43298cfe1c4142fb850fe281d9756b7a9ff24495ceca4d9c8"
+    },
+    {
+      "path": "資產配置App_待辦總表_依提醒事項截圖_2026-10-26.md",
+      "bytes": 4548,
+      "sha256": "05a29f09b1c9a975710825e089734c933faf55ae8c2016cfc73189ac7c7d30b3"
+    },
+    {
+      "path": "資產配置App_測試修正候選包_20261026.zip",
+      "bytes": 464936,
+      "sha256": "340dc6e3519488ee05c6160f44a9d0aef6b82f406966d81bf0b92980d350a74c"
+    },
+    {
+      "path": "資產配置App_第一輪實證盤點_20261026.md",
+      "bytes": 4092,
+      "sha256": "2d7c660e786fe996183b5a46f2101b5156f33f6a833c196279e1e0782ba7b236"
+    },
+    {
+      "path": "資產配置資料更新(1).py",
+      "bytes": 68535,
+      "sha256": "32f49480301cd864c5d5c1b53a5f14697f7bfa5610ce91b4f51b042d8ab8207c"
+    },
+    {
+      "path": "資產配置資料更新.py",
+      "bytes": 58051,
+      "sha256": "5d9beb090024eb5ba284c3e556e30ef44ba40478614d16ebaa8c04c5a558af8b"
+    },
+    {
+      "path": "資產配置資料更新.py.舊版",
+      "bytes": 58095,
+      "sha256": "5502952d6c44629f1aa0bbea36cc64bd6100e40421a2cb2d6853958ed8784e5d"
+    }
+  ]
+}
