@@ -1,0 +1,14 @@
+{
+ "id": "https://opendata.tycg.gov.tw/api/dataset/ec47dbd5-9ed8-4c8d-8ce1-ccb63b1b72e6/resource/ef5d93eb-2b55-4eeb-9f98-1eccaa9c428d/download",
+ "title": "桃園市門牌位置坐標資料（桃園市開放資料平臺）",
+ "at": "2026-10-26",
+ "files": {
+  "door_tyn_00.csv.gz": {
+   "desc": "桃園市門牌位置坐標資料（桃園市開放資料平臺）",
+   "fmt": "CSV",
+   "url": "https://opendata.tycg.gov.tw/api/dataset/ec47dbd5-9ed8-4c8d-8ce1-ccb63b1b72e6/resource/ef5d93eb-2b55-4eeb-9f98-1eccaa9c428d/download",
+   "bytes": 8724483,
+   "parts": 1
+  }
+ }
+}
