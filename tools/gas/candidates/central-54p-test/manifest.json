@@ -1,0 +1,16 @@
+{
+  "version": "2026.10.54p",
+  "base": "2026.10.54o test candidate",
+  "status": "TEST ONLY - NOT DEPLOYED",
+  "changes": "Display existing per-asset results with explicit coverage; no new aggregate model",
+  "offline_checks": {
+    "app_regression": 22,
+    "coverage_ui": 10
+  },
+  "files": {
+    "App.html": "85d04884025bba7bee1264f7d53c8a9a93fab8425585a36ac71f230af5d2bdfe",
+    "核心.gs": "6068e86233c120cc1cfc6e24e8fcc95dbda2f985f9da95631677bc051dbe03d5"
+  },
+  "browser_screenshot": "not completed: headless Chromium timed out",
+  "live_GAS_test": "not performed"
+}
