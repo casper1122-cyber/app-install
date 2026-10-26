@@ -1,109 +1,23 @@
 {
- "166357": {
-  "id": 166357,
-  "title": "寺廟名冊",
+ "8210": {
+  "id": 8210,
+  "title": "全國宗教資訊系統資料-歷年宗教團體表揚名冊",
   "org": null,
   "updated": {
    "regularupdate": "2"
   },
   "dist": [
    {
-    "desc": "寺廟名冊",
-    "fmt": "JSON",
-    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/e5a922ab-f0c2-4767-a882-be74771adfb0",
-    "mod": null
-   },
-   {
-    "desc": "寺廟名冊",
-    "fmt": "CSV",
-    "url": "https://data.kcg.gov.tw/File/DirectDownload/e5a922ab-f0c2-4767-a882-be74771adfb0",
-    "mod": null
-   }
-  ]
- },
- "67532": {
-  "id": 67532,
-  "title": "新竹市寺廟名冊",
-  "org": null,
-  "updated": {
-   "regularupdate": "1",
-   "Frequency": "1",
-   "unittime": "年"
-  },
-  "dist": [
-   {
-    "desc": "新竹市登記有案寺廟名冊",
-    "fmt": "XLSX",
-    "url": "https://odws.hccg.gov.tw/001/Upload/25/opendataback/9059/95/92486a24-e070-4a56-a7f2-3e00a2d6b269.xlsx",
-    "mod": null
-   },
-   {
-    "desc": "新竹市登記有案寺廟名冊",
-    "fmt": "CSV",
-    "url": "https://odws.hccg.gov.tw/001/Upload/25/opendataback/9059/95/92486a24-e070-4a56-a7f2-3e00a2d6b269.csv",
-    "mod": null
-   },
-   {
-    "desc": "新竹市登記有案寺廟名冊",
+    "desc": "全國宗教資訊系統資料-歷年宗教團體表揚名冊",
     "fmt": "XML",
-    "url": "https://odws.hccg.gov.tw/001/Upload/25/opendataback/9059/95/92486a24-e070-4a56-a7f2-3e00a2d6b269.xml",
-    "mod": null
-   },
-   {
-    "desc": "新竹市登記有案寺廟名冊",
-    "fmt": "JSON",
-    "url": "https://odws.hccg.gov.tw/001/Upload/25/opendataback/9059/95/92486a24-e070-4a56-a7f2-3e00a2d6b269.json",
+    "url": "https://religion.moi.gov.tw/Report/EventClass.xml",
     "mod": null
    }
   ]
  },
- "26493": {
-  "id": 26493,
-  "title": "桃園市寺廟名冊",
-  "org": null,
-  "updated": {
-   "regularupdate": "2"
-  },
-  "dist": [
-   {
-    "desc": "桃園市寺廟名冊",
-    "fmt": "CSV",
-    "url": "https://opendata.tycg.gov.tw/api/dataset/6484b20f-8525-4437-ae81-d1e1601067d0/resource/a30f40d8-9982-458a-98c1-00f8a9e24f0f/download",
-    "mod": null
-   }
-  ]
- },
- "7052": {
-  "id": 7052,
-  "title": "殯葬設施",
-  "org": null,
-  "updated": {
-   "regularupdate": "2"
-  },
-  "dist": [
-   {
-    "desc": "各縣市殯葬設施",
-    "fmt": "CSV",
-    "url": "https://opdadm.moi.gov.tw/api/v1/no-auth/resource/api/dataset/CFF7163A-8C96-417E-B93D-156461404881/resource/0B675274-AA5F-4163-8C9A-16604BC53A2E/download",
-    "mod": null
-   },
-   {
-    "desc": "殯葬設施",
-    "fmt": "CSV",
-    "url": "https://opdadm.moi.gov.tw/api/v1/no-auth/resource/api/dataset/CFF7163A-8C96-417E-B93D-156461404881/resource/8BE38334-0AC0-479C-B591-251F78127A8E/download",
-    "mod": null
-   },
-   {
-    "desc": "北北基殯葬設施",
-    "fmt": "CSV",
-    "url": "https://opdadm.moi.gov.tw/api/v1/no-auth/resource/api/dataset/CFF7163A-8C96-417E-B93D-156461404881/resource/8DEBC5BE-802B-43A9-B685-786136632084/download",
-    "mod": null
-   }
-  ]
- },
- "121247": {
-  "id": 121247,
-  "title": "臺北市市立殯儀館及公立納骨塔(含坐標資訊)",
+ "28007": {
+  "id": 28007,
+  "title": "登記有案宗教團體統計報表",
   "org": null,
   "updated": {
    "regularupdate": "1",
@@ -112,30 +26,16 @@
   },
   "dist": [
    {
-    "desc": "臺北市市立殯儀館及公立納骨塔(含坐標資訊)",
+    "desc": "宗教團體統計報表",
     "fmt": "CSV",
-    "url": "https://data.taipei/api/dataset/a4229edc-3a95-4a68-8b8f-32be5f07bc18/resource/3b895c5c-82c0-4a1d-b003-a49a137566cd/download",
+    "url": "https://email.chcg.gov.tw/df/ykafi4b6inyius57y8nxmgrew4kjkn",
     "mod": null
    }
   ]
  },
- "116502": {
-  "id": 116502,
-  "title": null,
-  "org": null,
-  "updated": null,
-  "dist": []
- },
- "117827": {
-  "id": 117827,
-  "title": null,
-  "org": null,
-  "updated": null,
-  "dist": []
- },
- "121189": {
-  "id": 121189,
-  "title": "臺北市公立骨灰（骸）存放設施位址",
+ "28003": {
+  "id": 28003,
+  "title": "登記有案宗教團體相關資料",
   "org": null,
   "updated": {
    "regularupdate": "1",
@@ -144,375 +44,625 @@
   },
   "dist": [
    {
-    "desc": "公立骨灰（骸）存放設施位址",
+    "desc": "登記有案宗教團體相關資訊",
     "fmt": "CSV",
-    "url": "https://data.taipei/api/dataset/0f17a006-272c-413c-93f1-90cb77eb98e3/resource/d6e73f2e-1c15-472b-b067-0432f19d8a31/download",
+    "url": "https://email.chcg.gov.tw/df/7nojny9hjjozy191o2x71epl9h63qp",
     "mod": null
    }
   ]
  },
- "29954": {
-  "id": 29954,
-  "title": "台灣電力公司第七輸變電計畫歷年加入系統新增變電所數量",
-  "org": null,
-  "updated": {
-   "regularupdate": "1",
-   "Frequency": "1",
-   "unittime": "年"
-  },
-  "dist": [
-   {
-    "desc": "",
-    "fmt": "JSON",
-    "url": "https://service.taipower.com.tw/data/opendata/apply/file/d653001/001.json",
-    "mod": null
-   }
-  ]
- },
- "16874": {
-  "id": 16874,
-  "title": "台灣電力公司超高壓及一次變電所主變壓器裝置容量及負載",
-  "org": null,
-  "updated": {
-   "regularupdate": "1",
-   "Frequency": "1",
-   "unittime": "年"
-  },
-  "dist": [
-   {
-    "desc": "",
-    "fmt": "CSV",
-    "url": "https://service.taipower.com.tw/data/opendata/apply/file/d005001/001.csv",
-    "mod": null
-   }
-  ]
- },
- "16877": {
-  "id": 16877,
-  "title": "台灣電力公司變電所電磁場資訊",
-  "org": null,
-  "updated": {
-   "regularupdate": "1",
-   "Frequency": "1",
-   "unittime": "年"
-  },
-  "dist": [
-   {
-    "desc": "",
-    "fmt": "ZIP",
-    "url": "https://service.taipower.com.tw/data/opendata/apply/file/d005002/001.zip",
-    "mod": null
-   }
-  ]
- },
- "16960": {
-  "id": 16960,
-  "title": "台灣電力公司二次變電所主變壓器裝置容量及負載",
-  "org": null,
-  "updated": {
-   "regularupdate": "1",
-   "Frequency": "1",
-   "unittime": "年"
-  },
-  "dist": [
-   {
-    "desc": "",
-    "fmt": "CSV",
-    "url": "https://service.taipower.com.tw/data/opendata/apply/file/d077002/001.csv",
-    "mod": null
-   }
-  ]
- },
- "165894": {
-  "id": 165894,
-  "title": "台灣電力公司出租作電動機車電池交換站使用之租賃據點 ",
-  "org": null,
-  "updated": {
-   "regularupdate": "1",
-   "Frequency": "1",
-   "unittime": "年"
-  },
-  "dist": [
-   {
-    "desc": "",
-    "fmt": "CSV",
-    "url": "https://service.taipower.com.tw/data/opendata/apply/file/d010004/001.csv",
-    "mod": null
-   }
-  ]
- },
- "166619": {
-  "id": 166619,
-  "title": "台灣電力公司輸變電計畫資訊",
+ "8203": {
+  "id": 8203,
+  "title": "全國宗教資訊系統資料-寺廟",
   "org": null,
   "updated": {
    "regularupdate": "2"
   },
   "dist": [
    {
-    "desc": "",
-    "fmt": "CSV",
-    "url": "https://service.taipower.com.tw/data/opendata/apply/file/d023004/001.csv",
-    "mod": null
-   }
-  ]
- },
- "152266": {
-  "id": 152266,
-  "title": "臺北市公園無障礙出入口點位",
-  "org": null,
-  "updated": {
-   "regularupdate": "2"
-  },
-  "dist": [
-   {
-    "desc": "ID、行政區、公園名稱、無障礙出入口名稱、TW97座標X、TW97座標Y、人行道寬度、坡度",
-    "fmt": "CSV",
-    "url": "https://data.taipei/api/dataset/5a7258c2-5ded-4149-8664-ae10903fe372/resource/70defec1-fd51-471b-89fa-5c7636150e6a/download",
-    "mod": null
-   }
-  ]
- },
- "121649": {
-  "id": 121649,
-  "title": "臺北市河濱公園涼亭",
-  "org": null,
-  "updated": {
-   "regularupdate": "2"
-  },
-  "dist": [
-   {
-    "desc": "臺北市河濱公園涼亭CSV",
-    "fmt": "CSV",
-    "url": "https://data.taipei/api/dataset/5cb3555b-8fd0-47a9-9311-fb596b3f531e/resource/9c157591-235f-4868-985f-904fab9260bf/download",
-    "mod": null
-   }
-  ]
- },
- "143902": {
-  "id": 143902,
-  "title": "臺北市河濱公園",
-  "org": null,
-  "updated": {
-   "regularupdate": "1",
-   "Frequency": "1",
-   "unittime": "年"
-  },
-  "dist": [
-   {
-    "desc": "臺北市河濱公園csv檔",
-    "fmt": "CSV",
-    "url": "https://data.taipei/api/dataset/e194055c-d482-4a1e-81fb-0f4ffb2669ad/resource/95b5edc0-e98a-406c-90b1-82f08c9f6a93/download",
-    "mod": null
-   }
-  ]
- },
- "121130": {
-  "id": 121130,
-  "title": null,
-  "org": null,
-  "updated": null,
-  "dist": []
- },
- "125338": {
-  "id": 125338,
-  "title": null,
-  "org": null,
-  "updated": null,
-  "dist": []
- },
- "122018": {
-  "id": 122018,
-  "title": "臺北市河濱公園遊戲區",
-  "org": null,
-  "updated": {
-   "regularupdate": "2"
-  },
-  "dist": [
-   {
-    "desc": "河濱公園遊戲區.CSV",
-    "fmt": "CSV",
-    "url": "https://data.taipei/api/dataset/8f532959-6499-464e-9632-c01cd987c78a/resource/72f51d13-3aab-4e7f-b6ab-c647ad533883/download",
-    "mod": null
-   }
-  ]
- },
- "117768": {
-  "id": 117768,
-  "title": null,
-  "org": null,
-  "updated": null,
-  "dist": []
- },
- "133864": {
-  "id": 133864,
-  "title": "嘉義縣公有零售市場名冊",
-  "org": null,
-  "updated": {
-   "regularupdate": "2"
-  },
-  "dist": [
-   {
-    "desc": "嘉義縣公有零售市場名冊資訊",
-    "fmt": "CSV",
-    "url": "https://ws-tm.cyhg.gov.tw/001/Upload/1351/relfile/12567/146746/5b3e9a37-51da-4214-abee-701f3e5a348c.csv",
-    "mod": null
-   }
-  ]
- },
- "121921": {
-  "id": 121921,
-  "title": "臺北市公有零售市場休市日程表",
-  "org": null,
-  "updated": {
-   "regularupdate": "1",
-   "Frequency": "1",
-   "unittime": "年"
-  },
-  "dist": [
-   {
-    "desc": "111年臺北市公有零售市場休市日",
-    "fmt": "CSV",
-    "url": "https://data.taipei/api/dataset/87de959d-d7c7-4398-8e64-7defda0d2d86/resource/b7ba4cb6-b3bc-47b8-a0b6-6a9c1f18bc9d/download",
-    "mod": null
-   },
-   {
-    "desc": "112年臺北市公有零售市場休市日",
-    "fmt": "CSV",
-    "url": "https://data.taipei/api/dataset/87de959d-d7c7-4398-8e64-7defda0d2d86/resource/4675ae0d-e7a7-4f6f-96c7-7e4191c7ce4e/download",
-    "mod": null
-   },
-   {
-    "desc": "113年臺北市公有零售市場休市日",
-    "fmt": "CSV",
-    "url": "https://data.taipei/api/dataset/87de959d-d7c7-4398-8e64-7defda0d2d86/resource/6b0a6a80-f027-4e5e-89a6-1545a2502625/download",
-    "mod": null
-   },
-   {
-    "desc": "114年臺北市公有零售市場休市日",
-    "fmt": "CSV",
-    "url": "https://data.taipei/api/dataset/87de959d-d7c7-4398-8e64-7defda0d2d86/resource/9b2b37f8-cdfa-4dd8-99bc-22470c8156c5/download",
-    "mod": null
-   },
-   {
-    "desc": "115年臺北市公有零售市場休市日",
-    "fmt": "CSV",
-    "url": "https://data.taipei/api/dataset/87de959d-d7c7-4398-8e64-7defda0d2d86/resource/eee6baf0-a4a7-4dbe-9f0b-c76beae327b3/download",
-    "mod": null
-   }
-  ]
- },
- "84539": {
-  "id": 84539,
-  "title": "臺中市政府公有零售市場每日蔬果價格表",
-  "org": null,
-  "updated": {
-   "regularupdate": "1",
-   "Frequency": "1",
-   "unittime": "日"
-  },
-  "dist": [
-   {
-    "desc": "臺中市政府公有零售市場每日蔬果價格表.JSON",
-    "fmt": "JSON",
-    "url": "https://newdatacenter.taichung.gov.tw/api/v1/no-auth/resource.download?rid=495aff49-3547-4055-aacd-f0781c6f733e",
-    "mod": null
-   }
-  ]
- },
- "59855": {
-  "id": 59855,
-  "title": "公有零售市場基本資料",
-  "org": null,
-  "updated": {
-   "regularupdate": "2"
-  },
-  "dist": [
-   {
-    "desc": "各縣市零售市場基本資料",
-    "fmt": "CSV",
-    "url": "https://www.cto.moea.gov.tw/OD/零售市場基本資料.csv",
-    "mod": null
-   }
-  ]
- },
- "53576": {
-  "id": 53576,
-  "title": "臺南市公有零售市場名冊",
-  "org": null,
-  "updated": "每年",
-  "dist": [
-   {
-    "desc": "臺南市公有零售市場名冊",
-    "fmt": "JSON",
-    "url": "https://soa.tainan.gov.tw/Api/Service/Get/672b1e66-1460-48f0-9e5f-62b7a4fc9e44",
-    "mod": null
-   },
-   {
-    "desc": "臺南市公有零售市場名冊",
-    "fmt": "CSV",
-    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/672b1e66-1460-48f0-9e5f-62b7a4fc9e44",
-    "mod": null
-   },
-   {
-    "desc": "臺南市公有零售市場名冊",
-    "fmt": "JSON",
-    "url": "https://soa.tainan.gov.tw/Api/Service/Get/446b843e-0d70-43ec-b876-b15df91e1355",
-    "mod": null
-   },
-   {
-    "desc": "臺南市公有零售市場名冊",
-    "fmt": "CSV",
-    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/446b843e-0d70-43ec-b876-b15df91e1355",
-    "mod": null
-   }
-  ]
- },
- "53577": {
-  "id": 53577,
-  "title": "臺南市民有市場名冊",
-  "org": null,
-  "updated": "每年",
-  "dist": [
-   {
-    "desc": "臺南市民有市場名冊",
-    "fmt": "JSON",
-    "url": "https://soa.tainan.gov.tw/Api/Service/Get/02a73907-011a-4628-b860-06130cfbdf8e",
-    "mod": null
-   },
-   {
-    "desc": "臺南市民有市場名冊",
-    "fmt": "CSV",
-    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/02a73907-011a-4628-b860-06130cfbdf8e",
-    "mod": null
-   }
-  ]
- },
- "6065": {
-  "id": 6065,
-  "title": "台灣中油公司加油站服務資訊",
-  "org": null,
-  "updated": {
-   "regularupdate": "2"
-  },
-  "dist": [
-   {
-    "desc": "中油體系加油站地理位置、銷售產品、營業時間、服務項目-Webservice",
+    "desc": "全國宗教資訊系統資料-寺廟",
     "fmt": "XML",
-    "url": "https://vipmbr.cpc.com.tw/CPCSTN/STNWebService.asmx/getStationInfo_XML",
-    "mod": null
-   },
-   {
-    "desc": "中油體系加油站地理位置、銷售產品、營業時間、服務項目-JSON",
-    "fmt": "JSON",
-    "url": "https://vipmbr.cpc.com.tw/openData/getStationInfo",
+    "url": "https://religion.moi.gov.tw/Report/temple.xml",
     "mod": null
    }
   ]
  },
- "6173": {
-  "id": 6173,
-  "title": "台灣糖業公司「台糖加油站」據點資訊",
+ "13953": {
+  "id": 13953,
+  "title": "寺廟登記概況─按區域別、宗教別分    ",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "寺廟登記概況─按區域別、宗教別分    ",
+    "fmt": "CSV",
+    "url": "https://statis.moi.gov.tw/micst/webMain.aspx?sys=220&kind=21&type=1&funid=c0210102&cycle=4&outmode=12&utf=1&compmode=0&outkind=3&fldlst=111&codspc0=0,2,3,2,6,1,9,1,12,1,15,16,&codspc1=0,18,&rdm=tekyiklq&ym=10700&ymt=10700",
+    "mod": null
+   }
+  ]
+ },
+ "135222": {
+  "id": 135222,
+  "title": "臺北市績優宗教團體",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "績優宗教團體表揚名冊",
+    "fmt": "ODS",
+    "url": "https://data.taipei/api/dataset/aae4bd55-b86a-4b78-817f-8ddf5f4ba94c/resource/32d0d2ea-a079-4c0e-9a5c-29f7efccfe5d/download",
+    "mod": null
+   }
+  ]
+ },
+ "128366": {
+  "id": 128366,
+  "title": "臺北市公園基本資料",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "公園走透透臺北新花漾網站公園基本資料",
+    "fmt": "JSON",
+    "url": "https://parks.gov.taipei/parks/api/",
+    "mod": null
+   }
+  ]
+ },
+ "53556": {
+  "id": 53556,
+  "title": "臺南市公園設施資料",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "公園設施資料WGS84",
+    "fmt": "JSON",
+    "url": "https://soa.tainan.gov.tw/Api/Service/Get/a7e21d6b-7942-4c26-9b31-9e7cd8c41971",
+    "mod": null
+   },
+   {
+    "desc": "公園設施資料WGS84",
+    "fmt": "CSV",
+    "url": "https://data.tainan.gov.tw/File/ResourceCsvDownload/a7e21d6b-7942-4c26-9b31-9e7cd8c41971",
+    "mod": null
+   }
+  ]
+ },
+ "145726": {
+  "id": 145726,
+  "title": "臺北市行道樹公園綠地廣場認養人資料",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "行道樹公園綠地廣場認養人資料。",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/945309ad-7932-4de3-8a21-9e75f0cb3d51/resource/8ad84be4-9328-4f65-8923-77517afa9e53/download",
+    "mod": null
+   }
+  ]
+ },
+ "121890": {
+  "id": 121890,
+  "title": "臺北市號誌位置",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "號誌路口座標",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/4a599738-6550-448a-9a78-03b26c67e249/resource/9da220ce-f5a9-40a8-aacc-dc17978f3a87/download",
+    "mod": null
+   }
+  ]
+ },
+ "121683": {
+  "id": 121683,
+  "title": "臺北市各公園水域安全告示牌及救生設備位置資訊",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "大安區公園水域安全告示及救生設備位置",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/cf0da6f2-4fd2-4fa0-b624-d703833ef2bc/resource/769a0e59-1643-4a84-a647-1bbcb219bd63/download",
+    "mod": null
+   },
+   {
+    "desc": "中山區公園水域安全告示牌及救生設備位置",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/cf0da6f2-4fd2-4fa0-b624-d703833ef2bc/resource/a45a84b3-7431-40c2-a107-576eb5a25d05/download",
+    "mod": null
+   },
+   {
+    "desc": "中正區公園水域安全告示及救生設備位置",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/cf0da6f2-4fd2-4fa0-b624-d703833ef2bc/resource/ae6fe268-4eed-476e-bd4a-a4f88dce154c/download",
+    "mod": null
+   },
+   {
+    "desc": "萬華區公園水域安全告示及救生設備位置",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/cf0da6f2-4fd2-4fa0-b624-d703833ef2bc/resource/8a6f63d1-7096-4703-934d-ee01cff79759/download",
+    "mod": null
+   },
+   {
+    "desc": "信義區公園水域安全告示及救生設備位置",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/cf0da6f2-4fd2-4fa0-b624-d703833ef2bc/resource/91e022e7-0835-47bf-9aee-d8a0bc270e92/download",
+    "mod": null
+   },
+   {
+    "desc": "松山區公園水域安全告示及救生設備位置",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/cf0da6f2-4fd2-4fa0-b624-d703833ef2bc/resource/8eb4562e-2ffa-422b-968d-fc9d0d8f53f7/download",
+    "mod": null
+   },
+   {
+    "desc": "士林區公園水域安全告示牌及救生設備位置",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/cf0da6f2-4fd2-4fa0-b624-d703833ef2bc/resource/74277b5c-7683-4c7b-b348-136bb1ba5d2e/download",
+    "mod": null
+   },
+   {
+    "desc": "北投區公園水域安全告示及救生設備位置",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/cf0da6f2-4fd2-4fa0-b624-d703833ef2bc/resource/d78791c9-7a8b-4cc9-b64f-acbe70afa012/download",
+    "mod": null
+   },
+   {
+    "desc": "南港區公園水域安全告示及救生設備位置",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/cf0da6f2-4fd2-4fa0-b624-d703833ef2bc/resource/d28b98dc-d708-4bd0-92dd-434df9de1462/download",
+    "mod": null
+   },
+   {
+    "desc": "文山區公園水域安全告示及救生設備位置",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/cf0da6f2-4fd2-4fa0-b624-d703833ef2bc/resource/ddcdb5ce-27fc-45d4-a772-3c817e2f99f7/download",
+    "mod": null
+   },
+   {
+    "desc": "內湖區公園水域安全告示及救生設備位置",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/cf0da6f2-4fd2-4fa0-b624-d703833ef2bc/resource/83dfe5b6-5aa5-4d48-9fdc-7927ad9e1e56/download",
+    "mod": null
+   }
+  ]
+ },
+ "128928": {
+  "id": 128928,
+  "title": null,
+  "org": null,
+  "updated": null,
+  "dist": []
+ },
+ "166850": {
+  "id": 166850,
+  "title": "臺北市政府體育局所轄河濱及市區公園運動場地位置表",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "1",
+   "unittime": "年"
+  },
+  "dist": [
+   {
+    "desc": "臺北市政府體育局所轄河濱及市區公園運動場地位置表，內容包含行政區、場地、類別、緯度、經度等資訊",
+    "fmt": "CSV",
+    "url": "https://data.taipei/api/dataset/d540c002-9946-498b-bc88-1040db9e344f/resource/e1545dd4-cc24-4c16-b81f-3fc2752d379b/download",
+    "mod": null
+   }
+  ]
+ },
+ "35107": {
+  "id": 35107,
+  "title": "新北市水量水質自動監測連線傳輸監測紀錄值即時資料集",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "新北市水量水質自動監測連線傳輸監測紀錄值即時資料集-CSV",
+    "fmt": "CSV",
+    "url": "https://data.moenv.gov.tw/api/v2/wqx_p_49?api_key=4c89a32a-a214-461b-bf29-30ff32a61a8a&limit=1000&sort=ImportDate desc&format=CSV",
+    "mod": null
+   },
+   {
+    "desc": "新北市水量水質自動監測連線傳輸監測紀錄值即時資料集-JSON",
+    "fmt": "JSON",
+    "url": "https://data.moenv.gov.tw/api/v2/wqx_p_49?api_key=af57253c-e838-46da-a1f5-12b43afd75f3&limit=1000&sort=ImportDate desc&format=JSON",
+    "mod": null
+   },
+   {
+    "desc": "新北市水量水質自動監測連線傳輸監測紀錄值即時資料集-XML",
+    "fmt": "XML",
+    "url": "https://data.moenv.gov.tw/api/v2/wqx_p_49?api_key=b7df779e-71a6-4148-8379-5afbd441d803&limit=1000&sort=ImportDate desc&format=XML",
+    "mod": null
+   }
+  ]
+ },
+ "123485": {
+  "id": 123485,
+  "title": "新北市河濱公園園區設施",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "1",
+   "unittime": "年"
+  },
+  "dist": [
+   {
+    "desc": "新北市河濱公園園區設施",
+    "fmt": "CSV",
+    "url": "https://data.ntpc.gov.tw/api/datasets/8d44bfab-002c-4403-a283-d77c752aa1c3/csv/file",
+    "mod": null
+   }
+  ]
+ },
+ "122928": {
+  "id": 122928,
+  "title": "新北市寺廟資料",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "1",
+   "unittime": "月"
+  },
+  "dist": [
+   {
+    "desc": "新北市寺廟資料",
+    "fmt": "CSV",
+    "url": "https://data.ntpc.gov.tw/api/datasets/f0e1879f-3c5b-429f-a12b-9540acac26e8/csv/file",
+    "mod": null
+   }
+  ]
+ },
+ "146969": {
+  "id": 146969,
+  "title": "新北市公共自行車租賃系統(YouBike2.0)",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "5",
+   "unittime": "分"
+  },
+  "dist": [
+   {
+    "desc": "新北市公共自行車租賃系統(YouBike2.0)",
+    "fmt": "CSV",
+    "url": "https://data.ntpc.gov.tw/api/datasets/010e5b15-3823-4b20-b401-b1cf000550c5/csv/file",
+    "mod": null
+   }
+  ]
+ },
+ "123075": {
+  "id": 123075,
+  "title": "新北市觀光旅遊景點(英文)",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "新北市觀光旅遊景點(英文-106年更新)",
+    "fmt": "CSV",
+    "url": "https://data.ntpc.gov.tw/api/datasets/c00b7482-64c0-46cc-bb34-2b2bbcb2c9e0/csv/file",
+    "mod": null
+   }
+  ]
+ },
+ "122908": {
+  "id": 122908,
+  "title": "新北市觀光旅遊景點(中文)",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "新北市觀光旅遊景點(中文-106年更新)",
+    "fmt": "CSV",
+    "url": "https://data.ntpc.gov.tw/api/datasets/b3a30a19-4b89-4da2-8d99-18200dc5dfde/csv/file",
+    "mod": null
+   }
+  ]
+ },
+ "6240": {
+  "id": 6240,
+  "title": "國民小學校別資料",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "1",
+   "unittime": "年"
+  },
+  "dist": [
+   {
+    "desc": "103學年國民小學校別資料（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/detail/103/103_basec.csv",
+    "mod": null
+   },
+   {
+    "desc": "104學年國民小學校別資料（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/detail/104/104_basec.csv",
+    "mod": null
+   },
+   {
+    "desc": "105學年國民小學校別資料（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/detail/105/105_basec.csv",
+    "mod": null
+   },
+   {
+    "desc": "106學年國民小學校別資料（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/detail/106/106_basec.csv",
+    "mod": null
+   },
+   {
+    "desc": "107學年國民小學校別資料（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/detail/107/107_basec.csv",
+    "mod": null
+   },
+   {
+    "desc": "107學年國民小學校別資料（JSON檔）",
+    "fmt": "JSON",
+    "url": "https://stats.moe.gov.tw/files/detail/107/107_basec.json",
+    "mod": null
+   },
+   {
+    "desc": "108學年國民小學校別資料（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/detail/108/108_basec.csv",
+    "mod": null
+   },
+   {
+    "desc": "108學年國民小學校別資料（JSON檔）",
+    "fmt": "JSON",
+    "url": "https://stats.moe.gov.tw/files/detail/108/108_basec.json",
+    "mod": null
+   },
+   {
+    "desc": "109學年國民小學校別資料（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/detail/109/109_basec.csv",
+    "mod": null
+   },
+   {
+    "desc": "109學年國民小學校別資料（JSON檔）",
+    "fmt": "JSON",
+    "url": "https://stats.moe.gov.tw/files/detail/109/109_basec.json",
+    "mod": null
+   },
+   {
+    "desc": "110學年國民小學校別資料（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/detail/110/110_basec.csv",
+    "mod": null
+   },
+   {
+    "desc": "110學年國民小學校別資料（JSON檔）",
+    "fmt": "JSON",
+    "url": "https://stats.moe.gov.tw/files/detail/110/110_basec.json",
+    "mod": null
+   },
+   {
+    "desc": "111學年國民小學校別資料（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/detail/111/111_basec.csv",
+    "mod": null
+   },
+   {
+    "desc": "111學年國民小學校別資料（JSON檔）",
+    "fmt": "JSON",
+    "url": "https://stats.moe.gov.tw/files/detail/111/111_basec.json",
+    "mod": null
+   },
+   {
+    "desc": "112學年國民小學校別資料（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/detail/112/112_basec.csv",
+    "mod": null
+   },
+   {
+    "desc": "112學年國民小學校別資料（JSON檔）",
+    "fmt": "JSON",
+    "url": "https://stats.moe.gov.tw/files/detail/112/112_basec.json",
+    "mod": null
+   },
+   {
+    "desc": "113學年國民小學校別資料（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/detail/113/113_basec.csv",
+    "mod": null
+   },
+   {
+    "desc": "113學年國民小學校別資料（JSON檔）",
+    "fmt": "JSON",
+    "url": "https://stats.moe.gov.tw/files/detail/113/113_basec.json",
+    "mod": null
+   },
+   {
+    "desc": "114學年國民小學校別資料（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/detail/114/114_basec.csv",
+    "mod": null
+   },
+   {
+    "desc": "114學年國民小學校別資料（JSON檔）",
+    "fmt": "JSON",
+    "url": "https://stats.moe.gov.tw/files/detail/114/114_basec.json",
+    "mod": null
+   }
+  ]
+ },
+ "6087": {
+  "id": 6087,
+  "title": "國民小學名錄",
+  "org": null,
+  "updated": {
+   "regularupdate": "1",
+   "Frequency": "1",
+   "unittime": "年"
+  },
+  "dist": [
+   {
+    "desc": "103學年國民小學名錄（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/school/103/e1_new.csv",
+    "mod": null
+   },
+   {
+    "desc": "104學年國民小學名錄（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/school/104/e1_new.csv",
+    "mod": null
+   },
+   {
+    "desc": "105學年國民小學名錄（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/school/105/e1_new.csv",
+    "mod": null
+   },
+   {
+    "desc": "106學年國民小學名錄（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/school/106/e1_new.csv",
+    "mod": null
+   },
+   {
+    "desc": "107學年國民小學名錄（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/school/107/e1_new.csv",
+    "mod": null
+   },
+   {
+    "desc": "107學年國民小學名錄（JSON檔）",
+    "fmt": "JSON",
+    "url": "https://stats.moe.gov.tw/files/school/107/e1_new.json",
+    "mod": null
+   },
+   {
+    "desc": "108學年國民小學名錄（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/school/108/e1_new.csv",
+    "mod": null
+   },
+   {
+    "desc": "108學年國民小學名錄（JSON檔）",
+    "fmt": "JSON",
+    "url": "https://stats.moe.gov.tw/files/school/108/e1_new.json",
+    "mod": null
+   },
+   {
+    "desc": "109學年國民小學名錄（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/school/109/e1_new.csv",
+    "mod": null
+   },
+   {
+    "desc": "109學年國民小學名錄（JSON檔）",
+    "fmt": "JSON",
+    "url": "https://stats.moe.gov.tw/files/school/109/e1_new.json",
+    "mod": null
+   },
+   {
+    "desc": "110學年國民小學名錄（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/school/110/e1_new.csv",
+    "mod": null
+   },
+   {
+    "desc": "110學年國民小學名錄（JSON檔）",
+    "fmt": "JSON",
+    "url": "https://stats.moe.gov.tw/files/school/110/e1_new.json",
+    "mod": null
+   },
+   {
+    "desc": "111學年國民小學名錄（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/school/111/e1_new.csv",
+    "mod": null
+   },
+   {
+    "desc": "111學年國民小學名錄（JSON檔）",
+    "fmt": "JSON",
+    "url": "https://stats.moe.gov.tw/files/school/111/e1_new.json",
+    "mod": null
+   },
+   {
+    "desc": "112學年國民小學名錄（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/school/112/e1_new.csv",
+    "mod": null
+   },
+   {
+    "desc": "112學年國民小學名錄（JSON檔）",
+    "fmt": "JSON",
+    "url": "https://stats.moe.gov.tw/files/school/112/e1_new.json",
+    "mod": null
+   },
+   {
+    "desc": "113學年國民小學名錄（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/school/113/e1_new.csv",
+    "mod": null
+   },
+   {
+    "desc": "113學年國民小學名錄（JSON檔）",
+    "fmt": "JSON",
+    "url": "https://stats.moe.gov.tw/files/school/113/e1_new.json",
+    "mod": null
+   },
+   {
+    "desc": "114學年國民小學名錄（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/school/114/e1_new.csv",
+    "mod": null
+   },
+   {
+    "desc": "114學年國民小學名錄（JSON檔）",
+    "fmt": "JSON",
+    "url": "https://stats.moe.gov.tw/files/school/114/e1_new.json",
+    "mod": null
+   },
+   {
+    "desc": "115學年國民小學名錄（CSV檔）",
+    "fmt": "CSV",
+    "url": "https://stats.moe.gov.tw/files/school/115/e1_new.csv",
+    "mod": null
+   },
+   {
+    "desc": "115學年國民小學名錄（JSON檔）",
+    "fmt": "JSON",
+    "url": "https://stats.moe.gov.tw/files/school/115/e1_new.json",
+    "mod": null
+   }
+  ]
+ },
+ "165770": {
+  "id": 165770,
+  "title": "109年臺東縣國民小學學校",
   "org": null,
   "updated": {
    "regularupdate": "2"
@@ -521,46 +671,14 @@
    {
     "desc": "",
     "fmt": "CSV",
-    "url": "https://www.taisugar.com.tw/Upload/UserFiles/台糖加油站資訊1020508.csv",
+    "url": "https://ttone.taitung.gov.tw/download?id=niMxaGWn9ZTl4V7aTF%2BGOg%3D%3D",
     "mod": null
    }
   ]
  },
- "88625": {
-  "id": 88625,
-  "title": "國道加油站設施數量統計表",
-  "org": null,
-  "updated": {
-   "regularupdate": "2"
-  },
-  "dist": [
-   {
-    "desc": "國道加油站設施數量統計表",
-    "fmt": "CSV",
-    "url": "https://www.freeway.gov.tw/Download_File_Direct.ashx?id=273&FileConditionsID=1",
-    "mod": null
-   }
-  ]
- },
- "127439": {
-  "id": 127439,
-  "title": "提供cpcpay加油站",
-  "org": null,
-  "updated": {
-   "regularupdate": "2"
-  },
-  "dist": [
-   {
-    "desc": "台灣中油股份有限公司_提供cpcpay加油站-WebService",
-    "fmt": "XML",
-    "url": "https://vipmbr.cpc.com.tw/CPCSTN/cpcpaystn.asmx/getcpcpaystnData_XML",
-    "mod": null
-   }
-  ]
- },
- "67550": {
-  "id": 67550,
-  "title": "新竹市加油站",
+ "31444": {
+  "id": 31444,
+  "title": "國民小學概況—按設立別分",
   "org": null,
   "updated": {
    "regularupdate": "1",
@@ -569,62 +687,22 @@
   },
   "dist": [
    {
-    "desc": "新竹市轄內加油站",
-    "fmt": "XLSX",
-    "url": "https://odws.hccg.gov.tw/001/Upload/25/opendataback/9059/68/c85949d5-78ea-405b-9c8a-97e4a5b8277b.xlsx",
-    "mod": null
-   },
-   {
-    "desc": "新竹市轄內加油站",
+    "desc": "104學年至114學年國民小學概況—按設立別分（CSV檔）",
     "fmt": "CSV",
-    "url": "https://odws.hccg.gov.tw/001/Upload/25/opendataback/9059/68/c85949d5-78ea-405b-9c8a-97e4a5b8277b.csv",
+    "url": "https://stats.moe.gov.tw/files/opendata/edu_B_3_1.csv",
     "mod": null
    },
    {
-    "desc": "新竹市轄內加油站",
-    "fmt": "XML",
-    "url": "https://odws.hccg.gov.tw/001/Upload/25/opendataback/9059/68/c85949d5-78ea-405b-9c8a-97e4a5b8277b.xml",
-    "mod": null
-   },
-   {
-    "desc": "新竹市轄內加油站",
+    "desc": "104學年至114學年國民小學概況—按設立別分（JSON檔）",
     "fmt": "JSON",
-    "url": "https://odws.hccg.gov.tw/001/Upload/25/opendataback/9059/68/c85949d5-78ea-405b-9c8a-97e4a5b8277b.json",
+    "url": "https://stats.moe.gov.tw/files/opendata/edu_B_3_1.json",
     "mod": null
    }
   ]
  },
- "117347": {
-  "id": 117347,
-  "title": "澎湖縣公民營加油站清冊",
-  "org": null,
-  "updated": {
-   "regularupdate": "2"
-  },
-  "dist": [
-   {
-    "desc": "至108年1月為止澎湖縣公民營加油站清冊",
-    "fmt": "CSV",
-    "url": "https://opendata.penghu.gov.tw/dataset/fd506c4f-a4e1-4625-ad3a-b90469eb82c5/resource/3d1bdcee-0308-41d5-abf4-2151ddbe332d/download/u620000-02-2017-07-21-1500627698.csv",
-    "mod": null
-   },
-   {
-    "desc": "至108年1月為止澎湖縣公民營加油站清冊",
-    "fmt": "XML",
-    "url": "https://opendata.penghu.gov.tw/dataset/fd506c4f-a4e1-4625-ad3a-b90469eb82c5/resource/f96e2b73-3de2-4587-8808-b4c21ac5375a/download/u620000-02-2017-07-21-1500627698.xml",
-    "mod": null
-   },
-   {
-    "desc": "至108年1月為止澎湖縣公民營加油站清冊",
-    "fmt": "JSON",
-    "url": "https://opendata.penghu.gov.tw/dataset/fd506c4f-a4e1-4625-ad3a-b90469eb82c5/resource/7137bd7a-a2dd-4c2e-bde6-69cda2ea28a7/download/u620000-02-2017-07-21-1500627698.json",
-    "mod": null
-   }
-  ]
- },
- "40121": {
-  "id": 40121,
-  "title": "各級學校縣市別學生人數",
+ "31443": {
+  "id": 31443,
+  "title": "國民小學概況—按學校所在縣市別分",
   "org": null,
   "updated": {
    "regularupdate": "1",
@@ -633,22 +711,60 @@
   },
   "dist": [
    {
-    "desc": "104-114學年各級學校縣市別學生人數（CSV檔）",
+    "desc": "104-114學年國民小學概況—按學校所在縣市別分（CSV檔）",
     "fmt": "CSV",
-    "url": "https://stats.moe.gov.tw/files/opendata/edu_B_1_4.csv",
+    "url": "https://stats.moe.gov.tw/files/opendata/edu_B_3_2.csv",
     "mod": null
    },
    {
-    "desc": "104-114學年各級學校縣市別學生人數（JSON檔）",
+    "desc": "104-114學年國民小學概況—按學校所在縣市別分（JSON檔）",
     "fmt": "JSON",
-    "url": "https://stats.moe.gov.tw/files/opendata/edu_B_1_4.json",
+    "url": "https://stats.moe.gov.tw/files/opendata/edu_B_3_2.json",
     "mod": null
    }
   ]
  },
- "28584": {
-  "id": 28584,
-  "title": "國民中小學進修部(補校)名錄",
+ "122883": {
+  "id": 122883,
+  "title": "新北市都市更新一般都更核定成果(最新)",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "新北市都市更新核定成果(最新)",
+    "fmt": "CSV",
+    "url": "https://data.ntpc.gov.tw/api/datasets/60ecc055-2252-4370-bba4-ec64e37c05d5/csv/file",
+    "mod": null
+   }
+  ]
+ },
+ "127567": {
+  "id": 127567,
+  "title": "高雄市都市更新成果",
+  "org": null,
+  "updated": {
+   "regularupdate": "2"
+  },
+  "dist": [
+   {
+    "desc": "高雄市都市更新成果",
+    "fmt": "JSON",
+    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/01350804-5d2f-47a9-94bb-e4765d75da34",
+    "mod": null
+   },
+   {
+    "desc": "高雄市都市更新成果",
+    "fmt": "CSV",
+    "url": "https://data.kcg.gov.tw/File/DirectDownload/01350804-5d2f-47a9-94bb-e4765d75da34",
+    "mod": null
+   }
+  ]
+ },
+ "129516": {
+  "id": 129516,
+  "title": "臺北市都市更新容積獎勵案件統計表",
   "org": null,
   "updated": {
    "regularupdate": "1",
@@ -657,161 +773,29 @@
   },
   "dist": [
    {
-    "desc": "104-115學年國民中小學進修部(補校)名錄（CSV檔）",
+    "desc": "資料集基本資料表_臺北都市更新容積獎勵案件統計表。",
     "fmt": "CSV",
-    "url": "https://stats.moe.gov.tw/files/opendata/s2_new.csv",
-    "mod": null
-   },
-   {
-    "desc": "104-115學年國民中小學進修部(補校)名錄（JSON檔）",
-    "fmt": "JSON",
-    "url": "https://stats.moe.gov.tw/files/opendata/s2_new.json",
+    "url": "https://data.taipei/api/dataset/cda6b568-0035-420b-bd05-6ca9bfd4bda0/resource/01dc6879-2e74-4e74-a033-43674c7af019/download",
     "mod": null
    }
   ]
  },
- "6285": {
-  "id": 6285,
-  "title": "特殊教育學校名錄",
+ "121262": {
+  "id": 121262,
+  "title": "臺北市市有土地參與都市更新案件進度表",
   "org": null,
   "updated": {
-   "regularupdate": "2"
+   "regularupdate": "1",
+   "Frequency": "3",
+   "unittime": "月"
   },
   "dist": [
    {
-    "desc": "特殊教育學校名錄",
+    "desc": "臺北市市有土地參與都市更新案件進度表",
     "fmt": "CSV",
-    "url": "https://www.k12ea.gov.tw//files/common_unit/431a1ae5-9503-4675-8e59-07d7286be83f/doc/特殊教育學校名錄.csv",
+    "url": "https://data.taipei/api/dataset/560b633f-4ca7-4e37-957a-53879eccf5ea/resource/fc61bcd2-079a-46c4-8aa6-c3e2b3766c81/download",
     "mod": null
    }
   ]
- },
- "38376": {
-  "id": 38376,
-  "title": "南投縣各級學校基本資料",
-  "org": null,
-  "updated": {
-   "regularupdate": "2"
-  },
-  "dist": [
-   {
-    "desc": "南投縣各級學校基本資料",
-    "fmt": "CSV",
-    "url": "https://data.nantou.gov.tw/dataset/23a2c6be-417e-4627-89d4-4189e91fa7a3/resource/226a97df-26f3-4676-95f0-d4ae918fce9d/download/201802121222492.csv",
-    "mod": null
-   }
-  ]
- },
- "117863": {
-  "id": 117863,
-  "title": null,
-  "org": null,
-  "updated": null,
-  "dist": []
- },
- "121225": {
-  "id": 121225,
-  "title": "臺北市各級學校分布圖(含國小.國中.高中職.特教學校.市立大專院校)",
-  "org": null,
-  "updated": {
-   "regularupdate": "2"
-  },
-  "dist": [
-   {
-    "desc": "臺北市各級學校分布圖(含國小.國中.高中職.特教學校.市立大專院校)",
-    "fmt": "CSV",
-    "url": "https://data.taipei/api/dataset/58b4f7b9-d0c5-4de8-aa7f-981fcb625e45/resource/28c5792b-3af6-4bff-8ad8-f5b5e53d4062/download",
-    "mod": null
-   }
-  ]
- },
- "128829": {
-  "id": 128829,
-  "title": "宜蘭縣利澤垃圾焚化廠位置資料",
-  "org": null,
-  "updated": {
-   "regularupdate": "2"
-  },
-  "dist": [
-   {
-    "desc": "由宜蘭縣政府環境保護局提供宜蘭縣利澤焚化廠位置資料 (CSV, XML, JSON格式資料)",
-    "fmt": "CSV",
-    "url": "https://opendata.ilepb.gov.tw/ILEPB06010?format=csv&media=file",
-    "mod": null
-   },
-   {
-    "desc": "由宜蘭縣政府環境保護局提供宜蘭縣利澤焚化廠位置資料 (CSV, XML, JSON格式資料)",
-    "fmt": "XML",
-    "url": "https://opendata.ilepb.gov.tw/ILEPB06010?format=xml&media=file",
-    "mod": null
-   },
-   {
-    "desc": "由宜蘭縣政府環境保護局提供宜蘭縣利澤焚化廠位置資料 (CSV, XML, JSON格式資料)",
-    "fmt": "JSON",
-    "url": "https://opendata.ilepb.gov.tw/ILEPB06010?media=file",
-    "mod": null
-   }
-  ]
- },
- "145713": {
-  "id": 145713,
-  "title": "臺北市市立焚化廠位置",
-  "org": null,
-  "updated": {
-   "regularupdate": "2"
-  },
-  "dist": [
-   {
-    "desc": "臺北市市立焚化廠位置",
-    "fmt": "CSV",
-    "url": "https://data.taipei/api/dataset/5b0ee34e-83c8-4e76-b044-22bd3e7d23d7/resource/143d0f32-56e4-4d5f-b44c-cbd78a9f05fc/download",
-    "mod": null
-   }
-  ]
- },
- "86418": {
-  "id": 86418,
-  "title": "高雄市垃圾焚化廠位置",
-  "org": null,
-  "updated": {
-   "regularupdate": "2"
-  },
-  "dist": [
-   {
-    "desc": "高雄市垃圾焚化廠位置",
-    "fmt": "JSON",
-    "url": "https://openapi.kcg.gov.tw/Api/Service/Get/747ad9ca-80a5-4edd-8466-16793e8dbc22",
-    "mod": null
-   },
-   {
-    "desc": "高雄市垃圾焚化廠位置",
-    "fmt": "CSV",
-    "url": "https://data.kcg.gov.tw/File/DirectDownload/747ad9ca-80a5-4edd-8466-16793e8dbc22",
-    "mod": null
-   }
-  ]
- },
- "124616": {
-  "id": 124616,
-  "title": "新北市垃圾焚化廠位置",
-  "org": null,
-  "updated": {
-   "regularupdate": "2"
-  },
-  "dist": [
-   {
-    "desc": "新北市垃圾焚化廠位置",
-    "fmt": "CSV",
-    "url": "https://data.ntpc.gov.tw/api/datasets/39e17852-9ac9-45b7-bc60-d8d0ed7e3161/csv/file",
-    "mod": null
-   }
-  ]
- },
- "128460": {
-  "id": 128460,
-  "title": null,
-  "org": null,
-  "updated": null,
-  "dist": []
  }
 }
