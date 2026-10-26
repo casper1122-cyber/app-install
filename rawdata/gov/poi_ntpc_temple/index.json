@@ -1,0 +1,14 @@
+{
+ "id": "https://data.ntpc.gov.tw/api/datasets/f0e1879f-3c5b-429f-a12b-9540acac26e8/csv/file",
+ "title": "新北市寺廟資料",
+ "at": "2026-10-26",
+ "files": {
+  "poi_ntpc_temple_00.csv.gz": {
+   "desc": "新北市寺廟資料",
+   "fmt": "CSV",
+   "url": "https://data.ntpc.gov.tw/api/datasets/f0e1879f-3c5b-429f-a12b-9540acac26e8/csv/file",
+   "bytes": 57413,
+   "parts": 1
+  }
+ }
+}
