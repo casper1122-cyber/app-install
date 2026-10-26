@@ -1,0 +1,14 @@
+{
+ "id": "https://data.taipei/api/dataset/a4229edc-3a95-4a68-8b8f-32be5f07bc18/resource/3b895c5c-82c0-4a1d-b003-a49a137566cd/download",
+ "title": "臺北市殯儀館、納骨塔（有經緯度）",
+ "at": "2026-10-26",
+ "files": {
+  "poi_tpe_funeral_00.csv.gz": {
+   "desc": "臺北市殯儀館、納骨塔（有經緯度）",
+   "fmt": "CSV",
+   "url": "https://data.taipei/api/dataset/a4229edc-3a95-4a68-8b8f-32be5f07bc18/resource/3b895c5c-82c0-4a1d-b003-a49a137566cd/download",
+   "bytes": 602,
+   "parts": 1
+  }
+ }
+}
