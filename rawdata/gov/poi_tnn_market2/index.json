@@ -1,0 +1,14 @@
+{
+ "id": "https://soa.tainan.gov.tw/Api/Service/Get/02a73907-011a-4628-b860-06130cfbdf8e",
+ "title": "臺南市民有市場",
+ "at": "2026-10-26",
+ "files": {
+  "poi_tnn_market2_00.json.gz": {
+   "desc": "臺南市民有市場",
+   "fmt": "JSON",
+   "url": "https://soa.tainan.gov.tw/Api/Service/Get/02a73907-011a-4628-b860-06130cfbdf8e",
+   "bytes": 1779,
+   "parts": 1
+  }
+ }
+}
