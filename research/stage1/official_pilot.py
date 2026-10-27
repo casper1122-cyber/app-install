@@ -12,8 +12,7 @@ def api_url(market,iso):
  if market=="TWSE":
   return "https://www.twse.com.tw/rwd/zh/afterTrading/BWIBBU_d?"+urlencode({"response":"json","date":d.strftime("%Y%m%d"),"selectType":"ALL"})
  if market=="TPEX":
-  roc=f"{d.year-1911:03d}/{d.month:02d}/{d.day:02d}"
-  return "https://www.tpex.org.tw/web/stock/aftertrading/peratio_analysis/pera_result.php?"+urlencode({"l":"zh-tw","o":"json","d":roc,"c":"","s":"0,asc"})
+  return "https://www.tpex.org.tw/www/zh-tw/afterTrading/peQryDate?"+urlencode({"date":d.strftime("%Y/%m/%d"),"response":"json"})
  raise ValueError("Unknown market")
 
 def returned_day(body):
@@ -21,6 +20,8 @@ def returned_day(body):
  if re.fullmatch(r"\d{8}",str(text)):return f"{text[:4]}-{text[4:6]}-{text[6:]}"
  if re.fullmatch(r"\d{3}/\d{2}/\d{2}",str(text)):
   a,b,c=map(int,text.split("/"));return f"{a+1911:04d}-{b:02d}-{c:02d}"
+ if re.fullmatch(r"\d{4}/\d{2}/\d{2}",str(text)):
+  return text.replace("/","-")
  title=body.get("title") or ""
  m=re.search(r"(\d{3})年(\d{1,2})月(\d{1,2})日",title)
  if m:
@@ -38,10 +39,18 @@ def check(market,raw,requested):
   candidates=[t for t in ts if "證券代號" in (t.get("fields") or []) and "本益比" in (t.get("fields") or [])]
   count=sum(len(t.get("data") or []) for t in candidates)
  else:
-  table=body.get("aaData")
-  count=len(table) if isinstance(table,list) else 0
-  if body.get("iTotalRecords") is not None and count!=int(body["iTotalRecords"]):
-   raise ValueError("TPEx total record mismatch")
+  if body.get("stat")!="ok":raise ValueError(f"TPEx status: {body.get('stat')}")
+  tables=body.get("tables") or []
+  candidates=[t for t in tables if "股票代號" in (t.get("fields") or []) and all(x in (t.get("fields") or []) for x in ("本益比","殖利率(%)","股價淨值比"))]
+  count=sum(len(t.get("data") or []) for t in candidates)
+  if count:
+   for t in candidates:
+    fields=t["fields"];code_i=fields.index("股票代號");seen=set()
+    for i,row in enumerate(t.get("data") or []):
+     if not isinstance(row,list) or len(row)!=len(fields):raise ValueError(f"TPEx row width {i}")
+     code=str(row[code_i]).strip()
+     if not re.fullmatch(r"[0-9A-Z]{4,10}",code) or code in seen:raise ValueError("TPEx invalid or duplicate security code")
+     seen.add(code)
  if count<1:raise ValueError("No usable valuation rows")
  return {"rows":count,"returned_day":observed,"response_date_verified":bool(observed),
          "publication_timestamp_verified":False,"strict_historical_backtest_allowed":False}
@@ -58,8 +67,10 @@ def run(output):
     with urlopen(req,timeout=25) as resp:content=resp.read(12000001)
     if len(content)>12000000:raise ValueError("response too big")
     record.update(check(market,content,day))
-    name=f"{market}_{day}.json";(p/name).write_bytes(content)
-    record.update({"status":"downloaded","name":name,"sha256":hashlib.sha256(content).hexdigest(),"size":len(content)})
+    verified=record["response_date_verified"]
+    name=f"{market}_{day}.json" if verified else f"{market}_{day}.quarantine"
+    (p/name).write_bytes(content)
+    record.update({"status":"downloaded" if verified else "quarantined","name":name,"sha256":hashlib.sha256(content).hexdigest(),"size":len(content)})
    except Exception as ex:record.update({"status":"failed","error":str(ex)[:500]})
    rows.append(record);print(json.dumps(record,ensure_ascii=False),flush=True)
  report={"research_only":True,"release_allowed":False,"records":rows,
