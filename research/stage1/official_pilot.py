@@ -22,10 +22,19 @@ def returned_day(body):
   a,b,c=map(int,text.split("/"));return f"{a+1911:04d}-{b:02d}-{c:02d}"
  if re.fullmatch(r"\d{4}/\d{2}/\d{2}",str(text)):
   return text.replace("/","-")
- title=body.get("title") or ""
- m=re.search(r"(\d{3})年(\d{1,2})月(\d{1,2})日",title)
- if m:
-  a,b,c=map(int,m.groups());return f"{a+1911:04d}-{b:02d}-{c:02d}"
+ titles=[body.get("title") or ""]
+ for table in body.get("tables") or []:
+  if table.get("date"):
+   v=table["date"]
+   if re.fullmatch(r"\d{8}",str(v)):
+    return f"{v[:4]}-{v[4:6]}-{v[6:]}"
+   if re.fullmatch(r"\d{3}/\d{2}/\d{2}",str(v)):
+    y,mo,d=map(int,v.split("/"));return f"{y+1911:04d}-{mo:02d}-{d:02d}"
+  titles.append(table.get("title") or "")
+ for title in titles:
+  m=re.search(r"(\d{3})年(\d{1,2})月(\d{1,2})日",title)
+  if m:
+   a,b,c=map(int,m.groups());return f"{a+1911:04d}-{b:02d}-{c:02d}"
  return None
 
 def check(market,raw,requested):
@@ -52,6 +61,19 @@ def check(market,raw,requested):
      if not re.fullmatch(r"[0-9A-Z]{4,10}",code) or code in seen:raise ValueError("TPEx invalid or duplicate security code")
      seen.add(code)
  if count<1:raise ValueError("No usable valuation rows")
+ tables=body.get("tables") or [body]
+ code_name="證券代號" if market=="TWSE" else "股票代號"
+ seen=set()
+ for t in tables:
+  fields=t.get("fields") or []
+  if code_name not in fields or "本益比" not in fields:continue
+  i=fields.index(code_name)
+  for n,row in enumerate(t.get("data") or []):
+   if not isinstance(row,list) or len(row)!=len(fields):raise ValueError(f"bad valuation row width at {n}")
+   code=str(row[i]).strip()
+   if not re.fullmatch(r"[0-9A-Z]{4,10}",code) or code in seen:
+    raise ValueError("invalid or duplicate security code")
+   seen.add(code)
  return {"rows":count,"returned_day":observed,"response_date_verified":bool(observed),
          "publication_timestamp_verified":False,"strict_historical_backtest_allowed":False}
 
