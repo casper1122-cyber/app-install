@@ -41,7 +41,13 @@ def check(market,raw,requested):
  body=json.loads(raw.decode("utf-8-sig"))
  if not isinstance(body,dict):raise ValueError("Non-object JSON")
  observed=returned_day(body)
- if observed and observed!=requested:raise ValueError(f"wrong source date {observed}, requested {requested}")
+ all_days=[observed]
+ for table in body.get("tables") or []:
+  all_days.append(returned_day(table))
+ known={day for day in all_days if day}
+ if len(known)>1:raise ValueError("conflicting official response dates")
+ if any(day!=requested for day in known):raise ValueError(f"wrong source date {sorted(known)}, requested {requested}")
+ observed=next(iter(known),None)
  if market=="TWSE":
   if body.get("stat")!="OK":raise ValueError(f"TWSE status: {body.get('stat')}")
   ts=body.get("tables") or [body]
