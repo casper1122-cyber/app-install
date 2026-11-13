@@ -3,28 +3,39 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1f5a3f">
+<meta name="theme-color" content="#140C07">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
+<link rel="preload" href="lamp/poster.jpg" as="image">
 <title>Casper資產配置</title>
 <style>
-  html, body { margin:0; height:100%; background:#1f5a3f; overflow:hidden; }
-  #f { position:fixed; inset:0; width:100%; height:100%; border:0; background:#fff; visibility:hidden; }
-  #splash { position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; color:#fff; font-family:-apple-system,"Noto Sans TC",sans-serif; text-align:center; padding:24px; }
-  #splash img { width:96px; height:96px; border-radius:22px; }
-  #splash a { color:#fff; font-size:14px; opacity:.85; }
+  html, body { margin:0; height:100%; background:#140C07; overflow:hidden; }
+  #f { position:fixed; inset:0; width:100%; height:100%; border:0; background:#ECE5D8; visibility:hidden; opacity:0; transition:opacity .5s ease; }
+  /* 陶燈程式還沒到之前：先放同一張畫（不黑） */
+  #pre { position:fixed; inset:0; background:#140C07 url("lamp/poster.jpg") center/cover; }
 </style>
 </head>
 <body>
-<!-- Android 裝好之後從這一頁開始：把 App 放在全螢幕的框裡，這樣就沒有網址列。
-     框裡的 App 出來時會通知這一頁；等了一陣子都沒通知（還沒登入 Google、瀏覽器擋第三方 Cookie…），就改成直接跳過去（會有一小條網址列，但一定能用）。 -->
-<div id="splash"><img src="icon-192.png" alt=""><div id="msg">開啟中…</div><a id="direct" href="#">等很久？按這裡直接開啟</a></div>
-<iframe id="f" allow="camera *; clipboard-read *; clipboard-write *; web-share *; fullscreen *" referrerpolicy="origin"></iframe>
+<!-- 裝好之後從這一頁開始：把 App 放在全螢幕的框裡，這樣就沒有網址列。
+     開啟畫面＝陶燈油畫（lamp/lamp.js，預算幀、不用即時濾鏡）；App 在背景載入。
+     新版 App 會說「畫面好了」（shown）或「要輸入密碼」（lock），這時才轉場；舊版 App 只說 ready，就照舊在 ready 時進去。
+     等了一陣子都沒通知（還沒登入 Google、瀏覽器擋第三方 Cookie…），就改成直接跳過去（會有一小條網址列，但一定能用）。 -->
+<div id="pre" role="img" aria-label="一盞點亮的陶燈，油畫"></div>
+<iframe id="f" title="資產配置" allow="camera *; clipboard-read *; clipboard-write *; web-share *; fullscreen *" referrerpolicy="origin"></iframe>
+<script src="lamp/lamp.js"></script>
 <script>
   var APP = "https://script.google.com/macros/s/AKfycbx042OQj64SXi_RAVY-joWC7rEnAxYhPX3q_NcZ9WcL_hSwpJ8OnnZY0_QjPscGULMq/exec";
-  var WAIT = 15000, done = false, f = document.getElementById("f");
-  function direct() { if (done) return; done = true; location.replace(APP); }
-  document.getElementById("direct").onclick = function (e) { e.preventDefault(); direct(); };
+  // 測試用：?app=dev 開測試版（/dev 只有擁有者能開）
+  if (/[?&]app=dev\b/.test(location.search)) APP = "https://script.google.com/macros/s/AKfycbzmmtP_g2YayfdQfHQwG6xGXX0akdo13YHeqhsdQVQ/dev";
+  var WAIT = 15000, SHOWN_WAIT = 25000, done = false, entered = false, f = document.getElementById("f"), L = null;
+  try { L = window.KLamp ? KLamp.mount(document.body) : null; } catch (eL) { L = null; }
+  if (L) { document.getElementById("pre").remove(); L.status("開啟中…"); L.direct && setTimeout(function () { if (!entered) L.direct(direct); }, 8000); }
+  function direct() { if (entered) return; entered = true; done = true; location.replace(APP); }
+  function reveal() {
+    if (entered) return; entered = true;
+    var show = function () { f.style.visibility = "visible"; f.style.opacity = 1; var p = document.getElementById("pre"); if (p) p.remove(); };
+    if (L) L.enter(show); else show();
+  }
   window.addEventListener("message", function (e) {
     var m = e.data;
     if (!m || m.src !== "zichan-app") return;
@@ -33,10 +44,14 @@
     if (m.type === "reload") { if (f.src) { f.src = APP; } return; }
     // App 裡有幾件事要處理：App 圖示右上角顯示數字（手機、電腦支援的才會有）
     if (m.type === "badge") { try { var n = Number(m.n) || 0; if (navigator.setAppBadge) { if (n > 0) navigator.setAppBadge(n); else navigator.clearAppBadge(); } } catch (be) {} return; }
-    if (done || m.type !== "ready") return;
-    done = true;
-    f.style.visibility = "visible";
-    document.getElementById("splash").style.display = "none";
+    if (m.type === "ready") {
+      if (!done) { done = true; try { localStorage.removeItem("embedFail"); } catch (e1) {} }
+      if (!m.v) return reveal();   // 舊版 App：不會再通知，照舊在這時進去
+      if (L) L.status("載入資料…");
+      setTimeout(reveal, SHOWN_WAIT);   // 新版 App 理應很快說 shown／lock；萬一沒說，也不讓人一直等
+      return;
+    }
+    if (m.type === "shown" || m.type === "lock") { done = true; reveal(); }
   });
   // 上次試過框不起來的話，這次就直接跳，不要每次都讓人等
   var skip = false;
@@ -45,7 +60,7 @@
   else {
     f.src = APP;
     setTimeout(function () {
-      if (done) { try { localStorage.removeItem("embedFail"); } catch (e) {} return; }
+      if (done) return;
       try { localStorage.setItem("embedFail", String(Date.now())); } catch (e) {}
       direct();
     }, WAIT);

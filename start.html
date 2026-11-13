@@ -13,8 +13,8 @@
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
   body { min-height: 100vh; display: flex; flex-direction: column; padding: calc(12px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom)); }
-  #go { position: fixed; inset: 0; background: var(--brand); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; font-size: 16px; }
-  #go img { width: 88px; height: 88px; border-radius: 20px; }
+  #go { position: fixed; inset: 0; background: #140C07 url("lamp/poster.jpg") center/cover; color: #F3EADD; text-shadow: 0 1px 10px rgba(0,0,0,.8); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; font-size: 16px; }
+  #go img { display: none; }   /* 開啟中＝陶燈油畫（同 go.html 開啟畫面），不放圖示 */
   .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
   .dots { display: flex; gap: 6px; } .dots i { width: 9px; height: 9px; border-radius: 50%; background: #c9d3cc; } .dots i.on { background: var(--brand); width: 24px; border-radius: 6px; }
   .skip { background: none; border: 0; color: var(--muted); font-size: 15px; padding: 6px; }
@@ -45,7 +45,7 @@
 <body>
 <!-- 開場教學：第一次從主畫面打開 App 時先看這幾頁（Google 會問的 3 個畫面、App 怎麼用），看完才去登入。
      之後打開就直接進 App。網址加 ?guide=1 可以再看一次（App 裡右上角的 ❓）。 -->
-<div id="go" style="display:none"><img src="icon-192.png" alt=""><div>開啟中…</div></div>
+<div id="go" style="display:none" role="img" aria-label="一盞點亮的陶燈，油畫"><img src="icon-192.png" alt=""><div style="margin-top:62vh">開啟中…</div></div>
 <div class="top"><div class="dots" id="dots"></div><button class="skip" id="skip">跳過 ›</button></div>
 <div class="box"><div id="body"></div><div class="nav"><button class="s" id="prev">上一步</button><button class="p" id="next">下一步</button></div></div>
 <script>
