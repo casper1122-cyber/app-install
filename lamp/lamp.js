@@ -43,7 +43,9 @@ function Scene(host,seed,manual){
   var BV=svg.querySelectorAll(".bv"),FV=svg.querySelectorAll(".fv"),curB=0,curF=0;
   var ctx=cv.getContext("2d"),W=0,H=0,dpr=Math.min(2,window.devicePixelRatio||1),SC=1,OX=0,OY=0;
   function size(){var r=host.getBoundingClientRect();W=r.width||360;H=r.height||780;cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
-    SC=Math.max(W/706,H/1536);OX=(W-706*SC)/2-79*SC;OY=(H-1536*SC)/2}
+    /* 橫的螢幕（電腦）：整幅畫放進來（meet），不裁成只剩中間的地板；直的手機照舊填滿（slice） */
+    var wide=W/H>.75;svg.setAttribute("preserveAspectRatio","xMidYMid "+(wide?"meet":"slice"));
+    SC=wide?Math.min(W/706,H/1536):Math.max(W/706,H/1536);OX=(W-706*SC)/2-79*SC;OY=(H-1536*SC)/2}
   size();addEventListener("resize",size);
   var rnd=(function(a){return function(){a=(a*16807)%2147483647;return(a-1)/2147483646}})(seed*7919+13);
   function cl(v,a,b){return v<a?a:(v>b?b:v)}
@@ -113,7 +115,18 @@ function Scene(host,seed,manual){
     ".kl .kl-day{position:absolute;inset:0;opacity:0;pointer-events:none;background:linear-gradient(158deg,#F5F0E6,#ECE5D8 48%,#E8E0D2)}" +
     ".kl .kl-direct{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);min-height:44px;padding:0 16px;border:0;border-radius:999px;background:rgba(20,12,7,.55);box-shadow:inset 0 0 0 1px rgba(255,236,210,.22);color:#F3EADD;font:600 14px -apple-system,'Noto Sans TC',sans-serif;opacity:0;pointer-events:none;transition:opacity .4s}" +
     ".kl .kl-direct.on{opacity:1;pointer-events:auto}" +
-    ".kl.kl-em{position:absolute;z-index:0}.kl.kl-em .kl-st,.kl.kl-em .kl-direct{display:none}";
+    ".kl.kl-em{position:absolute;z-index:0}.kl.kl-em .kl-st,.kl.kl-em .kl-direct{display:none}" +
+    /* 橫的螢幕（電腦）：整幅畫完整放中間，兩側用同一張畫模糊變暗補滿（靜態，不跟著動） */
+    "@media (min-aspect-ratio:3/4){.kl .kl-sc{background:url('" + P + "poster.jpg') center/contain no-repeat}" +
+    ".kl::before{content:'';position:absolute;inset:-40px;background:url('" + P + "poster.jpg') center/cover;filter:blur(28px) brightness(.32)}}" +
+    /* 登入卡：背景＝同一張畫模糊（靜態圖，不對動畫做即時模糊），前景一張夜色卡片 */
+    ".kl .kl-blur{position:absolute;inset:-30px;background:#140C07 url('" + P + "poster.jpg') center/cover;filter:blur(16px) brightness(.5);opacity:0;transition:opacity .9s ease}" +
+    ".kl .kl-in{position:absolute;left:50%;top:50%;box-sizing:border-box;width:min(340px,calc(100% - 40px));transform:translate(-50%,-44%);opacity:0;transition:opacity .7s ease .25s,transform .9s cubic-bezier(.2,.7,.2,1) .25s;" +
+    "padding:28px 22px 22px;border-radius:14px;background:rgba(31,22,16,.72);box-shadow:inset 0 0 0 1px rgba(255,236,210,.14),8px 18px 40px -18px rgba(0,0,0,.8);text-align:center;color:#F3EADD;font-family:-apple-system,'Noto Sans TC',sans-serif}" +
+    ".kl.kl-sign .kl-blur{opacity:1}.kl.kl-sign .kl-in{opacity:1;transform:translate(-50%,-50%)}.kl.kl-sign .kl-br,.kl.kl-sign .kl-st,.kl.kl-sign .kl-direct{opacity:0}" +
+    ".kl .kl-in b{display:block;margin-bottom:24px;font:600 18px Cinzel,Georgia,serif;letter-spacing:.5em;padding-left:.5em}" +
+    ".kl .kl-g{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:48px;border:0;border-radius:999px;background:#F3EADD;color:#1F1610;font:700 16px -apple-system,'Noto Sans TC',sans-serif;cursor:pointer}" +
+    ".kl .kl-g:focus-visible{outline:2px solid #F6C77E;outline-offset:3px}.kl .kl-g svg{width:18px;height:18px}";
   function mount(host, opts) {
     if (!document.getElementById("kl-css")) { var st = document.createElement("style"); st.id = "kl-css"; st.textContent = css; document.head.appendChild(st); }
     var box = document.createElement("div"); box.className = "kl" + (opts && opts.embed ? " kl-em" : "");
@@ -126,6 +139,19 @@ function Scene(host,seed,manual){
       el: box, scene: scene,
       status: function (t) { q(".kl-st").textContent = t || ""; },
       direct: function (fn) { var b = q(".kl-direct"); b.classList.add("on"); b.onclick = fn; },
+      /* 需要登入 Google（或這台不能在框裡開 App）：燈淡成模糊背景，前景浮出登入卡；按了才走 go */
+      signin: function (go) {
+        if (box.classList.contains("kl-sign")) return;
+        var c = document.createElement("div"); c.className = "kl-blur"; box.insertBefore(c, q(".kl-day"));
+        var d = document.createElement("div"); d.className = "kl-in"; d.setAttribute("role", "dialog"); d.setAttribute("aria-label", "登入");
+        d.innerHTML = "<b>KYNIZM</b><button type=\"button\" class=\"kl-g\">" +
+          '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.9 6.1C12.5 13.6 17.8 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.7 6c4.5-4.2 6.9-10.3 6.9-17.7z"/><path fill="#FBBC05" d="M10.6 28.6c-.5-1.4-.8-3-.8-4.6s.3-3.2.8-4.6l-7.9-6.1C1 16.6 0 20.2 0 24s1 7.4 2.7 10.7l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.7-6c-2.1 1.4-4.9 2.3-8.2 2.3-6.2 0-11.5-4.1-13.4-9.9l-7.9 6.1C6.6 42.6 14.6 48 24 48z"/></svg>' +
+          "使用 Google 繼續</button>";
+        box.insertBefore(d, q(".kl-day")); void d.offsetWidth; box.classList.add("kl-sign");
+        setTimeout(function () { cancelAnimationFrame(scene.raf); }, 1000);   /* 背景已模糊：燈停下來省電 */
+        var btn = d.querySelector(".kl-g"); btn.onclick = function () { btn.disabled = true; btn.style.opacity = ".7"; go && go(); };
+        setTimeout(function () { try { btn.focus({ preventScroll: true }); } catch (e) {} }, 900);
+      },
       enter: function (done) {
         if (entering) return; entering = true;
         var quick = (performance.now() - t0) / 1000 < 1.2 || RM, day = q(".kl-day");
