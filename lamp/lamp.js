@@ -1,6 +1,7 @@
 /* KYNIZM 開啟畫面（陶燈油畫）— 安裝頁 go.html 用。由 brand-20261111/loading-oil/build_site.py 產生 app-install/lamp/lamp.js，不要直接改產物。
    做法照定案：油畫幀在電腦預先算好（底圖筆觸重畫 6 張、火 12 張），手機只換張與位移縮放，不用即時 SVG 濾鏡（iPhone WebKit 會掉到每秒 3 格）。
    用法：var L = KLamp.mount(host); L.status("載入資料…"); L.enter(function () { 顯示 App });
+   App 自己的載入閘門用 KLamp.mount(gate, { embed: true })：只佔 host 範圍、不顯示狀態字與「直接開啟」（閘門有自己的字）。
    轉場照「資料好了（有密碼則解鎖後）馬上轉場」：開啟到現在 1.2 秒內＝只天亮約 0.9 秒；比較久＝火熄成火心→重燃→天亮約 2 秒。 */
 (function () {
   var P = (document.currentScript && document.currentScript.src || "").replace(/[^\/]*$/, "");
@@ -111,10 +112,11 @@ function Scene(host,seed,manual){
     ".kl .kl-st{position:absolute;left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 54px);text-align:center;font:500 14px -apple-system,'Noto Sans TC',sans-serif;color:#CDBBA2;text-shadow:0 1px 10px rgba(0,0,0,.8);transition:opacity .4s ease}" +
     ".kl .kl-day{position:absolute;inset:0;opacity:0;pointer-events:none;background:linear-gradient(158deg,#F5F0E6,#ECE5D8 48%,#E8E0D2)}" +
     ".kl .kl-direct{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);min-height:44px;padding:0 16px;border:0;border-radius:999px;background:rgba(20,12,7,.55);box-shadow:inset 0 0 0 1px rgba(255,236,210,.22);color:#F3EADD;font:600 14px -apple-system,'Noto Sans TC',sans-serif;opacity:0;pointer-events:none;transition:opacity .4s}" +
-    ".kl .kl-direct.on{opacity:1;pointer-events:auto}";
-  function mount(host) {
-    var st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
-    var box = document.createElement("div"); box.className = "kl";
+    ".kl .kl-direct.on{opacity:1;pointer-events:auto}" +
+    ".kl.kl-em{position:absolute;z-index:0}.kl.kl-em .kl-st,.kl.kl-em .kl-direct{display:none}";
+  function mount(host, opts) {
+    if (!document.getElementById("kl-css")) { var st = document.createElement("style"); st.id = "kl-css"; st.textContent = css; document.head.appendChild(st); }
+    var box = document.createElement("div"); box.className = "kl" + (opts && opts.embed ? " kl-em" : "");
     box.innerHTML = '<div class="kl-sc" role="img" aria-label="一盞點亮的陶燈，油畫"></div><h1 class="kl-br">KYNIZM</h1>' +
       '<div class="kl-st" role="status" aria-live="polite"></div><div class="kl-day" aria-hidden="true"></div><button type="button" class="kl-direct">等很久？按這裡直接開啟</button>';
     host.appendChild(box);
