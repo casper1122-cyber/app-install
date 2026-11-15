@@ -7,6 +7,8 @@
 		<dict>
 			<key>FullScreen</key>
 			<true/>
+			<key>IgnoreManifestScope</key>
+			<true/>
 			<key>Icon</key>
 			<data>
 			iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAIAAAB7GkOtAAEAAElE
