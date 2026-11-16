@@ -731,7 +731,7 @@
    {
     "desc": "彰化縣各鄉鎮市每月現住人口數按性別及年齡分統計表",
     "fmt": "CSV",
-    "url": "https://email.chcg.gov.tw/df/pozzwu5crax1gssw4psv238qsm6cra",
+    "url": "https://email.chcg.gov.tw/df/x6occpp7rwytkvmvdhseigu8wjnkz9",
     "mod": null
    }
   ]
@@ -1327,7 +1327,7 @@
   },
   "dist": [
    {
-    "desc": "新北市門牌位置數值資料11510",
+    "desc": "新北市門牌位置數值資料11511",
     "fmt": "CSV",
     "url": "https://data.ntpc.gov.tw/api/datasets/d7b568ab-3819-40c8-a6e7-a6b199443101/csv/file",
     "mod": null
