@@ -30,7 +30,7 @@
   if (/[?&]app=dev\b/.test(location.search)) APP = "https://script.google.com/macros/s/AKfycbzmmtP_g2YayfdQfHQwG6xGXX0akdo13YHeqhsdQVQ/dev";
   var WAIT = 10000, SHOWN_WAIT = 25000, done = false, entered = false, f = document.getElementById("f"), L = null;
   try { L = window.KLamp ? KLamp.mount(document.body) : null; } catch (eL) { L = null; }
-  if (L) { document.getElementById("pre").remove(); L.status("開啟中…"); }
+  if (L) { document.getElementById("pre").remove(); L.status("檢查版本…"); }
   function needSign() {   // 框裡開不起來：記住 6 小時（下次直接出登入卡），請使用者自己按
     if (done || entered) return; done = true;
     try { localStorage.setItem("embedFail", String(Date.now())); } catch (e) {}
@@ -55,7 +55,7 @@
     if (m.type === "ready") {
       if (!done) { done = true; try { localStorage.removeItem("embedFail"); } catch (e1) {} }
       if (!m.v) return reveal();   // 舊版 App：不會再通知，照舊在這時進去
-      if (L) L.status("載入資料…");
+      if (L) { L.status("版本 " + String(m.v).slice(0, 24)); setTimeout(function () { if (!entered) L.status("載入資料…"); }, 900); }
       setTimeout(reveal, SHOWN_WAIT);   // 新版 App 理應很快說 shown／lock；萬一沒說，也不讓人一直等
       return;
     }

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>安裝 App</title>
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#1f5a3f">
+<meta name="theme-color" content="#140C07">
 <link rel="apple-touch-icon" href="icon.png">
 <link rel="icon" href="icon-192.png">
 <style>
@@ -58,9 +58,32 @@
   #gd .nav { display:flex; gap:8px; } #gd .nav button { flex:1; padding:14px 10px; border:0; border-radius:14px; font-size:17px; font-weight:700; }
   #gd .nav .pri { background:#1f5a3f; color:#fff; } #gd .nav .sec2 { background:#eef1ef; color:#333; flex:0 0 32%; }
   #gd .x { display:block; margin:10px auto 0; background:none; border:0; color:#888; font-size:14px; }
+  /* 暗室（v6 入門示意 2026-11-22）：同一條走廊的油畫底圖 story_icon，只換預烘圖、不用即時濾鏡；減少動態時不換幀 */
+  :root, :root:not([x]) { --bg:#140C07; --card:#1d130cd9; --ink:#F3E6D0; --mute:#b9a284; --brand:#E9B46C; --line:#E9B46C33; }
+  body { background:#140C07; color:var(--ink); }
+  #obg { position:fixed; inset:0; z-index:-2; pointer-events:none; }
+  #obg img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  #obg::after { content:""; position:absolute; inset:0; background:linear-gradient(#140C07cc,#140C0799 30%,#140C07e6 70%,#140C07); }
+  h1 { color:#F3E6D0; letter-spacing:.04em; } h2 { color:#E6CDA6; }
+  .os { background:#00000066; padding:4px; border-radius:14px; gap:6px; box-shadow:inset 0 1px 4px #000c; }
+  .os button { border:0; background:none; color:#a89070; font-weight:700; }
+  .os button.on { background:linear-gradient(#E9B46C,#C98A45); color:#2a1408; border:0; }
+  .app { background:var(--card); box-shadow:0 0 0 1px #E9B46C22,0 6px 18px #000a; color:var(--ink); }
+  .app img { box-shadow:0 0 0 1px #E9B46C33,0 4px 14px #000c,0 0 22px #E9A04A33; }
+  .app b { color:#F3E6D0; letter-spacing:.04em; } .app small { color:#b9a284; }
+  .app .go, .big, #cGo { background:linear-gradient(#E9B46C,#C98A45)!important; color:#2a1408!important; }
+  ol li::marker { color:#E9B46C; font-weight:700; }
+  .warn { background:#3a2410; color:#F3D9A8; box-shadow:0 0 0 1px #E9B46C44; }
+  .ok { background:#1f2a14; color:#d9ecc0; }
+  .gGuide { background:#00000055!important; color:#E9B46C!important; box-shadow:0 0 0 1px #E9B46C55; }
+  a { color:#E9B46C; } .divider { color:var(--mute); }
+  input[type=text] { border-color:#E9B46C44!important; }
 </style>
 </head>
 <body>
+<div id="obg" aria-hidden="true"><img src="story/story_icon_0.jpg" alt=""><img src="story/story_icon_1.jpg" alt="" hidden></div>
+<script>(function(){try{if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;}catch(e){return;}var f=document.querySelectorAll("#obg img"),k=0;setInterval(function(){k^=1;f[0].hidden=!!k;f[1].hidden=!k;},250);})();</script>
+
 <main>
   <h1>安裝 App 到主畫面</h1>
   <p class="sub" id="osSay">照下面的步驟裝好後，主畫面就會出現 App 圖示。</p>
@@ -71,20 +94,20 @@
     <div class="warn" id="aWarn">現在是在 LINE／Facebook 裡面打開的，這裡裝不了。請按右上角「⋮」→「<b>用其他瀏覽器開啟</b>」（或「以 Chrome 開啟」），再回到這一頁。</div>
     <div class="app"><img src="icon-192.png" alt=""><span><b>Casper資產配置</b><small>Android 版・圖示跟 iPhone 一樣</small></span></div>
     <button class="big" id="aInstall">安裝到主畫面</button>
-    <div class="ok" id="aOk">✅ 裝好了！回主畫面（或 App 清單）找寶寶圖示的「Casper資產配置」。</div>
+    <div class="ok" id="aOk">✅ 裝好了！回主畫面（或 App 清單）找油燈圖示的「Casper資產配置」。</div>
     <div class="note" id="aHint"></div>
     <h2>按了沒反應？自己加也可以</h2>
     <ol>
       <li>確定是用 <b>Chrome</b> 開這一頁（三星手機用「三星網際網路」也可以）</li>
       <li>按右上角「<b>⋮</b>」（三星是右下角「≡」）</li>
       <li>選「<b>安裝應用程式</b>」或「<b>加到主畫面</b>」→ 按「安裝」</li>
-      <li>回主畫面就有寶寶的圖示了</li>
+      <li>回主畫面就有油燈的圖示了</li>
     </ol>
     <h2>想要自己的名稱和圖示？</h2>
     <div class="app" style="display:block">
       <label style="display:block;font-size:14px;color:var(--mute);margin-bottom:6px">主畫面上的名稱</label>
       <input id="aName" type="text" maxlength="20" placeholder="例如：我的小金庫" style="width:100%;padding:12px;font-size:16px;border:1.5px solid var(--line);border-radius:12px;background:transparent;color:inherit">
-      <label style="display:block;font-size:14px;color:var(--mute);margin:12px 0 6px">圖示（從相簿選一張照片，會自動裁成正方形；不選就用寶寶）</label>
+      <label style="display:block;font-size:14px;color:var(--mute);margin:12px 0 6px">圖示（從相簿選一張照片，會自動裁成正方形；不選就用油燈）</label>
       <div style="display:flex;align-items:center;gap:12px">
         <img id="aPrev" src="icon-192.png" alt="" style="width:60px;height:60px;border-radius:14px;object-fit:cover">
         <input id="aFile" type="file" accept="image/*" style="font-size:14px">
@@ -134,7 +157,7 @@
   </div>
 
   <p style="text-align:center;margin:12px 0 0"><button type="button" class="gGuide" style="border:0;background:#e3efe7;color:#1f5a3f;font-weight:700;font-size:15px;padding:11px 16px;border-radius:12px">🔑 第一次打開，Google 跳警告／問權限？看圖解</button></p>
-  <p class="note">想像 App 一樣有自己的視窗和圖示：用 Chrome 開這一頁，網址列右邊會有一個「安裝」的小圖示（螢幕加向下箭頭），按下去就會多一個寶寶的捷徑。</p>
+  <p class="note">想像 App 一樣有自己的視窗和圖示：用 Chrome 開這一頁，網址列右邊會有一個「安裝」的小圖示（螢幕加向下箭頭），按下去就會多一個油燈的捷徑。</p>
   </section>
 
   <!-- ===== iPhone（續）：自訂、步驟 ===== -->
@@ -320,7 +343,7 @@
   window.addEventListener("appinstalled", function () { document.getElementById("aOk").style.display = "block"; aBtn.style.display = "none"; aHint.textContent = ""; });
   if (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) { document.getElementById("aOk").style.display = "block"; document.getElementById("aOk").textContent = "✅ 已經裝好了，你現在就是從 App 打開的。"; aBtn.style.display = "none"; }
   // Android 自訂名稱和圖示：把名稱、圖片存在這支手機裡，交給 sw.js 當成設定檔和圖示拿給 Chrome
-  var aIcon = null; // 使用者選的照片（Image），沒選就用寶寶
+  var aIcon = null; // 使用者選的照片（Image），沒選就用油燈
   document.getElementById("aFile").onchange = function () {
     var f = this.files && this.files[0]; if (!f) return;
     var img = new Image();
@@ -362,7 +385,7 @@
           b2.onclick = function () { if (!deferred) return; deferred.prompt(); deferred = null; b2.style.display = "none"; }; }
         else if (n >= 8) { clearInterval(t); msg.innerHTML = "✅ 已套用。現在按 Chrome 右上角「<b>⋮</b>」→「<b>安裝應用程式</b>」或「<b>加到主畫面</b>」，跳出來的名稱和圖示就會是你自己的。"; }
       }, 500);
-    }).catch(function (e) { msg.textContent = "沒有成功：" + (e && e.message ? e.message : e) + "。可以先用上面的「安裝到主畫面」裝寶寶的版本。"; });
+    }).catch(function (e) { msg.textContent = "沒有成功：" + (e && e.message ? e.message : e) + "。可以先用上面的「安裝到主畫面」裝油燈圖示的版本。"; });
   };
   aBtn.onclick = function () {
     if (deferred) { deferred.prompt(); deferred.userChoice.then(function (r) { if (r && r.outcome !== "accepted") aHint.textContent = "剛剛按了取消。要裝的話再按一次「安裝到主畫面」。"; deferred = null; }); return; }
