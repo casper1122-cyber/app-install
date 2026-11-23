@@ -1,4 +1,4 @@
-/* KYNIZM 開啟畫面（陶燈油畫）— 安裝頁 go.html 用。由 brand-20261111/loading-oil/build_site.py 產生 app-install/lamp/lamp.js，不要直接改產物。
+/* SOKRISM 開啟畫面（陶燈油畫）— 安裝頁 go.html 用。由 brand-20261111/loading-oil/build_site.py 產生 app-install/lamp/lamp.js，不要直接改產物。
    做法照定案：油畫幀在電腦預先算好（底圖筆觸重畫 6 張、火 12 張），手機只換張與位移縮放，不用即時 SVG 濾鏡（iPhone WebKit 會掉到每秒 3 格）。
    用法：var L = KLamp.mount(host); L.status("載入資料…"); L.enter(function () { 顯示 App });
    App 自己的載入閘門用 KLamp.mount(gate, { embed: true })：只佔 host 範圍、不顯示狀態字與「直接開啟」（閘門有自己的字）。
@@ -130,7 +130,7 @@ function Scene(host,seed,manual){
   function mount(host, opts) {
     if (!document.getElementById("kl-css")) { var st = document.createElement("style"); st.id = "kl-css"; st.textContent = css; document.head.appendChild(st); }
     var box = document.createElement("div"); box.className = "kl" + (opts && opts.embed ? " kl-em" : "");
-    box.innerHTML = '<div class="kl-sc" role="img" aria-label="一盞點亮的陶燈，油畫"></div><h1 class="kl-br">KYNIZM</h1>' +
+    box.innerHTML = '<div class="kl-sc" role="img" aria-label="一盞點亮的陶燈，油畫"></div><h1 class="kl-br">SOKRISM</h1>' +
       '<div class="kl-st" role="status" aria-live="polite"></div><div class="kl-day" aria-hidden="true"></div><button type="button" class="kl-direct">等很久？按這裡直接開啟</button>';
     host.appendChild(box);
     var q = function (c) { return box.querySelector(c); }, sc = q(".kl-sc"), t0 = performance.now(), entering = false;
@@ -144,7 +144,7 @@ function Scene(host,seed,manual){
         if (box.classList.contains("kl-sign")) return;
         var c = document.createElement("div"); c.className = "kl-blur"; box.insertBefore(c, q(".kl-day"));
         var d = document.createElement("div"); d.className = "kl-in"; d.setAttribute("role", "dialog"); d.setAttribute("aria-label", "登入");
-        d.innerHTML = "<b>KYNIZM</b><button type=\"button\" class=\"kl-g\">" +
+        d.innerHTML = "<b>SOKRISM</b><button type=\"button\" class=\"kl-g\">" +
           '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.9 6.1C12.5 13.6 17.8 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.7 6c4.5-4.2 6.9-10.3 6.9-17.7z"/><path fill="#FBBC05" d="M10.6 28.6c-.5-1.4-.8-3-.8-4.6s.3-3.2.8-4.6l-7.9-6.1C1 16.6 0 20.2 0 24s1 7.4 2.7 10.7l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.7-6c-2.1 1.4-4.9 2.3-8.2 2.3-6.2 0-11.5-4.1-13.4-9.9l-7.9 6.1C6.6 42.6 14.6 48 24 48z"/></svg>' +
           "使用 Google 繼續</button>";
         box.insertBefore(d, q(".kl-day")); void d.offsetWidth; box.classList.add("kl-sign");
